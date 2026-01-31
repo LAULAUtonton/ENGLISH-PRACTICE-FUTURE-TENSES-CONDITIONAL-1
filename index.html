@@ -6,247 +6,248 @@
   <title>Future Forms Game — 3-Step Engine</title>
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #0a0a0f;
+    body{
+      margin:0; padding:0;
+      background:#0a0a0f;
       font-family: Arial, sans-serif;
-      color: #fff;
-      text-align: center;
+      color:#fff;
+      text-align:center;
     }
-    .hidden { display: none; }
-    .screen { padding-top: 60px; }
+    .hidden{ display:none; }
+    .screen{ padding-top:60px; }
 
-    .title {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #66e0ff;
-      text-shadow: 0 0 10px #00aaff;
-    }
-
-    input[type="text"],
-    input[type="password"] {
-      padding: 12px;
-      width: 260px;
-      border-radius: 6px;
-      border: none;
-      margin-bottom: 20px;
-      font-size: 1rem;
+    .title{
+      font-size:2.5rem;
+      margin-bottom:20px;
+      color:#66e0ff;
+      text-shadow:0 0 10px #00aaff;
     }
 
-    .mainBtn {
-      background: #00aaff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      color: #fff;
-      font-size: 1.1rem;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: 0.2s;
-    }
-    .mainBtn:hover { background: #33cfff; }
-
-    .secondaryBtn {
-      background: #444;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      color: #fff;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .secondaryBtn:hover { background: #666; }
-
-    #teacherBtn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #ffdd55;
-      text-shadow: 0 0 8px #ffaa00;
-      transition: 0.2s;
-      user-select: none;
-    }
-    #teacherBtn:hover { transform: scale(1.1); }
-
-    #topBar {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 20px;
-      font-size: 1.2rem;
-      flex-wrap: wrap;
-    }
-    #scoreBox, #streakBox, #bestBox {
-      background: #111;
-      padding: 10px 16px;
-      border-radius: 6px;
-      border: 1px solid #00aaff;
-      box-shadow: 0 0 10px #005577;
-      min-width: 140px;
+    input[type="text"], input[type="password"]{
+      padding:12px;
+      width:260px;
+      border-radius:6px;
+      border:none;
+      margin-bottom:20px;
+      font-size:1rem;
     }
 
-    #sentenceCard {
-      background: #111;
-      width: 80%;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #00aaff;
-      box-shadow: 0 0 15px #005577;
+    .mainBtn{
+      background:#00aaff;
+      border:none;
+      padding:12px 24px;
+      border-radius:6px;
+      color:#fff;
+      font-size:1.1rem;
+      cursor:pointer;
+      margin-top:10px;
+      transition:.2s;
     }
-    #sentenceText { font-size: 1.4rem; }
+    .mainBtn:hover{ background:#33cfff; }
 
-    #questionPrompt {
-      font-size: 1.3rem;
-      margin-top: 20px;
-      color: #66e0ff;
+    .secondaryBtn{
+      background:#444;
+      border:none;
+      padding:10px 20px;
+      border-radius:6px;
+      color:#fff;
+      cursor:pointer;
+      margin-top:10px;
     }
-    #stepLabel {
-      margin-top: 8px;
-      font-size: 1rem;
-      color: #cfefff;
-      opacity: 0.95;
+    .secondaryBtn:hover{ background:#666; }
+
+    #teacherBtn{
+      position:fixed;
+      top:10px; right:10px;
+      font-size:2rem;
+      cursor:pointer;
+      color:#ffdd55;
+      text-shadow:0 0 8px #ffaa00;
+      transition:.2s;
+      user-select:none;
+      z-index:60;
+    }
+    #teacherBtn:hover{ transform:scale(1.1); }
+
+    #topBar{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 20px;
+      font-size:1.2rem;
+      flex-wrap:wrap;
+    }
+    #scoreBox, #streakBox, #bestBox{
+      background:#111;
+      padding:10px 16px;
+      border-radius:6px;
+      border:1px solid #00aaff;
+      box-shadow:0 0 10px #005577;
+      min-width:140px;
     }
 
-    #optionsContainer {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
+    #sentenceCard{
+      background:#111;
+      width:80%;
+      margin:20px auto;
+      padding:20px;
+      border-radius:10px;
+      border:1px solid #00aaff;
+      box-shadow:0 0 15px #005577;
+    }
+    #sentenceText{ font-size:1.4rem; }
+
+    #questionPrompt{
+      font-size:1.3rem;
+      margin-top:20px;
+      color:#66e0ff;
+    }
+    #stepLabel{
+      margin-top:8px;
+      font-size:1rem;
+      color:#cfefff;
+      opacity:.95;
     }
 
-    .optionBtn {
-      background: #222;
-      border: 1px solid #00aaff;
-      padding: 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 1.1rem;
-      color: #fff;
-      text-align: left;
+    #optionsContainer{
+      margin-top:20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      width:80%;
+      margin-left:auto;
+      margin-right:auto;
     }
-    .optionBtn:hover { background: #003344; }
-    .optionBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    .pickedBox {
-      margin-top: 10px;
-      background: #0f0f14;
-      border: 1px dashed #00aaff;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: left;
+    .optionBtn{
+      background:#222;
+      border:1px solid #00aaff;
+      padding:12px;
+      border-radius:6px;
+      cursor:pointer;
+      transition:.2s;
+      font-size:1.1rem;
+      color:#fff;
+      text-align:left;
+    }
+    .optionBtn:hover{ background:#003344; }
+    .optionBtn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    /* Ordering UI */
+    .pickedBox{
+      margin-top:10px;
+      background:#0f0f14;
+      border:1px dashed #00aaff;
+      border-radius:8px;
+      padding:10px;
+      text-align:left;
       box-shadow: inset 0 0 0 1px rgba(0,170,255,.15);
     }
-    .pill {
-      display: inline-block;
-      margin: 6px 6px 0 0;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #00aaff;
+    .pill{
+      display:inline-block;
+      margin:6px 6px 0 0;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid #00aaff;
       background: rgba(0,170,255,.08);
-      font-weight: 700;
-      font-size: 0.95rem;
+      font-weight:700;
+      font-size:.95rem;
     }
 
-    .matchWrap {
-      display: grid;
+    /* Matching UI */
+    .matchWrap{
+      display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      width: 100%;
+      gap:12px;
+      width:100%;
     }
-    .matchCol {
-      background: #0f0f14;
-      border: 1px solid #00aaff;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: left;
+    .matchCol{
+      background:#0f0f14;
+      border:1px solid #00aaff;
+      border-radius:8px;
+      padding:10px;
+      text-align:left;
     }
-    .matchHead {
-      font-weight: 700;
-      color: #66e0ff;
-      margin-bottom: 8px;
+    .matchHead{
+      font-weight:700;
+      color:#66e0ff;
+      margin-bottom:8px;
     }
-    .matchBtn {
-      width: 100%;
-      margin: 6px 0;
-      text-align: left;
-      background: #222;
-      border: 1px solid #00aaff;
-      padding: 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      color: #fff;
+    .matchBtn{
+      width:100%;
+      margin:6px 0;
+      text-align:left;
+      background:#222;
+      border:1px solid #00aaff;
+      padding:10px;
+      border-radius:6px;
+      cursor:pointer;
+      color:#fff;
     }
-    .matchBtn:hover { background: #003344; }
-    .matchBtn.selected {
-      outline: 3px solid rgba(102,224,255,.25);
-      border-color: #66e0ff;
+    .matchBtn:hover{ background:#003344; }
+    .matchBtn.selected{
+      outline:3px solid rgba(102,224,255,.25);
+      border-color:#66e0ff;
     }
-    .matchBtn.paired { opacity: 0.6; cursor: not-allowed; }
+    .matchBtn.paired{ opacity:.6; cursor:not-allowed; }
 
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 18px;
-      z-index: 50;
+    /* Overlays */
+    .overlay{
+      position:fixed;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      background: rgba(0,0,0,.85);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:18px;
+      z-index:50;
     }
-    .overlayContent {
-      background: #111;
-      padding: 30px;
-      border-radius: 10px;
-      width: 70%;
-      max-width: 520px;
-      border: 1px solid #00aaff;
-      box-shadow: 0 0 20px #005577;
+    .overlayContent{
+      background:#111;
+      padding:30px;
+      border-radius:10px;
+      width:70%;
+      max-width:520px;
+      border:1px solid #00aaff;
+      box-shadow:0 0 20px #005577;
     }
-    .overlayContent.small { max-width: 350px; }
+    .overlayContent.small{ max-width:350px; }
 
-    .toggleRow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 12px 0;
-      font-size: 1.1rem;
-      justify-content: center;
+    .toggleRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:12px 0;
+      font-size:1.1rem;
+      justify-content:center;
     }
-    .toggleRow input { transform: scale(1.2); }
+    .toggleRow input{ transform:scale(1.2); }
 
-    .shake {
-      animation: shake 0.25s linear 0s 2;
-      border: 2px solid #ef4444 !important;
+    .shake{
+      animation: shake .25s linear 0s 2;
+      border:2px solid #ef4444 !important;
     }
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      50% { transform: translateX(6px); }
-      75% { transform: translateX(-6px); }
-      100% { transform: translateX(0); }
+    @keyframes shake{
+      0%{ transform:translateX(0); }
+      25%{ transform:translateX(-6px); }
+      50%{ transform:translateX(6px); }
+      75%{ transform:translateX(-6px); }
+      100%{ transform:translateX(0); }
     }
 
-    @media (max-width: 600px) {
-      #sentenceCard { width: 95%; }
-      #optionsContainer { width: 95%; }
-      .matchWrap { grid-template-columns: 1fr; }
-      #topBar { justify-content: center; }
+    @media (max-width:600px){
+      #sentenceCard{ width:95%; }
+      #optionsContainer{ width:95%; }
+      .matchWrap{ grid-template-columns: 1fr; }
+      #topBar{ justify-content:center; }
     }
   </style>
 </head>
 
 <body>
-  <!-- STUDENT NAME SCREEN -->
+  <!-- NAME SCREEN -->
   <div id="nameScreen" class="screen">
     <h1 class="title">Future Forms Game</h1>
     <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
@@ -254,7 +255,7 @@
     <button id="startNameBtn" class="mainBtn">Start</button>
   </div>
 
-  <!-- MAIN GAME SCREEN -->
+  <!-- GAME SCREEN -->
   <div id="gameScreen" class="screen hidden">
     <div id="teacherBtn" title="Teacher Access">🎓</div>
 
@@ -276,7 +277,7 @@
     <button id="nextBtn" class="hidden mainBtn">Next Round</button>
   </div>
 
-  <!-- FEEDBACK OVERLAY -->
+  <!-- FEEDBACK -->
   <div id="feedbackOverlay" class="overlay hidden" aria-hidden="true">
     <div class="overlayContent">
       <h2 id="feedbackTitle">Feedback</h2>
@@ -285,7 +286,7 @@
     </div>
   </div>
 
-  <!-- CELEBRATION OVERLAY -->
+  <!-- CELEBRATION -->
   <div id="celebrationOverlay" class="overlay hidden" aria-hidden="true">
     <div class="overlayContent">
       <h2>🎉 Amazing! 🎉</h2>
@@ -294,7 +295,7 @@
     </div>
   </div>
 
-  <!-- TEACHER LOGIN MODAL -->
+  <!-- TEACHER LOGIN -->
   <div id="teacherLogin" class="overlay hidden" aria-hidden="true">
     <div class="overlayContent small">
       <h2>Teacher Access</h2>
@@ -329,13 +330,10 @@
 
       <button id="sendStatsBtn" class="mainBtn">Send Stats Now</button>
       <button id="closeTeacherPanel" class="secondaryBtn">Close</button>
-
-      <p style="opacity:.85;margin-top:12px;">Teacher code: <strong>1362</strong></p>
     </div>
   </div>
 
-  <!-- AUDIO ELEMENTS -->
-  <!-- Put these files next to index.html or adjust src paths -->
+  <!-- AUDIO -->
   <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
   <audio id="correctSound" src="correct.mp3" preload="auto"></audio>
   <audio id="wrongSound" src="wrong.mp3" preload="auto"></audio>
@@ -352,8 +350,7 @@
     const STREAK_TARGET = 25;
 
     /* =========================================================
-       SENTENCES (FROM YOUR BANKS)
-       6 categories × 21 sentences (PS/PC × aff/neg/int)
+       SENTENCES (your banks)
     ========================================================= */
     const BANKS = {
       PS_aff: [
@@ -505,11 +502,24 @@
       { key:"PC_int", meaningType:"pc_int", meaningLabel:"a question about what is happening now", grammarLabel:"Present Continuous — question" }
     ];
 
-    /* =========================================================
-       BUILD QUESTION_BANK automatically from BANKS
-    ========================================================= */
+    function pick4GrammarOptions(correctLabel, all) {
+      const pool = all.filter(x => x !== correctLabel);
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      return [correctLabel, pool[0], pool[1], pool[2]];
+    }
+
     function buildQuestionBank() {
-      const bank = [];
+      const grammarOptionsAll = [
+        "Present Simple — affirmative",
+        "Present Simple — negative",
+        "Present Simple — question",
+        "Present Continuous — affirmative",
+        "Present Continuous — negative",
+        "Present Continuous — question"
+      ];
 
       const certaintyOrdering = {
         prompt: "Order these from MOST certain → LEAST certain (click in order):",
@@ -527,73 +537,46 @@
         ]
       };
 
-      const grammarOptions = [
-        "Present Simple — affirmative",
-        "Present Simple — negative",
-        "Present Simple — question",
-        "Present Continuous — affirmative",
-        "Present Continuous — negative",
-        "Present Continuous — question"
-      ];
-
+      const qbank = [];
       for (const meta of BANK_META) {
         const sentences = BANKS[meta.key] || [];
         for (const sentence of sentences) {
           const meaningCorrect = `The speaker means: ${meta.meaningLabel}.`;
 
-          // 3 distractors (stable + simple)
-          const distractors = [
-            "The speaker means: it happened in the past.",
-            "The speaker means: it will happen in the future.",
-            "The speaker means: it is happening right now."
-          ];
+          const meaningOptions =
+            meta.key.startsWith("PS_")
+              ? [
+                  meaningCorrect,
+                  "The speaker means: it is happening right now.",
+                  "The speaker means: it happened yesterday.",
+                  "The speaker means: it will happen tomorrow."
+                ]
+              : [
+                  meaningCorrect,
+                  "The speaker means: it is a habit/routine.",
+                  "The speaker means: it happened yesterday.",
+                  "The speaker means: it will happen tomorrow."
+                ];
 
-          // Adjust distractors a bit so PS/PC feels sensible
-          // (still always 4 options)
-          let options = [meaningCorrect];
-          if (meta.key.startsWith("PS_")) {
-            options = options.concat([
-              "The speaker means: it is happening right now.",
-              "The speaker means: it happened yesterday.",
-              "The speaker means: it will happen tomorrow."
-            ]);
-          } else {
-            options = options.concat([
-              "The speaker means: it is a habit/routine.",
-              "The speaker means: it happened yesterday.",
-              "The speaker means: it will happen tomorrow."
-            ]);
-          }
-
-          bank.push({
+          qbank.push({
             sentence,
             meaning: {
               type: meta.meaningType,
               prompt: "What is the speaker's intended meaning?",
               correct: meaningCorrect,
-              options
+              options: meaningOptions
             },
             grammar: {
               prompt: "Which grammar label fits best?",
               correct: meta.grammarLabel,
-              options: pick4GrammarOptions(meta.grammarLabel, grammarOptions)
+              options: pick4GrammarOptions(meta.grammarLabel, grammarOptionsAll)
             },
             ordering: certaintyOrdering,
             matching: matchingTemplate
           });
         }
       }
-      return bank;
-    }
-
-    function pick4GrammarOptions(correctLabel, all) {
-      const pool = all.filter(x => x !== correctLabel);
-      // take 3 random distractors + correct
-      for (let i = pool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
-      }
-      return [correctLabel, pool[0], pool[1], pool[2]];
+      return qbank;
     }
 
     const QUESTION_BANK = buildQuestionBank();
@@ -690,6 +673,13 @@
 
     const show = (node) => node && node.classList.remove("hidden");
     const hide = (node) => node && node.classList.add("hidden");
+
+    function arraysEqual(a, b) {
+      if (!Array.isArray(a) || !Array.isArray(b)) return false;
+      if (a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+      return true;
+    }
 
     function escapeHTML(str) {
       return String(str)
@@ -843,7 +833,7 @@
     }
 
     /* =========================================================
-       STEP PLAN (Step 1 meaning always)
+       STEP PLAN
     ========================================================= */
     function pickStepPlan() {
       const combos = [
@@ -860,8 +850,9 @@
     ========================================================= */
     function renderOptionButtons(options, onPick) {
       clearOptions();
+      const opts = shuffle(options || []).slice(0, 4);
       const frag = document.createDocumentFragment();
-      options.slice(0, 4).forEach((opt) => {
+      opts.forEach((opt) => {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "optionBtn";
@@ -872,13 +863,6 @@
       el.optionsContainer?.appendChild(frag);
     }
 
-    function arraysEqual(a, b) {
-      if (!Array.isArray(a) || !Array.isArray(b)) return false;
-      if (a.length !== b.length) return false;
-      for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
-      return true;
-    }
-
     /* =========================================================
        ENGINES
     ========================================================= */
@@ -887,8 +871,7 @@
       setPrompt(q.prompt || "What is the speaker's intended meaning?");
       setStepLabel();
 
-      const opts = shuffle(q.options || []);
-      renderOptionButtons(opts, (chosen) => {
+      renderOptionButtons(q.options, (chosen) => {
         const correct = chosen === q.correct;
 
         logAnswer({
@@ -899,9 +882,7 @@
           correct
         });
 
-        const msg = correct
-          ? "Correct!"
-          : `Not quite. Correct answer: "${q.correct}"`;
+        const msg = correct ? "Correct!" : `Not quite. Correct answer: "${q.correct}"`;
 
         showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
           maybeCelebrateThen(advanceStepOrFinish);
@@ -914,8 +895,7 @@
       setPrompt(q.prompt || "Which grammar label fits best?");
       setStepLabel();
 
-      const opts = shuffle(q.options || []);
-      renderOptionButtons(opts, (chosen) => {
+      renderOptionButtons(q.options, (chosen) => {
         const correct = chosen === q.correct;
 
         logAnswer({
@@ -926,9 +906,7 @@
           correct
         });
 
-        const msg = correct
-          ? "Correct!"
-          : `Not quite. Correct answer: "${q.correct}"`;
+        const msg = correct ? "Correct!" : `Not quite. Correct answer: "${q.correct}"`;
 
         showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
           maybeCelebrateThen(advanceStepOrFinish);
@@ -1081,9 +1059,7 @@
           correct
         });
 
-        const msg = correct
-          ? "Correct!"
-          : `Not quite. You got ${correctCount}/4 correct.`;
+        const msg = correct ? "Correct!" : `Not quite. You got ${correctCount}/4 correct.`;
 
         showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
           maybeCelebrateThen(advanceStepOrFinish);
@@ -1142,6 +1118,7 @@
     function closeTeacherLogin() { hide(el.teacherLogin); }
 
     function openTeacherPanel() {
+      hide(el.teacherLogin);
       show(el.teacherPanel);
       if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
       if (el.musicToggle) el.musicToggle.checked = state.musicOn;
@@ -1152,7 +1129,6 @@
     function teacherSubmit() {
       const code = (el.teacherCodeInput?.value || "").trim();
       if (code === "1362") {
-        closeTeacherLogin();
         openTeacherPanel();
       } else {
         el.teacherCodeInput?.classList.remove("shake");
@@ -1234,8 +1210,8 @@
 
       el.nextBtn?.addEventListener("click", startNewRound);
 
+      // Teacher
       el.teacherBtn?.addEventListener("click", openTeacherLogin);
-
       el.closeTeacherLogin?.addEventListener("click", closeTeacherLogin);
       el.teacherCodeBtn?.addEventListener("click", teacherSubmit);
       el.teacherCodeInput?.addEventListener("keydown", (e) => {
@@ -1280,7 +1256,6 @@
     ========================================================= */
     function init() {
       loadPrefs();
-
       if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
       if (el.musicToggle) el.musicToggle.checked = state.musicOn;
       if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
@@ -1293,9 +1268,10 @@
     // Start the engine
     init();
 
-  })();  /* closes the entire IIFE wrapper */
+  })();
   </script>
 </body>
 </html>
+
 
 
