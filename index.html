@@ -3,314 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Future Forms Game — 3-Step Engine (Responsive)</title>
+  <title>Grammar Sprint — Fast 3-Step Game (15×15 Banks)</title>
 
   <style>
-    /* =========================================================
-       BASE + THEME
-    ========================================================= */
     *{ box-sizing:border-box; }
+    :root{
+      --a:#00aaff;
+      --b:#66e0ff;
+      --c:#7c3aed;
+      --d:#22c55e;
+      --e:#f59e0b;
+      --ink:#eaf6ff;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
     body{
       margin:0;
-      padding:0;
       min-height:100vh;
       overflow-x:hidden;
-      background:#0a0a0f;
       font-family: Arial, system-ui, sans-serif;
       color:#fff;
-      text-align:center;
+      background:
+        radial-gradient(900px 520px at 15% 8%, rgba(102,224,255,.22), transparent 60%),
+        radial-gradient(700px 450px at 85% 20%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(800px 520px at 45% 95%, rgba(34,197,94,.14), transparent 55%),
+        linear-gradient(180deg, #070812, #070a12 55%, #06060c);
     }
     .hidden{ display:none !important; }
 
-    /* General screens (Name Screen overrides this below) */
-    .screen{
-      padding-top: clamp(22px, 5vw, 60px);
-      padding-left: 14px;
-      padding-right: 14px;
-    }
-
-    .title{
-      font-size: clamp(1.8rem, 4.2vw, 2.6rem);
-      margin: 0 0 14px;
-      color:#66e0ff;
-      text-shadow:0 0 10px #00aaff;
-    }
-
-    input[type="text"], input[type="password"]{
-      padding:12px;
-      width: min(360px, 92vw);
-      border-radius:12px;
-      border:none;
-      margin-bottom:14px;
-      font-size:1rem;
-      outline:none;
-    }
-
-    .mainBtn{
-      background:#00aaff;
-      border:none;
-      padding:12px 22px;
-      border-radius:14px;
-      color:#fff;
-      font-size:1.05rem;
-      font-weight:900;
-      cursor:pointer;
-      margin-top:10px;
-      transition:.18s;
-      box-shadow: 0 10px 28px rgba(0,170,255,.18);
-    }
-    .mainBtn:hover{ background:#33cfff; transform: translateY(-1px); }
-
-    .secondaryBtn{
-      background:#3a3a3a;
-      border:none;
-      padding:10px 18px;
-      border-radius:14px;
-      color:#fff;
-      font-weight:900;
-      cursor:pointer;
-      margin-top:10px;
-      transition:.18s;
-    }
-    .secondaryBtn:hover{ background:#555; transform: translateY(-1px); }
-
-    /* =========================================================
-       GAME WRAPPER (RESPONSIVE)
-    ========================================================= */
-    .appWrap{
-      width: min(980px, 100%);
-      margin: 0 auto;
-      padding: 14px 0 44px;
-    }
-
-    /* Teacher button */
-    #teacherBtn{
-      position:fixed;
-      top:10px; right:10px;
-      font-size: clamp(1.6rem, 5vw, 2rem);
-      cursor:pointer;
-      color:#ffdd55;
-      text-shadow:0 0 8px #ffaa00;
-      transition:.2s;
-      user-select:none;
-      z-index:60;
-    }
-    #teacherBtn:hover{ transform:scale(1.08); }
-
-    /* Top bar */
-    #topBar{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:10px;
-      margin: 6px 0 12px;
-    }
-    #scoreBox, #streakBox, #bestBox{
-      background:#111;
-      padding: 10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(0,170,255,.8);
-      box-shadow:0 0 14px rgba(0,87,119,.65);
-      font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-      min-width:0;
-      width:100%;
-      text-align:left;
-    }
-
-    /* Sentence card */
-    #sentenceCard{
-      background:#111;
-      width: 100%;
-      margin: 12px 0 10px;
-      padding: clamp(14px, 3vw, 22px);
-      border-radius:18px;
-      border:1px solid rgba(0,170,255,.85);
-      box-shadow: 0 0 18px rgba(0,87,119,.7);
-      text-align:left;
-    }
-    #sentenceText{
-      margin:0;
-      font-size: clamp(1.05rem, 2.3vw, 1.5rem);
-      line-height:1.35;
-    }
-
-    /* Prompts */
-    #questionPrompt{
-      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-      margin-top: 14px;
-      color:#66e0ff;
-      text-shadow: 0 0 10px rgba(0,170,255,.18);
-    }
-    #stepLabel{
-      margin-top: 6px;
-      font-size: clamp(0.9rem, 1.8vw, 1rem);
-      color:#cfefff;
-      opacity:.95;
-    }
-
-    /* Options */
-    #optionsContainer{
-      margin-top: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      width: 100%;
-      text-align:left;
-    }
-    .optionBtn{
-      width:100%;
-      background:#1f1f26;
-      border:1px solid rgba(0,170,255,.85);
-      padding: clamp(12px, 2.6vw, 14px);
-      border-radius:14px;
-      cursor:pointer;
-      transition:.15s;
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      font-weight:900;
-      color:#fff;
-      text-align:left;
-      box-shadow: 0 10px 24px rgba(0,0,0,.25);
-    }
-    .optionBtn:hover{ background:#003344; transform: translateY(-1px); }
-    .optionBtn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
-
-    /* Ordering UI */
-    .pickedBox{
-      margin-top:10px;
-      background:#0f0f14;
-      border:1px dashed rgba(0,170,255,.85);
-      border-radius:16px;
-      padding:12px;
-      box-shadow: inset 0 0 0 1px rgba(0,170,255,.12);
-    }
-    .pill{
-      display:inline-block;
-      margin: 8px 8px 0 0;
-      padding: 7px 11px;
-      border-radius: 999px;
-      border:1px solid rgba(0,170,255,.9);
-      background: rgba(0,170,255,.10);
-      font-weight:900;
-      font-size: .95rem;
-    }
-
-    /* Matching UI */
-    .matchWrap{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      width:100%;
-    }
-    .matchCol{
-      background:#0f0f14;
-      border:1px solid rgba(0,170,255,.85);
-      border-radius:16px;
-      padding: 12px;
-    }
-    .matchHead{
-      font-weight: 900;
-      color:#66e0ff;
-      margin-bottom: 10px;
-    }
-    .matchBtn{
-      width:100%;
-      margin: 7px 0;
-      background:#1f1f26;
-      border:1px solid rgba(0,170,255,.85);
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor:pointer;
-      color:#fff;
-      font-weight: 900;
-      transition:.15s;
-      text-align:left;
-    }
-    .matchBtn:hover{ background:#003344; transform: translateY(-1px); }
-    .matchBtn.selected{
-      outline: 3px solid rgba(102,224,255,.25);
-      border-color:#66e0ff;
-    }
-    .matchBtn.paired{ opacity:.6; cursor:not-allowed; transform:none; }
-
-    /* Next button */
-    #nextBtn{
-      width: min(360px, 100%);
-      margin: 18px auto 0;
-      display:block;
-    }
-
-    /* Overlays */
-    .overlay{
-      position:fixed;
-      top:0; left:0;
-      width:100%;
-      height:100%;
-      background: rgba(0,0,0,.85);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding: 16px;
-      z-index: 50;
-    }
-    .overlayContent{
-      background:#111;
-      padding: clamp(16px, 3vw, 28px);
-      border-radius: 18px;
-      width: min(560px, 100%);
-      max-height: calc(100vh - 32px);
-      overflow:auto;
-      border:1px solid rgba(0,170,255,.85);
-      box-shadow: 0 0 22px rgba(0,87,119,.8);
-      text-align:center;
-    }
-    .overlayContent.small{ width: min(380px, 100%); }
-
-    .toggleRow{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      margin: 12px 0;
-      font-size: 1.05rem;
-      font-weight: 900;
-      justify-content:center;
-    }
-    .toggleRow input{ transform: scale(1.25); }
-
-    .shake{
-      animation: shake .25s linear 0s 2;
-      border:2px solid #ef4444 !important;
-    }
-    @keyframes shake{
-      0%{ transform:translateX(0); }
-      25%{ transform:translateX(-6px); }
-      50%{ transform:translateX(6px); }
-      75%{ transform:translateX(-6px); }
-      100%{ transform:translateX(0); }
-    }
-
-    /* Breakpoints */
-    @media (max-width: 900px){
-      #topBar{ grid-template-columns: 1fr 1fr; }
-      #bestBox{ grid-column: 1 / -1; }
-    }
-    @media (max-width: 650px){
-      .matchWrap{ grid-template-columns: 1fr; }
-    }
-    @media (max-width: 520px){
-      #topBar{ grid-template-columns: 1fr; }
-      .mainBtn, .secondaryBtn{ width:min(360px, 100%); }
-      #scoreBox, #streakBox, #bestBox{ text-align:center; }
-      #sentenceCard{ text-align:left; }
-    }
-
-    /* =========================================================
-       NAME SCREEN — RESPONSIVE (MUST BE LAST)
-    ========================================================= */
+    /* NAME SCREEN */
     .srOnly{
-      position:absolute;
-      width:1px; height:1px;
-      padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0);
-      white-space:nowrap; border:0;
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+      clip:rect(0,0,0,0);white-space:nowrap;border:0;
     }
     #nameScreen{
       min-height: 100vh;
@@ -318,110 +44,509 @@
       place-items: center;
       padding: 18px 14px;
     }
-    #nameScreen .nameWrap{
-      width: min(520px, 100%);
-      background: rgba(17,17,17,.86);
-      border: 1px solid rgba(0,170,255,.55);
-      box-shadow: 0 0 18px rgba(0,87,119,.55);
-      border-radius: 18px;
-      padding: clamp(16px, 3.5vw, 28px);
+    .nameWrap{
+      width: min(560px, 100%);
+      background: rgba(12,12,18,.78);
+      border: 1px solid rgba(102,224,255,.28);
+      border-radius: 22px;
+      padding: clamp(18px, 3.6vw, 30px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
     }
-    #nameScreen #studentNameInput{
+    .nameWrap:before{
+      content:"";
+      position:absolute; inset:-80px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,170,255,.22), transparent 60%),
+        radial-gradient(circle at 80% 40%, rgba(124,58,237,.20), transparent 60%),
+        radial-gradient(circle at 30% 90%, rgba(34,197,94,.16), transparent 60%);
+      filter: blur(2px);
+      opacity:.9;
+      z-index:0;
+    }
+    .nameWrap > *{ position:relative; z-index:1; }
+
+    .title{
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4.2vw, 2.9rem);
+      color: var(--b);
+      text-shadow: 0 0 14px rgba(0,170,255,.35);
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+    .subTitle{
+      margin: 0 0 16px;
+      opacity:.88;
+      font-weight: 700;
+    }
+    input[type="text"], input[type="password"]{
       width: 100%;
-      max-width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      outline: none;
+      font-size: 1.05rem;
+      box-shadow: 0 0 0 1px rgba(0,170,255,.10) inset;
     }
-    #nameScreen #startNameBtn{
+    input::placeholder{ color: rgba(234,246,255,.70); }
+
+    .mainBtn{
       width: 100%;
-      max-width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(90deg, rgba(0,170,255,.95), rgba(124,58,237,.92));
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.06rem;
+      cursor: pointer;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      transition: transform .15s ease, filter .15s ease;
     }
-    #nameScreen .hintText{
+    .mainBtn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+
+    .hintText{
       margin: 12px 0 0;
-      opacity: .8;
-      font-size: .95rem;
+      opacity:.80;
+      font-size:.95rem;
+    }
+
+    /* GAME WRAPPER */
+    #gameScreen{
+      padding: 14px;
+      max-width: 1020px;
+      margin: 0 auto;
+    }
+
+    #teacherBtn{
+      position: fixed;
+      top: 10px; right: 10px;
+      font-size: 2rem;
+      cursor: pointer;
+      user-select:none;
+      z-index: 70;
+      filter: drop-shadow(0 0 10px rgba(255,170,0,.35));
+    }
+
+    #topBar{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 8px 0 12px;
+    }
+    .hudBox{
+      text-align:left;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border: 1px solid rgba(102,224,255,.22);
+      box-shadow: 0 0 0 1px rgba(0,170,255,.10) inset, 0 14px 34px rgba(0,0,0,.30);
+      font-weight: 900;
+    }
+
+    #sentenceCard{
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      padding: 16px 16px 14px;
+      border: 1px solid rgba(102,224,255,.30);
+      background:
+        linear-gradient(135deg, rgba(0,170,255,.18), rgba(124,58,237,.14), rgba(34,197,94,.12)),
+        rgba(255,255,255,.05);
+      box-shadow: 0 0 0 1px rgba(0,170,255,.10) inset, 0 16px 44px rgba(0,0,0,.45);
+    }
+    #sentenceCard:before{
+      content:"";
+      position:absolute;
+      width: 260px; height: 260px;
+      right:-110px; top:-130px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(245,158,11,.45), transparent 55%),
+        radial-gradient(circle at 70% 60%, rgba(34,197,94,.35), transparent 55%),
+        radial-gradient(circle at 40% 75%, rgba(102,224,255,.35), transparent 60%);
+      opacity:.55;
+      filter: blur(2px);
+    }
+
+    #badgeRow{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10px;
+    }
+    #catBadge{
+      width: 40px; height: 40px;
+      display:grid; place-items:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      font-size: 1.2rem;
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+    }
+    #catLabel{
+      font-weight: 900;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,170,255,.10);
+      border: 1px solid rgba(0,170,255,.22);
+      color: rgba(234,246,255,.92);
+    }
+    #sentenceText{
+      margin:0;
+      font-weight: 900;
+      font-size: clamp(1.2rem, 2.8vw, 1.75rem);
+      line-height: 1.35;
+      position: relative;
+      z-index: 1;
+      color: var(--ink);
+    }
+
+    /* FAST prompt row */
+    #promptRow{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 12px 0 6px;
+      flex-wrap: wrap;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      font-weight: 900;
+      box-shadow: 0 0 0 1px rgba(0,170,255,.08) inset;
+    }
+    .chip strong{ color: var(--b); }
+
+    /* Options */
+    #optionsContainer{
+      margin-top: 10px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .optionBtn{
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 18px;
+      cursor:pointer;
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.08rem;
+      text-align:left;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
+        radial-gradient(1100px 220px at 20% 0%, rgba(0,170,255,.22), transparent 55%);
+      box-shadow: 0 0 0 1px rgba(0,170,255,.10) inset, 0 16px 36px rgba(0,0,0,.35);
+      transition: transform .13s ease, filter .13s ease, border-color .13s ease;
+    }
+    .optionBtn:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      border-color: rgba(245,158,11,.35);
+    }
+    .optionBtn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    /* NEXT */
+    #nextBtn{
+      width: min(420px, 100%);
+      margin: 16px auto 0;
+      display:block;
+      background: linear-gradient(90deg, rgba(34,197,94,.95), rgba(0,170,255,.95));
+    }
+
+    /* OVERLAYS */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,.82);
+      padding: 16px;
+      z-index: 90;
+    }
+    .overlayContent{
+      width: min(560px, 100%);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
+        rgba(10,10,15,.88);
+      border: 1px solid rgba(102,224,255,.28);
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+      position: relative;
+      overflow: hidden;
+    }
+    .overlayContent:before{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,170,255,.18), transparent 60%),
+        radial-gradient(circle at 80% 35%, rgba(124,58,237,.18), transparent 60%),
+        radial-gradient(circle at 30% 90%, rgba(245,158,11,.14), transparent 60%);
+      filter: blur(2px);
+      opacity:.9;
+      z-index:0;
+    }
+    .overlayContent > *{ position:relative; z-index:1; }
+    #feedbackTitle{
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+      font-weight: 900;
+    }
+    #feedbackText{
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      opacity:.92;
+    }
+
+    /* FUN feedback animation */
+    .pop{
+      animation: pop .28s ease;
+    }
+    @keyframes pop{
+      from{ transform: scale(.94); opacity: 0; }
+      to{ transform: scale(1); opacity: 1; }
+    }
+
+    /* Confetti-ish */
+    .spark{
+      position:absolute;
+      width:10px;height:10px;
+      border-radius: 3px;
+      opacity:.9;
+      animation: fly .85s ease-out forwards;
+    }
+    @keyframes fly{
+      to{ transform: translate(var(--dx), var(--dy)) rotate(240deg); opacity:0; }
+    }
+
+    /* TEACHER MODALS */
+    .small{ width:min(420px,100%); }
+    .rowBtns{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .toggleRow{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin: 10px 0;
+      font-weight:900;
+    }
+    .toggleRow input{ transform: scale(1.2); }
+
+    /* MATCHING SUPPORT */
+    .matchGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .matchCol{
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .matchHead{
+      font-weight: 900;
+      color: var(--b);
+      margin-bottom: 10px;
+    }
+    .matchBtn{
+      width:100%;
+      padding: 12px 12px;
+      margin: 8px 0 0;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      color:#fff;
+      font-weight:900;
+      text-align:left;
+      cursor:pointer;
+      transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+    }
+    .matchBtn:hover{ transform: translateY(-2px); border-color: rgba(245,158,11,.30); }
+    .matchBtn.selected{
+      border-color: rgba(102,224,255,.55);
+      box-shadow: 0 0 0 2px rgba(102,224,255,.12) inset;
+      background: rgba(0,170,255,.10);
+    }
+    .matchBtn.paired{ opacity:.55; cursor:not-allowed; transform:none; }
+    .pairsSoFar{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      border: 1px dashed rgba(102,224,255,.30);
+    }
+    .pairsTitle{
+      font-weight: 900;
+      color: rgba(234,246,255,.92);
+      margin-bottom: 8px;
+    }
+    .pairLine{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.08);
+      margin-top: 8px;
+      font-weight: 800;
+    }
+    .pairLine .left{ opacity:.95; }
+    .pairLine .right{ color: var(--b); }
+    .miniTools{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 10px;
+    }
+    .toolBtn{
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .toolBtn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+    /* responsive */
+    @media (max-width: 860px){
+      #topBar{ grid-template-columns: 1fr 1fr; }
+      #bestBox{ grid-column: 1 / -1; }
+    }
+    @media (max-width: 650px){
+      .matchGrid{ grid-template-columns: 1fr; }
+      .hudBox{ text-align:center; }
+      #sentenceCard{ text-align:left; }
+    }
+
+    /* debug banner */
+    #debugBanner{
+      position: fixed;
+      left: 10px; bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.72);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #ffd166;
+      font-weight: 900;
+      z-index: 120;
+      max-width: min(560px, calc(100% - 20px));
+      text-align:left;
     }
   </style>
 </head>
 
 <body>
+  <div id="debugBanner" class="hidden"></div>
+
   <!-- NAME SCREEN -->
   <div id="nameScreen" class="screen">
     <div class="nameWrap">
-      <h1 class="title">Future Forms Game</h1>
+      <h1 class="title">Grammar Sprint</h1>
+      <p class="subTitle">Fast clicks • fun feedback • 3 steps per round</p>
 
       <label class="srOnly" for="studentNameInput">Student name</label>
       <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
 
       <button id="startNameBtn" class="mainBtn">Start</button>
-
-      <p class="hintText">Tip: press Enter to start</p>
+      <p class="hintText">Tip: press Enter • Music starts after you click Start</p>
     </div>
   </div>
 
   <!-- GAME SCREEN -->
-  <div id="gameScreen" class="screen hidden">
+  <div id="gameScreen" class="hidden">
     <div id="teacherBtn" title="Teacher Access">🎓</div>
 
-    <div class="appWrap">
-      <div id="topBar">
-        <div id="scoreBox">Score: 0</div>
-        <div id="streakBox">Streak: 0</div>
-        <div id="bestBox">Best: 0</div>
-      </div>
-
-      <div id="sentenceCard">
-        <p id="sentenceText">Sentence will appear here</p>
-      </div>
-
-      <div id="questionPrompt">What is the speaker's intended meaning?</div>
-      <div id="stepLabel">Step 1/3</div>
-
-      <div id="optionsContainer"></div>
-
-      <button id="nextBtn" class="hidden mainBtn">Next Round</button>
+    <div id="topBar">
+      <div id="scoreBox" class="hudBox">Score: 0</div>
+      <div id="streakBox" class="hudBox">Streak: 0</div>
+      <div id="bestBox" class="hudBox">Best: 0</div>
     </div>
+
+    <div id="sentenceCard">
+      <div id="badgeRow">
+        <span id="catBadge">✨</span>
+        <span id="catLabel">Ready!</span>
+      </div>
+      <p id="sentenceText">Sentence will appear here</p>
+    </div>
+
+    <div id="promptRow">
+      <div class="chip"><strong id="stepLabel">Step 1/3</strong></div>
+      <div class="chip" id="questionChip">Pick the meaning</div>
+    </div>
+
+    <div id="optionsContainer"></div>
+
+    <button id="nextBtn" class="mainBtn hidden">Next Round</button>
   </div>
 
   <!-- FEEDBACK -->
   <div id="feedbackOverlay" class="overlay hidden" aria-hidden="true">
-    <div class="overlayContent">
-      <h2 id="feedbackTitle">Feedback</h2>
-      <p id="feedbackText"></p>
+    <div class="overlayContent pop">
+      <h2 id="feedbackTitle">Nice!</h2>
+      <p id="feedbackText">Keep going!</p>
       <button id="closeFeedbackBtn" class="mainBtn">Continue</button>
     </div>
   </div>
 
   <!-- CELEBRATION -->
   <div id="celebrationOverlay" class="overlay hidden" aria-hidden="true">
-    <div class="overlayContent">
-      <h2>🎉 Amazing! 🎉</h2>
-      <p>You reached a streak of 25!</p>
+    <div class="overlayContent pop">
+      <h2>🎉 25 IN A ROW! 🎉</h2>
+      <p>You’re on fire! Your streak resets to 0 so you can keep playing.</p>
       <button id="closeCelebrationBtn" class="mainBtn">Keep Going</button>
     </div>
   </div>
 
   <!-- TEACHER LOGIN -->
   <div id="teacherLogin" class="overlay hidden" aria-hidden="true">
-    <div class="overlayContent small">
+    <div class="overlayContent small pop">
       <h2>Teacher Access</h2>
       <input id="teacherCodeInput" type="password" placeholder="Enter code" inputmode="numeric" />
-      <button id="teacherCodeBtn" class="mainBtn">Enter</button>
-      <button id="closeTeacherLogin" class="secondaryBtn">Cancel</button>
+      <div class="rowBtns">
+        <button id="teacherCodeBtn" class="mainBtn" style="width:auto">Enter</button>
+        <button id="closeTeacherLogin" class="toolBtn">Cancel</button>
+      </div>
     </div>
   </div>
 
   <!-- TEACHER PANEL -->
   <div id="teacherPanel" class="overlay hidden" aria-hidden="true">
-    <div class="overlayContent">
+    <div class="overlayContent pop">
       <h2>Teacher Panel</h2>
 
-      <button id="teacherStartBtn" class="mainBtn">Start Round</button>
-      <button id="teacherResetBtn" class="secondaryBtn">Reset Game</button>
+      <div class="rowBtns">
+        <button id="teacherStartBtn" class="mainBtn" style="width:auto">Start Round</button>
+        <button id="teacherResetBtn" class="toolBtn">Reset Game</button>
+      </div>
 
       <label class="toggleRow">
         <input type="checkbox" id="autoNextToggle" />
@@ -438,13 +563,15 @@
         Sound Effects
       </label>
 
-      <button id="sendStatsBtn" class="mainBtn">Send Stats Now</button>
-      <button id="closeTeacherPanel" class="secondaryBtn">Close</button>
+      <div class="rowBtns">
+        <button id="sendStatsBtn" class="toolBtn">Send Stats Now</button>
+        <button id="closeTeacherPanel" class="toolBtn">Close</button>
+      </div>
     </div>
   </div>
 
-  <!-- AUDIO (rename src to match your repo files) -->
-  <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
+  <!-- AUDIO (same folder as index.html) -->
+  <audio id="bgMusic" src="koala2.mp3" preload="auto"></audio>
   <audio id="correctSound" src="correct.mp3" preload="auto"></audio>
   <audio id="wrongSound" src="wrong.mp3" preload="auto"></audio>
   <audio id="celebrationSound" src="celebration.mp3" preload="auto"></audio>
@@ -453,253 +580,418 @@
   (() => {
     "use strict";
 
-    /* =========================================================
+    /* =============================
        CONFIG
-    ========================================================= */
+    ============================= */
     const GOOGLE_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // optional
     const STREAK_TARGET = 25;
 
-    /* =========================================================
-       YOUR GROUPED SENTENCE BANKS (from test21.txt)
-       Keys: PS_aff, PS_neg, PS_int, PC_aff, PC_neg, PC_int
-    ========================================================= */
+    /* =============================
+       15 CATEGORIES × 15 SENTENCES
+       (ALL ENGLISH + corrected)
+    ============================= */
     const BANKS = {
-      "PS_aff": [
-        "She usually walks to school.",
-        "He plays the guitar every afternoon.",
-        "They enjoy quiet mornings together.",
-        "My cat sleeps on my backpack.",
-        "I like how this coffee smells.",
-        "We read the newspaper every morning.",
-        "The bus arrives at eight o'clock.",
-        "Tom studies French at university.",
-        "Anna works in a small bakery.",
+      // PRESENT SIMPLE (15)
+      PS_AFF: [
+        "I walk to school every day.",
+        "She reads before bed.",
+        "They play football on Saturdays.",
+        "He studies English after class.",
+        "We live near the park.",
+        "My dad works in a hospital.",
+        "The shop opens at nine.",
         "Birds fly south in winter.",
-        "The shop opens at nine every day.",
-        "He drinks green tea after lunch.",
-        "Students practice vocabulary every evening.",
-        "She always helps her neighbors.",
-        "The sun rises in the east.",
-        "He writes emails every morning.",
-        "We celebrate birthdays with cake.",
-        "The teacher explains the lesson clearly.",
-        "She takes the dog for a walk daily.",
-        "They visit the museum on weekends.",
-        "My brother cooks dinner on Fridays."
+        "My sister likes spicy food.",
+        "I drink water with lunch.",
+        "He watches videos in the evening.",
+        "We clean the classroom on Fridays.",
+        "She helps her friends.",
+        "The train arrives on time.",
+        "I always do my homework."
       ],
-      "PS_neg": [
-        "She doesn't like cold pizza.",
+      PS_NEG: [
+        "I don't eat meat.",
+        "She doesn't like loud music.",
         "They don't study on Sundays.",
-        "He does not enjoy long movies.",
-        "I don't drink soda anymore.",
-        "The cat doesn't sleep in its bed.",
-        "We don't watch TV at night.",
-        "He doesn't own a car.",
-        "She does not eat meat.",
-        "They don't arrive early.",
-        "I don't understand this word.",
-        "She doesn't answer her phone often.",
-        "We don't use that old computer anymore.",
-        "He doesn't believe the rumor.",
-        "They don't accept late homework.",
-        "I don't remember his name.",
-        "She doesn't drive to work.",
-        "He doesn't like loud music.",
+        "He doesn't play the piano.",
         "We don't go out when it rains.",
-        "The store doesn't open on Sundays.",
-        "He doesn't speak Spanish.",
-        "They don't play video games on school nights."
+        "My brother doesn't drive to work.",
+        "The store doesn't open on Mondays.",
+        "I don't understand this word.",
+        "She doesn't watch TV at night.",
+        "They don't arrive early.",
+        "He doesn't drink coffee.",
+        "We don't use that old computer.",
+        "I don't forget my keys.",
+        "She doesn't speak French.",
+        "They don't have class today."
       ],
-      "PS_int": [
+      PS_INT: [
         "Do you like spicy food?",
         "Does she play the violin?",
         "Do they live near here?",
-        "Does he enjoy swimming?",
-        "Do we have class today?",
+        "Does he study every night?",
+        "Do we have homework today?",
         "Do you speak English?",
         "Does it rain a lot here?",
         "Do they know the answer?",
         "Does she work on Saturdays?",
         "Do I need to bring a book?",
-        "Do you usually study in the morning?",
-        "Does he visit his grandparents every week?",
-        "Do they play chess after school?",
-        "Does she cook for the family?",
-        "Do we meet at the library?",
-        "Do you understand the instructions?",
-        "Does he take the train to work?",
-        "Do they practice every day?",
+        "Do you usually wake up early?",
+        "Does he take the bus to school?",
+        "Do they practice after class?",
         "Does she prefer tea or coffee?",
-        "Do I have to finish this today?",
-        "Do you remember the homework?"
+        "Do we meet at the library?"
       ],
-      "PC_aff": [
-        "I'm studying for my test right now.",
-        "She's talking on the phone at the moment.",
-        "They are playing football in the park.",
-        "We are working on a new project today.",
-        "He is cooking dinner right now.",
-        "I'm reading an interesting book.",
-        "She is watching a movie at the moment.",
-        "They are learning English this semester.",
-        "We are waiting for the bus right now.",
-        "He is listening to music at the moment.",
-        "I'm writing an email right now.",
-        "She's cleaning her room at the moment.",
-        "They are building a house this year.",
-        "We are traveling to Madrid today.",
-        "He is fixing his bike at the moment.",
-        "I'm drinking coffee right now.",
-        "She is studying English this month.",
-        "They are planning a trip this week.",
-        "We are having lunch right now.",
-        "He is playing the guitar at the moment.",
-        "I'm working on my homework right now."
+
+      // PRESENT CONTINUOUS (15)
+      PC_AFF: [
+        "I am studying right now.",
+        "She is talking on the phone.",
+        "They are playing in the park.",
+        "We are working on a project today.",
+        "He is cooking dinner at the moment.",
+        "I am writing an email now.",
+        "She is watching a movie right now.",
+        "They are learning new vocabulary today.",
+        "We are waiting for the bus.",
+        "He is listening to music.",
+        "I am cleaning my room.",
+        "She is drawing a poster.",
+        "They are building a model.",
+        "We are practicing for the test.",
+        "He is taking a photo."
       ],
-      "PC_neg": [
-        "I'm not studying right now.",
-        "She's not talking on the phone at the moment.",
-        "They aren't playing football in the park.",
-        "We are not working on a new project today.",
-        "He isn't cooking dinner right now.",
-        "I'm not reading an interesting book.",
-        "She is not watching a movie at the moment.",
-        "They are not learning English this semester.",
-        "We aren't waiting for the bus right now.",
-        "He is not listening to music at the moment.",
-        "I'm not writing an email right now.",
-        "She's not cleaning her room at the moment.",
-        "They are not building a house this year.",
-        "We aren't traveling to Madrid today.",
-        "He is not fixing his bike at the moment.",
-        "I'm not drinking coffee right now.",
-        "She isn't studying English this month.",
-        "They are not planning a trip this week.",
-        "We are not having lunch right now.",
-        "He isn't playing the guitar at the moment.",
-        "I'm not working on my homework right now."
+      PC_NEG: [
+        "I am not studying right now.",
+        "She isn't talking on the phone.",
+        "They aren't playing in the park.",
+        "We are not working today.",
+        "He isn't cooking dinner now.",
+        "I am not writing an email.",
+        "She isn't watching a movie.",
+        "They are not learning English this week.",
+        "We aren't waiting for the bus.",
+        "He is not listening to music.",
+        "I am not cleaning my room.",
+        "She isn't drawing a poster.",
+        "They aren't building a model.",
+        "We are not practicing today.",
+        "He isn't taking a photo."
       ],
-      "PC_int": [
-        "Am I studying for my test right now?",
-        "Is she talking on the phone at the moment?",
-        "Are they playing football in the park?",
-        "Are we working on a new project today?",
-        "Is he cooking dinner right now?",
-        "Am I reading an interesting book?",
-        "Is she watching a movie at the moment?",
-        "Are they learning English this semester?",
-        "Are we waiting for the bus right now?",
-        "Is he listening to music at the moment?",
-        "Am I writing an email right now?",
-        "Is she cleaning her room at the moment?",
-        "Are they building a house this year?",
-        "Are we traveling to Madrid today?",
-        "Is he fixing his bike at the moment?",
-        "Am I drinking coffee right now?",
-        "Is she studying English this month?",
-        "Are they planning a trip this week?",
-        "Are we having lunch right now?",
-        "Is he playing the guitar at the moment?",
-        "Am I working on my homework right now?"
+      PC_INT: [
+        "Am I studying right now?",
+        "Is she talking on the phone?",
+        "Are they playing in the park?",
+        "Are we working on a project today?",
+        "Is he cooking dinner at the moment?",
+        "Am I writing an email now?",
+        "Is she watching a movie right now?",
+        "Are they learning new vocabulary today?",
+        "Are we waiting for the bus?",
+        "Is he listening to music?",
+        "Am I cleaning my room?",
+        "Is she drawing a poster?",
+        "Are they building a model?",
+        "Are we practicing for the test?",
+        "Is he taking a photo?"
+      ],
+
+      // FUTURE (WILL) (15)
+      WIL_AFF: [
+        "I will call you later.",
+        "She will help you with the project.",
+        "They will win the match.",
+        "We will finish on time.",
+        "He will be late today.",
+        "I will send the email soon.",
+        "She will love this song.",
+        "They will arrive at five.",
+        "We will meet after school.",
+        "He will understand the lesson.",
+        "I will bring my notebook tomorrow.",
+        "She will pass the exam.",
+        "They will visit the museum next week.",
+        "We will watch a film tonight.",
+        "He will buy the tickets."
+      ],
+      WIL_NEG: [
+        "I won't forget your birthday.",
+        "She won't be angry.",
+        "They will not arrive late.",
+        "We won't miss the bus.",
+        "He won't fail the test.",
+        "I will not share the password.",
+        "She won't skip class.",
+        "They won't break the rules.",
+        "We will not cancel the trip.",
+        "He won't lose the game.",
+        "I won't buy junk food.",
+        "She won't tell anyone.",
+        "They will not leave early.",
+        "We won't stop practicing.",
+        "He won't complain."
+      ],
+      WIL_INT: [
+        "Will you help me with this?",
+        "Will she join us later?",
+        "Will they come to the party?",
+        "Will we finish on time?",
+        "Will he be late today?",
+        "Will I pass the exam?",
+        "Will she call you tonight?",
+        "Will they arrive at five?",
+        "Will we meet after school?",
+        "Will he understand the lesson?",
+        "Will you bring your notebook tomorrow?",
+        "Will she like this movie?",
+        "Will they visit the museum next week?",
+        "Will we watch a film tonight?",
+        "Will he buy the tickets?"
+      ],
+
+      // GOING TO (15)
+      GTA_AFF: [
+        "I am going to study tonight.",
+        "She is going to visit her grandma.",
+        "They are going to play basketball after school.",
+        "We are going to start a new unit today.",
+        "He is going to cook pasta for dinner.",
+        "I am going to buy a new notebook.",
+        "She is going to watch a documentary.",
+        "They are going to travel next month.",
+        "We are going to practice for the test.",
+        "He is going to clean his room.",
+        "I am going to meet my friend later.",
+        "She is going to learn a new song.",
+        "They are going to build a robot.",
+        "We are going to take a photo.",
+        "He is going to help his brother."
+      ],
+      GTA_NEG: [
+        "I am not going to skip class.",
+        "She isn't going to eat dessert.",
+        "They aren't going to leave early.",
+        "We are not going to cancel the game.",
+        "He isn't going to buy that phone.",
+        "I am not going to forget the homework.",
+        "She is not going to watch TV tonight.",
+        "They are not going to travel this weekend.",
+        "We aren't going to stop practicing.",
+        "He is not going to shout.",
+        "I am not going to argue.",
+        "She isn't going to be late.",
+        "They aren't going to break the rules.",
+        "We are not going to waste time.",
+        "He isn't going to miss the bus."
+      ],
+      GTA_INT: [
+        "Are you going to study tonight?",
+        "Is she going to visit her grandma?",
+        "Are they going to play basketball after school?",
+        "Are we going to start a new unit today?",
+        "Is he going to cook pasta for dinner?",
+        "Am I going to buy a new notebook?",
+        "Is she going to watch a documentary?",
+        "Are they going to travel next month?",
+        "Are we going to practice for the test?",
+        "Is he going to clean his room?",
+        "Are you going to meet your friend later?",
+        "Is she going to learn a new song?",
+        "Are they going to build a robot?",
+        "Are we going to take a photo?",
+        "Is he going to help his brother?"
+      ],
+
+      // FIRST CONDITIONAL (15)
+      FC_AFF: [
+        "If I study, I will pass the test.",
+        "If she practices, she will improve quickly.",
+        "If they work together, they will finish faster.",
+        "If we leave now, we will catch the bus.",
+        "If he eats breakfast, he will feel better.",
+        "If you listen carefully, you will understand.",
+        "If it rains, we will stay inside.",
+        "If you ask politely, she will help you.",
+        "If they arrive early, they will get good seats.",
+        "If we save money, we will travel next year.",
+        "If he trains hard, he will win.",
+        "If I call you, you will answer.",
+        "If she studies, she will get a high score.",
+        "If we practice, we will learn faster.",
+        "If you try again, you will succeed."
+      ],
+      FC_NEG: [
+        "If I don't study, I will fail the test.",
+        "If she doesn't practice, she won't improve.",
+        "If they don't work together, they won't finish fast.",
+        "If we don't leave now, we won't catch the bus.",
+        "If he doesn't eat breakfast, he won't feel well.",
+        "If you don't listen, you won't understand.",
+        "If it doesn't rain, we won't stay inside.",
+        "If you don't ask politely, she won't help you.",
+        "If they don't arrive early, they won't get good seats.",
+        "If we don't save money, we won't travel next year.",
+        "If he doesn't train, he won't win.",
+        "If I don't call you, you won't answer.",
+        "If she doesn't study, she won't get a high score.",
+        "If we don't practice, we won't learn faster.",
+        "If you don't try again, you won't succeed."
+      ],
+      FC_INT: [
+        "If I study, will I pass the test?",
+        "If she practices, will she improve quickly?",
+        "If they work together, will they finish faster?",
+        "If we leave now, will we catch the bus?",
+        "If he eats breakfast, will he feel better?",
+        "If you listen carefully, will you understand?",
+        "If it rains, will we stay inside?",
+        "If you ask politely, will she help you?",
+        "If they arrive early, will they get good seats?",
+        "If we save money, will we travel next year?",
+        "If he trains hard, will he win?",
+        "If I call you, will you answer?",
+        "If she studies, will she get a high score?",
+        "If we practice, will we learn faster?",
+        "If you try again, will you succeed?"
       ]
     };
 
-    /* =========================================================
-       BANK META (meaning + grammar mapping)
-    ========================================================= */
-    const BANK_META = [
-      { key:"PS_aff", meaningType:"ps_aff", meaningLabel:"a habit / routine or general fact", grammarLabel:"Present Simple — affirmative" },
-      { key:"PS_neg", meaningType:"ps_neg", meaningLabel:"a negative habit / fact (it doesn’t happen)", grammarLabel:"Present Simple — negative" },
-      { key:"PS_int", meaningType:"ps_int", meaningLabel:"a question about a habit / fact", grammarLabel:"Present Simple — question" },
-      { key:"PC_aff", meaningType:"pc_aff", meaningLabel:"happening now / around now", grammarLabel:"Present Continuous — affirmative" },
-      { key:"PC_neg", meaningType:"pc_neg", meaningLabel:"NOT happening now", grammarLabel:"Present Continuous — negative" },
-      { key:"PC_int", meaningType:"pc_int", meaningLabel:"a question about what is happening now", grammarLabel:"Present Continuous — question" }
+    /* =============================
+       META (meaning + grammar label)
+       15 categories, 15 sentences each
+    ============================= */
+    const META = [
+      { key:"PS_AFF", type:"ps_aff", emoji:"🌞", label:"Present Simple", meaning:"habit / routine / fact", form:"affirmative", grammar:"Present Simple — affirmative" },
+      { key:"PS_NEG", type:"ps_neg", emoji:"🚫", label:"Present Simple", meaning:"negative habit / fact", form:"negative", grammar:"Present Simple — negative" },
+      { key:"PS_INT", type:"ps_int", emoji:"❓", label:"Present Simple", meaning:"question about habit / fact", form:"question", grammar:"Present Simple — question" },
+
+      { key:"PC_AFF", type:"pc_aff", emoji:"⏳", label:"Present Continuous", meaning:"happening now / around now", form:"affirmative", grammar:"Present Continuous — affirmative" },
+      { key:"PC_NEG", type:"pc_neg", emoji:"🙅", label:"Present Continuous", meaning:"NOT happening now", form:"negative", grammar:"Present Continuous — negative" },
+      { key:"PC_INT", type:"pc_int", emoji:"🤔", label:"Present Continuous", meaning:"question about what’s happening now", form:"question", grammar:"Present Continuous — question" },
+
+      { key:"WIL_AFF", type:"wil_aff", emoji:"🔮", label:"Will Future", meaning:"future decision / prediction", form:"affirmative", grammar:"Will Future — affirmative" },
+      { key:"WIL_NEG", type:"wil_neg", emoji:"🛑", label:"Will Future", meaning:"negative future prediction / decision", form:"negative", grammar:"Will Future — negative" },
+      { key:"WIL_INT", type:"wil_int", emoji:"🗣️", label:"Will Future", meaning:"question about the future (will)", form:"question", grammar:"Will Future — question" },
+
+      { key:"GTA_AFF", type:"gta_aff", emoji:"📅", label:"Going to", meaning:"future plan / intention", form:"affirmative", grammar:"Going to — affirmative" },
+      { key:"GTA_NEG", type:"gta_neg", emoji:"⛔", label:"Going to", meaning:"negative future plan / intention", form:"negative", grammar:"Going to — negative" },
+      { key:"GTA_INT", type:"gta_int", emoji:"🧩", label:"Going to", meaning:"question about a plan (going to)", form:"question", grammar:"Going to — question" },
+
+      { key:"FC_AFF", type:"fc_aff", emoji:"🌦️", label:"First Conditional", meaning:"real future possibility (if + present, will + result)", form:"affirmative", grammar:"First Conditional — affirmative" },
+      { key:"FC_NEG", type:"fc_neg", emoji:"⚠️", label:"First Conditional", meaning:"negative condition/result (first conditional)", form:"negative", grammar:"First Conditional — negative" },
+      { key:"FC_INT", type:"fc_int", emoji:"🎯", label:"First Conditional", meaning:"question about condition + result", form:"question", grammar:"First Conditional — question" }
     ];
 
-    function pick4GrammarOptions(correctLabel, all) {
-      const pool = all.filter(x => x !== correctLabel);
-      for (let i = pool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
+    const ALL_GRAMMAR_LABELS = META.map(m => m.grammar);
+
+    /* =============================
+       BUILD QUESTION BANK
+    ============================= */
+    function shuffle(arr){
+      const a = arr.slice();
+      for (let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]] = [a[j],a[i]];
       }
-      return [correctLabel, pool[0], pool[1], pool[2]];
+      return a;
     }
 
-    function buildQuestionBank() {
-      const grammarAll = [
-        "Present Simple — affirmative",
-        "Present Simple — negative",
-        "Present Simple — question",
-        "Present Continuous — affirmative",
-        "Present Continuous — negative",
-        "Present Continuous — question"
+    function pick4Options(correct, pool){
+      const others = pool.filter(x => x !== correct);
+      const s = shuffle(others).slice(0,3);
+      return shuffle([correct, ...s]);
+    }
+
+    function meaningCorrect(m){
+      // short, fast (no long sentences)
+      return `${m.label} • ${m.form}`;
+    }
+
+    function meaningOptions(m){
+      // 4 fast options always
+      const base = [
+        "Present Simple",
+        "Present Continuous",
+        "Will Future",
+        "Going to",
+        "First Conditional"
       ];
 
-      const orderingTemplate = {
-        prompt: "Order these from MOST certain → LEAST certain (click in order):",
+      // We want 4 options: correct tense label plus 3 distractors
+      const correctTense =
+        m.label === "Will Future" ? "Will Future" :
+        m.label === "Going to" ? "Going to" :
+        m.label === "First Conditional" ? "First Conditional" :
+        m.label;
+
+      const pool = base.filter(x => x !== correctTense);
+      const distractors = shuffle(pool).slice(0,3);
+      const correct = `${correctTense} • ${m.form}`;
+      const opts = [correct, ...distractors.map(d => `${d} • ${m.form}`)];
+      return shuffle(opts);
+    }
+
+    function makeOrdering(){
+      // simple and fast
+      return {
+        prompt: "Click from MOST certain → LEAST certain:",
         items: ["definitely", "probably", "maybe", "unlikely"],
         correctOrder: ["definitely", "probably", "maybe", "unlikely"]
       };
+    }
 
-      const matchingTemplate = {
-        prompt: "Match meaning ↔ grammar (click a meaning, then a grammar):",
+    function makeMatching(){
+      // strong visual support + short labels
+      return {
+        prompt: "Match MEANING → FORM",
         pairs: [
           { left: "Habit / routine", right: "Present Simple" },
           { left: "Happening now", right: "Present Continuous" },
-          { left: "Negative statement", right: "Negative form (don’t / isn’t)" },
-          { left: "Question", right: "Question form (Do/Does/Are/Is)" }
+          { left: "Future prediction/decision", right: "Will" },
+          { left: "Future plan/intention", right: "Going to" }
         ]
       };
+    }
 
-      const qbank = [];
-      for (const meta of BANK_META) {
-        const sentences = BANKS[meta.key] || [];
-        for (const sentence of sentences) {
-          const meaningCorrect = `The speaker means: ${meta.meaningLabel}.`;
-
-          const meaningOptions =
-            meta.key.startsWith("PS_")
-              ? [
-                  meaningCorrect,
-                  "The speaker means: it is happening right now.",
-                  "The speaker means: it happened yesterday.",
-                  "The speaker means: it will happen tomorrow."
-                ]
-              : [
-                  meaningCorrect,
-                  "The speaker means: it is a habit / routine.",
-                  "The speaker means: it happened yesterday.",
-                  "The speaker means: it will happen tomorrow."
-                ];
-
-          qbank.push({
-            sentence,
+    function buildQuestionBank(){
+      const bank = [];
+      for (const m of META){
+        const sentences = BANKS[m.key] || [];
+        if (sentences.length !== 15){
+          // keep game safe but show debug if mismatch
+          // (still runs)
+        }
+        for (const s of sentences){
+          bank.push({
+            sentence: s,
+            meta: m,
             meaning: {
-              type: meta.meaningType,
-              prompt: "What is the speaker's intended meaning?",
-              correct: meaningCorrect,
-              options: meaningOptions
+              type: m.type,
+              correct: meaningCorrect(m),
+              options: meaningOptions(m)
             },
             grammar: {
-              prompt: "Which grammar label fits best?",
-              correct: meta.grammarLabel,
-              options: pick4GrammarOptions(meta.grammarLabel, grammarAll)
+              correct: m.grammar,
+              options: pick4Options(m.grammar, ALL_GRAMMAR_LABELS)
             },
-            ordering: orderingTemplate,
-            matching: matchingTemplate
+            ordering: makeOrdering(),
+            matching: makeMatching()
           });
         }
       }
-      return qbank;
+      return bank;
     }
 
     const QUESTION_BANK = buildQuestionBank();
 
-    /* =========================================================
+    /* =============================
        DOM
-    ========================================================= */
-    const $ = (s) => document.querySelector(s);
+    ============================= */
+    const $ = (s)=>document.querySelector(s);
     const el = {
+      debugBanner: $("#debugBanner"),
+
       nameScreen: $("#nameScreen"),
       gameScreen: $("#gameScreen"),
       studentNameInput: $("#studentNameInput"),
@@ -711,10 +1003,12 @@
       streakBox: $("#streakBox"),
       bestBox: $("#bestBox"),
 
+      catBadge: $("#catBadge"),
+      catLabel: $("#catLabel"),
       sentenceText: $("#sentenceText"),
-      questionPrompt: $("#questionPrompt"),
-      stepLabel: $("#stepLabel"),
 
+      stepLabel: $("#stepLabel"),
+      questionChip: $("#questionChip"),
       optionsContainer: $("#optionsContainer"),
       nextBtn: $("#nextBtn"),
 
@@ -746,9 +1040,9 @@
       celebrationSound: $("#celebrationSound")
     };
 
-    /* =========================================================
+    /* =============================
        STATE
-    ========================================================= */
+    ============================= */
     const state = {
       studentName: "",
       score: 0,
@@ -769,119 +1063,148 @@
       questionStartMs: 0
     };
 
-    /* =========================================================
-       HELPERS
-    ========================================================= */
-    const nowISO = () => new Date().toISOString();
+    /* =============================
+       UTIL
+    ============================= */
+    function show(n){ n && n.classList.remove("hidden"); }
+    function hide(n){ n && n.classList.add("hidden"); }
 
-    const shuffle = (arr) => {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    };
+    function nowISO(){ return new Date().toISOString(); }
 
-    const show = (node) => node && node.classList.remove("hidden");
-    const hide = (node) => node && node.classList.add("hidden");
-
-    function arraysEqual(a, b) {
-      if (!Array.isArray(a) || !Array.isArray(b)) return false;
-      if (a.length !== b.length) return false;
-      for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
-      return true;
-    }
-
-    /* requested escapeHTML with > replacement */
-    function escapeHTML(str) {
+    function escapeHTML(str){
       return String(str)
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;");
     }
 
-    function setHUD() {
-      if (el.scoreBox) el.scoreBox.textContent = `Score: ${state.score}`;
-      if (el.streakBox) el.streakBox.textContent = `Streak: ${state.streak}`;
-      if (el.bestBox) el.bestBox.textContent = `Best: ${state.bestStreak}`;
+    function setHUD(){
+      el.scoreBox.textContent = `Score: ${state.score}`;
+      el.streakBox.textContent = `Streak: ${state.streak}`;
+      el.bestBox.textContent = `Best: ${state.bestStreak}`;
       savePrefs();
     }
 
-    function setSentence(text) {
-      if (el.sentenceText) el.sentenceText.textContent = text || "";
-    }
-
-    function setPrompt(text) {
-      if (el.questionPrompt) el.questionPrompt.textContent = text || "";
-    }
-
-    function setStepLabel() {
-      if (el.stepLabel) el.stepLabel.textContent = `Step ${state.currentStep}/3`;
-    }
-
-    function clearOptions() {
-      if (el.optionsContainer) el.optionsContainer.innerHTML = "";
-    }
-
-    function playSfx(kind) {
-      if (!state.sfxOn) return;
-      const a =
-        kind === "correct" ? el.correctSound :
-        kind === "wrong" ? el.wrongSound :
-        kind === "celebration" ? el.celebrationSound :
-        null;
-      if (!a) return;
-      try { a.currentTime = 0; a.play(); } catch (_) {}
-    }
-
-    function syncMusic() {
-      if (!el.bgMusic) return;
-      try {
-        el.bgMusic.loop = true;
-        if (state.musicOn) el.bgMusic.play().catch(() => {});
-        else el.bgMusic.pause();
-      } catch (_) {}
-    }
-
-    function savePrefs() {
-      try {
-        localStorage.setItem("future_game_prefs_v4", JSON.stringify({
+    function savePrefs(){
+      try{
+        localStorage.setItem("grammar_sprint_prefs_v1", JSON.stringify({
           autoNext: state.autoNext,
           musicOn: state.musicOn,
           sfxOn: state.sfxOn,
           bestStreak: state.bestStreak
         }));
-      } catch (_) {}
+      }catch(_){}
     }
 
-    function loadPrefs() {
-      try {
-        const raw = localStorage.getItem("future_game_prefs_v4");
-        if (!raw) return;
+    function loadPrefs(){
+      try{
+        const raw = localStorage.getItem("grammar_sprint_prefs_v1");
+        if(!raw) return;
         const p = JSON.parse(raw);
-        if (typeof p.autoNext === "boolean") state.autoNext = p.autoNext;
-        if (typeof p.musicOn === "boolean") state.musicOn = p.musicOn;
-        if (typeof p.sfxOn === "boolean") state.sfxOn = p.sfxOn;
-        if (typeof p.bestStreak === "number") state.bestStreak = p.bestStreak;
-      } catch (_) {}
+        if(typeof p.autoNext==="boolean") state.autoNext = p.autoNext;
+        if(typeof p.musicOn==="boolean") state.musicOn = p.musicOn;
+        if(typeof p.sfxOn==="boolean") state.sfxOn = p.sfxOn;
+        if(typeof p.bestStreak==="number") state.bestStreak = p.bestStreak;
+      }catch(_){}
     }
 
-    function bumpWeakAreas(type, correct) {
+    function debug(msg){
+      if(!msg){ hide(el.debugBanner); el.debugBanner.textContent=""; return; }
+      el.debugBanner.textContent = msg;
+      show(el.debugBanner);
+    }
+
+    function playSfx(kind){
+      if(!state.sfxOn) return;
+      const a =
+        kind==="correct" ? el.correctSound :
+        kind==="wrong" ? el.wrongSound :
+        kind==="celebration" ? el.celebrationSound : null;
+      if(!a) return;
+      try{ a.currentTime=0; a.play(); }catch(_){}
+    }
+
+    function syncMusic(){
+      if(!el.bgMusic) return;
+      try{
+        el.bgMusic.loop = true;
+        el.bgMusic.volume = 0.35;
+        if(state.musicOn){
+          el.bgMusic.play().catch(()=>{});
+        }else{
+          el.bgMusic.pause();
+        }
+      }catch(_){}
+    }
+
+    function spawnSparks(){
+      // small confetti
+      const host = document.body;
+      for(let i=0;i<14;i++){
+        const d = document.createElement("div");
+        d.className = "spark";
+        const colors = ["#66e0ff","#00aaff","#7c3aed","#22c55e","#f59e0b","#ff4d6d"];
+        d.style.background = colors[Math.floor(Math.random()*colors.length)];
+        d.style.left = (50 + (Math.random()*20-10)) + "vw";
+        d.style.top = (45 + (Math.random()*10-5)) + "vh";
+        d.style.setProperty("--dx", (Math.random()*420-210) + "px");
+        d.style.setProperty("--dy", (Math.random()*-260-60) + "px");
+        host.appendChild(d);
+        setTimeout(()=>d.remove(), 950);
+      }
+    }
+
+    function showFeedback(title, text, correct, onClose){
+      el.feedbackTitle.textContent = title;
+      el.feedbackText.textContent = text;
+      show(el.feedbackOverlay);
+      spawnSparks();
+      playSfx(correct ? "correct" : "wrong");
+
+      const handler = ()=>{
+        hide(el.feedbackOverlay);
+        el.closeFeedbackBtn.removeEventListener("click", handler);
+        if(state.autoNext) setTimeout(()=>onClose && onClose(), 110);
+        else onClose && onClose();
+      };
+      el.closeFeedbackBtn.addEventListener("click", handler);
+    }
+
+    function showCelebration(onClose){
+      show(el.celebrationOverlay);
+      spawnSparks();
+      playSfx("celebration");
+
+      const handler = ()=>{
+        hide(el.celebrationOverlay);
+        el.closeCelebrationBtn.removeEventListener("click", handler);
+        state.streak = 0;
+        setHUD();
+        onClose && onClose();
+      };
+      el.closeCelebrationBtn.addEventListener("click", handler);
+    }
+
+    function maybeCelebrateThen(next){
+      if(state.streak >= STREAK_TARGET) showCelebration(next);
+      else next();
+    }
+
+    function bumpWeakAreas(type, correct){
       const key = type || "unknown";
-      if (!state.weakAreas[key]) state.weakAreas[key] = { correct: 0, total: 0 };
+      if(!state.weakAreas[key]) state.weakAreas[key] = { correct:0, total:0 };
       state.weakAreas[key].total += 1;
-      if (correct) state.weakAreas[key].correct += 1;
+      if(correct) state.weakAreas[key].correct += 1;
     }
 
-    function logAnswer({ kind, meaningType, chosen, correctAnswer, correct }) {
+    function logAnswer({ kind, meaningType, chosen, correctAnswer, correct }){
       const elapsedMs = Date.now() - (state.questionStartMs || Date.now());
 
-      if (correct) {
+      if(correct){
         state.score += 1;
         state.streak += 1;
         state.bestStreak = Math.max(state.bestStreak, state.streak);
-      } else {
+      }else{
         state.streak = 0;
       }
 
@@ -904,349 +1227,388 @@
       setHUD();
     }
 
-    /* =========================================================
-       OVERLAYS
-    ========================================================= */
-    function showFeedback(title, text, isCorrect, afterClose) {
-      if (el.feedbackTitle) el.feedbackTitle.textContent = title || "Feedback";
-      if (el.feedbackText) el.feedbackText.textContent = text || "";
-      show(el.feedbackOverlay);
-      playSfx(isCorrect ? "correct" : "wrong");
-
-      const close = () => {
-        hide(el.feedbackOverlay);
-        el.closeFeedbackBtn?.removeEventListener("click", close);
-        if (state.autoNext) setTimeout(() => afterClose && afterClose(), 120);
-        else afterClose && afterClose();
-      };
-
-      el.closeFeedbackBtn?.addEventListener("click", close);
-    }
-
-    function showCelebration(afterClose) {
-      show(el.celebrationOverlay);
-      playSfx("celebration");
-
-      const close = () => {
-        hide(el.celebrationOverlay);
-        el.closeCelebrationBtn?.removeEventListener("click", close);
-        state.streak = 0; // reset streak to continue
-        setHUD();
-        afterClose && afterClose();
-      };
-
-      el.closeCelebrationBtn?.addEventListener("click", close);
-    }
-
-    function maybeCelebrateThen(next) {
-      if (state.streak >= STREAK_TARGET) showCelebration(next);
-      else next();
-    }
-
-    /* =========================================================
+    /* =============================
        STEP PLAN
-    ========================================================= */
-    function pickStepPlan() {
+    ============================= */
+    function pickStepPlan(){
       const combos = [
         ["meaning", "grammar", "ordering"],
         ["meaning", "ordering", "grammar"],
         ["meaning", "grammar", "matching"],
         ["meaning", "matching", "grammar"]
       ];
-      return combos[Math.floor(Math.random() * combos.length)];
+      return combos[Math.floor(Math.random()*combos.length)];
     }
 
-    /* =========================================================
-       RENDER HELPERS
-    ========================================================= */
-    function renderOptionButtons(options, onPick) {
+    function setCategoryUI(m){
+      if(!m){
+        el.catBadge.textContent="✨";
+        el.catLabel.textContent="Ready!";
+        return;
+      }
+      el.catBadge.textContent = m.emoji;
+      el.catLabel.textContent = `${m.label} (${m.form})`;
+    }
+
+    function setStepUI(){
+      el.stepLabel.textContent = `Step ${state.currentStep}/3`;
+    }
+
+    function setChip(text){
+      el.questionChip.textContent = text;
+    }
+
+    function clearOptions(){
+      el.optionsContainer.innerHTML = "";
+    }
+
+    function renderOptionButtons(options, onPick){
       clearOptions();
-      const opts = shuffle(options || []).slice(0, 4);
-      const frag = document.createDocumentFragment();
-      opts.forEach((opt) => {
+      const opts = shuffle(options).slice(0,4);
+      for(const opt of opts){
         const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "optionBtn";
+        btn.type="button";
+        btn.className="optionBtn";
         btn.textContent = opt;
-        btn.addEventListener("click", () => onPick(opt));
-        frag.appendChild(btn);
-      });
-      el.optionsContainer?.appendChild(frag);
+        btn.addEventListener("click", ()=>onPick(opt));
+        el.optionsContainer.appendChild(btn);
+      }
     }
 
-    /* =========================================================
+    /* =============================
        ENGINES
-    ========================================================= */
-    function renderMeaning() {
+    ============================= */
+    function renderMeaning(){
       const q = state.currentBundle.meaning;
-      setPrompt(q.prompt || "What is the speaker's intended meaning?");
-      setStepLabel();
+      setChip("Pick the meaning");
+      setStepUI();
 
-      renderOptionButtons(q.options, (chosen) => {
+      renderOptionButtons(q.options, (chosen)=>{
         const correct = chosen === q.correct;
-
         logAnswer({
-          kind: "meaning",
-          meaningType: q.type || "unknown",
+          kind:"meaning",
+          meaningType: q.type,
           chosen,
           correctAnswer: q.correct,
           correct
         });
-
-        const msg = correct ? "Correct!" : `Not quite. Correct answer: "${q.correct}"`;
-
-        showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
-          maybeCelebrateThen(advanceStepOrFinish);
-        });
+        showFeedback(
+          correct ? "✅ Nice!" : "❌ Oops!",
+          correct ? "Next!" : `Correct: ${q.correct}`,
+          correct,
+          ()=> maybeCelebrateThen(advanceStepOrFinish)
+        );
       });
     }
 
-    function renderGrammar() {
+    function renderGrammar(){
       const q = state.currentBundle.grammar;
-      setPrompt(q.prompt || "Which grammar label fits best?");
-      setStepLabel();
+      setChip("Pick the grammar");
+      setStepUI();
 
-      renderOptionButtons(q.options, (chosen) => {
+      renderOptionButtons(q.options, (chosen)=>{
         const correct = chosen === q.correct;
-
         logAnswer({
-          kind: "grammar",
-          meaningType: state.currentBundle.meaning?.type || "unknown",
+          kind:"grammar",
+          meaningType: state.currentBundle.meta.type,
           chosen,
           correctAnswer: q.correct,
           correct
         });
-
-        const msg = correct ? "Correct!" : `Not quite. Correct answer: "${q.correct}"`;
-
-        showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
-          maybeCelebrateThen(advanceStepOrFinish);
-        });
+        showFeedback(
+          correct ? "✅ Great!" : "❌ Not this one",
+          correct ? "Keep going!" : `Correct: ${q.correct}`,
+          correct,
+          ()=> maybeCelebrateThen(advanceStepOrFinish)
+        );
       });
     }
 
-    function renderOrdering() {
+    function arraysEqual(a,b){
+      if(!Array.isArray(a) || !Array.isArray(b)) return false;
+      if(a.length !== b.length) return false;
+      for(let i=0;i<a.length;i++) if(a[i] !== b[i]) return false;
+      return true;
+    }
+
+    function renderOrdering(){
       const q = state.currentBundle.ordering;
-      setPrompt(q.prompt || "Order these (click in order):");
-      setStepLabel();
-
+      setChip("Click in order");
+      setStepUI();
       clearOptions();
+
       const picked = [];
-      const correctOrder = q.correctOrder || [];
-
       const pickedBox = document.createElement("div");
-      pickedBox.className = "pickedBox";
-      pickedBox.innerHTML = `<div><strong>Your order:</strong></div><div id="pickedList"></div>`;
-      el.optionsContainer?.appendChild(pickedBox);
-      const pickedList = pickedBox.querySelector("#pickedList");
+      pickedBox.className="pairsSoFar";
+      pickedBox.innerHTML = `
+        <div class="pairsTitle">Your order:</div>
+        <div id="orderList"></div>
+      `;
+      el.optionsContainer.appendChild(pickedBox);
+      const list = pickedBox.querySelector("#orderList");
 
-      const refreshPicked = () => {
-        if (!pickedList) return;
-        pickedList.innerHTML = picked
-          .map((x, i) => `<span class="pill">${i + 1}. ${escapeHTML(x)}</span>`)
-          .join(" ");
+      const refresh = ()=>{
+        list.innerHTML = picked.map((w,i)=>`
+          <div class="pairLine"><span class="left">${i+1}.</span><span class="right">${escapeHTML(w)}</span></div>
+        `).join("");
       };
 
-      const items = shuffle(q.items || []);
-      items.forEach((text) => {
+      const items = shuffle(q.items);
+      for(const it of items){
         const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "optionBtn";
-        btn.textContent = text;
+        btn.type="button";
+        btn.className="optionBtn";
+        btn.textContent = it;
 
-        btn.addEventListener("click", () => {
-          if (picked.includes(text)) return;
-          picked.push(text);
+        btn.addEventListener("click", ()=>{
+          if(picked.includes(it)) return;
+          picked.push(it);
           btn.disabled = true;
-          refreshPicked();
-
-          if (picked.length === 4) {
-            const correct = arraysEqual(picked, correctOrder);
-
+          refresh();
+          if(picked.length === 4){
+            const correct = arraysEqual(picked, q.correctOrder);
             logAnswer({
-              kind: "ordering",
-              meaningType: state.currentBundle.meaning?.type || "unknown",
+              kind:"ordering",
+              meaningType: state.currentBundle.meta.type,
               chosen: picked.slice(),
-              correctAnswer: correctOrder.slice(),
+              correctAnswer: q.correctOrder.slice(),
               correct
             });
-
-            const msg = correct ? "Correct!" : `Not quite. Correct order: ${correctOrder.join(" → ")}`;
-
-            showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
-              maybeCelebrateThen(advanceStepOrFinish);
-            });
+            showFeedback(
+              correct ? "✅ Perfect order!" : "❌ Not quite",
+              correct ? "Next!" : `Correct: ${q.correctOrder.join(" → ")}`,
+              correct,
+              ()=> maybeCelebrateThen(advanceStepOrFinish)
+            );
           }
         });
 
-        el.optionsContainer?.appendChild(btn);
-      });
+        el.optionsContainer.appendChild(btn);
+      }
     }
 
-    function renderMatching() {
+    function renderMatching(){
       const q = state.currentBundle.matching;
-      setPrompt(q.prompt || "Match meaning ↔ grammar:");
-      setStepLabel();
-
+      setChip("Match pairs");
+      setStepUI();
       clearOptions();
 
-      const pairs = q.pairs || [];
-      const lefts = shuffle(pairs.map(p => p.left));
-      const rights = shuffle(pairs.map(p => p.right));
-
-      const correctMap = new Map(pairs.map(p => [p.left, p.right]));
-      const chosenMap = new Map();
+      const pairs = q.pairs.slice(0,4);
+      const lefts = shuffle(pairs.map(p=>p.left));
+      const rights = shuffle(pairs.map(p=>p.right));
+      const correctMap = new Map(pairs.map(p=>[p.left,p.right]));
+      const chosen = []; // [{left,right}]
       let selectedLeft = null;
 
-      const wrap = document.createElement("div");
-      wrap.className = "matchWrap";
+      const grid = document.createElement("div");
+      grid.className = "matchGrid";
 
-      const leftCol = document.createElement("div");
-      leftCol.className = "matchCol";
-      const rightCol = document.createElement("div");
-      rightCol.className = "matchCol";
+      const colL = document.createElement("div");
+      colL.className="matchCol";
+      colL.innerHTML = `<div class="matchHead">Meaning</div>`;
 
-      wrap.appendChild(leftCol);
-      wrap.appendChild(rightCol);
-      el.optionsContainer?.appendChild(wrap);
+      const colR = document.createElement("div");
+      colR.className="matchCol";
+      colR.innerHTML = `<div class="matchHead">Form</div>`;
 
-      function rerender() {
-        leftCol.innerHTML = `<div class="matchHead">Meaning</div>`;
-        rightCol.innerHTML = `<div class="matchHead">Grammar</div>`;
+      grid.appendChild(colL);
+      grid.appendChild(colR);
+      el.optionsContainer.appendChild(grid);
 
-        lefts.forEach((l) => {
+      const pairsPanel = document.createElement("div");
+      pairsPanel.className = "pairsSoFar";
+      pairsPanel.innerHTML = `
+        <div class="pairsTitle">Pairs so far:</div>
+        <div id="pairsList"></div>
+      `;
+      el.optionsContainer.appendChild(pairsPanel);
+
+      const tools = document.createElement("div");
+      tools.className="miniTools";
+      tools.innerHTML = `
+        <button class="toolBtn" id="undoPairBtn">Undo last pair</button>
+        <button class="toolBtn" id="clearAllPairsBtn">Clear all</button>
+      `;
+      el.optionsContainer.appendChild(tools);
+
+      const pairsList = pairsPanel.querySelector("#pairsList");
+      const undoBtn = tools.querySelector("#undoPairBtn");
+      const clearBtn = tools.querySelector("#clearAllPairsBtn");
+
+      function renderPairsList(){
+        if(chosen.length === 0){
+          pairsList.innerHTML = `<div style="opacity:.85">No pairs yet — click a meaning, then click a form.</div>`;
+          return;
+        }
+        pairsList.innerHTML = chosen.map((p,i)=>`
+          <div class="pairLine">
+            <span class="left">${i+1}) ${escapeHTML(p.left)}</span>
+            <span class="right">→ ${escapeHTML(p.right)}</span>
+          </div>
+        `).join("");
+      }
+
+      function isRightUsed(r){
+        return chosen.some(p=>p.right === r);
+      }
+      function isLeftUsed(l){
+        return chosen.some(p=>p.left === l);
+      }
+
+      function rerenderButtons(){
+        colL.innerHTML = `<div class="matchHead">Meaning</div>`;
+        colR.innerHTML = `<div class="matchHead">Form</div>`;
+
+        lefts.forEach(l=>{
           const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "matchBtn";
+          btn.type="button";
+          btn.className="matchBtn";
           btn.textContent = l;
 
-          if (chosenMap.has(l)) { btn.classList.add("paired"); btn.disabled = true; }
-          if (selectedLeft === l) btn.classList.add("selected");
+          if(isLeftUsed(l)){ btn.classList.add("paired"); btn.disabled = true; }
+          if(selectedLeft === l) btn.classList.add("selected");
 
-          btn.addEventListener("click", () => {
-            if (chosenMap.has(l)) return;
+          btn.addEventListener("click", ()=>{
+            if(isLeftUsed(l)) return;
             selectedLeft = l;
-            rerender();
+            rerenderButtons();
           });
-
-          leftCol.appendChild(btn);
+          colL.appendChild(btn);
         });
 
-        rights.forEach((r) => {
+        rights.forEach(r=>{
           const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "matchBtn";
+          btn.type="button";
+          btn.className="matchBtn";
           btn.textContent = r;
 
-          if ([...chosenMap.values()].includes(r)) { btn.classList.add("paired"); btn.disabled = true; }
+          if(isRightUsed(r)){ btn.classList.add("paired"); btn.disabled = true; }
 
-          btn.addEventListener("click", () => {
-            if (!selectedLeft) return;
-            if ([...chosenMap.values()].includes(r)) return;
-            chosenMap.set(selectedLeft, r);
+          btn.addEventListener("click", ()=>{
+            if(!selectedLeft) return;
+            if(isRightUsed(r)) return;
+            chosen.push({ left:selectedLeft, right:r });
             selectedLeft = null;
-            rerender();
-            if (chosenMap.size === 4) finish();
+            renderPairsList();
+            rerenderButtons();
+            if(chosen.length === 4) finish();
           });
-
-          rightCol.appendChild(btn);
+          colR.appendChild(btn);
         });
       }
 
-      function finish() {
+      function finish(){
         let correctCount = 0;
-        for (const [l, r] of chosenMap.entries()) {
-          if (correctMap.get(l) === r) correctCount++;
+        const wrongPairs = [];
+        for(const p of chosen){
+          if(correctMap.get(p.left) === p.right) correctCount++;
+          else wrongPairs.push(p);
         }
-        const correct = correctCount === 4;
+        const correct = (correctCount === 4);
 
         logAnswer({
-          kind: "matching",
-          meaningType: state.currentBundle.meaning?.type || "unknown",
-          chosen: [...chosenMap.entries()],
-          correctAnswer: pairs.map(p => [p.left, p.right]),
+          kind:"matching",
+          meaningType: state.currentBundle.meta.type,
+          chosen: chosen.map(p=>[p.left,p.right]),
+          correctAnswer: pairs.map(p=>[p.left,p.right]),
           correct
         });
 
-        const msg = correct ? "Correct!" : `Not quite. You got ${correctCount}/4 correct.`;
+        const msg = correct
+          ? "All 4 pairs correct!"
+          : `You got ${correctCount}/4. (See correct pairs next)`;
 
-        showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
-          maybeCelebrateThen(advanceStepOrFinish);
-        });
+        // show correct pairs in feedback if not perfect (still short)
+        const correctPairsText = pairs.map(p=>`${p.left} → ${p.right}`).join(" | ");
+
+        showFeedback(
+          correct ? "✅ Match master!" : "❌ Almost!",
+          correct ? msg : `${msg}\nCorrect: ${correctPairsText}`,
+          correct,
+          ()=> maybeCelebrateThen(advanceStepOrFinish)
+        );
       }
 
-      rerender();
+      undoBtn.addEventListener("click", ()=>{
+        if(chosen.length === 0) return;
+        chosen.pop();
+        selectedLeft = null;
+        renderPairsList();
+        rerenderButtons();
+      });
+
+      clearBtn.addEventListener("click", ()=>{
+        chosen.length = 0;
+        selectedLeft = null;
+        renderPairsList();
+        rerenderButtons();
+      });
+
+      renderPairsList();
+      rerenderButtons();
     }
 
-    /* =========================================================
-       FLOW CONTROL
-    ========================================================= */
-    function renderCurrentStep() {
+    /* =============================
+       FLOW
+    ============================= */
+    function renderCurrentStep(){
       state.questionStartMs = Date.now();
-      setSentence(state.currentBundle?.sentence || "");
+      el.sentenceText.textContent = state.currentBundle.sentence;
+      setCategoryUI(state.currentBundle.meta);
       hide(el.nextBtn);
 
       const stepType = state.stepPlan[state.currentStep - 1] || "meaning";
-      if (stepType === "meaning") renderMeaning();
-      else if (stepType === "grammar") renderGrammar();
-      else if (stepType === "ordering") renderOrdering();
-      else if (stepType === "matching") renderMatching();
+      if(stepType === "meaning") renderMeaning();
+      else if(stepType === "grammar") renderGrammar();
+      else if(stepType === "ordering") renderOrdering();
+      else if(stepType === "matching") renderMatching();
       else renderMeaning();
     }
 
-    function advanceStepOrFinish() {
-      if (state.currentStep < 3) {
+    function advanceStepOrFinish(){
+      if(state.currentStep < 3){
         state.currentStep += 1;
         renderCurrentStep();
         return;
       }
-      showFeedback("Round complete!", "Nice work. Click Next Round to continue.", true, () => {
-        show(el.nextBtn);
-      });
+      showFeedback("✅ Round complete!", "Next Round!", true, ()=> show(el.nextBtn));
     }
 
-    function startNewRound() {
-      if (!QUESTION_BANK.length) {
-        alert("QUESTION_BANK is empty.");
-        return;
-      }
-      state.currentBundle = QUESTION_BANK[Math.floor(Math.random() * QUESTION_BANK.length)];
+    function startNewRound(){
+      state.currentBundle = QUESTION_BANK[Math.floor(Math.random()*QUESTION_BANK.length)];
       state.stepPlan = pickStepPlan();
       state.currentStep = 1;
       renderCurrentStep();
     }
 
-    /* =========================================================
-       TEACHER + STATS
-    ========================================================= */
-    function openTeacherLogin() {
+    /* =============================
+       TEACHER
+    ============================= */
+    function openTeacherLogin(){
       show(el.teacherLogin);
-      if (el.teacherCodeInput) el.teacherCodeInput.value = "";
-      el.teacherCodeInput?.focus();
+      el.teacherCodeInput.value = "";
+      el.teacherCodeInput.focus();
     }
-    function closeTeacherLogin() { hide(el.teacherLogin); }
-
-    function openTeacherPanel() {
+    function closeTeacherLogin(){ hide(el.teacherLogin); }
+    function openTeacherPanel(){
       hide(el.teacherLogin);
       show(el.teacherPanel);
-      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
-      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
-      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
+      el.autoNextToggle.checked = state.autoNext;
+      el.musicToggle.checked = state.musicOn;
+      el.sfxToggle.checked = state.sfxOn;
     }
-    function closeTeacherPanel() { hide(el.teacherPanel); }
+    function closeTeacherPanel(){ hide(el.teacherPanel); }
 
-    function teacherSubmit() {
-      const code = (el.teacherCodeInput?.value || "").trim();
-      if (code === "1362") {
-        openTeacherPanel();
-      } else {
-        el.teacherCodeInput?.classList.remove("shake");
-        void el.teacherCodeInput?.offsetWidth;
-        el.teacherCodeInput?.classList.add("shake");
+    function teacherSubmit(){
+      const code = (el.teacherCodeInput.value || "").trim();
+      if(code === "1362") openTeacherPanel();
+      else{
+        el.teacherCodeInput.style.border = "2px solid #ef4444";
+        setTimeout(()=> el.teacherCodeInput.style.border = "", 380);
       }
     }
 
-    async function sendStatsNow() {
+    async function sendStatsNow(){
       const payload = {
         studentName: state.studentName,
         summary: {
@@ -1260,26 +1622,26 @@
         log: state.log
       };
 
-      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")) {
-        alert("Add your GOOGLE_SCRIPT_URL in the script before sending stats.");
+      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")){
+        alert("Add GOOGLE_SCRIPT_URL to send stats.");
         return;
       }
 
-      try {
+      try{
         const res = await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
           body: JSON.stringify(payload)
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        alert("Stats sent successfully ✅");
-      } catch (err) {
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        alert("Stats sent ✅");
+      }catch(err){
         console.error(err);
-        alert("Failed to send stats. Check Apps Script URL + permissions.");
+        alert("Failed to send stats (check URL + permissions).");
       }
     }
 
-    function resetGame() {
+    function resetGame(){
       state.score = 0;
       state.streak = 0;
       state.weakAreas = {};
@@ -1287,97 +1649,115 @@
       state.currentBundle = null;
       state.currentStep = 1;
       state.stepPlan = [];
-
       setHUD();
-      setSentence("Sentence will appear here");
-      setPrompt("What is the speaker's intended meaning?");
-      if (el.stepLabel) el.stepLabel.textContent = "Step 1/3";
-      clearOptions();
+      setCategoryUI(null);
+      el.sentenceText.textContent = "Sentence will appear here";
+      setChip("Pick the meaning");
+      el.stepLabel.textContent = "Step 1/3";
+      el.optionsContainer.innerHTML = "";
       hide(el.nextBtn);
     }
 
-    /* =========================================================
+    /* =============================
+       AUDIO RELIABILITY
+       - Starts only after Start click
+       - Shows debug if file missing
+    ============================= */
+    function wireAudioDiagnostics(){
+      if(!el.bgMusic) return;
+
+      el.bgMusic.addEventListener("error", ()=>{
+        debug("Music file not found. Check: koala2.mp3 (same folder, exact name).");
+      });
+
+      // If it can play, hide debug
+      el.bgMusic.addEventListener("canplaythrough", ()=>{
+        // don’t hide if some other debug exists, but music OK
+        if(el.debugBanner.textContent.includes("koala2")) debug("");
+      });
+    }
+
+    /* =============================
        EVENTS
-    ========================================================= */
-    function wireEvents() {
-      el.startNameBtn?.addEventListener("click", () => {
-        const name = (el.studentNameInput?.value || "").trim();
-        if (!name) { alert("Please enter your name."); return; }
+    ============================= */
+    function wireEvents(){
+      el.startNameBtn.addEventListener("click", ()=>{
+        const name = (el.studentNameInput.value || "").trim();
+        if(!name){ alert("Enter your name."); return; }
         state.studentName = name;
 
         hide(el.nameScreen);
         show(el.gameScreen);
 
-        setHUD();
+        // MUST start music after a user gesture
         syncMusic();
+
+        setHUD();
         startNewRound();
       });
 
-      el.studentNameInput?.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") el.startNameBtn?.click();
+      el.studentNameInput.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter") el.startNameBtn.click();
       });
 
-      el.nextBtn?.addEventListener("click", startNewRound);
+      el.nextBtn.addEventListener("click", startNewRound);
 
-      // Teacher
-      el.teacherBtn?.addEventListener("click", openTeacherLogin);
-      el.closeTeacherLogin?.addEventListener("click", closeTeacherLogin);
-      el.teacherCodeBtn?.addEventListener("click", teacherSubmit);
-      el.teacherCodeInput?.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") teacherSubmit();
-        if (e.key === "Escape") closeTeacherLogin();
+      el.teacherBtn.addEventListener("click", openTeacherLogin);
+      el.closeTeacherLogin.addEventListener("click", closeTeacherLogin);
+      el.teacherCodeBtn.addEventListener("click", teacherSubmit);
+      el.teacherCodeInput.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter") teacherSubmit();
+        if(e.key === "Escape") closeTeacherLogin();
       });
 
-      el.teacherLogin?.addEventListener("click", (e) => {
-        if (e.target === el.teacherLogin) closeTeacherLogin();
-      });
+      el.teacherStartBtn.addEventListener("click", startNewRound);
+      el.teacherResetBtn.addEventListener("click", resetGame);
 
-      el.teacherStartBtn?.addEventListener("click", startNewRound);
-      el.teacherResetBtn?.addEventListener("click", resetGame);
-
-      el.autoNextToggle?.addEventListener("change", (e) => {
+      el.autoNextToggle.addEventListener("change", (e)=>{
         state.autoNext = !!e.target.checked;
         savePrefs();
       });
-
-      el.musicToggle?.addEventListener("change", (e) => {
+      el.musicToggle.addEventListener("change", (e)=>{
         state.musicOn = !!e.target.checked;
         savePrefs();
         syncMusic();
       });
-
-      el.sfxToggle?.addEventListener("change", (e) => {
+      el.sfxToggle.addEventListener("change", (e)=>{
         state.sfxOn = !!e.target.checked;
         savePrefs();
       });
 
-      el.sendStatsBtn?.addEventListener("click", sendStatsNow);
-      el.closeTeacherPanel?.addEventListener("click", closeTeacherPanel);
+      el.sendStatsBtn.addEventListener("click", sendStatsNow);
+      el.closeTeacherPanel.addEventListener("click", closeTeacherPanel);
 
-      el.teacherPanel?.addEventListener("click", (e) => {
-        if (e.target === el.teacherPanel) closeTeacherPanel();
-      });
+      // close overlays by clicking outside
+      el.teacherLogin.addEventListener("click",(e)=>{ if(e.target===el.teacherLogin) closeTeacherLogin(); });
+      el.teacherPanel.addEventListener("click",(e)=>{ if(e.target===el.teacherPanel) closeTeacherPanel(); });
     }
 
-    /* =========================================================
-       18) INIT
-       Loads preferences, syncs music, sets HUD, wires events.
-    ========================================================= */
-    function init() {
+    /* =============================
+       INIT
+    ============================= */
+    function init(){
       loadPrefs();
-      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
-      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
-      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
+      el.autoNextToggle.checked = state.autoNext;
+      el.musicToggle.checked = state.musicOn;
+      el.sfxToggle.checked = state.sfxOn;
 
-      syncMusic();
       setHUD();
+      wireAudioDiagnostics();
       wireEvents();
+
+      // sanity check: 15*15 = 225
+      const expected = 225;
+      if(QUESTION_BANK.length !== expected){
+        debug(`Sentence count mismatch: found ${QUESTION_BANK.length}, expected ${expected}.`);
+      }
     }
 
-    // Start the engine
     init();
 
-  })();  /* closes the entire IIFE wrapper */
+  })();
   </script>
 </body>
 </html>
