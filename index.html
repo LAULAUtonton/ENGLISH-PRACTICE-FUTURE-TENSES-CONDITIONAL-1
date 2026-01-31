@@ -1,1151 +1,1301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Future Forms + First Conditional — Meaning Game (Streak 25)</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Future Forms Game — 3-Step Engine</title>
 
-<style>
-:root{
-  --bg1:#0b1026;
-  --bg2:#111a44;
-  --bg3:#091a2b;
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0f;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    .hidden { display: none; }
+    .screen { padding-top: 60px; }
 
-  --panel: rgba(10, 14, 30, .90);
-  --ink:#f4f7ff;
-  --mut: rgba(244,247,255,.72);
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #66e0ff;
+      text-shadow: 0 0 10px #00aaff;
+    }
 
-  --accent:#ff4fd8;
-  --accent2:#48f0ff;
-  --accent3:#ffe14a;
-  --good:#22c55e;
-  --bad:#ef4444;
+    input[type="text"],
+    input[type="password"] {
+      padding: 12px;
+      width: 260px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
 
-  --stroke: rgba(255,255,255,.12);
-  --shadow: 0 24px 70px rgba(0,0,0,.55);
-  --wMax: 1200px;
+    .mainBtn {
+      background: #00aaff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.2s;
+    }
+    .mainBtn:hover { background: #33cfff; }
 
-  --cardA:#ff4fd8;
-  --cardB:#7c3aed;
-  --cardC:#48f0ff;
+    .secondaryBtn {
+      background: #444;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .secondaryBtn:hover { background: #666; }
 
-  --focus: 0 0 0 5px rgba(255,79,216,.22);
-}
+    #teacherBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ffdd55;
+      text-shadow: 0 0 8px #ffaa00;
+      transition: 0.2s;
+      user-select: none;
+    }
+    #teacherBtn:hover { transform: scale(1.1); }
 
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;}
-body{
-  font-family:Montserrat,system-ui,sans-serif;
-  background:
-    radial-gradient(900px 520px at 15% 15%, rgba(255,79,216,.22), transparent 60%),
-    radial-gradient(900px 520px at 85% 20%, rgba(72,240,255,.18), transparent 60%),
-    radial-gradient(900px 520px at 55% 90%, rgba(255,225,74,.12), transparent 60%),
-    linear-gradient(180deg,var(--bg1),var(--bg2),var(--bg3));
-  color:var(--ink);
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:12px;
-}
+    #topBar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      flex-wrap: wrap;
+    }
+    #scoreBox, #streakBox, #bestBox {
+      background: #111;
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: 1px solid #00aaff;
+      box-shadow: 0 0 10px #005577;
+      min-width: 140px;
+    }
 
-/* Layout */
-.container{
-  width:min(var(--wMax),100%);
-  background:var(--panel);
-  border-radius:18px;
-  padding:14px;
-  box-shadow:var(--shadow);
-  border:1px solid var(--stroke);
-  backdrop-filter:blur(10px);
-  display:grid;
-  grid-template-columns:1fr;
-  grid-template-rows:auto auto 1fr auto;
-  gap:12px;
-}
+    #sentenceCard {
+      background: #111;
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #00aaff;
+      box-shadow: 0 0 15px #005577;
+    }
+    #sentenceText { font-size: 1.4rem; }
 
-/* Header */
-.header{grid-row:1/2;display:flex;gap:12px;align-items:center}
-.logo{
-  width:56px;height:56px;border-radius:16px;
-  background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.16);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 14px 28px rgba(0,0,0,.25);
-  cursor:pointer;
-}
-.title{margin:0;font-size:20px;color:#fff;letter-spacing:.2px}
-.lead{margin:2px 0 0;font-size:13px;color:var(--mut)}
+    #questionPrompt {
+      font-size: 1.3rem;
+      margin-top: 20px;
+      color: #66e0ff;
+    }
+    #stepLabel {
+      margin-top: 8px;
+      font-size: 1rem;
+      color: #cfefff;
+      opacity: 0.95;
+    }
 
-/* Topbar */
-.topbar{
-  grid-row:2/3;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 12px;
-  border-radius:16px;
-  border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-  gap:10px;
-  flex-wrap:wrap;
-}
-.statRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.stat{
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:14px;
-  padding:8px 12px;
-  font-weight:900;
-  font-size:13px;
-  background:rgba(0,0,0,.12);
-}
-.playerTag{font-size:13px;color:var(--mut)}
-.playerTag strong{color:var(--ink)}
+    #optionsContainer {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-/* Game */
-.game{
-  grid-row:3/4;
-  overflow:auto;
-  min-height:0;
-}
-.gameInner{
-  width:100%;
-  max-width:880px;
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
+    .optionBtn {
+      background: #222;
+      border: 1px solid #00aaff;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 1.1rem;
+      color: #fff;
+      text-align: left;
+    }
+    .optionBtn:hover { background: #003344; }
+    .optionBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* Card */
-#card{
-  border-radius:18px;
-  padding:14px;
-  background:linear-gradient(135deg,var(--cardA),var(--cardB),var(--cardC));
-  box-shadow:0 18px 48px rgba(0,0,0,.30);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-#card::before{
-  content:"";
-  position:absolute;inset:-25%;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,.22), transparent 45%),
-    radial-gradient(circle at 80% 20%, rgba(255,255,255,.18), transparent 48%),
-    radial-gradient(circle at 70% 75%, rgba(255,255,255,.14), transparent 52%);
-  transform:rotate(-10deg);
-  pointer-events:none;
-  animation:floatGlow 4.2s ease-in-out infinite;
-}
-@keyframes floatGlow{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-10deg) translateY(10px)}}
-#cardLabel{
-  position:relative;
-  font-size:13px;
-  font-weight:900;
-  color:#fff;
-  padding:8px 14px;
-  border-radius:999px;
-  background:rgba(0,0,0,.22);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter:blur(8px);
-  margin:0 0 10px;
-}
-#cardText{
-  position:relative;
-  width:min(94%,820px);
-  padding:12px 14px;
-  border-radius:14px;
-  background:rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.18);
-  color:#fff;
-  font-weight:900;
-  font-size:clamp(18px,2.0vw,30px);
-  line-height:1.18;
-  text-shadow:0 2px 14px rgba(0,0,0,.35);
-  overflow-wrap:anywhere;
-}
+    .pickedBox {
+      margin-top: 10px;
+      background: #0f0f14;
+      border: 1px dashed #00aaff;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: left;
+      box-shadow: inset 0 0 0 1px rgba(0,170,255,.15);
+    }
+    .pill {
+      display: inline-block;
+      margin: 6px 6px 0 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid #00aaff;
+      background: rgba(0,170,255,.08);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
 
-/* Prompt */
-.meaningPrompt{
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:16px;
-  background:rgba(0,0,0,.14);
-  padding:12px;
-  text-align:center;
-  font-weight:900;
-  color:rgba(244,247,255,.92);
-}
+    .matchWrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+    .matchCol {
+      background: #0f0f14;
+      border: 1px solid #00aaff;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: left;
+    }
+    .matchHead {
+      font-weight: 700;
+      color: #66e0ff;
+      margin-bottom: 8px;
+    }
+    .matchBtn {
+      width: 100%;
+      margin: 6px 0;
+      text-align: left;
+      background: #222;
+      border: 1px solid #00aaff;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .matchBtn:hover { background: #003344; }
+    .matchBtn.selected {
+      outline: 3px solid rgba(102,224,255,.25);
+      border-color: #66e0ff;
+    }
+    .matchBtn.paired { opacity: 0.6; cursor: not-allowed; }
 
-/* Options */
-#options{
-  width:100%;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.14);
-  padding:10px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.choiceCard{
-  border:none;
-  border-radius:18px;
-  padding:14px 14px;
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-  text-align:left;
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  min-height:72px;
-  box-shadow:0 16px 34px rgba(0,0,0,.22);
-  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
-  position:relative;
-  overflow:hidden;
-}
-.choiceCard:focus-visible{outline:none;box-shadow:var(--focus),0 18px 40px rgba(0,0,0,.30);}
-.choiceCard::after{
-  content:"";
-  position:absolute;inset:-40%;
-  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 55%);
-  transform:rotate(10deg);
-  opacity:.6;
-}
-.choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06);box-shadow:0 18px 40px rgba(0,0,0,.30)}
-.choiceIcon{
-  width:40px;height:40px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.18);
-  font-size:20px;
-  z-index:1;
-  flex:0 0 auto;
-}
-.choiceText{z-index:1;font-size:14px;line-height:1.25}
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .overlayContent {
+      background: #111;
+      padding: 30px;
+      border-radius: 10px;
+      width: 70%;
+      max-width: 520px;
+      border: 1px solid #00aaff;
+      box-shadow: 0 0 20px #005577;
+    }
+    .overlayContent.small { max-width: 350px; }
 
-/* Colors */
-.c1{background:linear-gradient(135deg,#ff4fd8,#c026d3);}
-.c2{background:linear-gradient(135deg,#48f0ff,#2563eb);}
-.c3{background:linear-gradient(135deg,#ffe14a,#f59e0b);}
-.c4{background:linear-gradient(135deg,#22c55e,#10b981);}
-.c5{background:linear-gradient(135deg,#f97316,#ef4444);}
-.c6{background:linear-gradient(135deg,#a855f7,#7c3aed);}
+    .toggleRow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+      font-size: 1.1rem;
+      justify-content: center;
+    }
+    .toggleRow input { transform: scale(1.2); }
 
-/* Progress */
-.progressWrap{
-  width:100%;
-  height:12px;
-  border-radius:999px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.08);
-}
-.progressBar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#22c55e,#16a34a,#22c55e);
-  background-size:200% 100%;
-  transition:width 300ms ease;
-}
-.progressBar.moving{animation:prog 1.1s linear infinite;}
-@keyframes prog{0%{background-position:0%}100%{background-position:200%}}
-.progressLabel{
-  font-size:13px;
-  color:rgba(244,247,255,.90);
-  text-align:center;
-  margin-top:-4px;
-  font-weight:900;
-}
+    .shake {
+      animation: shake 0.25s linear 0s 2;
+      border: 2px solid #ef4444 !important;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-6px); }
+      100% { transform: translateX(0); }
+    }
 
-/* Footer */
-.footer{
-  grid-row:4/5;
-  display:flex;justify-content:space-between;align-items:center;
-  color:var(--mut);font-size:13px;
-  gap:10px;flex-wrap:wrap;
-}
-
-/* Feedback overlay */
-.fbOverlay{
-  position:fixed;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(2,8,23,.62);
-  opacity:0;pointer-events:none;
-  transition:opacity .18s ease;
-  z-index:9999;
-  padding:18px;
-}
-.fbOverlay.show{opacity:1;pointer-events:auto;}
-.fbCard{
-  width:min(720px,96%);
-  border-radius:18px;
-  padding:18px 18px 16px;
-  background:linear-gradient(180deg, rgba(10,14,30,.97), rgba(10,14,30,.93));
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 24px 70px rgba(0,0,0,.60);
-  text-align:center;
-  transform:scale(.965) translateY(6px);
-  animation:fbIn .22s ease both;
-}
-@keyframes fbIn{to{transform:scale(1) translateY(0)}}
-.fbTop{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:900;}
-.fbIcon{
-  width:48px;height:48px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.14);
-  font-size:22px;
-}
-.fbTitle{font-size:22px;margin:0;}
-.fbSub{
-  margin:10px auto 0;
-  font-size:16px;color:#ffffff;font-weight:900;
-  line-height:1.32;max-width:650px;
-}
-.fbDetail{
-  margin:10px auto 0;
-  font-size:14px;color:rgba(244,247,255,.92);
-  font-weight:800;line-height:1.38;
-  max-width:650px;
-  border-top:1px solid rgba(255,255,255,.12);
-  padding-top:10px;
-  white-space:pre-wrap;
-}
-.fbBtnRow{margin-top:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
-.fbBtn{
-  border-radius:14px;
-  padding:12px 16px;
-  font-weight:900;
-  cursor:pointer;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.14);
-  color:var(--ink);
-  transition:transform .12s ease, filter .12s ease;
-}
-.fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05);}
-.fbBtn.primary{
-  border:none;
-  background:linear-gradient(180deg,var(--accent),#c026d3);
-  color:#fff;
-  box-shadow:0 14px 28px rgba(255,79,216,.18);
-}
-
-/* Celebration */
-.celebration-overlay{
-  position:fixed;inset:0;
-  display:none;align-items:center;justify-content:center;
-  background:rgba(2,8,23,0.72);
-  z-index:10000;
-  padding:18px;
-}
-.celebration-card{
-  width:min(780px,96%);
-  background:linear-gradient(180deg, rgba(10,14,30,.94), rgba(10,14,30,.90));
-  border:1px solid rgba(255,255,255,.14);
-  color:var(--ink);
-  border-radius:18px;
-  padding:26px;
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,0.60);
-}
-.celebration-title{font-size:34px;font-weight:900;color:#fff;margin-bottom:8px}
-.celebration-sub{color:rgba(244,247,255,.86);font-weight:900;font-size:16px;margin-bottom:12px}
-.celebration-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-
-/* Teacher modal */
-.teacherModalOverlay{
-  position:fixed;inset:0;
-  background:rgba(2,8,23,.70);
-  display:none;align-items:center;justify-content:center;
-  z-index:9000;
-  padding:18px;
-}
-.teacherModalOverlay.show{display:flex;}
-.teacherModal{
-  width:min(380px,100%);
-  max-height:90vh;
-  overflow-y:auto;
-  padding:16px;
-  border-radius:16px;
-  border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  box-shadow:0 24px 70px rgba(0,0,0,.70);
-}
-.teacherModal h2{
-  margin:0 0 8px;
-  font-size:18px;
-}
-.inputRow{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
-.inputRow label{font-weight:900;font-size:13px;color:var(--ink)}
-.inputRow input{
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(0,0,0,.14);
-  color:var(--ink);
-  border-radius:14px;
-  padding:10px 12px;
-  font-size:14px;
-  outline:none;
-}
-.inputRow input::placeholder{color:rgba(244,247,255,.55)}
-.inputRow input:focus{border-color:rgba(255,79,216,.70);box-shadow:var(--focus);}
-.controlsBtns{display:flex;gap:10px;margin:6px 0 10px}
-.btnPrimary,.btnSecondary{
-  width:50%;
-  border-radius:14px;
-  padding:10px 14px;
-  font-weight:900;
-  cursor:pointer;
-  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
-}
-.btnPrimary{
-  border:none;
-  color:#0b1026;
-  background:linear-gradient(180deg,var(--accent3),#ffd000);
-  box-shadow:0 14px 28px rgba(255,225,74,.20);
-}
-.btnSecondary{
-  border:1px solid rgba(255,255,255,.16);
-  color:var(--ink);
-  background:rgba(0,0,0,.14);
-}
-.btnPrimary:hover,.btnSecondary:hover{transform:translateY(-2px);filter:brightness(1.05);}
-.toggles{
-  display:flex;gap:10px;flex-wrap:wrap;
-  font-size:13px;color:var(--mut);
-  margin-bottom:10px;
-}
-.toggles label{display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none}
-.teacherBox{
-  border:1px dashed rgba(255,255,255,.18);
-  background:rgba(255,255,255,.05);
-  border-radius:14px;
-  padding:10px;
-  margin-bottom:10px;
-}
-.teacherBox h3{margin:0 0 6px;font-size:14px}
-.bar{
-  height:10px;border-radius:999px;overflow:hidden;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.10);
-}
-.bar>i{
-  display:block;height:100%;width:0%;
-  background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent3));
-}
-.small{font-size:12.5px;color:rgba(244,247,255,.80);line-height:1.35}
-
-/* Responsive */
-@media(max-width:640px){
-  #options{grid-template-columns:1fr;}
-}
-@media(prefers-reduced-motion:reduce){
-  #card::before,.progressBar.moving{animation:none!important}
-  *{transition:none!important}
-}
-</style>
+    @media (max-width: 600px) {
+      #sentenceCard { width: 95%; }
+      #optionsContainer { width: 95%; }
+      .matchWrap { grid-template-columns: 1fr; }
+      #topBar { justify-content: center; }
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container" role="application" aria-label="Future meaning game">
-    <!-- Header -->
-    <div class="header">
-      <div class="logo" id="logo" aria-hidden="true">
-        <svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#ff4fd8"/>
-              <stop offset="1" stop-color="#48f0ff"/>
-            </linearGradient>
-          </defs>
-          <circle cx="32" cy="32" r="30" fill="url(#g1)"/>
-        </svg>
-      </div>
-      <div>
-        <h1 class="title">Future Forms + First Conditional</h1>
-        <p class="lead">Choose the <b>intended meaning</b> • win at <b>25 in a row</b></p>
-      </div>
+  <!-- STUDENT NAME SCREEN -->
+  <div id="nameScreen" class="screen">
+    <h1 class="title">Future Forms Game</h1>
+    <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
+    <br />
+    <button id="startNameBtn" class="mainBtn">Start</button>
+  </div>
+
+  <!-- MAIN GAME SCREEN -->
+  <div id="gameScreen" class="screen hidden">
+    <div id="teacherBtn" title="Teacher Access">🎓</div>
+
+    <div id="topBar">
+      <div id="scoreBox">Score: 0</div>
+      <div id="streakBox">Streak: 0</div>
+      <div id="bestBox">Best: 0</div>
     </div>
 
-    <!-- Topbar -->
-    <div class="topbar">
-      <div class="statRow">
-        <div class="stat" id="scoreBox">Score: 0</div>
-        <div class="stat" id="timerBox">Time: 0s</div>
-        <div class="stat" id="streakBox">Streak: 0</div>
-      </div>
-      <div class="statRow">
-        <div class="playerTag">Player: <strong id="playerName">—</strong></div>
-      </div>
+    <div id="sentenceCard">
+      <p id="sentenceText">Sentence will appear here</p>
     </div>
 
-    <!-- Game -->
-    <div class="game" role="main" aria-live="polite">
-      <div class="gameInner">
-        <div id="card" role="region" aria-label="Prompt card">
-          <div id="cardLabel">Ready</div>
-          <div id="cardText">Type <b>1362</b> (teacher) to open controls, then press START. Students just play and tap answers.</div>
-        </div>
+    <div id="questionPrompt">What is the speaker's intended meaning?</div>
+    <div id="stepLabel">Step 1/3</div>
 
-        <div class="meaningPrompt" id="meaningPrompt">
-          Question: What is the speaker’s intended meaning?
-        </div>
+    <div id="optionsContainer"></div>
 
-        <div id="options" role="group" aria-label="Answer options"></div>
+    <button id="nextBtn" class="hidden mainBtn">Next Round</button>
+  </div>
 
-        <div class="progressWrap">
-          <div id="progressBar" class="progressBar"></div>
-        </div>
-        <div class="progressLabel" id="progressLabel">Goal progress: 0 / 25 (0%)</div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <div>Focus: will / going to / present continuous / present simple / first conditional</div>
-      <div>Goal: <span id="targetLabel">25</span> in a row</div>
+  <!-- FEEDBACK OVERLAY -->
+  <div id="feedbackOverlay" class="overlay hidden" aria-hidden="true">
+    <div class="overlayContent">
+      <h2 id="feedbackTitle">Feedback</h2>
+      <p id="feedbackText"></p>
+      <button id="closeFeedbackBtn" class="mainBtn">Continue</button>
     </div>
   </div>
 
-  <!-- Teacher modal -->
-  <div class="teacherModalOverlay" id="teacherModalOverlay" aria-hidden="true">
-    <div class="teacherModal" role="dialog" aria-modal="true" aria-label="Teacher controls">
-      <h2>Teacher controls</h2>
-
-      <div class="inputRow">
-        <label for="studentName">Student name</label>
-        <input id="studentName" type="text" placeholder="E.g., Laura">
-      </div>
-
-      <div class="inputRow">
-        <label for="targetStreak">Target streak</label>
-        <input id="targetStreak" type="number" value="25" disabled>
-      </div>
-
-      <div class="controlsBtns">
-        <button id="startBtn" class="btnPrimary" type="button">START</button>
-        <button id="resetBtn" class="btnSecondary" type="button">RESET</button>
-      </div>
-
-      <div class="toggles">
-        <label><input id="soundToggle" type="checkbox" checked> SFX</label>
-        <label><input id="musicToggle" type="checkbox" checked> Music</label>
-        <label title="Auto moves to the next question after feedback">
-          <input id="autoNextToggle" type="checkbox" checked> Auto-next
-        </label>
-      </div>
-
-      <div class="teacherBox">
-        <h3>Teacher snapshot</h3>
-        <div class="small" id="weakText">Start the game to see weak areas.</div>
-        <div style="height:8px"></div>
-        <div class="small"><b>Progress</b></div>
-        <div class="bar"><i id="tBar"></i></div>
-        <div class="small" id="tBarLabel" style="margin-top:6px">0 / 25</div>
-      </div>
-
-      <div class="teacherBox">
-        <h3>Google Sheets</h3>
-        <div class="small">
-          Stats-only send on WIN or when you press the button.
-        </div>
-        <button id="sendStatsBtn" class="btnSecondary" type="button" style="width:100%;margin-top:8px">Send stats now</button>
-        <div class="small" id="sendMsg" style="margin-top:6px;color:rgba(244,247,255,.8)"></div>
-      </div>
-
-      <button id="closeTeacher" class="btnSecondary" type="button" style="width:100%;margin-top:4px">Close</button>
+  <!-- CELEBRATION OVERLAY -->
+  <div id="celebrationOverlay" class="overlay hidden" aria-hidden="true">
+    <div class="overlayContent">
+      <h2>🎉 Amazing! 🎉</h2>
+      <p>You reached a streak of 25!</p>
+      <button id="closeCelebrationBtn" class="mainBtn">Keep Going</button>
     </div>
   </div>
 
-  <!-- Feedback overlay -->
-  <div id="feedbackOverlay" class="fbOverlay" aria-hidden="true">
-    <div class="fbCard">
-      <div class="fbTop">
-        <div class="fbIcon" id="fbIcon">✅</div>
-        <h3 class="fbTitle" id="fbTitle">Nice!</h3>
-      </div>
-      <div class="fbSub" id="fbSub">Keep it going.</div>
-      <div class="fbDetail" id="fbDetail"></div>
-      <div class="fbBtnRow">
-        <button class="fbBtn" id="fbCloseBtn" type="button">Close</button>
-        <button class="fbBtn primary" id="fbNextBtn" type="button">Next</button>
-      </div>
+  <!-- TEACHER LOGIN MODAL -->
+  <div id="teacherLogin" class="overlay hidden" aria-hidden="true">
+    <div class="overlayContent small">
+      <h2>Teacher Access</h2>
+      <input id="teacherCodeInput" type="password" placeholder="Enter code" inputmode="numeric" />
+      <button id="teacherCodeBtn" class="mainBtn">Enter</button>
+      <button id="closeTeacherLogin" class="secondaryBtn">Cancel</button>
     </div>
   </div>
 
-  <!-- Celebration -->
-  <div id="celebration" class="celebration-overlay" aria-hidden="true">
-    <div class="celebration-card">
-      <div class="celebration-title">Perfect streak! 🏆</div>
-      <div class="celebration-sub" id="celebrationSub">You reached 25 correct answers in a row.</div>
-      <div class="celebration-actions">
-        <button id="celebrationSend" class="btnPrimary" style="width:auto;padding:12px 18px">Send stats</button>
-        <button id="celebrationRestart" class="btnSecondary" style="width:auto;padding:12px 18px">Restart</button>
-      </div>
+  <!-- TEACHER PANEL -->
+  <div id="teacherPanel" class="overlay hidden" aria-hidden="true">
+    <div class="overlayContent">
+      <h2>Teacher Panel</h2>
+
+      <button id="teacherStartBtn" class="mainBtn">Start Round</button>
+      <button id="teacherResetBtn" class="secondaryBtn">Reset Game</button>
+
+      <label class="toggleRow">
+        <input type="checkbox" id="autoNextToggle" />
+        Auto-next
+      </label>
+
+      <label class="toggleRow">
+        <input type="checkbox" id="musicToggle" checked />
+        Music
+      </label>
+
+      <label class="toggleRow">
+        <input type="checkbox" id="sfxToggle" checked />
+        Sound Effects
+      </label>
+
+      <button id="sendStatsBtn" class="mainBtn">Send Stats Now</button>
+      <button id="closeTeacherPanel" class="secondaryBtn">Close</button>
+
+      <p style="opacity:.85;margin-top:12px;">Teacher code: <strong>1362</strong></p>
     </div>
   </div>
 
-  <!-- Background music -->
-  <audio id="bgMusic" src="audio/koala2.mp3" preload="auto" loop></audio>
+  <!-- AUDIO ELEMENTS -->
+  <!-- Put these files next to index.html or adjust src paths -->
+  <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
+  <audio id="correctSound" src="correct.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="wrong.mp3" preload="auto"></audio>
+  <audio id="celebrationSound" src="celebration.mp3" preload="auto"></audio>
 
-<script>
-/* CONFIG */
-const TARGET_STREAK = 25;
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
+  <script>
+  (() => {
+    "use strict";
 
-/* MEANINGS */
-const MEANINGS = [
-  { key:"prediction",  icon:"🔮", cls:"c1", title:"Prediction / opinion" },
-  { key:"instant",     icon:"🤝", cls:"c2", title:"Offer / promise / decision now" },
-  { key:"plan",        icon:"🧭", cls:"c3", title:"Plan / intention" },
-  { key:"arrangement", icon:"📅", cls:"c4", title:"Arrangement" },
-  { key:"timetable",   icon:"🚉", cls:"c5", title:"Timetable / schedule" },
-  { key:"first_cond",  icon:"⚡", cls:"c6", title:"First conditional" }
-];
+    /* =========================================================
+       CONFIG
+    ========================================================= */
+    const GOOGLE_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // optional
+    const STREAK_TARGET = 25;
 
-const FORM_BY_MEANING = {
-  prediction:"will",
-  instant:"will",
-  plan:"be going to",
-  arrangement:"present continuous",
-  timetable:"present simple",
-  first_cond:"first conditional"
-};
+    /* =========================================================
+       SENTENCES (FROM YOUR BANKS)
+       6 categories × 21 sentences (PS/PC × aff/neg/int)
+    ========================================================= */
+    const BANKS = {
+      PS_aff: [
+        "She usually walks to school.",
+        "He plays the guitar every afternoon.",
+        "They enjoy quiet mornings together.",
+        "My cat sleeps on my backpack.",
+        "I like how this coffee smells.",
+        "We read the newspaper every morning.",
+        "The bus arrives at eight o'clock.",
+        "Tom studies French at university.",
+        "Anna works in a small bakery.",
+        "Birds fly south in winter.",
+        "The shop opens at nine every day.",
+        "He drinks green tea after lunch.",
+        "Students practice vocabulary every evening.",
+        "She always helps her neighbors.",
+        "The sun rises in the east.",
+        "He writes emails every morning.",
+        "We celebrate birthdays with cake.",
+        "The teacher explains the lesson clearly.",
+        "She takes the dog for a walk daily.",
+        "They visit the museum on weekends.",
+        "My brother cooks dinner on Fridays."
+      ],
+      PS_neg: [
+        "She doesn't like cold pizza.",
+        "They don't study on Sundays.",
+        "He does not enjoy long movies.",
+        "I don't drink soda anymore.",
+        "The cat doesn't sleep in its bed.",
+        "We don't watch TV at night.",
+        "He doesn't own a car.",
+        "She does not eat meat.",
+        "They don't arrive early.",
+        "I don't understand this word.",
+        "She doesn't answer her phone often.",
+        "We don't use that old computer anymore.",
+        "He doesn't believe the rumor.",
+        "They don't accept late homework.",
+        "I don't remember his name.",
+        "She doesn't drive to work.",
+        "He doesn't like loud music.",
+        "We don't go out when it rains.",
+        "The store doesn't open on Sundays.",
+        "He doesn't speak Spanish.",
+        "They don't play video games on school nights."
+      ],
+      PS_int: [
+        "Do you like spicy food?",
+        "Does she play the violin?",
+        "Do they live near here?",
+        "Does he enjoy swimming?",
+        "Do we have class today?",
+        "Do you speak English?",
+        "Does it rain a lot here?",
+        "Do they know the answer?",
+        "Does she work on Saturdays?",
+        "Do I need to bring a book?",
+        "Do you usually study in the morning?",
+        "Does he visit his grandparents every week?",
+        "Do they play chess after school?",
+        "Does she cook for the family?",
+        "Do we meet at the library?",
+        "Do you understand the instructions?",
+        "Does he take the train to work?",
+        "Do they practice every day?",
+        "Does she prefer tea or coffee?",
+        "Do I have to finish this today?",
+        "Do you remember the homework?"
+      ],
+      PC_aff: [
+        "She's studying English right now.",
+        "They are cooking dinner together.",
+        "He's drawing a robot at the moment.",
+        "I'm listening to music.",
+        "We're walking to the bus stop.",
+        "She is reading a new novel.",
+        "They are playing football in the park.",
+        "He is fixing his bicycle.",
+        "I'm watching a documentary.",
+        "We are preparing for the exam.",
+        "She is practicing the piano this afternoon.",
+        "They are building a model in the workshop.",
+        "He is cleaning his room right now.",
+        "I'm checking my email at the moment.",
+        "We are learning a new song today.",
+        "She is talking on the phone now.",
+        "They are planting flowers in the garden.",
+        "He is making a sandwich right now.",
+        "I'm writing my notes at the moment.",
+        "We are working on our project today.",
+        "She is waiting for the bus right now."
+      ],
+      PC_neg: [
+        "She isn't sleeping at the moment.",
+        "They aren't watching TV right now.",
+        "He is not studying today.",
+        "I'm not feeling well right now.",
+        "We aren't going out tonight.",
+        "She isn't using her laptop now.",
+        "They are not listening to the teacher.",
+        "He isn't playing football today.",
+        "I'm not working on that task right now.",
+        "We are not talking about that now.",
+        "She isn't wearing her jacket today.",
+        "They aren't doing their homework at the moment.",
+        "He is not driving right now.",
+        "I'm not texting anyone right now.",
+        "We aren't waiting anymore.",
+        "She isn't smiling today.",
+        "They are not cleaning the classroom now.",
+        "He isn't helping right now.",
+        "I'm not eating at the moment.",
+        "We aren't practicing today.",
+        "She isn't studying right now."
+      ],
+      PC_int: [
+        "Are you studying right now?",
+        "Is she working today?",
+        "Are they playing outside?",
+        "Is he watching TV at the moment?",
+        "Are we meeting after school?",
+        "Are you listening to me?",
+        "Is it raining right now?",
+        "Are they using their phones?",
+        "Is she taking notes now?",
+        "Am I doing this correctly?",
+        "Are you working on the project?",
+        "Is he wearing his uniform today?",
+        "Are they preparing for the test?",
+        "Is she talking too loudly?",
+        "Are we waiting for the bus?",
+        "Are you learning new vocabulary today?",
+        "Is he fixing his bike right now?",
+        "Are they studying in the library?",
+        "Is she writing an email now?",
+        "Are we doing the activity right now?",
+        "Are you feeling tired today?"
+      ]
+    };
 
-/* BANKS */
-const BANKS = {
-  prediction: [
-    "I think it will rain later.",
-    "I’m sure you’ll love the festival.",
-    "The trip will be amazing.",
-    "I don’t think the museum will be boring.",
-    "People will probably buy tickets online.",
-    "I don’t think we’ll miss the plane.",
-    "It won’t be easy to find a hotel tonight.",
-    "She won’t enjoy that scary ride.",
-    "They won’t be late, I’m sure.",
-    "It won’t cost much.",
-    "Do you think it will be crowded?",
-    "Will you enjoy mountain biking?",
-    "Do you think they’ll come with us?",
-    "Will it be cheaper if we pay today?",
-    "Do you think she’ll recommend that place?"
-  ],
-  instant: [
-    "I’ll help you with your brochure.",
-    "I’ll carry your bag.",
-    "Don’t worry — I’ll send you the photo.",
-    "Okay, I’ll buy the tickets now.",
-    "I’ll call you tonight.",
-    "I won’t forget to message you.",
-    "I won’t be late — I promise.",
-    "I won’t tell anyone.",
-    "I won’t do that again.",
-    "I won’t leave without you.",
-    "Shall I book the tour for you?",
-    "Will you help me with this sentence?",
-    "Will you send me the link?",
-    "Shall we meet at the station?",
-    "Will you hold my place in the queue?"
-  ],
-  plan: [
-    "I’m going to visit the aquarium tomorrow.",
-    "We’re going to explore the peninsula next weekend.",
-    "She’s going to buy a new backpack.",
-    "They’re going to try canyoning this summer.",
-    "I’m going to write an announcement.",
-    "I’m not going to stay at home this weekend.",
-    "He isn’t going to do bungee-jumping.",
-    "They aren’t going to travel abroad this year.",
-    "We’re not going to miss the parade.",
-    "She isn’t going to buy that expensive ticket.",
-    "Are you going to visit London?",
-    "Is he going to go sightseeing tomorrow?",
-    "Are they going to book a package tour?",
-    "Are we going to meet at the café?",
-    "Is she going to write to you later?"
-  ],
-  arrangement: [
-    "We’re meeting at the station at 10.",
-    "I’m having lunch with Sam tomorrow.",
-    "She’s travelling to Greece on Friday.",
-    "They’re staying in a hostel tonight.",
-    "We’re going kayaking this afternoon.",
-    "I’m not seeing him this evening.",
-    "They aren’t coming to the museum with us.",
-    "She isn’t meeting the group today.",
-    "We’re not leaving at six — we’re leaving at seven.",
-    "He isn’t joining the tour tomorrow.",
-    "Are you meeting your friends later?",
-    "Is she coming to the parade today?",
-    "Are they flying to Rome on Monday?",
-    "Are we having dinner at your house tonight?",
-    "Is he staying with his grandparents this weekend?"
-  ],
-  timetable: [
-    "The train leaves from platform 2.",
-    "The museum opens at nine.",
-    "The bus arrives at 8:15.",
-    "The tour starts at 11:00.",
-    "The festival takes place in August.",
-    "The shop doesn’t open on Sundays.",
-    "The tour doesn’t include lunch.",
-    "The train doesn’t stop here.",
-    "The museum doesn’t close at five today.",
-    "The bus doesn’t leave from this stop.",
-    "Does the train leave at 3 p.m.?",
-    "What time does the castle open?",
-    "Does the tour start at ten?",
-    "When does the plane land?",
-    "Does the museum close early on Mondays?"
-  ],
-  first_cond: [
-    "If it rains, we’ll stay at home.",
-    "If we miss the plane, we’ll get a taxi.",
-    "If you buy tickets online, you won’t have to wait outside.",
-    "If we have time, we’ll visit the temple.",
-    "If she studies, she’ll pass the test.",
-    "If you don’t go now, you’ll miss the parade.",
-    "If we don’t leave early, we won’t get good seats.",
-    "If he doesn’t bring his map, he’ll get lost.",
-    "If they don’t book soon, they won’t find a hotel.",
-    "If I don’t have money, I won’t buy it.",
-    "If it rains, will you still go out?",
-    "What will you do if you miss the bus?",
-    "Will we get a discount if we pay before July?",
-    "If she loses her passport, what will she do?",
-    "If you don’t like it, will you tell me?"
-  ]
-};
+    const BANK_META = [
+      { key:"PS_aff", meaningType:"ps_aff", meaningLabel:"habit/routine or general fact", grammarLabel:"Present Simple — affirmative" },
+      { key:"PS_neg", meaningType:"ps_neg", meaningLabel:"a negative habit/fact (it doesn't happen)", grammarLabel:"Present Simple — negative" },
+      { key:"PS_int", meaningType:"ps_int", meaningLabel:"a question about a habit/fact", grammarLabel:"Present Simple — question" },
+      { key:"PC_aff", meaningType:"pc_aff", meaningLabel:"happening now / around now", grammarLabel:"Present Continuous — affirmative" },
+      { key:"PC_neg", meaningType:"pc_neg", meaningLabel:"NOT happening now", grammarLabel:"Present Continuous — negative" },
+      { key:"PC_int", meaningType:"pc_int", meaningLabel:"a question about what is happening now", grammarLabel:"Present Continuous — question" }
+    ];
 
-/* STATE */
-const el = id => document.getElementById(id);
-const state = {
-  running:false,
-  streak:0,
-  score:0,
-  seconds:0,
-  timer:null,
-  locked:false,
-  stats:Object.fromEntries(MEANINGS.map(m=>[m.key,{attempts:0,correct:0,wrong:0}])),
-  recent:Object.fromEntries(MEANINGS.map(m=>[m.key,[]])),
-  round:null,
-  bestStreak:0,
-  log:[]
-};
+    /* =========================================================
+       BUILD QUESTION_BANK automatically from BANKS
+    ========================================================= */
+    function buildQuestionBank() {
+      const bank = [];
 
-/* AUDIO */
-const bgMusic = el("bgMusic");
-function blip(ok){
-  if(!el("soundToggle").checked) return;
-  try{
-    const ctx = new (window.AudioContext||window.webkitAudioContext)();
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.type="sine";
-    o.frequency.value = ok ? 720 : 220;
-    g.gain.value = 0.06;
-    o.start();
-    setTimeout(()=>{o.stop();ctx.close();}, ok?110:150);
-  }catch(e){}
-}
+      const certaintyOrdering = {
+        prompt: "Order these from MOST certain → LEAST certain (click in order):",
+        items: ["definitely", "probably", "maybe", "unlikely"],
+        correctOrder: ["definitely", "probably", "maybe", "unlikely"]
+      };
 
-/* UI */
-function updateHeader(){
-  el("scoreBox").textContent = `Score: ${state.score}`;
-  el("timerBox").textContent = `Time: ${state.seconds}s`;
-  el("streakBox").textContent = `Streak: ${state.streak}`;
-  el("targetLabel").textContent = TARGET_STREAK;
-  const pct = Math.max(0,Math.min(100,Math.round((state.streak/TARGET_STREAK)*100)));
-  el("tBar").style.width = `${pct}%`;
-  el("tBarLabel").textContent = `${state.streak} / ${TARGET_STREAK}`;
-}
-function updateProgress(){
-  const pct = Math.max(0,Math.min(100,Math.round((state.streak/TARGET_STREAK)*100)));
-  el("progressBar").style.width = `${pct}%`;
-  el("progressLabel").textContent = `Goal progress: ${state.streak} / ${TARGET_STREAK} (${pct}%)`;
-  if(state.running && state.streak>0 && state.streak<TARGET_STREAK) el("progressBar").classList.add("moving");
-  else el("progressBar").classList.remove("moving");
-}
-function setCard(label,text){
-  el("cardLabel").textContent = label;
-  el("cardText").textContent = text;
-}
+      const matchingTemplate = {
+        prompt: "Match meaning ↔ grammar (click a meaning, then a grammar):",
+        pairs: [
+          { left: "Habit / routine", right: "Present Simple" },
+          { left: "Happening now", right: "Present Continuous" },
+          { left: "Negative statement", right: "Negative form (don’t / isn’t)" },
+          { left: "Question", right: "Question form (Do/Does/Are/Is)" }
+        ]
+      };
 
-/* HELPERS */
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-  return a;
-}
-function pickSentenceNoRepeat(meaningKey){
-  const bank = BANKS[meaningKey];
-  const memory = state.recent[meaningKey] || [];
-  for(let tries=0;tries<12;tries++){
-    const s = bank[Math.floor(Math.random()*bank.length)];
-    if(!memory.includes(s)) return s;
-  }
-  return bank[Math.floor(Math.random()*bank.length)];
-}
-function rememberSentence(meaningKey,sentence){
-  const q = state.recent[meaningKey] || [];
-  q.unshift(sentence);
-  while(q.length>8) q.pop();
-  state.recent[meaningKey]=q;
-}
+      const grammarOptions = [
+        "Present Simple — affirmative",
+        "Present Simple — negative",
+        "Present Simple — question",
+        "Present Continuous — affirmative",
+        "Present Continuous — negative",
+        "Present Continuous — question"
+      ];
 
-/* ADAPTIVE */
-function weightForMeaning(key){
-  const st = state.stats[key];
-  const attempts = st.attempts||0;
-  const acc = attempts ? (st.correct/attempts) : 0.65;
-  let w = 1.0;
-  if(attempts===0) w += 1.2;
-  w += (1-acc)*2.0;
-  w += (st.wrong)*0.10;
-  return w;
-}
-function pickMeaningAdaptive(){
-  const weights = MEANINGS.map(m=>({key:m.key,w:weightForMeaning(m.key)}));
-  const total = weights.reduce((s,x)=>s+x.w,0);
-  let r = Math.random()*total;
-  for(const item of weights){
-    if(r<item.w) return item.key;
-    r -= item.w;
-  }
-  return MEANINGS[0].key;
-}
+      for (const meta of BANK_META) {
+        const sentences = BANKS[meta.key] || [];
+        for (const sentence of sentences) {
+          const meaningCorrect = `The speaker means: ${meta.meaningLabel}.`;
 
-/* ROUND */
-function startRound(){
-  if(!state.running) return;
-  state.locked=false;
+          // 3 distractors (stable + simple)
+          const distractors = [
+            "The speaker means: it happened in the past.",
+            "The speaker means: it will happen in the future.",
+            "The speaker means: it is happening right now."
+          ];
 
-  const meaningKey = pickMeaningAdaptive();
-  const sentence = pickSentenceNoRepeat(meaningKey);
-  rememberSentence(meaningKey,sentence);
-  state.round = {meaningKey,sentence};
+          // Adjust distractors a bit so PS/PC feels sensible
+          // (still always 4 options)
+          let options = [meaningCorrect];
+          if (meta.key.startsWith("PS_")) {
+            options = options.concat([
+              "The speaker means: it is happening right now.",
+              "The speaker means: it happened yesterday.",
+              "The speaker means: it will happen tomorrow."
+            ]);
+          } else {
+            options = options.concat([
+              "The speaker means: it is a habit/routine.",
+              "The speaker means: it happened yesterday.",
+              "The speaker means: it will happen tomorrow."
+            ]);
+          }
 
-  setCard("Read",sentence);
-  el("meaningPrompt").textContent = "Question: What is the speaker’s intended meaning?";
-
-  renderOptions();
-}
-function renderOptions(){
-  const optionsEl = el("options");
-  optionsEl.innerHTML = "";
-
-  const correctKey = state.round.meaningKey;
-  const correctMeaning = MEANINGS.find(m=>m.key===correctKey);
-
-  const distractors = shuffle(MEANINGS.filter(m=>m.key!==correctKey)).slice(0,3);
-  const allOptions = shuffle([correctMeaning,...distractors]);
-
-  allOptions.forEach(m=>{
-    const btn = document.createElement("button");
-    btn.type="button";
-    btn.className = `choiceCard ${m.cls}`;
-    btn.setAttribute("data-key",m.key);
-
-    const icon = document.createElement("div");
-    icon.className="choiceIcon";
-    icon.textContent = m.icon;
-
-    const text = document.createElement("div");
-    text.className="choiceText";
-    text.textContent = m.title;
-
-    btn.appendChild(icon);
-    btn.appendChild(text);
-
-    btn.addEventListener("click",()=>handleAnswer(m.key));
-    optionsEl.appendChild(btn);
-  });
-}
-
-/* WEAK AREA */
-function updateWeakArea(){
-  const entries = Object.entries(state.stats);
-  if(!entries.length){el("weakText").textContent="Not enough data yet.";return;}
-  let weakest=null;
-  for(const [key,st] of entries){
-    if(st.attempts===0) continue;
-    const acc = st.correct/st.attempts;
-    if(!weakest || acc<weakest.acc){
-      weakest={key,acc,st};
-    }
-  }
-  if(!weakest){
-    el("weakText").textContent="Not enough data yet. Keep playing.";
-    return;
-  }
-  const meaning = MEANINGS.find(m=>m.key===weakest.key);
-  const pct = Math.round(weakest.acc*100);
-  el("weakText").textContent = `Weakest area: ${meaning.title} (${pct}% correct, ${weakest.st.wrong} wrong)`;
-}
-
-/* FEEDBACK */
-function showFeedback(correct,chosenKey){
-  const overlay = el("feedbackOverlay");
-  const icon = el("fbIcon");
-  const title = el("fbTitle");
-  const sub = el("fbSub");
-  const detail = el("fbDetail");
-
-  const round = state.round;
-  const correctMeaning = MEANINGS.find(m=>m.key===round.meaningKey);
-  const chosenMeaning = MEANINGS.find(m=>m.key===chosenKey);
-  const form = FORM_BY_MEANING[round.meaningKey];
-
-  if(correct){
-    icon.textContent="✅";
-    title.textContent="Nice!";
-    sub.textContent="You chose the correct meaning.";
-  }else{
-    icon.textContent="❌";
-    title.textContent="Not this time.";
-    sub.textContent="Look at the meaning and form.";
-  }
-
-  let detailText = `Sentence:\n${round.sentence}\n\nIntended meaning: ${correctMeaning.title}\nTypical form: ${form}`;
-  if(!correct){
-    detailText += `\n\nYou chose: ${chosenMeaning.title}`;
-  }
-  detail.textContent = detailText;
-
-  overlay.classList.add("show");
-  overlay.setAttribute("aria-hidden","false");
-
-  const autoNext = el("autoNextToggle").checked;
-  if(autoNext){
-    setTimeout(()=>{
-      hideFeedback();
-      if(state.running) startRound();
-    }, correct?900:1300);
-  }
-}
-function hideFeedback(){
-  const overlay = el("feedbackOverlay");
-  overlay.classList.remove("show");
-  overlay.setAttribute("aria-hidden","true");
-}
-
-/* ANSWER */
-function handleAnswer(chosenKey){
-  if(!state.running || state.locked || !state.round) return;
-  state.locked=true;
-
-  const correctKey = state.round.meaningKey;
-  const correct = (chosenKey===correctKey);
-
-  const st = state.stats[correctKey];
-  st.attempts++;
-  if(correct) st.correct++; else st.wrong++;
-
-  state.score++;
-  if(correct){
-    state.streak++;
-    state.bestStreak = Math.max(state.bestStreak,state.streak);
-    blip(true);
-  }else{
-    state.streak=0;
-    blip(false);
-  }
-
-  state.log.push({
-    time:Date.now(),
-    sentence:state.round.sentence,
-    meaning:correctKey,
-    chosen:chosenKey,
-    correct
-  });
-
-  updateHeader();
-  updateProgress();
-  updateWeakArea();
-  showFeedback(correct,chosenKey);
-
-  if(state.streak>=TARGET_STREAK){
-    endGame(true);
-  }
-}
-
-/* TIMER */
-function startTimer(){
-  if(state.timer) clearInterval(state.timer);
-  state.timer = setInterval(()=>{
-    state.seconds++;
-    el("timerBox").textContent = `Time: ${state.seconds}s`;
-  },1000);
-}
-function stopTimer(){
-  if(state.timer){
-    clearInterval(state.timer);
-    state.timer=null;
-  }
-}
-
-/* GAME CONTROL */
-function resetState(keepBest=false){
-  state.running=false;
-  state.streak=0;
-  state.score=0;
-  state.seconds=0;
-  state.round=null;
-  state.locked=false;
-  if(!keepBest) state.bestStreak=0;
-  state.stats = Object.fromEntries(MEANINGS.map(m=>[m.key,{attempts:0,correct:0,wrong:0}]));
-  state.recent = Object.fromEntries(MEANINGS.map(m=>[m.key,[]]));
-  state.log=[];
-}
-function startGame(){
-  const name = el("studentName").value.trim();
-  el("playerName").textContent = name || "—";
-
-  resetState(true);
-  state.running=true;
-  state.seconds=0;
-
-  updateHeader();
-  updateProgress();
-  updateWeakArea();
-  setCard("Ready","Read the sentence and choose the intended meaning.");
-  startTimer();
-
-  if(el("musicToggle").checked){
-    bgMusic.volume=0.4;
-    bgMusic.play().catch(()=>{});
-  }
-
-  startRound();
-}
-function endGame(perfect=false){
-  state.running=false;
-  stopTimer();
-  el("progressBar").classList.remove("moving");
-  if(perfect){
-    const c = el("celebration");
-    el("celebrationSub").textContent = `You reached ${TARGET_STREAK} correct answers in a row.`;
-    c.style.display="flex";
-    c.setAttribute("aria-hidden","false");
-  }
-}
-function hardReset(){
-  stopTimer();
-  resetState(false);
-  updateHeader();
-  updateProgress();
-  updateWeakArea();
-  setCard("Reset","Type 1362 (teacher) and press START to begin a new game.");
-}
-
-/* STATS SEND */
-async function sendStats(){
-  const name = el("studentName").value.trim() || "Unknown";
-  const payload = {
-    name,
-    streak:state.streak,
-    bestStreak:state.bestStreak,
-    score:state.score,
-    seconds:state.seconds,
-    stats:state.stats,
-    timestamp:new Date().toISOString()
-  };
-  el("sendMsg").textContent="Sending…";
-  try{
-    const res = await fetch(APPS_SCRIPT_URL,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
-    if(!res.ok) throw new Error("Network error");
-    el("sendMsg").textContent="Stats sent ✔";
-  }catch(e){
-    el("sendMsg").textContent="Could not send stats.";
-  }
-}
-
-/* SECRET TEACHER CODE 1362 */
-(function(){
-  const SECRET_CODE = "1362";
-  let buffer = "";
-  window.addEventListener("keydown",(e)=>{
-    if(!/^[0-9]$/.test(e.key)) return;
-    buffer += e.key;
-    if(buffer.length>SECRET_CODE.length){
-      buffer = buffer.slice(-SECRET_CODE.length);
-    }
-    if(buffer===SECRET_CODE){
-      const overlay = el("teacherModalOverlay");
-      const visible = overlay.classList.contains("show");
-      if(visible){
-        overlay.classList.remove("show");
-        overlay.setAttribute("aria-hidden","true");
-      }else{
-        overlay.classList.add("show");
-        overlay.setAttribute("aria-hidden","false");
+          bank.push({
+            sentence,
+            meaning: {
+              type: meta.meaningType,
+              prompt: "What is the speaker's intended meaning?",
+              correct: meaningCorrect,
+              options
+            },
+            grammar: {
+              prompt: "Which grammar label fits best?",
+              correct: meta.grammarLabel,
+              options: pick4GrammarOptions(meta.grammarLabel, grammarOptions)
+            },
+            ordering: certaintyOrdering,
+            matching: matchingTemplate
+          });
+        }
       }
-      buffer="";
+      return bank;
     }
-  });
-})();
 
-/* EVENTS */
-window.addEventListener("DOMContentLoaded",()=>{
-  const teacherOverlay = el("teacherModalOverlay");
-
-  el("closeTeacher").addEventListener("click",()=>{
-    teacherOverlay.classList.remove("show");
-    teacherOverlay.setAttribute("aria-hidden","true");
-  });
-  teacherOverlay.addEventListener("click",(e)=>{
-    if(e.target===teacherOverlay){
-      teacherOverlay.classList.remove("show");
-      teacherOverlay.setAttribute("aria-hidden","true");
+    function pick4GrammarOptions(correctLabel, all) {
+      const pool = all.filter(x => x !== correctLabel);
+      // take 3 random distractors + correct
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      return [correctLabel, pool[0], pool[1], pool[2]];
     }
-  });
 
-  el("startBtn").addEventListener("click",()=>{
-    teacherOverlay.classList.remove("show");
-    teacherOverlay.setAttribute("aria-hidden","true");
-    startGame();
-  });
-  el("resetBtn").addEventListener("click",()=>hardReset());
+    const QUESTION_BANK = buildQuestionBank();
 
-  el("musicToggle").addEventListener("change",()=>{
-    if(el("musicToggle").checked){
-      bgMusic.volume=0.4;
-      bgMusic.play().catch(()=>{});
-    }else{
-      bgMusic.pause();
+    /* =========================================================
+       DOM
+    ========================================================= */
+    const $ = (s) => document.querySelector(s);
+
+    const el = {
+      nameScreen: $("#nameScreen"),
+      gameScreen: $("#gameScreen"),
+
+      studentNameInput: $("#studentNameInput"),
+      startNameBtn: $("#startNameBtn"),
+
+      teacherBtn: $("#teacherBtn"),
+
+      scoreBox: $("#scoreBox"),
+      streakBox: $("#streakBox"),
+      bestBox: $("#bestBox"),
+
+      sentenceText: $("#sentenceText"),
+      questionPrompt: $("#questionPrompt"),
+      stepLabel: $("#stepLabel"),
+
+      optionsContainer: $("#optionsContainer"),
+      nextBtn: $("#nextBtn"),
+
+      feedbackOverlay: $("#feedbackOverlay"),
+      feedbackTitle: $("#feedbackTitle"),
+      feedbackText: $("#feedbackText"),
+      closeFeedbackBtn: $("#closeFeedbackBtn"),
+
+      celebrationOverlay: $("#celebrationOverlay"),
+      closeCelebrationBtn: $("#closeCelebrationBtn"),
+
+      teacherLogin: $("#teacherLogin"),
+      teacherCodeInput: $("#teacherCodeInput"),
+      teacherCodeBtn: $("#teacherCodeBtn"),
+      closeTeacherLogin: $("#closeTeacherLogin"),
+
+      teacherPanel: $("#teacherPanel"),
+      teacherStartBtn: $("#teacherStartBtn"),
+      teacherResetBtn: $("#teacherResetBtn"),
+      autoNextToggle: $("#autoNextToggle"),
+      musicToggle: $("#musicToggle"),
+      sfxToggle: $("#sfxToggle"),
+      sendStatsBtn: $("#sendStatsBtn"),
+      closeTeacherPanel: $("#closeTeacherPanel"),
+
+      bgMusic: $("#bgMusic"),
+      correctSound: $("#correctSound"),
+      wrongSound: $("#wrongSound"),
+      celebrationSound: $("#celebrationSound")
+    };
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+    const state = {
+      studentName: "",
+      score: 0,
+      streak: 0,
+      bestStreak: 0,
+
+      currentBundle: null,
+      currentStep: 1,
+      stepPlan: [],
+
+      autoNext: false,
+      musicOn: true,
+      sfxOn: true,
+
+      weakAreas: {},
+      log: [],
+
+      questionStartMs: 0
+    };
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+    const nowISO = () => new Date().toISOString();
+
+    const shuffle = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const show = (node) => node && node.classList.remove("hidden");
+    const hide = (node) => node && node.classList.add("hidden");
+
+    function escapeHTML(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
     }
-  });
 
-  el("sendStatsBtn").addEventListener("click",()=>sendStats());
-  el("celebrationSend").addEventListener("click",()=>sendStats());
+    function setHUD() {
+      if (el.scoreBox) el.scoreBox.textContent = `Score: ${state.score}`;
+      if (el.streakBox) el.streakBox.textContent = `Streak: ${state.streak}`;
+      if (el.bestBox) el.bestBox.textContent = `Best: ${state.bestStreak}`;
+    }
 
-  el("celebrationRestart").addEventListener("click",()=>{
-    el("celebration").style.display="none";
-    el("celebration").setAttribute("aria-hidden","true");
-    startGame();
-  });
+    function setSentence(text) {
+      if (el.sentenceText) el.sentenceText.textContent = text || "";
+    }
 
-  el("fbCloseBtn").addEventListener("click",()=>hideFeedback());
-  el("fbNextBtn").addEventListener("click",()=>{
-    hideFeedback();
-    if(state.running) startRound();
-  });
+    function setPrompt(text) {
+      if (el.questionPrompt) el.questionPrompt.textContent = text || "";
+    }
 
-  updateHeader();
-  updateProgress();
-  updateWeakArea();
-});
-</script>
+    function setStepLabel() {
+      if (el.stepLabel) el.stepLabel.textContent = `Step ${state.currentStep}/3`;
+    }
+
+    function clearOptions() {
+      if (el.optionsContainer) el.optionsContainer.innerHTML = "";
+    }
+
+    function playSfx(kind) {
+      if (!state.sfxOn) return;
+      const a =
+        kind === "correct" ? el.correctSound :
+        kind === "wrong" ? el.wrongSound :
+        kind === "celebration" ? el.celebrationSound :
+        null;
+      if (!a) return;
+      try { a.currentTime = 0; a.play(); } catch (_) {}
+    }
+
+    function syncMusic() {
+      if (!el.bgMusic) return;
+      try {
+        el.bgMusic.loop = true;
+        if (state.musicOn) el.bgMusic.play().catch(() => {});
+        else el.bgMusic.pause();
+      } catch (_) {}
+    }
+
+    function savePrefs() {
+      try {
+        localStorage.setItem("future_game_prefs_v1", JSON.stringify({
+          autoNext: state.autoNext,
+          musicOn: state.musicOn,
+          sfxOn: state.sfxOn,
+          bestStreak: state.bestStreak
+        }));
+      } catch (_) {}
+    }
+
+    function loadPrefs() {
+      try {
+        const raw = localStorage.getItem("future_game_prefs_v1");
+        if (!raw) return;
+        const p = JSON.parse(raw);
+        if (typeof p.autoNext === "boolean") state.autoNext = p.autoNext;
+        if (typeof p.musicOn === "boolean") state.musicOn = p.musicOn;
+        if (typeof p.sfxOn === "boolean") state.sfxOn = p.sfxOn;
+        if (typeof p.bestStreak === "number") state.bestStreak = p.bestStreak;
+      } catch (_) {}
+    }
+
+    function bumpWeakAreas(type, correct) {
+      const key = type || "unknown";
+      if (!state.weakAreas[key]) state.weakAreas[key] = { correct: 0, total: 0 };
+      state.weakAreas[key].total += 1;
+      if (correct) state.weakAreas[key].correct += 1;
+    }
+
+    function logAnswer({ kind, meaningType, chosen, correctAnswer, correct }) {
+      const elapsedMs = Date.now() - (state.questionStartMs || Date.now());
+
+      if (correct) {
+        state.score += 1;
+        state.streak += 1;
+        state.bestStreak = Math.max(state.bestStreak, state.streak);
+      } else {
+        state.streak = 0;
+      }
+
+      bumpWeakAreas(meaningType, correct);
+
+      state.log.push({
+        studentName: state.studentName,
+        sentence: state.currentBundle?.sentence || "",
+        meaningType: meaningType || "unknown",
+        kind,
+        studentAnswer: chosen,
+        correctAnswer,
+        isCorrect: !!correct,
+        timeISO: nowISO(),
+        elapsedMs,
+        streakAfter: state.streak,
+        scoreAfter: state.score
+      });
+
+      setHUD();
+      savePrefs();
+    }
+
+    /* =========================================================
+       OVERLAYS
+    ========================================================= */
+    function showFeedback(title, text, isCorrect, afterClose) {
+      if (el.feedbackTitle) el.feedbackTitle.textContent = title || "Feedback";
+      if (el.feedbackText) el.feedbackText.textContent = text || "";
+      show(el.feedbackOverlay);
+      playSfx(isCorrect ? "correct" : "wrong");
+
+      const close = () => {
+        hide(el.feedbackOverlay);
+        el.closeFeedbackBtn?.removeEventListener("click", close);
+        if (state.autoNext) setTimeout(() => afterClose && afterClose(), 120);
+        else afterClose && afterClose();
+      };
+
+      el.closeFeedbackBtn?.addEventListener("click", close);
+    }
+
+    function showCelebration(afterClose) {
+      show(el.celebrationOverlay);
+      playSfx("celebration");
+
+      const close = () => {
+        hide(el.celebrationOverlay);
+        el.closeCelebrationBtn?.removeEventListener("click", close);
+        // Spec: reset streak to continue
+        state.streak = 0;
+        setHUD();
+        savePrefs();
+        afterClose && afterClose();
+      };
+
+      el.closeCelebrationBtn?.addEventListener("click", close);
+    }
+
+    function maybeCelebrateThen(next) {
+      if (state.streak >= STREAK_TARGET) showCelebration(next);
+      else next();
+    }
+
+    /* =========================================================
+       STEP PLAN (Step 1 meaning always)
+    ========================================================= */
+    function pickStepPlan() {
+      const combos = [
+        ["meaning", "grammar", "ordering"],
+        ["meaning", "ordering", "grammar"],
+        ["meaning", "grammar", "matching"],
+        ["meaning", "matching", "grammar"]
+      ];
+      return combos[Math.floor(Math.random() * combos.length)];
+    }
+
+    /* =========================================================
+       RENDER HELPERS
+    ========================================================= */
+    function renderOptionButtons(options, onPick) {
+      clearOptions();
+      const frag = document.createDocumentFragment();
+      options.slice(0, 4).forEach((opt) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "optionBtn";
+        btn.textContent = opt;
+        btn.addEventListener("click", () => onPick(opt));
+        frag.appendChild(btn);
+      });
+      el.optionsContainer?.appendChild(frag);
+    }
+
+    function arraysEqual(a, b) {
+      if (!Array.isArray(a) || !Array.isArray(b)) return false;
+      if (a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+      return true;
+    }
+
+    /* =========================================================
+       ENGINES
+    ========================================================= */
+    function renderMeaning() {
+      const q = state.currentBundle.meaning;
+      setPrompt(q.prompt || "What is the speaker's intended meaning?");
+      setStepLabel();
+
+      const opts = shuffle(q.options || []);
+      renderOptionButtons(opts, (chosen) => {
+        const correct = chosen === q.correct;
+
+        logAnswer({
+          kind: "meaning",
+          meaningType: q.type || "unknown",
+          chosen,
+          correctAnswer: q.correct,
+          correct
+        });
+
+        const msg = correct
+          ? "Correct!"
+          : `Not quite. Correct answer: "${q.correct}"`;
+
+        showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
+          maybeCelebrateThen(advanceStepOrFinish);
+        });
+      });
+    }
+
+    function renderGrammar() {
+      const q = state.currentBundle.grammar;
+      setPrompt(q.prompt || "Which grammar label fits best?");
+      setStepLabel();
+
+      const opts = shuffle(q.options || []);
+      renderOptionButtons(opts, (chosen) => {
+        const correct = chosen === q.correct;
+
+        logAnswer({
+          kind: "grammar",
+          meaningType: state.currentBundle.meaning?.type || "unknown",
+          chosen,
+          correctAnswer: q.correct,
+          correct
+        });
+
+        const msg = correct
+          ? "Correct!"
+          : `Not quite. Correct answer: "${q.correct}"`;
+
+        showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
+          maybeCelebrateThen(advanceStepOrFinish);
+        });
+      });
+    }
+
+    function renderOrdering() {
+      const q = state.currentBundle.ordering;
+      setPrompt(q.prompt || "Order these (click in order):");
+      setStepLabel();
+
+      clearOptions();
+      const picked = [];
+      const correctOrder = q.correctOrder || [];
+
+      const pickedBox = document.createElement("div");
+      pickedBox.className = "pickedBox";
+      pickedBox.innerHTML = `<div><strong>Your order:</strong></div><div id="pickedList"></div>`;
+      el.optionsContainer?.appendChild(pickedBox);
+      const pickedList = pickedBox.querySelector("#pickedList");
+
+      const refreshPicked = () => {
+        if (!pickedList) return;
+        pickedList.innerHTML = picked
+          .map((x, i) => `<span class="pill">${i + 1}. ${escapeHTML(x)}</span>`)
+          .join(" ");
+      };
+
+      const items = shuffle(q.items || []);
+      items.forEach((text) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "optionBtn";
+        btn.textContent = text;
+
+        btn.addEventListener("click", () => {
+          if (picked.includes(text)) return;
+          picked.push(text);
+          btn.disabled = true;
+          refreshPicked();
+
+          if (picked.length === 4) {
+            const correct = arraysEqual(picked, correctOrder);
+
+            logAnswer({
+              kind: "ordering",
+              meaningType: state.currentBundle.meaning?.type || "unknown",
+              chosen: picked.slice(),
+              correctAnswer: correctOrder.slice(),
+              correct
+            });
+
+            const msg = correct
+              ? "Correct!"
+              : `Not quite. Correct order: ${correctOrder.join(" → ")}`;
+
+            showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
+              maybeCelebrateThen(advanceStepOrFinish);
+            });
+          }
+        });
+
+        el.optionsContainer?.appendChild(btn);
+      });
+    }
+
+    function renderMatching() {
+      const q = state.currentBundle.matching;
+      setPrompt(q.prompt || "Match meaning ↔ grammar:");
+      setStepLabel();
+
+      clearOptions();
+
+      const pairs = q.pairs || [];
+      const lefts = shuffle(pairs.map(p => p.left));
+      const rights = shuffle(pairs.map(p => p.right));
+
+      const correctMap = new Map(pairs.map(p => [p.left, p.right]));
+      const chosenMap = new Map();
+      let selectedLeft = null;
+
+      const wrap = document.createElement("div");
+      wrap.className = "matchWrap";
+
+      const leftCol = document.createElement("div");
+      leftCol.className = "matchCol";
+      const rightCol = document.createElement("div");
+      rightCol.className = "matchCol";
+
+      wrap.appendChild(leftCol);
+      wrap.appendChild(rightCol);
+      el.optionsContainer?.appendChild(wrap);
+
+      function rerender() {
+        leftCol.innerHTML = `<div class="matchHead">Meaning</div>`;
+        rightCol.innerHTML = `<div class="matchHead">Grammar</div>`;
+
+        lefts.forEach((l) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "matchBtn";
+          btn.textContent = l;
+
+          if (chosenMap.has(l)) { btn.classList.add("paired"); btn.disabled = true; }
+          if (selectedLeft === l) btn.classList.add("selected");
+
+          btn.addEventListener("click", () => {
+            if (chosenMap.has(l)) return;
+            selectedLeft = l;
+            rerender();
+          });
+
+          leftCol.appendChild(btn);
+        });
+
+        rights.forEach((r) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "matchBtn";
+          btn.textContent = r;
+
+          if ([...chosenMap.values()].includes(r)) { btn.classList.add("paired"); btn.disabled = true; }
+
+          btn.addEventListener("click", () => {
+            if (!selectedLeft) return;
+            if ([...chosenMap.values()].includes(r)) return;
+            chosenMap.set(selectedLeft, r);
+            selectedLeft = null;
+            rerender();
+            if (chosenMap.size === 4) finish();
+          });
+
+          rightCol.appendChild(btn);
+        });
+      }
+
+      function finish() {
+        let correctCount = 0;
+        for (const [l, r] of chosenMap.entries()) {
+          if (correctMap.get(l) === r) correctCount++;
+        }
+        const correct = correctCount === 4;
+
+        logAnswer({
+          kind: "matching",
+          meaningType: state.currentBundle.meaning?.type || "unknown",
+          chosen: [...chosenMap.entries()],
+          correctAnswer: pairs.map(p => [p.left, p.right]),
+          correct
+        });
+
+        const msg = correct
+          ? "Correct!"
+          : `Not quite. You got ${correctCount}/4 correct.`;
+
+        showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
+          maybeCelebrateThen(advanceStepOrFinish);
+        });
+      }
+
+      rerender();
+    }
+
+    /* =========================================================
+       FLOW CONTROL
+    ========================================================= */
+    function renderCurrentStep() {
+      state.questionStartMs = Date.now();
+      setSentence(state.currentBundle?.sentence || "");
+      hide(el.nextBtn);
+
+      const stepType = state.stepPlan[state.currentStep - 1] || "meaning";
+      if (stepType === "meaning") renderMeaning();
+      else if (stepType === "grammar") renderGrammar();
+      else if (stepType === "ordering") renderOrdering();
+      else if (stepType === "matching") renderMatching();
+      else renderMeaning();
+    }
+
+    function advanceStepOrFinish() {
+      if (state.currentStep < 3) {
+        state.currentStep += 1;
+        renderCurrentStep();
+        return;
+      }
+      showFeedback("Round complete!", "Nice work. Click Next Round to continue.", true, () => {
+        show(el.nextBtn);
+      });
+    }
+
+    function startNewRound() {
+      if (!QUESTION_BANK.length) {
+        alert("QUESTION_BANK is empty.");
+        return;
+      }
+      state.currentBundle = QUESTION_BANK[Math.floor(Math.random() * QUESTION_BANK.length)];
+      state.stepPlan = pickStepPlan();
+      state.currentStep = 1;
+      renderCurrentStep();
+    }
+
+    /* =========================================================
+       TEACHER + STATS
+    ========================================================= */
+    function openTeacherLogin() {
+      show(el.teacherLogin);
+      if (el.teacherCodeInput) el.teacherCodeInput.value = "";
+      el.teacherCodeInput?.focus();
+    }
+    function closeTeacherLogin() { hide(el.teacherLogin); }
+
+    function openTeacherPanel() {
+      show(el.teacherPanel);
+      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
+      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
+      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
+    }
+    function closeTeacherPanel() { hide(el.teacherPanel); }
+
+    function teacherSubmit() {
+      const code = (el.teacherCodeInput?.value || "").trim();
+      if (code === "1362") {
+        closeTeacherLogin();
+        openTeacherPanel();
+      } else {
+        el.teacherCodeInput?.classList.remove("shake");
+        void el.teacherCodeInput?.offsetWidth;
+        el.teacherCodeInput?.classList.add("shake");
+      }
+    }
+
+    async function sendStatsNow() {
+      const payload = {
+        studentName: state.studentName,
+        summary: {
+          studentName: state.studentName,
+          score: state.score,
+          streak: state.streak,
+          bestStreak: state.bestStreak,
+          weakAreas: state.weakAreas,
+          sentAt: nowISO()
+        },
+        log: state.log
+      };
+
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")) {
+        alert("Add your GOOGLE_SCRIPT_URL in the script before sending stats.");
+        return;
+      }
+
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        alert("Stats sent successfully ✅");
+      } catch (err) {
+        console.error(err);
+        alert("Failed to send stats. Check Apps Script URL + permissions.");
+      }
+    }
+
+    function resetGame() {
+      state.score = 0;
+      state.streak = 0;
+      state.weakAreas = {};
+      state.log = [];
+      state.currentBundle = null;
+      state.currentStep = 1;
+      state.stepPlan = [];
+
+      setHUD();
+      setSentence("Sentence will appear here");
+      setPrompt("What is the speaker's intended meaning?");
+      if (el.stepLabel) el.stepLabel.textContent = "Step 1/3";
+      clearOptions();
+      hide(el.nextBtn);
+    }
+
+    /* =========================================================
+       EVENTS
+    ========================================================= */
+    function wireEvents() {
+      el.startNameBtn?.addEventListener("click", () => {
+        const name = (el.studentNameInput?.value || "").trim();
+        if (!name) { alert("Please enter your name."); return; }
+        state.studentName = name;
+
+        hide(el.nameScreen);
+        show(el.gameScreen);
+
+        setHUD();
+        syncMusic();
+        startNewRound();
+      });
+
+      el.studentNameInput?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") el.startNameBtn?.click();
+      });
+
+      el.nextBtn?.addEventListener("click", startNewRound);
+
+      el.teacherBtn?.addEventListener("click", openTeacherLogin);
+
+      el.closeTeacherLogin?.addEventListener("click", closeTeacherLogin);
+      el.teacherCodeBtn?.addEventListener("click", teacherSubmit);
+      el.teacherCodeInput?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") teacherSubmit();
+        if (e.key === "Escape") closeTeacherLogin();
+      });
+
+      el.teacherLogin?.addEventListener("click", (e) => {
+        if (e.target === el.teacherLogin) closeTeacherLogin();
+      });
+
+      el.teacherStartBtn?.addEventListener("click", startNewRound);
+      el.teacherResetBtn?.addEventListener("click", resetGame);
+
+      el.autoNextToggle?.addEventListener("change", (e) => {
+        state.autoNext = !!e.target.checked;
+        savePrefs();
+      });
+
+      el.musicToggle?.addEventListener("change", (e) => {
+        state.musicOn = !!e.target.checked;
+        savePrefs();
+        syncMusic();
+      });
+
+      el.sfxToggle?.addEventListener("change", (e) => {
+        state.sfxOn = !!e.target.checked;
+        savePrefs();
+      });
+
+      el.sendStatsBtn?.addEventListener("click", sendStatsNow);
+      el.closeTeacherPanel?.addEventListener("click", closeTeacherPanel);
+
+      el.teacherPanel?.addEventListener("click", (e) => {
+        if (e.target === el.teacherPanel) closeTeacherPanel();
+      });
+    }
+
+    /* =========================================================
+       18) INIT
+       Loads preferences, syncs music, sets HUD, wires events.
+    ========================================================= */
+    function init() {
+      loadPrefs();
+
+      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
+      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
+      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
+
+      syncMusic();
+      setHUD();
+      wireEvents();
+    }
+
+    // Start the engine
+    init();
+
+  })();  /* closes the entire IIFE wrapper */
+  </script>
 </body>
 </html>
+
 
