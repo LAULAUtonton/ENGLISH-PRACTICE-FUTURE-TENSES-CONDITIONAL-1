@@ -50,7 +50,7 @@ body{
   padding:12px;
 }
 
-/* ========= LAYOUT (NO CUT) ========= */
+/* ========= LAYOUT ========= */
 .container{
   width:min(var(--wMax), 100%);
   background:var(--panel);
@@ -60,7 +60,6 @@ body{
   border:1px solid var(--stroke);
   backdrop-filter: blur(10px);
 
-  /* fluid grid */
   display:grid;
   grid-template-columns: 1fr 320px;
   grid-template-rows: auto auto 1fr auto;
@@ -116,17 +115,45 @@ body{
 }
 .teacherToggle:hover{transform:translateY(-2px);filter:brightness(1.05)}
 
-/* Right panel (teacher) */
-.controlsPanel{
+/* Right placeholder panel (for layout only, optional text) */
+.placeholderPanel{
   grid-column:2/3; grid-row:1/4;
-  display:flex; flex-direction:column; gap:10px;
   padding:12px;
   border-radius:16px;
   border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-  overflow:visible;
+  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.03));
+  font-size:13px;
+  color:var(--mut);
 }
-.inputRow{display:flex;flex-direction:column;gap:6px}
+
+/* ========= TEACHER OVERLAY ========= */
+.teacherOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(2,8,23,.70);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9998;
+  padding:18px;
+}
+.teacherOverlay.show{
+  display:flex;
+}
+
+/* Teacher panel (now modal, not in grid) */
+.controlsPanel{
+  width:min(380px, 100%);
+  max-height:90vh;
+  overflow-y:auto;
+  padding:14px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  box-shadow:0 24px 70px rgba(0,0,0,.70);
+}
+.inputRow{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
 .inputRow label{font-weight:900;font-size:13px;color:var(--ink)}
 .inputRow input{
   border:1px solid rgba(255,255,255,.16);
@@ -140,7 +167,7 @@ body{
 .inputRow input::placeholder{color:rgba(244,247,255,.55)}
 .inputRow input:focus{border-color: rgba(255,79,216,.70); box-shadow:var(--focus);}
 
-.controlsBtns{display:flex;gap:10px}
+.controlsBtns{display:flex;gap:10px;margin:6px 0 10px}
 .btnPrimary,.btnSecondary{
   width:50%;
   border-radius:14px;
@@ -165,6 +192,7 @@ body{
 .toggles{
   display:flex; gap:10px; flex-wrap:wrap;
   font-size:13px;color:var(--mut);
+  margin-bottom:10px;
 }
 .toggles label{display:flex;gap:8px;align-items:center;cursor:pointer;user-select:none}
 
@@ -174,6 +202,7 @@ body{
   background:rgba(255,255,255,.05);
   border-radius:14px;
   padding:12px;
+  margin-bottom:10px;
 }
 .teacherBox h3{margin:0 0 8px; font-size:14px}
 .bar{
@@ -191,8 +220,8 @@ body{
 /* ========= GAME ========= */
 .game{
   grid-column:1/2; grid-row:3/4;
-  overflow:auto;     /* allow scroll if needed */
-  min-height:0;      /* important */
+  overflow:auto;
+  min-height:0;
 }
 .gameInner{
   width:100%;
@@ -353,7 +382,7 @@ body{
   font-weight:900;
 }
 
-/* Feedback overlay (shows AFTER answer only) */
+/* Feedback overlay */
 .fbOverlay{
   position:fixed;
   inset:0;
@@ -459,26 +488,24 @@ body{
   flex-wrap:wrap;
 }
 
-/* ========= STUDENT MODE DEFAULT ========= */
-body.studentMode .controlsPanel{
-  display:none;
-}
-body.studentMode .teacherToggle{
-  opacity:.92;
-}
-
 /* ========= RESPONSIVE ========= */
 @media (max-width: 1020px){
-  .container{grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto}
-  body.studentMode .controlsPanel{display:none;}
-  body:not(.studentMode) .controlsPanel{grid-column:1/2; grid-row:5/6;}
+  .container{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto 1fr auto;
+  }
+  .placeholderPanel{
+    display:none;
+  }
 }
 @media (max-width: 640px){
   #options.mode-meaning{grid-template-columns:1fr}
 }
 @media (max-height: 760px){
-  .container{grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto}
-  body:not(.studentMode) .controlsPanel{grid-column:1/2; grid-row:5/6;}
+  .container{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto 1fr auto;
+  }
 }
 
 /* reduced motion */
@@ -489,7 +516,7 @@ body.studentMode .teacherToggle{
 </style>
 </head>
 
-<body class="studentMode">
+<body>
   <div class="container" role="application" aria-label="Future meaning game">
     <!-- Header -->
     <div class="header">
@@ -519,11 +546,46 @@ body.studentMode .teacherToggle{
       </div>
       <div class="statRow">
         <div class="playerTag">Player: <strong id="playerName">—</strong></div>
-        <button id="teacherToggle" class="teacherToggle" type="button">Teacher view</button>
+        <button id="teacherToggle" class="teacherToggle" type="button">Teacher</button>
       </div>
     </div>
 
-    <!-- Teacher panel (hidden by default in studentMode) -->
+    <!-- Placeholder right panel (keeps layout stable, optional info) -->
+    <div class="placeholderPanel">
+      <strong>Teacher panel</strong><br>
+      Open the <b>Teacher</b> button to start / reset the game, toggle music/SFX, and send stats.
+    </div>
+
+    <!-- Game -->
+    <div class="game" role="main" aria-live="polite">
+      <div class="gameInner">
+        <div id="card" role="region" aria-label="Prompt card">
+          <div id="cardLabel">Ready</div>
+          <div id="cardText">Press <b>Teacher</b> → START to begin the game.</div>
+        </div>
+
+        <div class="meaningPrompt" id="meaningPrompt">
+          Question: What is the speaker’s intended meaning?
+        </div>
+
+        <div id="options" class="mode-meaning" role="group" aria-label="Answer options"></div>
+
+        <div class="progressWrap" aria-hidden="false">
+          <div id="progressBar" class="progressBar" style="width:0%"></div>
+        </div>
+        <div class="progressLabel" id="progressLabel">Goal progress: 0 / 25 (0%)</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>Unit 2 focus: will / going to / present continuous / present simple / first conditional</div>
+      <div>Goal: <span id="targetLabel">25</span> in a row</div>
+    </div>
+  </div>
+
+  <!-- Teacher overlay (modal) -->
+  <div class="teacherOverlay" id="teacherOverlay" aria-hidden="true">
     <div class="controlsPanel" aria-label="Teacher controls">
       <div class="inputRow">
         <label for="studentName">Name</label>
@@ -560,38 +622,13 @@ body.studentMode .teacherToggle{
       <div class="teacherBox">
         <h3>Google Sheets</h3>
         <div class="small">
-          Stats-only send on WIN (or on RESET).
+          Stats-only send on WIN (or when you press the button).
         </div>
         <button id="sendStatsBtn" class="btnSecondary" type="button" style="width:100%; margin-top:10px">Send stats now</button>
         <div class="small" id="sendMsg" style="margin-top:8px;color:rgba(244,247,255,.8)"></div>
       </div>
-    </div>
 
-    <!-- Game -->
-    <div class="game" role="main" aria-live="polite">
-      <div class="gameInner">
-        <div id="card" role="region" aria-label="Prompt card">
-          <div id="cardLabel">Ready</div>
-          <div id="cardText">Press START (Teacher view) or just tap Teacher view → START.</div>
-        </div>
-
-        <div class="meaningPrompt" id="meaningPrompt">
-          Question: What is the speaker’s intended meaning?
-        </div>
-
-        <div id="options" class="mode-meaning" role="group" aria-label="Answer options"></div>
-
-        <div class="progressWrap" aria-hidden="false">
-          <div id="progressBar" class="progressBar" style="width:0%"></div>
-        </div>
-        <div class="progressLabel" id="progressLabel">Goal progress: 0 / 25 (0%)</div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <div>Unit 2 focus: will / going to / present continuous / present simple / first conditional</div>
-      <div>Goal: <span id="targetLabel">25</span> in a row</div>
+      <button id="closeTeacher" class="btnSecondary" type="button" style="width:100%;margin-top:4px">Close</button>
     </div>
   </div>
 
@@ -658,130 +695,105 @@ const FORM_BY_MEANING = {
 };
 
 /* ==========================================================
-   BANKS (15+ per meaning)
-   Balanced: 5 affirmative + 5 negative + 5 questions (15 each)
-   (We keep them short and unit-aligned: travel / activities / recommendations)
+   BANKS
 ========================================================== */
 const BANKS = {
   prediction: [
-    // AFF
     "I think it will rain later.",
     "I’m sure you’ll love the festival.",
     "The trip will be amazing.",
     "I don’t think the museum will be boring.",
     "People will probably buy tickets online.",
-    // NEG
     "I don’t think we’ll miss the plane.",
     "It won’t be easy to find a hotel tonight.",
     "She won’t enjoy that scary ride.",
     "They won’t be late, I’m sure.",
     "It won’t cost much.",
-    // Q
     "Do you think it will be crowded?",
     "Will you enjoy mountain biking?",
     "Do you think they’ll come with us?",
     "Will it be cheaper if we pay today?",
     "Do you think she’ll recommend that place?"
   ],
-
   instant: [
-    // AFF
     "I’ll help you with your brochure.",
     "I’ll carry your bag.",
     "Don’t worry — I’ll send you the photo.",
     "Okay, I’ll buy the tickets now.",
     "I’ll call you tonight.",
-    // NEG
     "I won’t forget to message you.",
     "I won’t be late — I promise.",
     "I won’t tell anyone.",
     "I won’t do that again.",
     "I won’t leave without you.",
-    // Q
     "Shall I book the tour for you?",
     "Will you help me with this sentence?",
     "Will you send me the link?",
     "Shall we meet at the station?",
     "Will you hold my place in the queue?"
   ],
-
   plan: [
-    // AFF
     "I’m going to visit the aquarium tomorrow.",
     "We’re going to explore the peninsula next weekend.",
     "She’s going to buy a new backpack.",
     "They’re going to try canyoning this summer.",
     "I’m going to write an announcement.",
-    // NEG
     "I’m not going to stay at home this weekend.",
     "He isn’t going to do bungee-jumping.",
     "They aren’t going to travel abroad this year.",
     "We’re not going to miss the parade.",
     "She isn’t going to buy that expensive ticket.",
-    // Q
     "Are you going to visit London?",
     "Is he going to go sightseeing tomorrow?",
     "Are they going to book a package tour?",
     "Are we going to meet at the café?",
     "Is she going to write to you later?"
   ],
-
   arrangement: [
-    // AFF
     "We’re meeting at the station at 10.",
     "I’m having lunch with Sam tomorrow.",
     "She’s travelling to Greece on Friday.",
     "They’re staying in a hostel tonight.",
     "We’re going kayaking this afternoon.",
-    // NEG
     "I’m not seeing him this evening.",
     "They aren’t coming to the museum with us.",
     "She isn’t meeting the group today.",
     "We’re not leaving at six — we’re leaving at seven.",
     "He isn’t joining the tour tomorrow.",
-    // Q
     "Are you meeting your friends later?",
     "Is she coming to the parade today?",
     "Are they flying to Rome on Monday?",
     "Are we having dinner at your house tonight?",
     "Is he staying with his grandparents this weekend?"
   ],
-
   timetable: [
-    // AFF
     "The train leaves from platform 2.",
     "The museum opens at nine.",
     "The bus arrives at 8:15.",
     "The tour starts at 11:00.",
     "The festival takes place in August.",
-    // NEG
     "The shop doesn’t open on Sundays.",
     "The tour doesn’t include lunch.",
     "The train doesn’t stop here.",
     "The museum doesn’t close at five today.",
     "The bus doesn’t leave from this stop.",
-    // Q
     "Does the train leave at 3 p.m.?",
     "What time does the castle open?",
     "Does the tour start at ten?",
     "When does the plane land?",
     "Does the museum close early on Mondays?"
   ],
-
   first_cond: [
-    // AFF
     "If it rains, we’ll stay at home.",
     "If we miss the plane, we’ll get a taxi.",
     "If you buy tickets online, you won’t have to wait outside.",
     "If we have time, we’ll visit the temple.",
     "If she studies, she’ll pass the test.",
-    // NEG
     "If you don’t go now, you’ll miss the parade.",
     "If we don’t leave early, we won’t get good seats.",
     "If he doesn’t bring his map, he’ll get lost.",
     "If they don’t book soon, they won’t find a hotel.",
     "If I don’t have money, I won’t buy it.",
-    // Q
     "If it rains, will you still go out?",
     "What will you do if you miss the bus?",
     "Will we get a discount if we pay before July?",
@@ -801,15 +813,12 @@ const state = {
   score:0,
   seconds:0,
   timer:null,
+  locked:false,
 
-  // tracking per meaning (simple)
   stats: Object.fromEntries(MEANINGS.map(m => [m.key, {attempts:0, correct:0, wrong:0}])),
-
-  // no-repeat memory per bank (keep last 8 sentences)
   recent: Object.fromEntries(MEANINGS.map(m => [m.key, []])),
 
-  // current round
-  round:null, // { meaningKey, sentence, correctMeaningKey }
+  round:null, // { meaningKey, sentence }
 
   bestStreak:0,
   log:[]
@@ -844,7 +853,6 @@ function updateHeader(){
   el("streakBox").textContent = `Streak: ${state.streak}`;
   el("targetLabel").textContent = TARGET_STREAK;
 
-  // teacher mini progress bar
   const pct = Math.max(0, Math.min(100, Math.round((state.streak / TARGET_STREAK) * 100)));
   el("tBar").style.width = `${pct}%`;
   el("tBarLabel").textContent = `${state.streak} / ${TARGET_STREAK}`;
@@ -879,12 +887,10 @@ function shuffle(arr){
 function pickSentenceNoRepeat(meaningKey){
   const bank = BANKS[meaningKey];
   const memory = state.recent[meaningKey] || [];
-  // try a few times to avoid repeats
   for(let tries=0; tries<12; tries++){
     const s = bank[Math.floor(Math.random()*bank.length)];
     if(!memory.includes(s)) return s;
   }
-  // if stuck, allow
   return bank[Math.floor(Math.random()*bank.length)];
 }
 
@@ -896,14 +902,12 @@ function rememberSentence(meaningKey, sentence){
 }
 
 /* ==========================================================
-   ROUND LOGIC
-   Adaptive by weakness (simple): meanings with lower accuracy appear more
+   ADAPTIVE MEANING PICK
 ========================================================== */
 function weightForMeaning(key){
   const st = state.stats[key];
   const attempts = st.attempts || 0;
   const acc = attempts ? (st.correct / attempts) : 0.65;
-  // More weight if low accuracy or unseen
   let w = 1.0;
   if(attempts === 0) w += 1.2;
   w += (1 - acc) * 2.0;
@@ -912,95 +916,125 @@ function weightForMeaning(key){
 }
 
 function pickMeaningAdaptive(){
-  const weights = MEANINGS.map(m => ({ key:m.key, w: weightForMeaning(m.key) }));
-  const sum = weights.reduce((a,x)=>a+x.w,0);
-  let r = Math.random() * sum;
-  for(const x of weights){
-    r -= x.w;
-    if(r <= 0) return x.key;
+  const weights = MEANINGS.map(m => ({ key:m.key, w:weightForMeaning(m.key) }));
+  const total = weights.reduce((s,x)=>s+x.w,0);
+  let r = Math.random()*total;
+  for(const item of weights){
+    if(r < item.w) return item.key;
+    r -= item.w;
   }
-  return weights[weights.length-1].key;
-}
-
-function makeRound(){
-  const correctMeaningKey = pickMeaningAdaptive();
-  const sentence = pickSentenceNoRepeat(correctMeaningKey);
-  rememberSentence(correctMeaningKey, sentence);
-  return { correctMeaningKey, sentence };
+  return MEANINGS[0].key;
 }
 
 /* ==========================================================
-   RENDER
+   ROUND FLOW
 ========================================================== */
-function clearOptions(){
-  el("options").className = "mode-meaning";
-  el("options").innerHTML = "";
+function startRound(){
+  if(!state.running) return;
+  state.locked = false;
+
+  const meaningKey = pickMeaningAdaptive();
+  const sentence = pickSentenceNoRepeat(meaningKey);
+  rememberSentence(meaningKey, sentence);
+
+  state.round = { meaningKey, sentence };
+
+  setCard("Read", sentence);
+  renderOptions();
 }
 
-function renderRound(){
-  clearOptions();
-  const correctKey = state.round.correctMeaningKey;
-  const meaningObj = MEANINGS.find(m=>m.key===correctKey);
+function renderOptions(){
+  const optionsEl = el("options");
+  optionsEl.innerHTML = "";
+  optionsEl.classList.add("mode-meaning");
 
-  // On the card, show ONLY meaning label + sentence (no teacher explanation)
-  setCard("Choose the intended meaning", state.round.sentence);
+  const shuffled = shuffle(MEANINGS);
+  shuffled.forEach((m, idx)=>{
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `choiceCard ${m.cls}`;
+    btn.setAttribute("data-key", m.key);
 
-  // Build options: always the 6 meanings, shuffled
-  const opts = shuffle(MEANINGS);
+    const icon = document.createElement("div");
+    icon.className = "choiceIcon";
+    icon.textContent = m.icon;
 
-  opts.forEach((m, idx)=>{
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = `choiceCard ${m.cls}`;
-    b.innerHTML = `
-      <div class="choiceIcon">${m.icon}</div>
-      <div class="choiceText">${m.title}
-        <small>${m.hint}</small>
-      </div>
-    `;
-    b.onclick = ()=> submitMeaning(m.key);
-    el("options").appendChild(b);
+    const text = document.createElement("div");
+    text.className = "choiceText";
+    text.innerHTML = `${m.title}<small>${m.hint}</small>`;
+
+    btn.appendChild(icon);
+    btn.appendChild(text);
+
+    btn.addEventListener("click", ()=>handleAnswer(m.key));
+
+    optionsEl.appendChild(btn);
   });
-
-  // Update teacher snapshot
-  updateTeacherWeak();
-}
-
-function lockOptions(lock){
-  el("options").querySelectorAll("button").forEach(b=> b.disabled = !!lock);
 }
 
 /* ==========================================================
-   FEEDBACK (shows AFTER answer only)
+   FEEDBACK + SNAPSHOT
 ========================================================== */
-function showFeedback(ok, chosenKey){
+function updateWeakArea(){
+  const entries = Object.entries(state.stats);
+  if(!entries.length) return;
+
+  let weakest = null;
+  for(const [key, st] of entries){
+    if(st.attempts === 0) continue;
+    const acc = st.correct / st.attempts;
+    if(!weakest || acc < weakest.acc){
+      weakest = { key, acc, st };
+    }
+  }
+  if(!weakest){
+    el("weakText").textContent = "Not enough data yet. Keep playing.";
+    return;
+  }
+  const meaning = MEANINGS.find(m => m.key === weakest.key);
+  const pct = Math.round(weakest.acc*100);
+  el("weakText").textContent = `Weakest area: ${meaning.title} (${pct}% correct, ${weakest.st.wrong} wrong)`;
+}
+
+function showFeedback(correct, chosenKey){
   const overlay = el("feedbackOverlay");
+  const icon = el("fbIcon");
+  const title = el("fbTitle");
+  const sub = el("fbSub");
+  const detail = el("fbDetail");
+
+  const round = state.round;
+  const correctMeaning = MEANINGS.find(m => m.key === round.meaningKey);
+  const chosenMeaning = MEANINGS.find(m => m.key === chosenKey);
+  const form = FORM_BY_MEANING[round.meaningKey];
+
+  if(correct){
+    icon.textContent = "✅";
+    title.textContent = "Nice!";
+    sub.textContent = "You chose the correct meaning.";
+  }else{
+    icon.textContent = "❌";
+    title.textContent = "Not this time.";
+    sub.textContent = "Look at the meaning and form.";
+  }
+
+  let detailText = `Sentence:\n${round.sentence}\n\nIntended meaning: ${correctMeaning.title}\nTypical form: ${form}`;
+  if(!correct){
+    detailText += `\n\nYou chose: ${chosenMeaning.title}`;
+  }
+
+  detail.textContent = detailText;
+
   overlay.classList.add("show");
   overlay.setAttribute("aria-hidden","false");
 
-  const correctKey = state.round.correctMeaningKey;
-  const chosen = MEANINGS.find(m=>m.key===chosenKey);
-  const correct = MEANINGS.find(m=>m.key===correctKey);
-
-  el("fbIcon").textContent = ok ? "✅" : "❌";
-  el("fbTitle").textContent = ok ? "Correct!" : "Not yet";
-  el("fbSub").textContent = ok
-    ? `Streak: ${state.streak} / ${TARGET_STREAK}`
-    : `Streak reset to 0 — we’ll practise this meaning again.`;
-
-  // Explanation AFTER answer (this fixes your “hint shows before choice” issue)
-  const expectedForm = FORM_BY_MEANING[correctKey] || "";
-  const detail =
-`Your choice: ${chosen ? chosen.title : chosenKey}
-Correct meaning: ${correct ? correct.title : correctKey}
-
-Why? ${correct ? correct.hint : ""}
-
-Expected form in Synchrony: ${expectedForm.toUpperCase()}`;
-  el("fbDetail").textContent = detail;
-
-  // Next behavior
-  el("fbNextBtn").disabled = false;
+  const autoNext = el("autoNextToggle").checked;
+  if(autoNext){
+    setTimeout(()=>{
+      hideFeedback();
+      if(state.running) startRound();
+    }, correct ? 900 : 1300);
+  }
 }
 
 function hideFeedback(){
@@ -1009,347 +1043,222 @@ function hideFeedback(){
   overlay.setAttribute("aria-hidden","true");
 }
 
-function afterFeedbackNext(){
-  const autoNext = el("autoNextToggle").checked;
-
-  // Next button is only necessary when auto-next OFF
-  el("fbNextBtn").style.display = autoNext ? "none" : "inline-flex";
-
-  if(autoNext){
-    setTimeout(()=>{
-      hideFeedback();
-      nextRound();
-    }, 700);
-  }
-}
-
 /* ==========================================================
-   SUBMIT
+   ANSWER HANDLING
 ========================================================== */
-function submitMeaning(chosenKey){
-  if(!state.running) return;
-  lockOptions(true);
+function handleAnswer(chosenKey){
+  if(!state.running || state.locked || !state.round) return;
+  state.locked = true;
 
-  const correctKey = state.round.correctMeaningKey;
-  const ok = (chosenKey === correctKey);
+  const correctKey = state.round.meaningKey;
+  const correct = (chosenKey === correctKey);
 
   const st = state.stats[correctKey];
   st.attempts++;
-  if(ok){
-    st.correct++;
-    state.score++;
+  if(correct) st.correct++; else st.wrong++;
+
+  state.score++;
+  if(correct){
     state.streak++;
     state.bestStreak = Math.max(state.bestStreak, state.streak);
     blip(true);
   }else{
-    st.wrong++;
     state.streak = 0;
     blip(false);
   }
 
+  state.log.push({
+    time: Date.now(),
+    sentence: state.round.sentence,
+    meaning: correctKey,
+    chosen: chosenKey,
+    correct
+  });
+
   updateHeader();
   updateProgress();
-  updateTeacherWeak();
+  updateWeakArea();
+  showFeedback(correct, chosenKey);
 
-  showFeedback(ok, chosenKey);
-
-  // Win check
   if(state.streak >= TARGET_STREAK){
-    setTimeout(()=>{
-      hideFeedback();
-      winGame();
-    }, 650);
-    return;
-  }
-
-  afterFeedbackNext();
-}
-
-/* ==========================================================
-   TEACHER STATS (simple, visual)
-========================================================== */
-function accFor(key){
-  const s = state.stats[key];
-  return s.attempts ? (s.correct / s.attempts) : 0;
-}
-
-function updateTeacherWeak(){
-  const arr = MEANINGS.map(m=>{
-    const s = state.stats[m.key];
-    const acc = accFor(m.key);
-    const wrong = s.wrong || 0;
-    const attempts = s.attempts || 0;
-    // priority: low accuracy and more attempts
-    const priority = (1-acc)*2 + (wrong*0.12) + (attempts===0 ? 0.7 : 0);
-    return { key:m.key, title:m.title, acc, wrong, attempts, priority };
-  }).sort((a,b)=> b.priority - a.priority);
-
-  const top1 = arr[0], top2 = arr[1];
-
-  const rec1 = top1 ? recommendFor(top1.key) : "";
-  const rec2 = top2 ? recommendFor(top2.key) : "";
-
-  el("weakText").innerHTML =
-    `<b>Weakest</b>: ${top1 ? `${top1.title} (${Math.round(top1.acc*100)}%)` : "—"}<br>`+
-    `<b>Next</b>: ${top2 ? `${top2.title} (${Math.round(top2.acc*100)}%)` : "—"}<br>`+
-    `<span style="opacity:.9">Practice:</span><br>• ${rec1}<br>• ${rec2}`;
-}
-
-function recommendFor(key){
-  switch(key){
-    case "prediction": return "WILL predictions: I think…, probably, I’m sure…";
-    case "instant": return "WILL offers/promises: I’ll…, Shall I…?";
-    case "plan": return "GOING TO plans/intentions: I’m going to…, Are you going to…?";
-    case "arrangement": return "Present continuous arrangements: We’re meeting…, I’m travelling…";
-    case "timetable": return "Present simple timetables: The train leaves…, Does it start…?";
-    case "first_cond": return "First conditional: If + present, will + infinitive.";
-    default: return "Review meaning + example sentences.";
+    endGame(true);
   }
 }
 
 /* ==========================================================
-   GAME FLOW
+   TIMER
 ========================================================== */
-function nextRound(){
-  if(!state.running) return;
-  state.round = makeRound();
-  renderRound();
-  lockOptions(false);
-}
-
-function startGame(){
-  state.running = true;
-  state.streak = 0;
-  state.score = 0;
-  state.seconds = 0;
-  state.bestStreak = 0;
-
-  // reset stats
-  MEANINGS.forEach(m => state.stats[m.key] = {attempts:0, correct:0, wrong:0});
-  MEANINGS.forEach(m => state.recent[m.key] = []);
-
-  el("playerName").textContent = (el("studentName").value || "—").trim() || "—";
-  updateHeader(); updateProgress(); updateTeacherWeak();
-
+function startTimer(){
   if(state.timer) clearInterval(state.timer);
   state.timer = setInterval(()=>{
-    if(!state.running) return;
     state.seconds++;
-    updateHeader();
-  }, 1000);
-
-  // music
-  try{
-    if(el("musicToggle").checked){
-      bgMusic.volume = 0.6;
-      bgMusic.currentTime = 0;
-      bgMusic.play().catch(()=>{});
-    }
-  }catch(e){}
-
-  nextRound();
+    el("timerBox").textContent = `Time: ${state.seconds}s`;
+  },1000);
 }
 
-function resetGame(sendStats=true){
-  const wasRunning = state.running;
-  state.running = false;
-
-  if(state.timer) clearInterval(state.timer);
-  state.timer = null;
-
-  try{ bgMusic.pause(); bgMusic.currentTime = 0; }catch(e){}
-
-  hideFeedback();
-  closeCelebration();
-
-  if(sendStats && (wasRunning || state.score>0 || state.seconds>0)){
-    sendStatsToSheets();
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
   }
+}
 
+/* ==========================================================
+   GAME CONTROL
+========================================================== */
+function resetState(keepBest=false){
+  state.running = false;
   state.streak = 0;
   state.score = 0;
   state.seconds = 0;
   state.round = null;
-  state.bestStreak = 0;
+  state.locked = false;
+  if(!keepBest) state.bestStreak = 0;
+  state.stats = Object.fromEntries(MEANINGS.map(m => [m.key, {attempts:0, correct:0, wrong:0}]));
+  state.recent = Object.fromEntries(MEANINGS.map(m => [m.key, []]));
+  state.log = [];
+}
+
+function startGame(){
+  const name = el("studentName").value.trim();
+  el("playerName").textContent = name || "—";
+
+  resetState(true);
+  state.running = true;
+  state.seconds = 0;
 
   updateHeader();
   updateProgress();
-  setCard("Ready", "Open Teacher view → START (students only see the game).");
-  clearOptions();
-  updateTeacherWeak();
+  updateWeakArea();
+  setCard("Ready", "Read the sentence and choose the intended meaning.");
+  startTimer();
+
+  if(el("musicToggle").checked){
+    bgMusic.volume = 0.4;
+    bgMusic.play().catch(()=>{});
+  }
+
+  startRound();
 }
 
-function winGame(){
+function endGame(perfect=false){
   state.running = false;
-  if(state.timer) clearInterval(state.timer);
-  state.timer = null;
+  stopTimer();
+  el("progressBar").classList.remove("moving");
 
-  try{ bgMusic.pause(); bgMusic.currentTime = 0; }catch(e){}
-
-  // show celebration
-  const c = el("celebration");
-  c.style.display = "flex";
-  c.setAttribute("aria-hidden","false");
-  el("celebrationSub").textContent = `Amazing! You got ${TARGET_STREAK} correct answers in a row.`;
-
-  // send stats automatically
-  sendStatsToSheets();
-}
-
-function closeCelebration(){
-  const c = el("celebration");
-  c.style.display = "none";
-  c.setAttribute("aria-hidden","true");
-}
-
-/* ==========================================================
-   STATS → GOOGLE SHEETS (stats-only)
-========================================================== */
-function buildPayload(){
-  const student = (el("studentName").value || el("playerName").textContent || "Unknown").trim() || "Unknown";
-  const timestamp = new Date().toISOString();
-
-  // summary
-  const attempts = MEANINGS.reduce((a,m)=> a + (state.stats[m.key].attempts||0), 0);
-  const correct  = MEANINGS.reduce((a,m)=> a + (state.stats[m.key].correct||0), 0);
-  const wrong    = MEANINGS.reduce((a,m)=> a + (state.stats[m.key].wrong||0), 0);
-  const accuracy = attempts ? (correct/attempts) : 0;
-
-  // weakest 2
-  const ranked = MEANINGS.map(m=>{
-    const s=state.stats[m.key];
-    const acc = s.attempts ? (s.correct/s.attempts) : 0;
-    const priority = (1-acc)*2 + (s.wrong*0.12) + (s.attempts===0 ? 0.7 : 0);
-    return { key:m.key, title:m.title, acc, priority };
-  }).sort((a,b)=> b.priority - a.priority);
-
-  const topWeak1 = ranked[0]?.title || "";
-  const topWeak2 = ranked[1]?.title || "";
-  const rec1 = ranked[0]?.key ? recommendFor(ranked[0].key) : "";
-  const rec2 = ranked[1]?.key ? recommendFor(ranked[1].key) : "";
-
-  const topics = MEANINGS.map(m=>{
-    const s = state.stats[m.key];
-    const att = s.attempts||0;
-    const cor = s.correct||0;
-    const wr  = s.wrong||0;
-    const acc = att ? (cor/att) : 0;
-    return {
-      topic: m.title,
-      attempts: att,
-      correct: cor,
-      wrong: wr,
-      accuracy: acc,
-      suggestedPractice: recommendFor(m.key)
-    };
-  });
-
-  return {
-    version: "stats_only_v1",
-    timestamp,
-    gameId: cryptoRandomId(),
-    student,
-    summary: {
-      seconds: state.seconds,
-      attempts, correct, wrong,
-      accuracy,
-      bestStreak: state.bestStreak,
-      topWeak1, topWeak2,
-      rec1, rec2
-    },
-    topics
-  };
-}
-
-function cryptoRandomId(){
-  try{
-    const b = new Uint8Array(8);
-    crypto.getRandomValues(b);
-    return Array.from(b).map(x=>x.toString(16).padStart(2,"0")).join("");
-  }catch(e){
-    return String(Date.now());
+  if(perfect){
+    const c = el("celebration");
+    el("celebrationSub").textContent = `You reached ${TARGET_STREAK} correct answers in a row.`;
+    c.style.display = "flex";
+    c.setAttribute("aria-hidden","false");
   }
 }
 
-async function sendStatsToSheets(){
-  const msg = el("sendMsg");
-  if(msg) msg.textContent = "Sending…";
+function hardReset(){
+  stopTimer();
+  resetState(false);
+  updateHeader();
+  updateProgress();
+  updateWeakArea();
+  setCard("Reset", "Press START in the Teacher panel to begin a new game.");
+}
 
-  const payload = buildPayload();
+/* ==========================================================
+   STATS SEND
+========================================================== */
+async function sendStats(){
+  const name = el("studentName").value.trim() || "Unknown";
+  const payload = {
+    name,
+    streak: state.streak,
+    bestStreak: state.bestStreak,
+    score: state.score,
+    seconds: state.seconds,
+    stats: state.stats,
+    timestamp: new Date().toISOString()
+  };
+
+  el("sendMsg").textContent = "Sending…";
 
   try{
     const res = await fetch(APPS_SCRIPT_URL, {
       method:"POST",
-      mode:"no-cors", // Apps Script often requires no-cors from static hosting
-      headers: { "Content-Type":"text/plain;charset=utf-8" },
+      headers:{ "Content-Type":"application/json" },
       body: JSON.stringify(payload)
     });
-
-    if(msg) msg.textContent = "Sent ✅ (If you don’t see it, check Apps Script deployment permissions.)";
-  }catch(err){
-    if(msg) msg.textContent = "Error sending. Check Apps Script deploy access = Anyone with link.";
+    if(!res.ok) throw new Error("Network error");
+    el("sendMsg").textContent = "Stats sent ✔";
+  }catch(e){
+    el("sendMsg").textContent = "Could not send stats.";
   }
 }
 
 /* ==========================================================
-   WIRE UI
+   EVENT BINDINGS
 ========================================================== */
-el("teacherToggle").addEventListener("click", ()=>{
-  document.body.classList.toggle("studentMode");
-  const isStudent = document.body.classList.contains("studentMode");
-  el("teacherToggle").textContent = isStudent ? "Teacher view" : "Student view";
-});
+window.addEventListener("DOMContentLoaded", ()=>{
+  const teacherOverlay = el("teacherOverlay");
 
-el("startBtn").addEventListener("click", ()=>{
-  if(state.running) return;
-  startGame();
-});
-el("resetBtn").addEventListener("click", ()=> resetGame(true));
+  el("teacherToggle").addEventListener("click", ()=>{
+    teacherOverlay.classList.add("show");
+    teacherOverlay.setAttribute("aria-hidden","false");
+  });
 
-el("fbCloseBtn").addEventListener("click", ()=>{
-  hideFeedback();
-  // If auto-next off, student stays until teacher clicks next (in teacher view)
-});
+  el("closeTeacher").addEventListener("click", ()=>{
+    teacherOverlay.classList.remove("show");
+    teacherOverlay.setAttribute("aria-hidden","true");
+  });
 
-el("fbNextBtn").addEventListener("click", ()=>{
-  hideFeedback();
-  nextRound();
-});
-
-el("sendStatsBtn").addEventListener("click", sendStatsToSheets);
-
-el("celebrationSend").addEventListener("click", sendStatsToSheets);
-el("celebrationRestart").addEventListener("click", ()=>{
-  closeCelebration();
-  resetGame(false);
-  startGame();
-});
-
-// name label live
-el("studentName").addEventListener("input", ()=>{
-  el("playerName").textContent = (el("studentName").value || "—").trim() || "—";
-});
-
-// Music toggle
-el("musicToggle").addEventListener("change", ()=>{
-  if(!el("musicToggle").checked){
-    try{ bgMusic.pause(); bgMusic.currentTime = 0; }catch(e){}
-  }else{
-    if(state.running){
-      try{ bgMusic.volume = 0.6; bgMusic.play().catch(()=>{}); }catch(e){}
+  teacherOverlay.addEventListener("click", (e)=>{
+    if(e.target === teacherOverlay){
+      teacherOverlay.classList.remove("show");
+      teacherOverlay.setAttribute("aria-hidden","true");
     }
-  }
-});
+  });
 
-/* initial UI */
-clearOptions();
-updateHeader();
-updateProgress();
-updateTeacherWeak();
+  el("startBtn").addEventListener("click", ()=>{
+    teacherOverlay.classList.remove("show");
+    teacherOverlay.setAttribute("aria-hidden","true");
+    startGame();
+  });
+
+  el("resetBtn").addEventListener("click", ()=>{
+    hardReset();
+  });
+
+  el("musicToggle").addEventListener("change", ()=>{
+    if(el("musicToggle").checked){
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(()=>{});
+    }else{
+      bgMusic.pause();
+    }
+  });
+
+  el("sendStatsBtn").addEventListener("click", ()=>sendStats());
+  el("celebrationSend").addEventListener("click", ()=>sendStats());
+
+  el("celebrationRestart").addEventListener("click", ()=>{
+    el("celebration").style.display = "none";
+    el("celebration").setAttribute("aria-hidden","true");
+    startGame();
+  });
+
+  el("fbCloseBtn").addEventListener("click", ()=>{
+    hideFeedback();
+  });
+  el("fbNextBtn").addEventListener("click", ()=>{
+    hideFeedback();
+    if(state.running) startRound();
+  });
+
+  // Initial UI
+  updateHeader();
+  updateProgress();
+  updateWeakArea();
+});
 </script>
 </body>
 </html>
-
-
 
 
