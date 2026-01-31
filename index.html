@@ -16,26 +16,32 @@
       min-height:100vh;
       overflow-x:hidden;
       background:#0a0a0f;
-      font-family: Arial, sans-serif;
+      font-family: Arial, system-ui, sans-serif;
       color:#fff;
       text-align:center;
     }
-    .hidden{ display:none; }
-    .screen{ padding-top: clamp(22px, 5vw, 60px); }
+    .hidden{ display:none !important; }
+
+    /* General screens (Name Screen overrides this below) */
+    .screen{
+      padding-top: clamp(22px, 5vw, 60px);
+      padding-left: 14px;
+      padding-right: 14px;
+    }
 
     .title{
       font-size: clamp(1.8rem, 4.2vw, 2.6rem);
-      margin: 0 0 18px;
+      margin: 0 0 14px;
       color:#66e0ff;
       text-shadow:0 0 10px #00aaff;
     }
 
     input[type="text"], input[type="password"]{
       padding:12px;
-      width: min(340px, 92vw);
-      border-radius:10px;
+      width: min(360px, 92vw);
+      border-radius:12px;
       border:none;
-      margin-bottom:16px;
+      margin-bottom:14px;
       font-size:1rem;
       outline:none;
     }
@@ -43,37 +49,38 @@
     .mainBtn{
       background:#00aaff;
       border:none;
-      padding:12px 24px;
-      border-radius:12px;
+      padding:12px 22px;
+      border-radius:14px;
       color:#fff;
       font-size:1.05rem;
-      font-weight:800;
+      font-weight:900;
       cursor:pointer;
       margin-top:10px;
-      transition:.2s;
+      transition:.18s;
       box-shadow: 0 10px 28px rgba(0,170,255,.18);
     }
     .mainBtn:hover{ background:#33cfff; transform: translateY(-1px); }
+
     .secondaryBtn{
       background:#3a3a3a;
       border:none;
       padding:10px 18px;
-      border-radius:12px;
+      border-radius:14px;
       color:#fff;
-      font-weight:800;
+      font-weight:900;
       cursor:pointer;
       margin-top:10px;
-      transition:.2s;
+      transition:.18s;
     }
     .secondaryBtn:hover{ background:#555; transform: translateY(-1px); }
 
     /* =========================================================
-       LAYOUT WRAPPER (RESPONSIVE)
+       GAME WRAPPER (RESPONSIVE)
     ========================================================= */
     .appWrap{
       width: min(980px, 100%);
       margin: 0 auto;
-      padding: 16px 14px 44px;
+      padding: 14px 0 44px;
     }
 
     /* Teacher button */
@@ -88,9 +95,9 @@
       user-select:none;
       z-index:60;
     }
-    #teacherBtn:hover{ transform:scale(1.1); }
+    #teacherBtn:hover{ transform:scale(1.08); }
 
-    /* Top bar as grid */
+    /* Top bar */
     #topBar{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -158,7 +165,7 @@
       cursor:pointer;
       transition:.15s;
       font-size: clamp(1rem, 2vw, 1.15rem);
-      font-weight:800;
+      font-weight:900;
       color:#fff;
       text-align:left;
       box-shadow: 0 10px 24px rgba(0,0,0,.25);
@@ -213,13 +220,13 @@
       border-radius: 14px;
       cursor:pointer;
       color:#fff;
-      font-weight: 800;
+      font-weight: 900;
       transition:.15s;
       text-align:left;
     }
     .matchBtn:hover{ background:#003344; transform: translateY(-1px); }
     .matchBtn.selected{
-      outline: 3px solid rgba(102,224,255,.22);
+      outline: 3px solid rgba(102,224,255,.25);
       border-color:#66e0ff;
     }
     .matchBtn.paired{ opacity:.6; cursor:not-allowed; transform:none; }
@@ -253,6 +260,7 @@
       overflow:auto;
       border:1px solid rgba(0,170,255,.85);
       box-shadow: 0 0 22px rgba(0,87,119,.8);
+      text-align:center;
     }
     .overlayContent.small{ width: min(380px, 100%); }
 
@@ -262,7 +270,7 @@
       gap: 10px;
       margin: 12px 0;
       font-size: 1.05rem;
-      font-weight: 800;
+      font-weight: 900;
       justify-content:center;
     }
     .toggleRow input{ transform: scale(1.25); }
@@ -293,24 +301,67 @@
       #scoreBox, #streakBox, #bestBox{ text-align:center; }
       #sentenceCard{ text-align:left; }
     }
+
+    /* =========================================================
+       NAME SCREEN — RESPONSIVE (MUST BE LAST)
+    ========================================================= */
+    .srOnly{
+      position:absolute;
+      width:1px; height:1px;
+      padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0);
+      white-space:nowrap; border:0;
+    }
+    #nameScreen{
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 18px 14px;
+    }
+    #nameScreen .nameWrap{
+      width: min(520px, 100%);
+      background: rgba(17,17,17,.86);
+      border: 1px solid rgba(0,170,255,.55);
+      box-shadow: 0 0 18px rgba(0,87,119,.55);
+      border-radius: 18px;
+      padding: clamp(16px, 3.5vw, 28px);
+    }
+    #nameScreen #studentNameInput{
+      width: 100%;
+      max-width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+    }
+    #nameScreen #startNameBtn{
+      width: 100%;
+      max-width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+    }
+    #nameScreen .hintText{
+      margin: 12px 0 0;
+      opacity: .8;
+      font-size: .95rem;
+    }
   </style>
 </head>
 
 <body>
- <!-- NAME SCREEN -->
-<div id="nameScreen" class="screen">
-  <div class="nameWrap">
-    <h1 class="title">Future Forms Game</h1>
+  <!-- NAME SCREEN -->
+  <div id="nameScreen" class="screen">
+    <div class="nameWrap">
+      <h1 class="title">Future Forms Game</h1>
 
-    <label class="srOnly" for="studentNameInput">Student name</label>
-    <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
+      <label class="srOnly" for="studentNameInput">Student name</label>
+      <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
 
-    <button id="startNameBtn" class="mainBtn">Start</button>
+      <button id="startNameBtn" class="mainBtn">Start</button>
 
-    <p class="hintText">Tip: press Enter to start</p>
+      <p class="hintText">Tip: press Enter to start</p>
+    </div>
   </div>
-</div>
-
 
   <!-- GAME SCREEN -->
   <div id="gameScreen" class="screen hidden">
@@ -392,7 +443,7 @@
     </div>
   </div>
 
-  <!-- AUDIO -->
+  <!-- AUDIO (rename src to match your repo files) -->
   <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
   <audio id="correctSound" src="correct.mp3" preload="auto"></audio>
   <audio id="wrongSound" src="wrong.mp3" preload="auto"></audio>
@@ -409,10 +460,11 @@
     const STREAK_TARGET = 25;
 
     /* =========================================================
-       SENTENCES (banks)
+       YOUR GROUPED SENTENCE BANKS (from test21.txt)
+       Keys: PS_aff, PS_neg, PS_int, PC_aff, PC_neg, PC_int
     ========================================================= */
     const BANKS = {
-      PS_aff: [
+      "PS_aff": [
         "She usually walks to school.",
         "He plays the guitar every afternoon.",
         "They enjoy quiet mornings together.",
@@ -435,7 +487,7 @@
         "They visit the museum on weekends.",
         "My brother cooks dinner on Fridays."
       ],
-      PS_neg: [
+      "PS_neg": [
         "She doesn't like cold pizza.",
         "They don't study on Sundays.",
         "He does not enjoy long movies.",
@@ -458,7 +510,7 @@
         "He doesn't speak Spanish.",
         "They don't play video games on school nights."
       ],
-      PS_int: [
+      "PS_int": [
         "Do you like spicy food?",
         "Does she play the violin?",
         "Do they live near here?",
@@ -481,81 +533,84 @@
         "Do I have to finish this today?",
         "Do you remember the homework?"
       ],
-      PC_aff: [
-        "She's studying English right now.",
-        "They are cooking dinner together.",
-        "He's drawing a robot at the moment.",
-        "I'm listening to music.",
-        "We're walking to the bus stop.",
-        "She is reading a new novel.",
+      "PC_aff": [
+        "I'm studying for my test right now.",
+        "She's talking on the phone at the moment.",
         "They are playing football in the park.",
-        "He is fixing his bicycle.",
-        "I'm watching a documentary.",
-        "We are preparing for the exam.",
-        "She is practicing the piano this afternoon.",
-        "They are building a model in the workshop.",
-        "He is cleaning his room right now.",
-        "I'm checking my email at the moment.",
-        "We are learning a new song today.",
-        "She is talking on the phone now.",
-        "They are planting flowers in the garden.",
-        "He is making a sandwich right now.",
-        "I'm writing my notes at the moment.",
-        "We are working on our project today.",
-        "She is waiting for the bus right now."
+        "We are working on a new project today.",
+        "He is cooking dinner right now.",
+        "I'm reading an interesting book.",
+        "She is watching a movie at the moment.",
+        "They are learning English this semester.",
+        "We are waiting for the bus right now.",
+        "He is listening to music at the moment.",
+        "I'm writing an email right now.",
+        "She's cleaning her room at the moment.",
+        "They are building a house this year.",
+        "We are traveling to Madrid today.",
+        "He is fixing his bike at the moment.",
+        "I'm drinking coffee right now.",
+        "She is studying English this month.",
+        "They are planning a trip this week.",
+        "We are having lunch right now.",
+        "He is playing the guitar at the moment.",
+        "I'm working on my homework right now."
       ],
-      PC_neg: [
-        "She isn't sleeping at the moment.",
-        "They aren't watching TV right now.",
-        "He is not studying today.",
-        "I'm not feeling well right now.",
-        "We aren't going out tonight.",
-        "She isn't using her laptop now.",
-        "They are not listening to the teacher.",
-        "He isn't playing football today.",
-        "I'm not working on that task right now.",
-        "We are not talking about that now.",
-        "She isn't wearing her jacket today.",
-        "They aren't doing their homework at the moment.",
-        "He is not driving right now.",
-        "I'm not texting anyone right now.",
-        "We aren't waiting anymore.",
-        "She isn't smiling today.",
-        "They are not cleaning the classroom now.",
-        "He isn't helping right now.",
-        "I'm not eating at the moment.",
-        "We aren't practicing today.",
-        "She isn't studying right now."
+      "PC_neg": [
+        "I'm not studying right now.",
+        "She's not talking on the phone at the moment.",
+        "They aren't playing football in the park.",
+        "We are not working on a new project today.",
+        "He isn't cooking dinner right now.",
+        "I'm not reading an interesting book.",
+        "She is not watching a movie at the moment.",
+        "They are not learning English this semester.",
+        "We aren't waiting for the bus right now.",
+        "He is not listening to music at the moment.",
+        "I'm not writing an email right now.",
+        "She's not cleaning her room at the moment.",
+        "They are not building a house this year.",
+        "We aren't traveling to Madrid today.",
+        "He is not fixing his bike at the moment.",
+        "I'm not drinking coffee right now.",
+        "She isn't studying English this month.",
+        "They are not planning a trip this week.",
+        "We are not having lunch right now.",
+        "He isn't playing the guitar at the moment.",
+        "I'm not working on my homework right now."
       ],
-      PC_int: [
-        "Are you studying right now?",
-        "Is she working today?",
-        "Are they playing outside?",
-        "Is he watching TV at the moment?",
-        "Are we meeting after school?",
-        "Are you listening to me?",
-        "Is it raining right now?",
-        "Are they using their phones?",
-        "Is she taking notes now?",
-        "Am I doing this correctly?",
-        "Are you working on the project?",
-        "Is he wearing his uniform today?",
-        "Are they preparing for the test?",
-        "Is she talking too loudly?",
-        "Are we waiting for the bus?",
-        "Are you learning new vocabulary today?",
-        "Is he fixing his bike right now?",
-        "Are they studying in the library?",
-        "Is she writing an email now?",
-        "Are we doing the activity right now?",
-        "Are you feeling tired today?"
+      "PC_int": [
+        "Am I studying for my test right now?",
+        "Is she talking on the phone at the moment?",
+        "Are they playing football in the park?",
+        "Are we working on a new project today?",
+        "Is he cooking dinner right now?",
+        "Am I reading an interesting book?",
+        "Is she watching a movie at the moment?",
+        "Are they learning English this semester?",
+        "Are we waiting for the bus right now?",
+        "Is he listening to music at the moment?",
+        "Am I writing an email right now?",
+        "Is she cleaning her room at the moment?",
+        "Are they building a house this year?",
+        "Are we traveling to Madrid today?",
+        "Is he fixing his bike at the moment?",
+        "Am I drinking coffee right now?",
+        "Is she studying English this month?",
+        "Are they planning a trip this week?",
+        "Are we having lunch right now?",
+        "Is he playing the guitar at the moment?",
+        "Am I working on my homework right now?"
       ]
     };
 
+    /* =========================================================
+       BANK META (meaning + grammar mapping)
+    ========================================================= */
     const BANK_META = [
-      { key:"PS_aff", meaningType:"ps_aff", meaningLabel:"habit/routine or general fact", grammarLabel:"Present Simple — affirmative" },
-      { key:"PS_neg", meaningType:"ps_neg", meaningLabel:"a negative habit/fact (it doesn't happen)", grammarLabel:"Present Simple — negative" },
-      { key:"PS_int", meaningType:"ps_int", meaningLabel:"a question about a habit/fact", grammarLabel:"Present Simple — question" },
+      { key:"PS_aff", meaningType:"ps_aff", meaningLabel:"a habit / routine or general fact", grammarLabel:"Present Simple — affirmative" },
+      { key:"PS_neg", meaningType:"ps_neg", meaningLabel:"a negative habit / fact (it doesn’t happen)", grammarLabel:"Present Simple — negative" },
+      { key:"PS_int", meaningType:"ps_int", meaningLabel:"a question about a habit / fact", grammarLabel:"Present Simple — question" },
       { key:"PC_aff", meaningType:"pc_aff", meaningLabel:"happening now / around now", grammarLabel:"Present Continuous — affirmative" },
       { key:"PC_neg", meaningType:"pc_neg", meaningLabel:"NOT happening now", grammarLabel:"Present Continuous — negative" },
       { key:"PC_int", meaningType:"pc_int", meaningLabel:"a question about what is happening now", grammarLabel:"Present Continuous — question" }
@@ -571,7 +626,7 @@
     }
 
     function buildQuestionBank() {
-      const grammarOptionsAll = [
+      const grammarAll = [
         "Present Simple — affirmative",
         "Present Simple — negative",
         "Present Simple — question",
@@ -612,7 +667,7 @@
                 ]
               : [
                   meaningCorrect,
-                  "The speaker means: it is a habit/routine.",
+                  "The speaker means: it is a habit / routine.",
                   "The speaker means: it happened yesterday.",
                   "The speaker means: it will happen tomorrow."
                 ];
@@ -628,7 +683,7 @@
             grammar: {
               prompt: "Which grammar label fits best?",
               correct: meta.grammarLabel,
-              options: pick4GrammarOptions(meta.grammarLabel, grammarOptionsAll)
+              options: pick4GrammarOptions(meta.grammarLabel, grammarAll)
             },
             ordering: orderingTemplate,
             matching: matchingTemplate
@@ -644,7 +699,6 @@
        DOM
     ========================================================= */
     const $ = (s) => document.querySelector(s);
-
     const el = {
       nameScreen: $("#nameScreen"),
       gameScreen: $("#gameScreen"),
@@ -739,6 +793,7 @@
       return true;
     }
 
+    /* requested escapeHTML with > replacement */
     function escapeHTML(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -791,7 +846,7 @@
 
     function savePrefs() {
       try {
-        localStorage.setItem("future_game_prefs_v2", JSON.stringify({
+        localStorage.setItem("future_game_prefs_v4", JSON.stringify({
           autoNext: state.autoNext,
           musicOn: state.musicOn,
           sfxOn: state.sfxOn,
@@ -802,7 +857,7 @@
 
     function loadPrefs() {
       try {
-        const raw = localStorage.getItem("future_game_prefs_v2");
+        const raw = localStorage.getItem("future_game_prefs_v4");
         if (!raw) return;
         const p = JSON.parse(raw);
         if (typeof p.autoNext === "boolean") state.autoNext = p.autoNext;
@@ -1132,7 +1187,197 @@
       hide(el.nextBtn);
 
       const stepType = state.stepPlan[state.currentStep - 1] || "meaning";
-      if (stepType === "meaning
+      if (stepType === "meaning") renderMeaning();
+      else if (stepType === "grammar") renderGrammar();
+      else if (stepType === "ordering") renderOrdering();
+      else if (stepType === "matching") renderMatching();
+      else renderMeaning();
+    }
 
+    function advanceStepOrFinish() {
+      if (state.currentStep < 3) {
+        state.currentStep += 1;
+        renderCurrentStep();
+        return;
+      }
+      showFeedback("Round complete!", "Nice work. Click Next Round to continue.", true, () => {
+        show(el.nextBtn);
+      });
+    }
 
+    function startNewRound() {
+      if (!QUESTION_BANK.length) {
+        alert("QUESTION_BANK is empty.");
+        return;
+      }
+      state.currentBundle = QUESTION_BANK[Math.floor(Math.random() * QUESTION_BANK.length)];
+      state.stepPlan = pickStepPlan();
+      state.currentStep = 1;
+      renderCurrentStep();
+    }
 
+    /* =========================================================
+       TEACHER + STATS
+    ========================================================= */
+    function openTeacherLogin() {
+      show(el.teacherLogin);
+      if (el.teacherCodeInput) el.teacherCodeInput.value = "";
+      el.teacherCodeInput?.focus();
+    }
+    function closeTeacherLogin() { hide(el.teacherLogin); }
+
+    function openTeacherPanel() {
+      hide(el.teacherLogin);
+      show(el.teacherPanel);
+      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
+      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
+      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
+    }
+    function closeTeacherPanel() { hide(el.teacherPanel); }
+
+    function teacherSubmit() {
+      const code = (el.teacherCodeInput?.value || "").trim();
+      if (code === "1362") {
+        openTeacherPanel();
+      } else {
+        el.teacherCodeInput?.classList.remove("shake");
+        void el.teacherCodeInput?.offsetWidth;
+        el.teacherCodeInput?.classList.add("shake");
+      }
+    }
+
+    async function sendStatsNow() {
+      const payload = {
+        studentName: state.studentName,
+        summary: {
+          studentName: state.studentName,
+          score: state.score,
+          streak: state.streak,
+          bestStreak: state.bestStreak,
+          weakAreas: state.weakAreas,
+          sentAt: nowISO()
+        },
+        log: state.log
+      };
+
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")) {
+        alert("Add your GOOGLE_SCRIPT_URL in the script before sending stats.");
+        return;
+      }
+
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        alert("Stats sent successfully ✅");
+      } catch (err) {
+        console.error(err);
+        alert("Failed to send stats. Check Apps Script URL + permissions.");
+      }
+    }
+
+    function resetGame() {
+      state.score = 0;
+      state.streak = 0;
+      state.weakAreas = {};
+      state.log = [];
+      state.currentBundle = null;
+      state.currentStep = 1;
+      state.stepPlan = [];
+
+      setHUD();
+      setSentence("Sentence will appear here");
+      setPrompt("What is the speaker's intended meaning?");
+      if (el.stepLabel) el.stepLabel.textContent = "Step 1/3";
+      clearOptions();
+      hide(el.nextBtn);
+    }
+
+    /* =========================================================
+       EVENTS
+    ========================================================= */
+    function wireEvents() {
+      el.startNameBtn?.addEventListener("click", () => {
+        const name = (el.studentNameInput?.value || "").trim();
+        if (!name) { alert("Please enter your name."); return; }
+        state.studentName = name;
+
+        hide(el.nameScreen);
+        show(el.gameScreen);
+
+        setHUD();
+        syncMusic();
+        startNewRound();
+      });
+
+      el.studentNameInput?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") el.startNameBtn?.click();
+      });
+
+      el.nextBtn?.addEventListener("click", startNewRound);
+
+      // Teacher
+      el.teacherBtn?.addEventListener("click", openTeacherLogin);
+      el.closeTeacherLogin?.addEventListener("click", closeTeacherLogin);
+      el.teacherCodeBtn?.addEventListener("click", teacherSubmit);
+      el.teacherCodeInput?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") teacherSubmit();
+        if (e.key === "Escape") closeTeacherLogin();
+      });
+
+      el.teacherLogin?.addEventListener("click", (e) => {
+        if (e.target === el.teacherLogin) closeTeacherLogin();
+      });
+
+      el.teacherStartBtn?.addEventListener("click", startNewRound);
+      el.teacherResetBtn?.addEventListener("click", resetGame);
+
+      el.autoNextToggle?.addEventListener("change", (e) => {
+        state.autoNext = !!e.target.checked;
+        savePrefs();
+      });
+
+      el.musicToggle?.addEventListener("change", (e) => {
+        state.musicOn = !!e.target.checked;
+        savePrefs();
+        syncMusic();
+      });
+
+      el.sfxToggle?.addEventListener("change", (e) => {
+        state.sfxOn = !!e.target.checked;
+        savePrefs();
+      });
+
+      el.sendStatsBtn?.addEventListener("click", sendStatsNow);
+      el.closeTeacherPanel?.addEventListener("click", closeTeacherPanel);
+
+      el.teacherPanel?.addEventListener("click", (e) => {
+        if (e.target === el.teacherPanel) closeTeacherPanel();
+      });
+    }
+
+    /* =========================================================
+       18) INIT
+       Loads preferences, syncs music, sets HUD, wires events.
+    ========================================================= */
+    function init() {
+      loadPrefs();
+      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
+      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
+      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
+
+      syncMusic();
+      setHUD();
+      wireEvents();
+    }
+
+    // Start the engine
+    init();
+
+  })();  /* closes the entire IIFE wrapper */
+  </script>
+</body>
+</html>
