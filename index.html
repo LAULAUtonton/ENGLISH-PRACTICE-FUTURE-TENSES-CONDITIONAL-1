@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Future Forms + First Conditional — Streak to 25 (Manga) + Google Sheets Stats</title>
+<title>Future Forms + First Conditional — Streak to 25 (Manga) + Simple Teacher Stats</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 
 <style>
@@ -17,7 +17,6 @@
   --focus: 0 0 0 5px rgba(17,232,255,.25);
   --wMax: 1200px;
 }
-
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{
@@ -33,7 +32,6 @@ body{
   justify-content:center;
   padding:12px;
 }
-
 .container{
   width:min(var(--wMax), 100%);
   min-height: calc(100vh - 24px);
@@ -50,7 +48,6 @@ body{
   gap:12px;
   overflow:hidden;
 }
-
 .header{grid-column:1/2; grid-row:1/2; display:flex; gap:12px; align-items:center}
 .logo{
   width:56px;height:56px;border-radius:16px;
@@ -186,7 +183,6 @@ body{
   gap:10px;
   overflow:hidden;
 }
-
 #card{
   border-radius:18px;
   padding:12px;
@@ -240,7 +236,6 @@ body{
   overflow-wrap:anywhere;
   word-break:break-word;
 }
-
 #orderBox{
   border:2px solid rgba(255,255,255,.14);
   border-radius:16px;
@@ -256,7 +251,6 @@ body{
   color:var(--ink);
   overflow:hidden;
 }
-
 #options{
   width:100%;
   border-radius:16px;
@@ -300,7 +294,6 @@ body{
 }
 .choiceText{z-index:1; font-size:18px; line-height:1.12}
 .choiceText small{display:block;font-size:13px;font-weight:800;opacity:.95;margin-top:3px}
-
 .choiceWILL{background:linear-gradient(180deg, var(--yellow), #ffb703);}
 .choiceGOING{background:linear-gradient(180deg, var(--pink), #ff5cc9);}
 .choicePC{background:linear-gradient(180deg, var(--cyan), #00b6ca);}
@@ -518,7 +511,7 @@ body{
       <div class="logo" aria-hidden="true">✦</div>
       <div>
         <h1 class="title">Future Forms + First Conditional</h1>
-        <p class="lead">No answers shown before choosing • ordering less frequent • stats-only → Google Sheets</p>
+        <p class="lead">No answers shown before choosing • ordering less frequent • no-repeat + duplicates fixed • simple teacher stats</p>
       </div>
     </div>
 
@@ -561,8 +554,15 @@ body{
         • Win at <b>25 correct in a row</b> (stats send automatically).
       </div>
 
+      <!-- SIMPLE TEACHER VIEW -->
       <div class="bankStats" id="bankStats">
-        <b>Adaptive engine:</b> topics you miss appear more often.
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+          <b>Teacher view</b>
+          <span style="color:rgba(247,251,255,.75);font-weight:800;font-size:12px">
+            Focus = lowest accuracy (min 3 attempts)
+          </span>
+        </div>
+        <div id="teacherStats" style="margin-top:10px;display:grid;gap:10px"></div>
       </div>
     </div>
 
@@ -606,7 +606,7 @@ body{
     </div>
 
     <div class="footer">
-      <div>Fair: affirmative • negative • questions (per topic)</div>
+      <div>Fair: affirmative • negative • questions (rotated per topic)</div>
       <div>Goal: <span id="targetLabel">25</span> in a row</div>
     </div>
 
@@ -622,7 +622,7 @@ body{
     </div>
   </div>
 
-  <!-- FIX 1: audio file name -->
+  <!-- Audio: fixed file name -->
   <audio id="bgMusic" src="audio/koala2.mp3" preload="auto" loop></audio>
 
 <script>
@@ -653,7 +653,7 @@ const TOPICS = [
 ];
 
 /* ==========================================================
-   BANKS (same as before)
+   BANKS (15 per subbank)
 ========================================================== */
 const BANKS = {
   WILL_aff: [
@@ -934,6 +934,7 @@ const state = {
   remediation: { topicId:null, remaining:0 },
   lastTopicId:null,
 
+  // fairness: rotates aff->neg->q per topic
   fairPtr: Object.fromEntries(TOPICS.map(t => [t.id, 0])),
 
   round:null,
@@ -942,6 +943,7 @@ const state = {
   sentStats:false,
   gameId: (crypto?.randomUUID?.() || String(Date.now())),
 
+  // No-repeat memory per subbank
   recentBySub: Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []]))),
 };
 
@@ -986,6 +988,20 @@ function blip(ok){
 }
 
 /* ==========================================================
+   DUPLICATE WORD DISPLAY (fix: "same structure twice" in row)
+========================================================== */
+function markDuplicateDisplays(words){
+  const counts = {};
+  words.forEach(w => { counts[w] = (counts[w] || 0) + 1; });
+  const seen = {};
+  return words.map(w=>{
+    if(counts[w] <= 1) return { word:w, display:w };
+    seen[w] = (seen[w] || 0) + 1;
+    return { word:w, display:`${w} (${seen[w]})` };
+  });
+}
+
+/* ==========================================================
    UI
 ========================================================== */
 function updateHeader(){
@@ -1001,25 +1017,105 @@ function updateProgress(){
   if(state.running && state.streak > 0 && state.streak < TARGET_STREAK) el("progressBar").classList.add("moving");
   else el("progressBar").classList.remove("moving");
 }
-function updateBankStats(){
-  const arr = TOPICS.map(t=>{
-    const s = state.stats[t.id];
-    const acc = s.attempts ? (s.correct / s.attempts) : 1;
-    const weightHint = (s.recentWrong*2) + (s.wrong) + (1-acc)*3;
-    return { id:t.id, label:t.label, wrong:s.wrong, recentWrong:s.recentWrong, acc, weightHint };
-  }).sort((a,b)=> b.weightHint - a.weightHint);
-
-  const top = arr.slice(0,2).map(x=>{
-    const a = Math.round(x.acc*100);
-    return `• <b>${escapeHtml(x.label)}</b> — acc ${a}% (wrong ${x.wrong}, recent ${x.recentWrong})`;
-  }).join("<br>");
-
-  el("bankStats").innerHTML =
-    `<b>Adaptive engine:</b><br>${top}<br><span style="color:rgba(247,251,255,.72)">Mistakes make that topic appear more often.</span>`;
-}
 function setCard(label, text){
   el("cardLabel").textContent = label;
   el("cardText").textContent = text;
+}
+
+/* ==========================================================
+   SIMPLE TEACHER STATS (replaces complex stats)
+========================================================== */
+function topicPracticeText(topicId){
+  const map = {
+    WILL: "WILL: predictions/offers. Patterns: I’ll…, It will…, Will you…?",
+    GOING: "GOING TO: plans/intentions. Patterns: I’m going to…, Are you going to…?",
+    PC: "PRESENT CONT (future): arrangements. Patterns: We’re meeting…, Are you meeting…?",
+    PS: "PRESENT SIMPLE (future): schedules. Patterns: The train leaves…, Does it leave…?",
+    FC: "FIRST CONDITIONAL: If + present, will + base. Example: If it rains, we’ll…"
+  };
+  return map[topicId] || "Practice this topic with more examples (aff/neg/questions).";
+}
+
+function updateBankStats(){
+  const container = document.getElementById("teacherStats");
+  if(!container) return;
+
+  const rows = TOPICS.map(t=>{
+    const s = state.stats[t.id];
+    const attempts = s.attempts || 0;
+    const correct = s.correct || 0;
+    const acc = attempts ? (correct/attempts) : 0;
+
+    // Very simple "need practice" score (only meaningful after 3 attempts)
+    const eligible = attempts >= 3;
+    const score = eligible ? (1 - acc) : 0.25;
+
+    return {
+      id: t.id,
+      label: t.label,
+      attempts,
+      correct,
+      acc,
+      score,
+      practice: topicPracticeText(t.id)
+    };
+  });
+
+  rows.sort((a,b)=> b.score - a.score);
+  const top = rows.slice(0,3);
+
+  const totalAttempts = rows.reduce((a,x)=>a + x.attempts, 0);
+  if(totalAttempts === 0){
+    container.innerHTML = `
+      <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:10px;background:rgba(255,255,255,.05);color:rgba(247,251,255,.82);font-weight:800">
+        No data yet. Press START and complete a few rounds.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = top.map(r=>{
+    const pct = Math.round(r.acc*100);
+    const pctShow = r.attempts ? `${pct}%` : "—";
+    const barW = r.attempts ? Math.max(6, Math.min(100, pct)) : 8;
+
+    const sub = `${r.correct}/${r.attempts} correct`;
+
+    return `
+      <div style="
+        border:1px solid rgba(255,255,255,.14);
+        border-radius:14px;
+        padding:10px;
+        background:rgba(0,0,0,.14)
+      ">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+          <div style="font-weight:900">${escapeHtml(r.label)}</div>
+          <div style="font-weight:900;font-size:18px">${pctShow}</div>
+        </div>
+
+        <div style="margin-top:4px;color:rgba(247,251,255,.78);font-weight:800;font-size:12.5px">
+          ${escapeHtml(sub)}
+        </div>
+
+        <div style="margin-top:8px;height:10px;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06)">
+          <div style="height:100%;width:${barW}%;background:linear-gradient(90deg, rgba(255,47,179,.9), rgba(17,232,255,.9), rgba(255,224,74,.9))"></div>
+        </div>
+
+        <div style="margin-top:8px;color:rgba(247,251,255,.90);font-weight:800;font-size:12.5px;line-height:1.25">
+          <span style="opacity:.8">Practice:</span> ${escapeHtml(r.practice)}
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // optional mini summary
+  const strong = [...rows].sort((a,b)=> (b.acc - a.acc))[0];
+  const weak = rows[0];
+  container.insertAdjacentHTML("beforeend", `
+    <div style="margin-top:8px;color:rgba(247,251,255,.75);font-weight:800;font-size:12px">
+      Weakest: <b>${escapeHtml(weak.id)}</b> • Strongest: <b>${escapeHtml(strong?.id || "—")}</b>
+    </div>
+  `);
 }
 
 /* ==========================================================
@@ -1100,9 +1196,12 @@ function makeRound(){
     return { mode, topicId, subKey, sentence, correctKey: topicId };
   }
 
+  // Ordering tokens (duplicate display fix)
   const targetWords = normalizeSentence(sentence).split(" ");
-  const orderWords = shuffle(targetWords);
-  return { mode:"order", topicId, subKey, sentence, targetWords, orderWords };
+  const targetTokens = markDuplicateDisplays(targetWords);
+  const orderTokens = shuffle(targetTokens);
+
+  return { mode:"order", topicId, subKey, sentence, targetWords, orderTokens };
 }
 
 /* ==========================================================
@@ -1172,8 +1271,7 @@ function renderRound(){
   state.orderSelected = [];
   updateBankStats();
 
-  // FIX 2: DO NOT reveal the correct topic before the student answers.
-  // Use a neutral label + prompt.
+  // NEVER reveal answer before student chooses
   setCard("Choose the correct form", state.round.sentence);
 
   if(state.round.mode === "multiple"){
@@ -1203,7 +1301,7 @@ function renderRound(){
     return;
   }
 
-  /* ORDERING mode (still neutral label; sentence not shown as "answer") */
+  // ORDERING mode
   setCard("Ordering round", "Build the sentence from the scrambled words below.");
   el("orderBox").textContent = "Tap words to build the sentence. Tap a chip to remove it.";
 
@@ -1213,13 +1311,13 @@ function renderRound(){
 
   el("options").classList.add("mode-order");
 
-  state.round.orderWords.forEach((w, idx)=>{
+  state.round.orderTokens.forEach((tok, idx)=>{
     const b = document.createElement("button");
     b.type = "button";
     b.className = "orderWord";
-    b.textContent = w;
+    b.textContent = tok.display;              // visible "the (1)", "the (2)"
     b.dataset.idx = String(idx);
-    b.onclick = ()=> pickWord(idx, w, b);
+    b.onclick = ()=> pickWord(idx, tok.word, b); // store real word
     el("options").appendChild(b);
   });
 
@@ -1263,7 +1361,7 @@ function showFeedback(ok, detail, isWin){
     ? (isWin ? `You reached ${TARGET_STREAK} correct answers in a row!` : `Streak: ${state.streak} / ${TARGET_STREAK}`)
     : `Streak reset to 0. We’ll practice this topic again.`;
 
-  // Reveal the correct topic ONLY here (after answering).
+  // Reveal correct form ONLY after answering
   let d = "";
   if(state.round.mode === "multiple"){
     d = ok
@@ -1308,7 +1406,7 @@ function gradeRound(ok, detail){
 
     blip(true);
 
-    updateHeader(); updateProgress();
+    updateHeader(); updateProgress(); updateBankStats();
 
     if(state.streak >= TARGET_STREAK){
       showFeedback(true, detail, true);
@@ -1330,7 +1428,7 @@ function gradeRound(ok, detail){
   state.streak = 0;
   blip(false);
 
-  updateHeader(); updateProgress();
+  updateHeader(); updateProgress(); updateBankStats();
 
   showFeedback(false, detail, false);
   afterFeedbackAutoNext(false);
@@ -1363,7 +1461,7 @@ function startGame(){
   state.lastTopicId = null;
 
   state.sentStats = false;
-  state.gameId = (crypto?.randomUUID?.() || String(Date.now()));
+  state.gameId = (crypto?.randomUUID?.() || String(Date.now())) ;
 
   state.stats = Object.fromEntries(TOPICS.map(t => [t.id, {attempts:0, correct:0, wrong:0, recentWrong:0}]));
   state.fairPtr = Object.fromEntries(TOPICS.map(t => [t.id, 0]));
@@ -1426,6 +1524,8 @@ function resetGame(){
 
   el("sendStats").style.display = "none";
   el("downloadReport").style.display = "none";
+
+  updateBankStats();
 }
 
 function winGame(){
@@ -1459,19 +1559,8 @@ function closeCelebration(){
 }
 
 /* ==========================================================
-   Stats-only to Google Sheets
+   Stats-only to Google Sheets (kept compatible)
 ========================================================== */
-function topicPracticeText(topicId){
-  const map = {
-    WILL: "Practice WILL: predictions/offers. Patterns: I’ll…, It will…, Will you…?",
-    GOING: "Practice GOING TO: plans/intentions. Patterns: I’m going to…, Are you going to…?",
-    PC: "Practice PRESENT CONTINUOUS (future arrangements). Patterns: We’re meeting…, Are you meeting…?",
-    PS: "Practice PRESENT SIMPLE (timetables). Patterns: The train leaves…, Does it leave…?",
-    FC: "Practice FIRST CONDITIONAL. Patterns: If + present, will + base. Questions: What will you do if…?"
-  };
-  return map[topicId] || "Practice this topic with more examples (aff/neg/questions).";
-}
-
 function computePriorityScore(s){
   const attempts = s.attempts || 0;
   const acc = attempts ? (s.correct / attempts) : 0;
@@ -1665,6 +1754,7 @@ updateBankStats();
 </script>
 </body>
 </html>
+
 
 
 
