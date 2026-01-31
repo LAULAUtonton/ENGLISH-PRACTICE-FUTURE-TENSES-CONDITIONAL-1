@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Future Clues Sprint — Soft Manga (Mixed)</title>
+  <title>Future Forms Sprint — Soft Manga</title>
 
   <style>
     *{ box-sizing:border-box; }
@@ -12,7 +12,7 @@
       --bg2:#f3fbff;
       --ink:#111827;
 
-      --card: rgba(255,255,255,.86);
+      --card: rgba(255,255,255,.88);
       --stroke: rgba(17,24,39,.14);
 
       --pink:#ff73b6;
@@ -45,7 +45,7 @@
       clip:rect(0,0,0,0);white-space:nowrap;border:0;
     }
 
-    /* ---------- NAME SCREEN (responsive) ---------- */
+    /* ---------- NAME SCREEN ---------- */
     #nameScreen{
       min-height:100vh;
       display:grid;
@@ -53,7 +53,7 @@
       padding: 18px;
     }
     .nameWrap{
-      width: min(760px, 100%);
+      width: min(820px, 100%);
       background: var(--card);
       border: 1px solid var(--stroke);
       border-radius: 28px;
@@ -70,7 +70,7 @@
         radial-gradient(circle at 75% 30%, rgba(111,211,255,.22), transparent 60%),
         radial-gradient(circle at 40% 85%, rgba(167,139,250,.18), transparent 60%);
       filter: blur(2px);
-      opacity:.9;
+      opacity:.95;
       z-index:0;
     }
     .nameWrap > *{ position:relative; z-index:1; }
@@ -155,17 +155,9 @@
     }
 
     #gameScreen{
-      max-width: 1120px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 14px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.35fr .85fr;
-      gap: 14px;
-      align-items:start;
-      margin-top: 10px;
     }
 
     .panel{
@@ -175,6 +167,7 @@
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
+
     .panelHead{
       padding: 12px 14px;
       display:flex;
@@ -188,11 +181,13 @@
       margin:0;
       font-size: 1.05rem;
       font-weight: 1000;
+      letter-spacing:.3px;
     }
     .hud{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
+      justify-content:flex-end;
     }
     .hudBox{
       padding: 8px 10px;
@@ -204,7 +199,7 @@
       user-select:none;
     }
 
-    .sentenceWrap{ padding: 14px; }
+    .bodyPad{ padding: 14px; }
 
     .badgeRow{
       display:flex;
@@ -231,11 +226,6 @@
       background: var(--sky);
       box-shadow: 0 0 0 4px rgba(111,211,255,.24);
     }
-    .badgeDot.ps{ background: var(--sun); box-shadow: 0 0 0 4px rgba(255,209,102,.26); }
-    .badgeDot.pc{ background: var(--mint); box-shadow: 0 0 0 4px rgba(110,231,183,.26); }
-    .badgeDot.gt{ background: var(--pink); box-shadow: 0 0 0 4px rgba(255,115,182,.25); }
-    .badgeDot.wi{ background: var(--vio); box-shadow: 0 0 0 4px rgba(167,139,250,.25); }
-    .badgeDot.fc{ background: var(--rose); box-shadow: 0 0 0 4px rgba(251,113,133,.22); }
 
     .sentenceCard{
       border-radius: 22px;
@@ -244,7 +234,7 @@
         radial-gradient(900px 240px at 18% 0%, rgba(111,211,255,.26), transparent 55%),
         radial-gradient(900px 240px at 88% 10%, rgba(255,115,182,.22), transparent 60%),
         radial-gradient(700px 260px at 40% 100%, rgba(110,231,183,.18), transparent 55%),
-        rgba(255,255,255,.86);
+        rgba(255,255,255,.90);
       padding: 14px 14px;
       box-shadow: 0 16px 40px rgba(17,24,39,.12);
     }
@@ -283,24 +273,30 @@
       flex-direction:column;
       gap: 12px;
     }
+
     .optBtn{
       width:100%;
       text-align:left;
       padding: 14px 14px;
       border-radius: 20px;
       border: 1px solid rgba(17,24,39,.14);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.74));
       box-shadow: 0 14px 32px rgba(17,24,39,.10);
       font-weight: 1000;
       font-size: 1.05rem;
       cursor:pointer;
       transition: transform .12s ease, filter .12s ease;
+      background: rgba(255,255,255,.85);
     }
     .optBtn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
     .optBtn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
 
-    /* Ordering UI */
+    /* Option color variants (soft manga) */
+    .optA{ background: linear-gradient(180deg, rgba(255,209,102,.35), rgba(255,255,255,.86)); }
+    .optB{ background: linear-gradient(180deg, rgba(111,211,255,.30), rgba(255,255,255,.86)); }
+    .optC{ background: linear-gradient(180deg, rgba(110,231,183,.26), rgba(255,255,255,.86)); }
+    .optD{ background: linear-gradient(180deg, rgba(167,139,250,.26), rgba(255,255,255,.86)); }
+
+    /* Ordering UI (present-tense style) */
     .orderTop{
       display:flex;
       gap:10px;
@@ -365,7 +361,6 @@
       border: 1px solid rgba(17,24,39,.14);
       box-shadow: var(--shadow);
       overflow:hidden;
-      position: relative;
     }
     .modalHead{
       padding: 12px 14px;
@@ -394,6 +389,7 @@
       transition: transform .12s ease;
     }
     .btnOk:hover{ transform: translateY(-2px); }
+
     .pop{ animation: pop .18s ease; }
     @keyframes pop{ from{ transform: scale(.97); opacity: 0; } to{ transform: scale(1); opacity: 1; } }
 
@@ -405,54 +401,8 @@
       100%{ transform: translateX(0); }
     }
 
-    /* Right summary panel */
-    .summaryBody{ padding: 14px; }
-    .box{
-      border-radius: 18px;
-      border: 1px solid rgba(17,24,39,.14);
-      background: rgba(255,255,255,.78);
-      padding: 12px;
-      box-shadow: 0 12px 26px rgba(17,24,39,.10);
-      text-align:left;
-      margin-bottom: 10px;
-    }
-    .boxTitle{
-      font-weight: 1000;
-      margin:0 0 8px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .mini{
-      font-weight: 900;
-      color: rgba(17,24,39,.72);
-      margin: 0;
-      line-height: 1.35;
-    }
-    .tag{
-      display:inline-flex;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,.14);
-      background: rgba(255,255,255,.82);
-      font-weight: 1000;
-      margin-top: 8px;
-      user-select:none;
-    }
-
-    .toggleRow{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin: 10px 0;
-      font-weight: 1000;
-    }
-    .toggleRow input{ transform: scale(1.15); }
-
-    @media (max-width: 880px){
-      .grid{ grid-template-columns: 1fr; }
-      .pillRow{ justify-content:center; }
+    @media (max-width: 680px){
+      .hud{ justify-content:flex-start; }
     }
   </style>
 </head>
@@ -461,14 +411,14 @@
   <!-- NAME SCREEN -->
   <div id="nameScreen">
     <div class="nameWrap">
-      <h1 class="title">Future Clues Sprint</h1>
+      <h1 class="title">Future Forms Sprint</h1>
       <p class="subtitle">
-        Mixed practice: <b>Present simple</b> (schedule) • <b>Present continuous</b> (arrangement) • <b>Going to</b> (plan) • <b>Will</b> (prediction / promise / offer) • <b>First conditional</b> (condition → result)
+        Fast practice: choose the <b>future form</b>, then the <b>future meaning</b>, then <b>order the sentence</b>.
       </p>
 
       <div class="pillRow">
-        <span class="pill">⚡ 3 quick steps</span>
-        <span class="pill">🧠 future meaning</span>
+        <span class="pill">⚡ click fast</span>
+        <span class="pill">🧠 grammar clues</span>
         <span class="pill">🐨 koala2 music</span>
       </div>
 
@@ -476,7 +426,7 @@
       <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
 
       <button id="startNameBtn" class="btn btnPrimary">Start</button>
-      <p class="hint">Tip: press Enter • music starts after you click Start</p>
+      <p class="hint">Tip: press Enter • music starts after Start</p>
     </div>
   </div>
 
@@ -484,75 +434,34 @@
   <div id="gameScreen" class="hidden">
     <div id="teacherBtn" title="Teacher Access">🎓</div>
 
-    <div class="grid">
-      <!-- LEFT: GAME -->
-      <div class="panel">
-        <div class="panelHead">
-          <h2>FUTURE FORMS GAME</h2>
-          <div class="hud">
-            <div id="scoreBox" class="hudBox">Score: 0</div>
-            <div id="streakBox" class="hudBox">Streak: 0</div>
-            <div id="bestBox" class="hudBox">Best: 0</div>
-          </div>
-        </div>
-
-        <div class="sentenceWrap">
-          <div class="badgeRow">
-            <span class="badge"><span id="dot" class="badgeDot"></span> <span id="catLabel">Ready</span></span>
-            <span class="badge">🎯 <span id="stepLabel">Step 1/3</span></span>
-            <span class="badge">✨ <span id="taskLabel">Pick the form</span></span>
-          </div>
-
-          <div class="sentenceCard">
-            <p id="sentenceText">Click Start to begin.</p>
-          </div>
-
-          <div class="stepRow">
-            <span class="chip chipBig" id="questionChip">Choose the form</span>
-            <button id="nextBtn" class="btn btnPrimary hidden" style="width:auto;padding:12px 16px;">Next round</button>
-          </div>
-        </div>
-
-        <div id="optionsContainer"></div>
-      </div>
-
-      <!-- RIGHT: SUMMARY -->
-      <div class="panel">
-        <div class="panelHead">
-          <h2>SUMMARY • FUTURE CLUES</h2>
-        </div>
-        <div class="summaryBody">
-          <div class="box">
-            <p class="boxTitle">🗓️ Present simple (future)</p>
-            <p class="mini">Use for <b>timetables / schedules</b>.</p>
-            <span class="tag">clue: fixed schedule</span>
-          </div>
-
-          <div class="box">
-            <p class="boxTitle">📌 Present continuous (future)</p>
-            <p class="mini">Use for a <b>fixed arrangement</b>.</p>
-            <span class="tag">clue: arranged plan</span>
-          </div>
-
-          <div class="box">
-            <p class="boxTitle">🧭 Going to</p>
-            <p class="mini">Use for <b>plans / intentions</b>.</p>
-            <span class="tag">clue: intention before speaking</span>
-          </div>
-
-          <div class="box">
-            <p class="boxTitle">🔮 Will</p>
-            <p class="mini">Use for <b>predictions</b>, <b>decisions now</b>, <b>promises</b>, <b>offers</b>.</p>
-            <span class="tag">clue: decision/promise now</span>
-          </div>
-
-          <div class="box">
-            <p class="boxTitle">⚡ First conditional</p>
-            <p class="mini"><b>If + present</b>, <b>will + result</b>.</p>
-            <span class="tag">clue: condition → result</span>
-          </div>
+    <div class="panel">
+      <div class="panelHead">
+        <h2>FUTURE FORMS GAME</h2>
+        <div class="hud">
+          <div id="scoreBox" class="hudBox">Score: 0</div>
+          <div id="streakBox" class="hudBox">Streak: 0</div>
+          <div id="bestBox" class="hudBox">Best: 0</div>
         </div>
       </div>
+
+      <div class="bodyPad">
+        <div class="badgeRow">
+          <span class="badge"><span class="badgeDot" id="dot"></span> <span id="mysteryLabel">Mystery future sentence</span></span>
+          <span class="badge">🎯 <span id="stepLabel">Step 1/3</span></span>
+          <span class="badge">✨ <span id="taskLabel">Grammar form</span></span>
+        </div>
+
+        <div class="sentenceCard">
+          <p id="sentenceText">Click Start to begin.</p>
+        </div>
+
+        <div class="stepRow">
+          <span class="chip chipBig" id="questionChip">Which form is used?</span>
+          <button id="nextBtn" class="btn btnPrimary hidden" style="width:auto;padding:12px 16px;">Next round</button>
+        </div>
+      </div>
+
+      <div id="optionsContainer"></div>
     </div>
   </div>
 
@@ -574,7 +483,7 @@
     <div class="modal pop">
       <div class="modalHead">🎉 25 IN A ROW!</div>
       <div class="modalBody">
-        <p>Legend mode! Your streak resets to 0 so you can keep playing.</p>
+        <p>Legend mode! Streak resets to 0 — keep playing!</p>
       </div>
       <div class="modalBtns">
         <button id="closeCelebrationBtn" class="btnOk">Keep going</button>
@@ -606,9 +515,15 @@
           <button id="teacherResetBtn" class="tinyBtn">Reset Game</button>
         </div>
 
-        <label class="toggleRow"><input type="checkbox" id="autoNextToggle" /> Auto-next</label>
-        <label class="toggleRow"><input type="checkbox" id="musicToggle" checked /> Music</label>
-        <label class="toggleRow"><input type="checkbox" id="sfxToggle" checked /> Sound effects</label>
+        <label style="display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-weight:1000;">
+          <input type="checkbox" id="autoNextToggle" /> Auto-next
+        </label>
+        <label style="display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-weight:1000;">
+          <input type="checkbox" id="musicToggle" checked /> Music
+        </label>
+        <label style="display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-weight:1000;">
+          <input type="checkbox" id="sfxToggle" checked /> Sound effects
+        </label>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
           <button id="sendStatsBtn" class="tinyBtn">Send Stats Now</button>
@@ -730,57 +645,17 @@
     ];
 
     /* =======================
-       META (future meanings)
+       FUTURE FORMS + MEANINGS
     ======================= */
-    const CATS = [
-      {
-        key:"PS",
-        dot:"ps",
-        label:"Present simple (schedule)",
-        emoji:"🗓️",
-        meaning:"timetable / schedule",
-        sentences: PS_FUTURE,
-        formOptions: ["Present simple","Present continuous","Going to","Will","First conditional"]
-      },
-      {
-        key:"PC",
-        dot:"pc",
-        label:"Present continuous (arrangement)",
-        emoji:"📌",
-        meaning:"fixed arrangement",
-        sentences: PC_FUTURE,
-        formOptions: ["Present continuous","Present simple","Going to","Will","First conditional"]
-      },
-      {
-        key:"GT",
-        dot:"gt",
-        label:"Going to (plan)",
-        emoji:"🧭",
-        meaning:"plan / intention",
-        sentences: GOING_TO,
-        formOptions: ["Going to","Present simple","Present continuous","Will","First conditional"]
-      },
-      {
-        key:"WI",
-        dot:"wi",
-        label:"Will",
-        emoji:"🔮",
-        meaning:"prediction / promise / offer",
-        sentences: WILL,
-        formOptions: ["Will","Present simple","Present continuous","Going to","First conditional"]
-      },
-      {
-        key:"FC",
-        dot:"fc",
-        label:"First conditional",
-        emoji:"⚡",
-        meaning:"condition → result",
-        sentences: FIRST_COND,
-        formOptions: ["First conditional","Will","Going to","Present simple","Present continuous"]
-      }
+    const FORM_LABELS = [
+      "Present simple (future)",
+      "Present continuous (future)",
+      "Going to",
+      "Will",
+      "First conditional"
     ];
 
-    const MEANING_POOL = [
+    const MEANING_LABELS = [
       "timetable / schedule",
       "fixed arrangement",
       "plan / intention",
@@ -788,10 +663,19 @@
       "condition → result"
     ];
 
+    const CATS = [
+      { key:"PS", form:"Present simple (future)", meaning:"timetable / schedule", sentences: PS_FUTURE },
+      { key:"PC", form:"Present continuous (future)", meaning:"fixed arrangement", sentences: PC_FUTURE },
+      { key:"GT", form:"Going to", meaning:"plan / intention", sentences: GOING_TO },
+      { key:"WI", form:"Will", meaning:"prediction / promise / offer", sentences: WILL },
+      { key:"FC", form:"First conditional", meaning:"condition → result", sentences: FIRST_COND }
+    ];
+
     /* =======================
        HELPERS
     ======================= */
     const $ = (s)=>document.querySelector(s);
+
     const shuffle = (arr)=>{
       const a = arr.slice();
       for(let i=a.length-1;i>0;i--){
@@ -809,16 +693,24 @@
         .split(" ")
         .filter(Boolean);
     }
+
     function normalizeTokens(tokens){
       return tokens.join(" ").replace(/\s+([,.!?])/g, "$1").trim();
     }
+
     function pick4(correct, pool){
       const others = pool.filter(x=>x!==correct);
       return shuffle([correct, ...shuffle(others).slice(0,3)]);
     }
 
+    function nowISO(){ return new Date().toISOString(); }
+
     /* =======================
-       BUILD QUESTION BANK (75)
+       BUILD BANK (75 items)
+       Each item has 3 separate question types:
+       - grammar(form)
+       - meaning
+       - word order
     ======================= */
     function buildBank(){
       const out = [];
@@ -827,30 +719,12 @@
           const tokens = tokenizeSentence(sentence);
           out.push({
             sentence,
-            cat,
-            qForm: {
-              correct: cat.label.includes("Present simple") ? "Present simple"
-                     : cat.label.includes("Present continuous") ? "Present continuous"
-                     : cat.label.includes("Going to") ? "Going to"
-                     : cat.label.includes("Will") ? "Will"
-                     : "First conditional",
-              options: pick4(
-                (cat.key==="PS") ? "Present simple" :
-                (cat.key==="PC") ? "Present continuous" :
-                (cat.key==="GT") ? "Going to" :
-                (cat.key==="WI") ? "Will" :
-                "First conditional",
-                cat.formOptions
-              )
-            },
-            qMeaning: {
-              correct: cat.meaning,
-              options: pick4(cat.meaning, MEANING_POOL)
-            },
-            qOrder: {
-              correctTokens: tokens,
-              shuffledTokens: shuffle(tokens)
-            }
+            correctForm: cat.form,
+            correctMeaning: cat.meaning,
+            orderTokens: tokens,
+            formOptions: pick4(cat.form, FORM_LABELS),
+            meaningOptions: pick4(cat.meaning, MEANING_LABELS),
+            orderOptions: shuffle(tokens)
           });
         }
       }
@@ -875,7 +749,7 @@
       bestBox: $("#bestBox"),
 
       dot: $("#dot"),
-      catLabel: $("#catLabel"),
+      mysteryLabel: $("#mysteryLabel"),
       stepLabel: $("#stepLabel"),
       taskLabel: $("#taskLabel"),
       questionChip: $("#questionChip"),
@@ -926,12 +800,16 @@
 
       bundle:null,
       step:1,
+
       log:[]
     };
 
+    /* =======================
+       PREFS
+    ======================= */
     function savePrefs(){
       try{
-        localStorage.setItem("future_clues_prefs_v2", JSON.stringify({
+        localStorage.setItem("future_sprint_prefs_v1", JSON.stringify({
           autoNext: state.autoNext,
           musicOn: state.musicOn,
           sfxOn: state.sfxOn,
@@ -941,7 +819,7 @@
     }
     function loadPrefs(){
       try{
-        const raw = localStorage.getItem("future_clues_prefs_v2");
+        const raw = localStorage.getItem("future_sprint_prefs_v1");
         if(!raw) return;
         const p = JSON.parse(raw);
         if(typeof p.autoNext==="boolean") state.autoNext = p.autoNext;
@@ -965,7 +843,7 @@
         kind==="wrong" ? el.wrongSound :
         kind==="celebration" ? el.celebrationSound : null;
       if(!a) return;
-      try{ a.currentTime=0; a.play(); }catch(_){}
+      try{ a.currentTime = 0; a.play(); }catch(_){}
     }
 
     function syncMusic(){
@@ -978,9 +856,12 @@
       }catch(_){}
     }
 
-    function show(n){ n.classList.remove("hidden"); }
-    function hide(n){ n.classList.add("hidden"); }
+    function show(n){ n.classList.remove("hidden"); n.setAttribute("aria-hidden","false"); }
+    function hide(n){ n.classList.add("hidden"); n.setAttribute("aria-hidden","true"); }
 
+    /* =======================
+       FEEDBACK
+    ======================= */
     function showFeedback(title, msg, correct, onClose){
       el.feedbackTitle.textContent = title;
       el.feedbackText.textContent = msg;
@@ -1015,12 +896,15 @@
       else next();
     }
 
+    /* =======================
+       LOGGING
+    ======================= */
     function scoreIt(correct){
       if(correct){
         state.score += 1;
         state.streak += 1;
         state.bestStreak = Math.max(state.bestStreak, state.streak);
-      }else{
+      } else {
         state.streak = 0;
       }
       setHUD();
@@ -1029,9 +913,8 @@
     function logEntry(kind, chosen, correctAnswer, correct){
       state.log.push({
         studentName: state.studentName,
-        timeISO: new Date().toISOString(),
+        timeISO: nowISO(),
         sentence: state.bundle?.sentence || "",
-        categoryKey: state.bundle?.cat?.key || "",
         kind,
         chosen,
         correctAnswer,
@@ -1041,78 +924,130 @@
       });
     }
 
-    function setCategoryUI(){
-      const c = state.bundle.cat;
-      el.dot.className = `badgeDot ${c.dot}`;
-      el.catLabel.textContent = `${c.emoji} ${c.label}`;
+    async function sendStatsNow(){
+      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")){
+        alert("Add GOOGLE_SCRIPT_URL first (optional).");
+        return;
+      }
+      const payload = {
+        studentName: state.studentName,
+        summary: {
+          studentName: state.studentName,
+          score: state.score,
+          bestStreak: state.bestStreak,
+          sentAt: nowISO()
+        },
+        log: state.log
+      };
+      try{
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify(payload)
+        });
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        alert("Stats sent ✅");
+      }catch(e){
+        console.error(e);
+        alert("Failed to send stats. Check Apps Script URL/permissions.");
+      }
     }
 
-    function setStepUI(){
-      el.stepLabel.textContent = `Step ${state.step}/3`;
-      if(state.step===1){ el.taskLabel.textContent = "Form"; el.questionChip.textContent = "Which form is used?"; }
-      if(state.step===2){ el.taskLabel.textContent = "Meaning"; el.questionChip.textContent = "What future meaning?"; }
-      if(state.step===3){ el.taskLabel.textContent = "Order"; el.questionChip.textContent = "Build the sentence"; }
+    /* =======================
+       RENDER HELPERS
+    ======================= */
+    function clearOptions(){
+      el.optionsContainer.innerHTML = "";
     }
 
-    function clearOptions(){ el.optionsContainer.innerHTML = ""; }
-
-    function render4Buttons(options, onPick){
+    function renderOptionButtons(options, onPick){
       clearOptions();
-      options.forEach(opt=>{
+      const classes = ["optA","optB","optC","optD"];
+      options.forEach((opt, idx)=>{
         const b = document.createElement("button");
-        b.type="button";
-        b.className="optBtn";
+        b.type = "button";
+        b.className = `optBtn ${classes[idx % 4]}`;
         b.textContent = opt;
         b.addEventListener("click", ()=>onPick(opt));
         el.optionsContainer.appendChild(b);
       });
     }
 
+    function setStepUI(){
+      el.stepLabel.textContent = `Step ${state.step}/3`;
+
+      if(state.step===1){
+        el.taskLabel.textContent = "Grammar form";
+        el.questionChip.textContent = "Which form is used?";
+      } else if(state.step===2){
+        el.taskLabel.textContent = "Future meaning";
+        el.questionChip.textContent = "What does it mean?";
+      } else {
+        el.taskLabel.textContent = "Word order";
+        el.questionChip.textContent = "Order the sentence";
+      }
+    }
+
+    /* =======================
+       STEP 1 — GRAMMAR FORM
+    ======================= */
     function renderStep1(){
       setStepUI();
-      render4Buttons(state.bundle.qForm.options, (chosen)=>{
-        const correct = chosen === state.bundle.qForm.correct;
+      renderOptionButtons(state.bundle.formOptions, (chosen)=>{
+        const correct = chosen === state.bundle.correctForm;
         scoreIt(correct);
-        logEntry("form", chosen, state.bundle.qForm.correct, correct);
+        logEntry("form", chosen, state.bundle.correctForm, correct);
 
-        const msg = correct ? "Nice! ✅" : `Nope — it’s ${state.bundle.qForm.correct}.`;
+        const msg = correct
+          ? "Yes! ✅"
+          : `Nope — correct: ${state.bundle.correctForm}.`;
+
         showFeedback(correct ? "Correct!" : "Try again!", msg, correct, ()=> maybeCelebrate(advance));
       });
     }
 
+    /* =======================
+       STEP 2 — MEANING
+    ======================= */
     function renderStep2(){
       setStepUI();
-      render4Buttons(state.bundle.qMeaning.options, (chosen)=>{
-        const correct = chosen === state.bundle.qMeaning.correct;
+      renderOptionButtons(state.bundle.meaningOptions, (chosen)=>{
+        const correct = chosen === state.bundle.correctMeaning;
         scoreIt(correct);
-        logEntry("meaning", chosen, state.bundle.qMeaning.correct, correct);
+        logEntry("meaning", chosen, state.bundle.correctMeaning, correct);
 
-        const msg = correct ? "Great clue-spotting! 🌟" : `Clue: ${state.bundle.qMeaning.correct}`;
+        const msg = correct
+          ? "Great clue! 🌟"
+          : `Clue: ${state.bundle.correctMeaning}.`;
+
         showFeedback(correct ? "Correct!" : "Not quite!", msg, correct, ()=> maybeCelebrate(advance));
       });
     }
 
+    /* =======================
+       STEP 3 — WORD ORDER (present-style)
+    ======================= */
     function renderStep3(){
       setStepUI();
       clearOptions();
 
-      const correctTokens = state.bundle.qOrder.correctTokens.slice();
-      const shuffled = state.bundle.qOrder.shuffledTokens.slice();
+      const correctTokens = state.bundle.orderTokens.slice();
+      const shuffled = state.bundle.orderOptions.slice();
+
       let built = [];
 
       const top = document.createElement("div");
       top.className = "orderTop";
       top.innerHTML = `
-        <div class="chip">Click words to build the sentence</div>
+        <div class="chip">Click words to build</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="tinyBtn" id="undoBtn">Undo</button>
-          <button class="tinyBtn" id="resetBtn">Reset</button>
+          <button class="tinyBtn" id="undoBtn" type="button">Undo</button>
+          <button class="tinyBtn" id="resetBtn" type="button">Reset</button>
         </div>
       `;
 
       const buildBox = document.createElement("div");
       buildBox.className = "buildBox";
-      buildBox.id = "buildBox";
 
       const tokensWrap = document.createElement("div");
       tokensWrap.style.display = "flex";
@@ -1122,7 +1057,11 @@
       const refreshBuild = ()=>{
         buildBox.innerHTML = "";
         if(built.length===0){
-          buildBox.innerHTML = `<span style="opacity:.7;font-weight:900;">(build here)</span>`;
+          const ghost = document.createElement("span");
+          ghost.style.opacity = ".7";
+          ghost.style.fontWeight = "900";
+          ghost.textContent = "(build here)";
+          buildBox.appendChild(ghost);
           return;
         }
         built.forEach(t=>{
@@ -1131,10 +1070,6 @@
           s.textContent = t;
           buildBox.appendChild(s);
         });
-      };
-
-      const disableAll = ()=>{
-        tokensWrap.querySelectorAll("button").forEach(b=>b.disabled=true);
       };
 
       const checkFinish = ()=>{
@@ -1148,9 +1083,8 @@
         logEntry("order", builtSentence, correctSentence, correct);
 
         if(correct){
-          disableAll();
-          showFeedback("Correct!", "Boom! 💥 Perfect sentence!", true, ()=> maybeCelebrate(advance));
-        }else{
+          showFeedback("Correct!", "Boom! 💥", true, ()=> maybeCelebrate(advance));
+        } else {
           buildBox.classList.remove("shake");
           void buildBox.offsetWidth;
           buildBox.classList.add("shake");
@@ -1160,8 +1094,8 @@
 
       shuffled.forEach(tok=>{
         const b = document.createElement("button");
-        b.type="button";
-        b.className="tinyBtn tokenBtn";
+        b.type = "button";
+        b.className = "tinyBtn tokenBtn";
         b.textContent = tok;
         b.addEventListener("click", ()=>{
           built.push(tok);
@@ -1180,7 +1114,8 @@
         if(built.length===0) return;
         const last = built.pop();
         const btns = [...tokensWrap.querySelectorAll("button")];
-        const target = btns.find(x=>x.disabled && x.textContent===last);
+        // re-enable one matching disabled token
+        const target = btns.find(x => x.disabled && x.textContent === last);
         if(target) target.disabled = false;
         refreshBuild();
       });
@@ -1194,10 +1129,17 @@
       refreshBuild();
     }
 
+    /* =======================
+       ROUND FLOW
+    ======================= */
     function render(){
       hide(el.nextBtn);
+      el.mysteryLabel.textContent = "Mystery future sentence";
       el.sentenceText.textContent = state.bundle.sentence;
-      setCategoryUI();
+
+      // do NOT reveal category/form at top (prevents giving answers)
+      el.dot.style.background = "var(--sky)";
+      el.dot.style.boxShadow = "0 0 0 4px rgba(111,211,255,.24)";
 
       if(state.step===1) renderStep1();
       else if(state.step===2) renderStep2();
@@ -1225,17 +1167,18 @@
       state.log = [];
       setHUD();
 
-      el.sentenceText.textContent = "Ready! Start a round.";
-      el.dot.className = "badgeDot";
-      el.catLabel.textContent = "Ready";
+      el.mysteryLabel.textContent = "Mystery future sentence";
       el.stepLabel.textContent = "Step 1/3";
-      el.taskLabel.textContent = "Form";
+      el.taskLabel.textContent = "Grammar form";
       el.questionChip.textContent = "Which form is used?";
+      el.sentenceText.textContent = "Ready! Start a round.";
       clearOptions();
       hide(el.nextBtn);
     }
 
-    /* ---------- Teacher ---------- */
+    /* =======================
+       TEACHER
+    ======================= */
     function openTeacherLogin(){
       show(el.teacherLogin);
       el.teacherCodeInput.value = "";
@@ -1261,27 +1204,9 @@
       }
     }
 
-    async function sendStatsNow(){
-      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")){
-        alert("Add GOOGLE_SCRIPT_URL first (optional).");
-        return;
-      }
-      const payload = {
-        studentName: state.studentName,
-        summary: { studentName: state.studentName, score: state.score, bestStreak: state.bestStreak, sentAt: new Date().toISOString() },
-        log: state.log
-      };
-      try{
-        const res = await fetch(GOOGLE_SCRIPT_URL, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(payload) });
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        alert("Stats sent ✅");
-      }catch(e){
-        console.error(e);
-        alert("Failed to send stats (Apps Script URL/permissions).");
-      }
-    }
-
-    /* ---------- Events ---------- */
+    /* =======================
+       EVENTS
+    ======================= */
     function wire(){
       el.startNameBtn.addEventListener("click", ()=>{
         const n = (el.studentNameInput.value || "").trim();
@@ -1291,7 +1216,7 @@
         hide(el.nameScreen);
         show(el.gameScreen);
 
-        // Music must start after user gesture
+        // Music starts AFTER user click (autoplay rules)
         syncMusic();
 
         loadPrefs();
@@ -1321,19 +1246,33 @@
       el.teacherStartBtn.addEventListener("click", startRound);
       el.teacherResetBtn.addEventListener("click", resetGame);
 
-      el.autoNextToggle.addEventListener("change", (e)=>{ state.autoNext = !!e.target.checked; savePrefs(); });
-      el.musicToggle.addEventListener("change", (e)=>{ state.musicOn = !!e.target.checked; savePrefs(); syncMusic(); });
-      el.sfxToggle.addEventListener("change", (e)=>{ state.sfxOn = !!e.target.checked; savePrefs(); });
+      el.autoNextToggle.addEventListener("change", (e)=>{
+        state.autoNext = !!e.target.checked;
+        savePrefs();
+      });
+
+      el.musicToggle.addEventListener("change", (e)=>{
+        state.musicOn = !!e.target.checked;
+        savePrefs();
+        syncMusic();
+      });
+
+      el.sfxToggle.addEventListener("change", (e)=>{
+        state.sfxOn = !!e.target.checked;
+        savePrefs();
+      });
 
       el.sendStatsBtn.addEventListener("click", sendStatsNow);
       el.closeTeacherPanel.addEventListener("click", closeTeacherPanel);
 
-      // click outside modals
+      // click outside modals closes them
       el.teacherLogin.addEventListener("click", (e)=>{ if(e.target===el.teacherLogin) closeTeacherLogin(); });
       el.teacherPanel.addEventListener("click", (e)=>{ if(e.target===el.teacherPanel) closeTeacherPanel(); });
     }
 
-    /* ---------- INIT ---------- */
+    /* =======================
+       INIT
+    ======================= */
     function init(){
       loadPrefs();
       setHUD();
@@ -1344,6 +1283,7 @@
   </script>
 </body>
 </html>
+
 
 
 
