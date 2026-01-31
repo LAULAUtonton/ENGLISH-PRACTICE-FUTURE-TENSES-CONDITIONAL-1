@@ -3,35 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Future Forms + First Conditional — Fair (A/N/Q) — Streak to 25 (Manga Colors)</title>
+<title>Future Forms + First Conditional — Streak to 25 (Manga) + Google Sheets Stats</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  /* ===== Manga / pop palette ===== */
-  --bg1:#05040d;
-  --bg2:#0b0830;
-  --bg3:#140a2b;
-
-  --ink:#f7fbff;
-  --mut:rgba(247,251,255,.72);
-
+  --bg1:#05040d; --bg2:#0b0830; --bg3:#140a2b;
+  --ink:#f7fbff; --mut:rgba(247,251,255,.72);
   --panel: rgba(18, 13, 34, .88);
   --stroke: rgba(255,255,255,.14);
-
-  --pink:#ff2fb3;
-  --cyan:#11e8ff;
-  --yellow:#ffe04a;
-  --lime:#7dff6a;
-  --violet:#9b5cff;
-
+  --pink:#ff2fb3; --cyan:#11e8ff; --yellow:#ffe04a; --lime:#7dff6a; --violet:#9b5cff;
   --shadow: 0 26px 80px rgba(0,0,0,.60);
   --focus: 0 0 0 5px rgba(17,232,255,.25);
-
   --wMax: 1200px;
-
-  --wordFont: 16px;
-  --chipMinW: 108px;
 }
 
 *{box-sizing:border-box}
@@ -50,7 +34,6 @@ body{
   padding:12px;
 }
 
-/* ===== Layout ===== */
 .container{
   width:min(var(--wMax), 100%);
   min-height: calc(100vh - 24px);
@@ -71,8 +54,7 @@ body{
 .header{grid-column:1/2; grid-row:1/2; display:flex; gap:12px; align-items:center}
 .logo{
   width:56px;height:56px;border-radius:16px;
-  background:
-    linear-gradient(135deg, rgba(255,47,179,.25), rgba(17,232,255,.22), rgba(255,224,74,.18));
+  background: linear-gradient(135deg, rgba(255,47,179,.25), rgba(17,232,255,.22), rgba(255,224,74,.18));
   border:2px solid rgba(255,255,255,.18);
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 14px 28px rgba(0,0,0,.30);
@@ -110,7 +92,6 @@ body{
 .playerTag{font-size:13px;color:var(--mut)}
 .playerTag strong{color:var(--ink)}
 
-/* ===== Right panel ===== */
 .controlsPanel{
   grid-column:2/3; grid-row:1/4;
   display:flex; flex-direction:column; gap:10px;
@@ -132,7 +113,6 @@ body{
   outline:none;
 }
 .inputRow input:focus{border-color: rgba(17,232,255,.80); box-shadow:var(--focus);}
-.lockedHint{font-size:12px;color:var(--mut);margin-top:-4px}
 
 .controlsBtns{display:flex;gap:10px}
 .btnPrimary,.btnSecondary{
@@ -184,7 +164,6 @@ body{
   line-height:1.35;
 }
 
-/* ===== Game ===== */
 .game{
   grid-column:1/2; grid-row:3/4;
   overflow:hidden;
@@ -208,7 +187,6 @@ body{
   overflow:hidden;
 }
 
-/* prompt card */
 #card{
   border-radius:18px;
   padding:12px;
@@ -263,7 +241,6 @@ body{
   word-break:break-word;
 }
 
-/* order box */
 #orderBox{
   border:2px solid rgba(255,255,255,.14);
   border-radius:16px;
@@ -280,7 +257,6 @@ body{
   overflow:hidden;
 }
 
-/* options container */
 #options{
   width:100%;
   border-radius:16px;
@@ -290,12 +266,11 @@ body{
   overflow:hidden;
 }
 
-/* multiple-choice */
+/* Multiple-choice */
 #options.mode-multiple{
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap:10px;
-  align-content:stretch;
 }
 .choiceCard{
   border:2px solid rgba(0,0,0,.35);
@@ -314,14 +289,6 @@ body{
   position:relative;
   overflow:hidden;
 }
-.choiceCard:focus-visible{outline:none; box-shadow: var(--focus), 0 18px 40px rgba(0,0,0,.30);}
-.choiceCard::after{
-  content:"";
-  position:absolute; inset:-40%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.28), transparent 55%);
-  transform:rotate(10deg);
-  opacity:.7;
-}
 .choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06)}
 .choiceIcon{
   width:46px;height:46px;border-radius:16px;
@@ -335,15 +302,15 @@ body{
 .choiceText small{display:block;font-size:13px;font-weight:800;opacity:.95;margin-top:3px}
 
 .choiceWILL{background:linear-gradient(180deg, var(--yellow), #ffb703);}
-.choiceGOING{background:linear-gradient(180deg, var(--pink), #ff5cc9); color:#0b0712;}
+.choiceGOING{background:linear-gradient(180deg, var(--pink), #ff5cc9);}
 .choicePC{background:linear-gradient(180deg, var(--cyan), #00b6ca);}
 .choicePS{background:linear-gradient(180deg, var(--lime), #56ff8b);}
 .choiceCOND{background:linear-gradient(180deg, var(--violet), #b78bff);}
 
-/* ordering */
+/* Ordering */
 #options.mode-order{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--chipMinW), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
   gap:12px;
   align-content:start;
   grid-auto-rows: minmax(44px, auto);
@@ -353,7 +320,7 @@ body{
   border-radius:16px;
   padding: 11px 12px;
   font-weight:900;
-  font-size: var(--wordFont);
+  font-size: 16px;
   cursor:pointer;
   color:#07101a;
   background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
@@ -364,13 +331,8 @@ body{
 }
 .orderWord:hover{transform:translateY(-3px); filter:brightness(1.05);}
 .orderWord:disabled{opacity:.55;cursor:not-allowed;transform:none !important}
-.orderWord.chosen{
-  color:#fff;
-  border-color: rgba(0,0,0,.40);
-  background:linear-gradient(180deg,#ef4444,#b91c1c);
-}
+.orderWord.chosen{ color:#fff; background:linear-gradient(180deg,#ef4444,#b91c1c); }
 
-/* selected chips */
 .selChip{
   padding:8px 12px;
   border-radius:14px;
@@ -383,7 +345,6 @@ body{
 }
 .selChip:hover{transform:translateY(-2px);filter:brightness(1.05)}
 
-/* progress */
 .progressWrap{
   width:100%;
   height:12px;
@@ -401,15 +362,8 @@ body{
 }
 .progressBar.moving{ animation: prog 1.1s linear infinite; }
 @keyframes prog{ 0%{background-position:0%} 100%{background-position:220%} }
-.progressLabel{
-  font-size:13px;
-  color:rgba(247,251,255,.92);
-  text-align:center;
-  margin-top:-4px;
-  font-weight:900;
-}
+.progressLabel{font-size:13px; color:rgba(247,251,255,.92); text-align:center; margin-top:-4px; font-weight:900;}
 
-/* bottom controls */
 .controlsRow{
   display:flex;
   gap:12px;
@@ -430,7 +384,30 @@ body{
 .smallBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
 .smallBtn:disabled{opacity:.55;cursor:not-allowed;transform:none !important}
 
-/* footer */
+/* BIG blinking CHECK */
+#checkOrder.smallBtn{
+  padding: 18px 32px !important;
+  font-size: 19px !important;
+  border-radius: 18px !important;
+  min-width: 230px !important;
+  border:2px solid rgba(0,0,0,.35) !important;
+  color:#06101a !important;
+  background: linear-gradient(180deg, var(--yellow), #ffb703) !important;
+  box-shadow: 0 18px 38px rgba(255,224,74,.22) !important;
+}
+#checkOrder.smallBtn.checkAttention{ animation: checkPulse 1.0s ease-in-out infinite; }
+@keyframes checkPulse{
+  0%,100%{ transform: scale(1); filter: brightness(1); }
+  50%{ transform: scale(1.07); filter: brightness(1.12); }
+}
+
+#sendStats.smallBtn{
+  border:2px solid rgba(0,0,0,.35) !important;
+  color:#06101a !important;
+  background: linear-gradient(180deg, var(--cyan), #00b6ca) !important;
+  box-shadow: 0 18px 38px rgba(17,232,255,.16) !important;
+}
+
 .footer{
   grid-column:1/2; grid-row:4/5;
   display:flex; justify-content:space-between; align-items:center;
@@ -439,16 +416,12 @@ body{
   flex-wrap:wrap;
 }
 
-/* feedback overlay */
+/* Feedback overlay */
 .fbOverlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
   background:rgba(2,8,23,.62);
-  opacity:0;
-  pointer-events:none;
+  opacity:0; pointer-events:none;
   transition:opacity .18s ease;
   z-index:20;
 }
@@ -464,8 +437,7 @@ body{
 }
 .fbTop{display:flex; align-items:center; justify-content:center; gap:10px; font-weight:900;}
 .fbIcon{
-  width:48px;height:48px;
-  border-radius:16px;
+  width:48px;height:48px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
   background:rgba(255,255,255,.10);
   border:2px solid rgba(255,255,255,.14);
@@ -474,11 +446,8 @@ body{
 .fbTitle{font-size:22px; margin:0;}
 .fbSub{
   margin:12px auto 0;
-  font-size:16px;
-  color:#ffffff;
-  font-weight:900;
-  line-height:1.32;
-  max-width:600px;
+  font-size:16px; color:#fff; font-weight:900;
+  line-height:1.32; max-width:600px;
 }
 .fbDetail{
   margin:10px auto 0;
@@ -504,7 +473,7 @@ body{
 }
 .fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
 
-/* celebration */
+/* Celebration */
 .celebration-overlay{
   position:fixed; inset:0;
   display:none; align-items:center; justify-content:center;
@@ -526,7 +495,7 @@ body{
 .celebration-sub{color:rgba(247,251,255,.88);font-weight:900; font-size:16px; margin-bottom:12px}
 .celebration-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 
-/* responsive */
+/* Responsive */
 @media (max-width: 1020px){
   .container{grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto auto}
   .controlsPanel{grid-column:1/2; grid-row:5/6; flex-direction:row; flex-wrap:wrap; gap:10px}
@@ -539,25 +508,6 @@ body{
   .inputRow{width:100%}
   #options.mode-multiple{grid-template-columns:1fr}
 }
-
-/* ===== BIG CHECK ===== */
-#checkOrder.smallBtn{
-  padding: 18px 32px !important;
-  font-size: 19px !important;
-  border-radius: 18px !important;
-  min-width: 230px !important;
-  border:2px solid rgba(0,0,0,.35) !important;
-  color:#06101a !important;
-  background: linear-gradient(180deg, var(--yellow), #ffb703) !important;
-  box-shadow: 0 18px 38px rgba(255,224,74,.22) !important;
-}
-#checkOrder.smallBtn.checkAttention{
-  animation: checkPulse 1.0s ease-in-out infinite;
-}
-@keyframes checkPulse{
-  0%,100%{ transform: scale(1); filter: brightness(1); }
-  50%{ transform: scale(1.07); filter: brightness(1.12); }
-}
 </style>
 </head>
 
@@ -568,7 +518,7 @@ body{
       <div class="logo" aria-hidden="true">✦</div>
       <div>
         <h1 class="title">Future Forms + First Conditional</h1>
-        <p class="lead">Fair mix (affirmative / negative / questions) • manga colors • win at <b>25 in a row</b></p>
+        <p class="lead">No answers shown before choosing • ordering less frequent • stats-only → Google Sheets</p>
       </div>
     </div>
 
@@ -590,7 +540,7 @@ body{
       <div class="inputRow">
         <label for="targetStreak">Target streak</label>
         <input id="targetStreak" type="number" value="25" disabled>
-        <div class="lockedHint">Locked to 25 ✅</div>
+        <div style="font-size:12px;color:var(--mut);margin-top:-4px">Locked to 25 ✅</div>
       </div>
 
       <div class="controlsBtns">
@@ -604,14 +554,15 @@ body{
       </div>
 
       <div class="tipBox">
-        <b>Fair practice rule</b><br>
-        In each topic (WILL / GOING TO / Pres. Cont. / Pres. Simple / First Conditional),
-        the game selects <b>Affirmative, Negative, and Questions</b> in equal rotation (1/3 each).<br><br>
-        <b>Ordering</b> happens sometimes. Build the sentence and press <b>CHECK</b>.
+        <b>How it works</b><br>
+        • Choose the correct <b>form</b> (WILL / GOING TO / PS / PC / First conditional).<br>
+        • Ordering rounds: build the sentence then press the big <b>CHECK</b> button.<br>
+        • Mistakes reset streak to 0.<br>
+        • Win at <b>25 correct in a row</b> (stats send automatically).
       </div>
 
       <div class="bankStats" id="bankStats">
-        <b>Adaptive engine:</b> categories you miss appear more often.
+        <b>Adaptive engine:</b> topics you miss appear more often.
       </div>
     </div>
 
@@ -648,7 +599,8 @@ body{
         <div class="controlsRow">
           <button id="resetOrder" class="smallBtn" style="display:none">Reset order</button>
           <button id="checkOrder" class="smallBtn" style="display:none">CHECK</button>
-          <button id="downloadReport" class="smallBtn" style="display:none">CSV</button>
+          <button id="sendStats" class="smallBtn" style="display:none">Send Stats</button>
+          <button id="downloadReport" class="smallBtn" style="display:none">CSV (stats)</button>
         </div>
       </div>
     </div>
@@ -670,20 +622,40 @@ body{
     </div>
   </div>
 
-  <!-- Background music (optional) -->
+  <!-- FIX 1: audio file name -->
   <audio id="bgMusic" src="audio/koala2.mp3" preload="auto" loop></audio>
 
 <script>
+/* ==========================================================
+   GOOGLE SHEETS WEB APP URL (yours)
+========================================================== */
+const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
+
 /* ==========================================================
    GOAL
 ========================================================== */
 const TARGET_STREAK = 25;
 
 /* ==========================================================
-   BANKS — FAIR: each topic has aff/neg/q (≥15 each)
+   TOPICS
+========================================================== */
+const TOPICS = [
+  { id:"WILL",  label:"Future form — WILL",              hint:"predictions • offers • promises", css:"choiceWILL", icon:"🟨",
+    subs:["WILL_aff","WILL_neg","WILL_q"] },
+  { id:"GOING", label:"Future form — BE GOING TO",       hint:"plans • intentions",              css:"choiceGOING", icon:"💗",
+    subs:["GOING_aff","GOING_neg","GOING_q"] },
+  { id:"PC",    label:"Future meaning — PRESENT CONT.",  hint:"definite arrangements",          css:"choicePC", icon:"🟦",
+    subs:["PC_aff","PC_neg","PC_q"] },
+  { id:"PS",    label:"Future meaning — PRESENT SIMPLE", hint:"timetables • schedules",         css:"choicePS", icon:"🟩",
+    subs:["PS_aff","PS_neg","PS_q"] },
+  { id:"FC",    label:"First conditional",               hint:"If + present, will + base",      css:"choiceCOND", icon:"🟪",
+    subs:["FC_aff","FC_neg","FC_q"] },
+];
+
+/* ==========================================================
+   BANKS (same as before)
 ========================================================== */
 const BANKS = {
-  /* ---------- WILL (predictions/offers/promises) ---------- */
   WILL_aff: [
     "I think it will be difficult to find a hotel at the last minute.",
     "Don’t worry — I’ll help you choose a national park to visit.",
@@ -736,7 +708,6 @@ const BANKS = {
     "Will they meet us at the monument?"
   ],
 
-  /* ---------- BE GOING TO (plans/intentions) ---------- */
   GOING_aff: [
     "We’re going to explore the national park on Saturday.",
     "I’m going to book a hotel near the botanical gardens.",
@@ -789,7 +760,6 @@ const BANKS = {
     "Are we going to go scuba diving if it’s calm?"
   ],
 
-  /* ---------- PRESENT CONTINUOUS (arrangements) ---------- */
   PC_aff: [
     "We’re meeting at the station at 8:00.",
     "I’m having lunch with my friend after the museum visit.",
@@ -842,7 +812,6 @@ const BANKS = {
     "Are you calling me later to confirm the plan?"
   ],
 
-  /* ---------- PRESENT SIMPLE (timetables) ---------- */
   PS_aff: [
     "The train leaves at 3 p.m.",
     "The tour starts at 10:15.",
@@ -895,7 +864,6 @@ const BANKS = {
     "Does the show end at 9:00?"
   ],
 
-  /* ---------- FIRST CONDITIONAL ---------- */
   FC_aff: [
     "If the traffic is bad, we’ll miss our flight.",
     "If it rains, we’ll go to the aquarium instead.",
@@ -950,26 +918,6 @@ const BANKS = {
 };
 
 /* ==========================================================
-   TOPICS + FAIR ROTATION (A / N / Q)
-========================================================== */
-const TOPICS = [
-  { id:"WILL",  label:"Future form — WILL",              hint:"predictions • offers • promises", css:"choiceWILL", icon:"🟨",
-    subs:["WILL_aff","WILL_neg","WILL_q"] },
-  { id:"GOING", label:"Future form — BE GOING TO",       hint:"plans • intentions",              css:"choiceGOING", icon:"💗",
-    subs:["GOING_aff","GOING_neg","GOING_q"] },
-  { id:"PC",    label:"Future meaning — PRESENT CONT.",  hint:"definite arrangements",          css:"choicePC", icon:"🟦",
-    subs:["PC_aff","PC_neg","PC_q"] },
-  { id:"PS",    label:"Future meaning — PRESENT SIMPLE", hint:"timetables • schedules",         css:"choicePS", icon:"🟩",
-    subs:["PS_aff","PS_neg","PS_q"] },
-  { id:"FC",    label:"First conditional",               hint:"If + present, will + base",      css:"choiceCOND", icon:"🟪",
-    subs:["FC_aff","FC_neg","FC_q"] },
-];
-
-const SUB_TO_TOPIC = Object.fromEntries(
-  TOPICS.flatMap(t => t.subs.map(s => [s, t.id]))
-);
-
-/* ==========================================================
    STATE
 ========================================================== */
 const el = (id)=>document.getElementById(id);
@@ -977,34 +925,51 @@ const el = (id)=>document.getElementById(id);
 const state = {
   running:false,
   streak:0,
+  bestStreak:0,
   score:0,
   seconds:0,
   timer:null,
 
-  // Adaptive is by TOPIC (WILL/GOING/PC/PS/FC)
   stats: Object.fromEntries(TOPICS.map(t => [t.id, {attempts:0, correct:0, wrong:0, recentWrong:0}])),
-
   remediation: { topicId:null, remaining:0 },
   lastTopicId:null,
 
-  // fair rotation pointer per topic
   fairPtr: Object.fromEntries(TOPICS.map(t => [t.id, 0])),
 
-  // round
-  round:null,        // {mode, topicId, subKey, sentence, correctKey, targetWords, orderWords}
+  round:null,
   orderSelected:[],
 
-  log:[],
+  sentStats:false,
+  gameId: (crypto?.randomUUID?.() || String(Date.now())),
 
-  // no-repeat memory per subKey
-  recentBySub: Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []])))
+  recentBySub: Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []]))),
 };
 
-/* ==========================================================
-   AUDIO + SFX
-========================================================== */
+const RECENT_LIMIT = 8;
+const REROLL_TRIES = 12;
+
 const bgMusic = el("bgMusic");
 
+/* ==========================================================
+   UTIL
+========================================================== */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function normalizeSentence(s){ return String(s).trim().replace(/\s+/g," "); }
+function escapeHtml(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 function blip(ok){
   if(!el("soundToggle").checked) return;
   try{
@@ -1029,25 +994,13 @@ function updateHeader(){
   el("streakBox").textContent = `Streak: ${state.streak}`;
   el("targetLabel").textContent = TARGET_STREAK;
 }
-
 function updateProgress(){
   const pct = Math.max(0, Math.min(100, Math.round((state.streak / TARGET_STREAK) * 100)));
   el("progressBar").style.width = `${pct}%`;
   el("progressLabel").textContent = `Goal progress: ${state.streak} / ${TARGET_STREAK} (${pct}%)`;
-
   if(state.running && state.streak > 0 && state.streak < TARGET_STREAK) el("progressBar").classList.add("moving");
   else el("progressBar").classList.remove("moving");
 }
-
-function escapeHtml(s){
-  return String(s ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
 function updateBankStats(){
   const arr = TOPICS.map(t=>{
     const s = state.stats[t.id];
@@ -1064,30 +1017,14 @@ function updateBankStats(){
   el("bankStats").innerHTML =
     `<b>Adaptive engine:</b><br>${top}<br><span style="color:rgba(247,251,255,.72)">Mistakes make that topic appear more often.</span>`;
 }
-
 function setCard(label, text){
   el("cardLabel").textContent = label;
   el("cardText").textContent = text;
 }
 
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-  return a;
-}
-function normalizeSentence(s){
-  return String(s).trim().replace(/\s+/g," ");
-}
-
 /* ==========================================================
    NO-REPEAT sentence picker (per subbank)
 ========================================================== */
-const RECENT_LIMIT = 8;
-const REROLL_TRIES = 12;
-
 function pickSentenceNoRepeat(subKey){
   const bank = BANKS[subKey];
   const recent = state.recentBySub[subKey] || [];
@@ -1108,7 +1045,7 @@ function pickSentenceNoRepeat(subKey){
 }
 
 /* ==========================================================
-   Adaptive TOPIC picker
+   ADAPTIVE TOPIC picker
 ========================================================== */
 function pickTopicId(){
   if(state.remediation.remaining > 0 && state.remediation.topicId){
@@ -1137,9 +1074,7 @@ function pickTopicId(){
   return weights[weights.length-1].id;
 }
 
-/* ==========================================================
-   FAIR subbank selection: rotates aff -> neg -> q
-========================================================== */
+/* FAIR subbank selection: rotates aff -> neg -> q */
 function pickSubKeyFair(topicId){
   const topic = TOPICS.find(t=>t.id===topicId);
   const idx = state.fairPtr[topicId] || 0;
@@ -1149,10 +1084,7 @@ function pickSubKeyFair(topicId){
 }
 
 /* ==========================================================
-   Round builder
-   - ordering frequency:
-     streak < 12 → 0.20
-     streak ≥ 12 → 0.30
+   Round builder (ordering freq: <12=0.20, >=12=0.30)
 ========================================================== */
 function makeRound(){
   const topicId = pickTopicId();
@@ -1228,7 +1160,7 @@ function resetOrder(){
   renderSelectedChips();
 }
 
-/* Build 4 choices: correct topic + 3 other topics */
+/* build 4-option MC (correct + 3 distractors) */
 function buildChoices(correctTopicId){
   const others = TOPICS.map(t=>t.id).filter(id=>id !== correctTopicId);
   const distractors = shuffle(others).slice(0,3);
@@ -1240,11 +1172,11 @@ function renderRound(){
   state.orderSelected = [];
   updateBankStats();
 
-  const topic = TOPICS.find(t=>t.id===state.round.topicId);
+  // FIX 2: DO NOT reveal the correct topic before the student answers.
+  // Use a neutral label + prompt.
+  setCard("Choose the correct form", state.round.sentence);
 
   if(state.round.mode === "multiple"){
-    setCard(topic.label, state.round.sentence);
-
     el("orderBox").textContent = "Ordering box is used only for ordering rounds.";
     el("resetOrder").style.display = "none";
     el("checkOrder").style.display = "none";
@@ -1268,14 +1200,13 @@ function renderRound(){
       el("options").appendChild(btn);
     });
 
-    el("downloadReport").style.display = state.running ? "inline-flex" : "none";
     return;
   }
 
-  // ordering mode (do NOT show the exact sentence)
-  setCard(topic.label, "Build the sentence from the scrambled words below.");
-
+  /* ORDERING mode (still neutral label; sentence not shown as "answer") */
+  setCard("Ordering round", "Build the sentence from the scrambled words below.");
   el("orderBox").textContent = "Tap words to build the sentence. Tap a chip to remove it.";
+
   el("resetOrder").style.display = "inline-flex";
   el("checkOrder").style.display = "inline-flex";
   el("checkOrder").classList.add("checkAttention");
@@ -1292,7 +1223,6 @@ function renderRound(){
     el("options").appendChild(b);
   });
 
-  el("downloadReport").style.display = state.running ? "inline-flex" : "none";
   renderSelectedChips();
 }
 
@@ -1320,7 +1250,7 @@ function checkOrder(){
 }
 
 /* ==========================================================
-   Feedback + auto-next (no Next button)
+   Feedback (auto-next always; no Next button)
 ========================================================== */
 function showFeedback(ok, detail, isWin){
   const overlay = el("feedbackOverlay");
@@ -1333,10 +1263,11 @@ function showFeedback(ok, detail, isWin){
     ? (isWin ? `You reached ${TARGET_STREAK} correct answers in a row!` : `Streak: ${state.streak} / ${TARGET_STREAK}`)
     : `Streak reset to 0. We’ll practice this topic again.`;
 
+  // Reveal the correct topic ONLY here (after answering).
   let d = "";
   if(state.round.mode === "multiple"){
     d = ok
-      ? `Correct topic: ${detail.correct}`
+      ? `Correct form: ${detail.correct}`
       : `You chose: ${detail.chosen}\nCorrect: ${detail.correct}`;
   } else {
     d = ok
@@ -1361,23 +1292,8 @@ function afterFeedbackAutoNext(isWin){
 }
 
 /* ==========================================================
-   Grading
+   Grade
 ========================================================== */
-function logAttempt(ok, detail){
-  const topic = TOPICS.find(x=>x.id===state.round.topicId);
-  state.log.push({
-    time_s: state.seconds,
-    ok: ok ? 1 : 0,
-    streak_after: state.streak,
-    topic: state.round.topicId,
-    subbank: state.round.subKey,
-    topic_label: topic ? topic.label : state.round.topicId,
-    mode: state.round.mode,
-    prompt: state.round.mode === "multiple" ? state.round.sentence : "(ordering round)",
-    detail: JSON.stringify(detail || {})
-  });
-}
-
 function gradeRound(ok, detail){
   const st = state.stats[state.round.topicId];
   st.attempts++;
@@ -1385,11 +1301,13 @@ function gradeRound(ok, detail){
   if(ok){
     st.correct++;
     st.recentWrong = Math.max(0, st.recentWrong - 1);
+
     state.score++;
     state.streak++;
+    state.bestStreak = Math.max(state.bestStreak, state.streak);
+
     blip(true);
 
-    logAttempt(true, detail);
     updateHeader(); updateProgress();
 
     if(state.streak >= TARGET_STREAK){
@@ -1412,7 +1330,6 @@ function gradeRound(ok, detail){
   state.streak = 0;
   blip(false);
 
-  logAttempt(false, detail);
   updateHeader(); updateProgress();
 
   showFeedback(false, detail, false);
@@ -1439,15 +1356,16 @@ function nextRound(){
 function startGame(){
   state.running = true;
   state.streak = 0;
+  state.bestStreak = 0;
   state.score = 0;
   state.seconds = 0;
-  state.log = [];
   state.remediation = { topicId:null, remaining:0 };
   state.lastTopicId = null;
 
-  for(const k of Object.keys(state.stats)){
-    state.stats[k] = {attempts:0, correct:0, wrong:0, recentWrong:0};
-  }
+  state.sentStats = false;
+  state.gameId = (crypto?.randomUUID?.() || String(Date.now()));
+
+  state.stats = Object.fromEntries(TOPICS.map(t => [t.id, {attempts:0, correct:0, wrong:0, recentWrong:0}]));
   state.fairPtr = Object.fromEntries(TOPICS.map(t => [t.id, 0]));
   state.recentBySub = Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []])));
 
@@ -1472,7 +1390,9 @@ function startGame(){
     }
   }catch(e){}
 
+  el("sendStats").style.display = "inline-flex";
   el("downloadReport").style.display = "inline-flex";
+
   nextRound();
 }
 
@@ -1487,6 +1407,7 @@ function resetGame(){
   closeCelebration();
 
   state.streak = 0;
+  state.bestStreak = 0;
   state.score = 0;
   state.seconds = 0;
   state.round = null;
@@ -1502,6 +1423,8 @@ function resetGame(){
   el("resetOrder").style.display = "none";
   el("checkOrder").style.display = "none";
   el("checkOrder").classList.remove("checkAttention");
+
+  el("sendStats").style.display = "none";
   el("downloadReport").style.display = "none";
 }
 
@@ -1522,6 +1445,11 @@ function winGame(){
   state.streak = TARGET_STREAK;
   updateHeader();
   updateProgress();
+
+  if(!state.sentStats){
+    state.sentStats = true;
+    sendStatsToGoogleSheets();
+  }
 }
 
 function closeCelebration(){
@@ -1531,34 +1459,165 @@ function closeCelebration(){
 }
 
 /* ==========================================================
-   CSV
+   Stats-only to Google Sheets
 ========================================================== */
-function downloadCSV(){
-  const rows = [
-    ["time_s","ok","streak_after","topic","subbank","topic_label","mode","prompt","detail"],
-    ...state.log.map(r=>[
-      r.time_s, r.ok, r.streak_after, r.topic, r.subbank, r.topic_label, r.mode,
-      r.prompt.replaceAll('"','""'),
-      r.detail.replaceAll('"','""')
-    ])
-  ];
+function topicPracticeText(topicId){
+  const map = {
+    WILL: "Practice WILL: predictions/offers. Patterns: I’ll…, It will…, Will you…?",
+    GOING: "Practice GOING TO: plans/intentions. Patterns: I’m going to…, Are you going to…?",
+    PC: "Practice PRESENT CONTINUOUS (future arrangements). Patterns: We’re meeting…, Are you meeting…?",
+    PS: "Practice PRESENT SIMPLE (timetables). Patterns: The train leaves…, Does it leave…?",
+    FC: "Practice FIRST CONDITIONAL. Patterns: If + present, will + base. Questions: What will you do if…?"
+  };
+  return map[topicId] || "Practice this topic with more examples (aff/neg/questions).";
+}
 
-  const csv = rows.map(r => r.map(x => `"${String(x)}"`).join(",")).join("\n");
+function computePriorityScore(s){
+  const attempts = s.attempts || 0;
+  const acc = attempts ? (s.correct / attempts) : 0;
+  return (s.wrong * 2) + (s.recentWrong * 3) + ((1 - acc) * 10);
+}
+
+function buildStatsPayload(){
+  const student = (el("studentName").value || "—").trim() || "—";
+
+  const topicRows = TOPICS.map(t=>{
+    const s = state.stats[t.id];
+    const attempts = s.attempts || 0;
+    const correct = s.correct || 0;
+    const wrong = s.wrong || 0;
+    const acc = attempts ? (correct / attempts) : 0;
+    const pr = computePriorityScore(s);
+
+    return {
+      topic: t.id,
+      attempts,
+      correct,
+      wrong,
+      accuracy: acc,
+      recentWrong: s.recentWrong || 0,
+      priorityScore: Math.round(pr * 100) / 100,
+      suggestedPractice: topicPracticeText(t.id)
+    };
+  }).sort((a,b)=> b.priorityScore - a.priorityScore);
+
+  const totalAttempts = topicRows.reduce((a,x)=>a + x.attempts, 0);
+  const totalCorrect  = topicRows.reduce((a,x)=>a + x.correct, 0);
+  const totalWrong    = topicRows.reduce((a,x)=>a + x.wrong, 0);
+  const accuracy = totalAttempts ? (totalCorrect / totalAttempts) : 0;
+
+  const top1 = topicRows[0]?.topic || "";
+  const top2 = topicRows[1]?.topic || "";
+
+  return {
+    student,
+    gameId: state.gameId,
+    summary: {
+      seconds: state.seconds,
+      attempts: totalAttempts,
+      correct: totalCorrect,
+      wrong: totalWrong,
+      accuracy,
+      bestStreak: state.bestStreak || 0,
+      topWeak1: top1,
+      topWeak2: top2,
+      rec1: topicPracticeText(top1),
+      rec2: topicPracticeText(top2)
+    },
+    topics: topicRows
+  };
+}
+
+async function sendStatsToGoogleSheets(){
+  if(!SHEETS_WEBAPP_URL){
+    alert("Missing Google Sheets Web App URL.");
+    return false;
+  }
+
+  const payload = buildStatsPayload();
+
+  try{
+    const res = await fetch(SHEETS_WEBAPP_URL, {
+      method: "POST",
+      headers: { "Content-Type":"text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+
+    const txt = await res.text();
+    let data = null;
+    try{ data = JSON.parse(txt); }catch(e){}
+
+    if(!res.ok || !data || data.ok !== true){
+      console.error("Sheets error:", txt);
+      alert("Could not send stats to Google Sheets. Check Apps Script deployment access.");
+      return false;
+    }
+    return true;
+  }catch(err){
+    console.error(err);
+    alert("Network error sending to Google Sheets.");
+    return false;
+  }
+}
+
+/* ==========================================================
+   CSV (stats only)
+========================================================== */
+function safeCsv(v){
+  const s = String(v ?? "").replaceAll('"','""');
+  return `"${s}"`;
+}
+
+function downloadStatsCSV(){
+  const payload = buildStatsPayload();
+  const lines = [];
+
+  lines.push(["SECTION","student","seconds","attempts","correct","wrong","accuracy","bestStreak","topWeak1","topWeak2"].join(","));
+  lines.push([
+    "SUMMARY",
+    safeCsv(payload.student),
+    payload.summary.seconds,
+    payload.summary.attempts,
+    payload.summary.correct,
+    payload.summary.wrong,
+    payload.summary.accuracy,
+    payload.summary.bestStreak,
+    safeCsv(payload.summary.topWeak1),
+    safeCsv(payload.summary.topWeak2),
+  ].join(","));
+  lines.push("");
+
+  lines.push(["SECTION","topic","attempts","correct","wrong","accuracy","recentWrong","priorityScore","suggestedPractice"].join(","));
+  payload.topics.forEach(t=>{
+    lines.push([
+      "TOPIC",
+      safeCsv(t.topic),
+      t.attempts,
+      t.correct,
+      t.wrong,
+      t.accuracy,
+      t.recentWrong,
+      t.priorityScore,
+      safeCsv(t.suggestedPractice)
+    ].join(","));
+  });
+
+  const csv = lines.join("\n");
   const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `future_forms_fair_report_${Date.now()}.csv`;
+  const name = (payload.student || "student").replace(/[^\w\-]+/g,"_");
+  a.download = `future_forms_stats_${name}_${Date.now()}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
-
   URL.revokeObjectURL(url);
 }
 
 /* ==========================================================
-   Wires
+   Wiring
 ========================================================== */
 el("startBtn").addEventListener("click", ()=>{
   if(state.running) return;
@@ -1571,8 +1630,14 @@ el("checkOrder").addEventListener("click", checkOrder);
 
 el("fbCloseBtn").addEventListener("click", hideFeedback);
 
-el("downloadReport").addEventListener("click", downloadCSV);
-el("celebrationDownload").addEventListener("click", downloadCSV);
+el("sendStats").addEventListener("click", async ()=>{
+  if(state.sentStats) return;
+  const ok = await sendStatsToGoogleSheets();
+  if(ok) state.sentStats = true;
+});
+
+el("downloadReport").addEventListener("click", downloadStatsCSV);
+el("celebrationDownload").addEventListener("click", downloadStatsCSV);
 el("celebrationRestart").addEventListener("click", ()=>{
   closeCelebration();
   resetGame();
@@ -1600,6 +1665,7 @@ updateBankStats();
 </script>
 </body>
 </html>
+
 
 
 
