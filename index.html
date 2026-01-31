@@ -3,63 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Future Forms Game — 3-Step Engine</title>
+  <title>Future Forms Game — 3-Step Engine (Responsive)</title>
 
   <style>
+    /* =========================================================
+       BASE + THEME
+    ========================================================= */
+    *{ box-sizing:border-box; }
     body{
-      margin:0; padding:0;
+      margin:0;
+      padding:0;
+      min-height:100vh;
+      overflow-x:hidden;
       background:#0a0a0f;
       font-family: Arial, sans-serif;
       color:#fff;
       text-align:center;
     }
     .hidden{ display:none; }
-    .screen{ padding-top:60px; }
+    .screen{ padding-top: clamp(22px, 5vw, 60px); }
 
     .title{
-      font-size:2.5rem;
-      margin-bottom:20px;
+      font-size: clamp(1.8rem, 4.2vw, 2.6rem);
+      margin: 0 0 18px;
       color:#66e0ff;
       text-shadow:0 0 10px #00aaff;
     }
 
     input[type="text"], input[type="password"]{
       padding:12px;
-      width:260px;
-      border-radius:6px;
+      width: min(340px, 92vw);
+      border-radius:10px;
       border:none;
-      margin-bottom:20px;
+      margin-bottom:16px;
       font-size:1rem;
+      outline:none;
     }
 
     .mainBtn{
       background:#00aaff;
       border:none;
       padding:12px 24px;
-      border-radius:6px;
+      border-radius:12px;
       color:#fff;
-      font-size:1.1rem;
+      font-size:1.05rem;
+      font-weight:800;
+      cursor:pointer;
+      margin-top:10px;
+      transition:.2s;
+      box-shadow: 0 10px 28px rgba(0,170,255,.18);
+    }
+    .mainBtn:hover{ background:#33cfff; transform: translateY(-1px); }
+    .secondaryBtn{
+      background:#3a3a3a;
+      border:none;
+      padding:10px 18px;
+      border-radius:12px;
+      color:#fff;
+      font-weight:800;
       cursor:pointer;
       margin-top:10px;
       transition:.2s;
     }
-    .mainBtn:hover{ background:#33cfff; }
+    .secondaryBtn:hover{ background:#555; transform: translateY(-1px); }
 
-    .secondaryBtn{
-      background:#444;
-      border:none;
-      padding:10px 20px;
-      border-radius:6px;
-      color:#fff;
-      cursor:pointer;
-      margin-top:10px;
+    /* =========================================================
+       LAYOUT WRAPPER (RESPONSIVE)
+    ========================================================= */
+    .appWrap{
+      width: min(980px, 100%);
+      margin: 0 auto;
+      padding: 16px 14px 44px;
     }
-    .secondaryBtn:hover{ background:#666; }
 
+    /* Teacher button */
     #teacherBtn{
       position:fixed;
       top:10px; right:10px;
-      font-size:2rem;
+      font-size: clamp(1.6rem, 5vw, 2rem);
       cursor:pointer;
       color:#ffdd55;
       text-shadow:0 0 8px #ffaa00;
@@ -69,127 +90,146 @@
     }
     #teacherBtn:hover{ transform:scale(1.1); }
 
+    /* Top bar as grid */
     #topBar{
-      display:flex;
-      justify-content:space-between;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap:10px;
-      padding:10px 20px;
-      font-size:1.2rem;
-      flex-wrap:wrap;
+      margin: 6px 0 12px;
     }
     #scoreBox, #streakBox, #bestBox{
       background:#111;
-      padding:10px 16px;
-      border-radius:6px;
-      border:1px solid #00aaff;
-      box-shadow:0 0 10px #005577;
-      min-width:140px;
+      padding: 10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(0,170,255,.8);
+      box-shadow:0 0 14px rgba(0,87,119,.65);
+      font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+      min-width:0;
+      width:100%;
+      text-align:left;
     }
 
+    /* Sentence card */
     #sentenceCard{
       background:#111;
-      width:80%;
-      margin:20px auto;
-      padding:20px;
-      border-radius:10px;
-      border:1px solid #00aaff;
-      box-shadow:0 0 15px #005577;
+      width: 100%;
+      margin: 12px 0 10px;
+      padding: clamp(14px, 3vw, 22px);
+      border-radius:18px;
+      border:1px solid rgba(0,170,255,.85);
+      box-shadow: 0 0 18px rgba(0,87,119,.7);
+      text-align:left;
     }
-    #sentenceText{ font-size:1.4rem; }
+    #sentenceText{
+      margin:0;
+      font-size: clamp(1.05rem, 2.3vw, 1.5rem);
+      line-height:1.35;
+    }
 
+    /* Prompts */
     #questionPrompt{
-      font-size:1.3rem;
-      margin-top:20px;
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      margin-top: 14px;
       color:#66e0ff;
+      text-shadow: 0 0 10px rgba(0,170,255,.18);
     }
     #stepLabel{
-      margin-top:8px;
-      font-size:1rem;
+      margin-top: 6px;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
       color:#cfefff;
       opacity:.95;
     }
 
+    /* Options */
     #optionsContainer{
-      margin-top:20px;
+      margin-top: 14px;
       display:flex;
       flex-direction:column;
-      gap:12px;
-      width:80%;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .optionBtn{
-      background:#222;
-      border:1px solid #00aaff;
-      padding:12px;
-      border-radius:6px;
-      cursor:pointer;
-      transition:.2s;
-      font-size:1.1rem;
-      color:#fff;
+      gap: 12px;
+      width: 100%;
       text-align:left;
     }
-    .optionBtn:hover{ background:#003344; }
-    .optionBtn:disabled{ opacity:.6; cursor:not-allowed; }
+    .optionBtn{
+      width:100%;
+      background:#1f1f26;
+      border:1px solid rgba(0,170,255,.85);
+      padding: clamp(12px, 2.6vw, 14px);
+      border-radius:14px;
+      cursor:pointer;
+      transition:.15s;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      font-weight:800;
+      color:#fff;
+      text-align:left;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .optionBtn:hover{ background:#003344; transform: translateY(-1px); }
+    .optionBtn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
 
     /* Ordering UI */
     .pickedBox{
       margin-top:10px;
       background:#0f0f14;
-      border:1px dashed #00aaff;
-      border-radius:8px;
-      padding:10px;
-      text-align:left;
-      box-shadow: inset 0 0 0 1px rgba(0,170,255,.15);
+      border:1px dashed rgba(0,170,255,.85);
+      border-radius:16px;
+      padding:12px;
+      box-shadow: inset 0 0 0 1px rgba(0,170,255,.12);
     }
     .pill{
       display:inline-block;
-      margin:6px 6px 0 0;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid #00aaff;
-      background: rgba(0,170,255,.08);
-      font-weight:700;
-      font-size:.95rem;
+      margin: 8px 8px 0 0;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border:1px solid rgba(0,170,255,.9);
+      background: rgba(0,170,255,.10);
+      font-weight:900;
+      font-size: .95rem;
     }
 
     /* Matching UI */
     .matchWrap{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:12px;
+      gap: 12px;
       width:100%;
     }
     .matchCol{
       background:#0f0f14;
-      border:1px solid #00aaff;
-      border-radius:8px;
-      padding:10px;
-      text-align:left;
+      border:1px solid rgba(0,170,255,.85);
+      border-radius:16px;
+      padding: 12px;
     }
     .matchHead{
-      font-weight:700;
+      font-weight: 900;
       color:#66e0ff;
-      margin-bottom:8px;
+      margin-bottom: 10px;
     }
     .matchBtn{
       width:100%;
-      margin:6px 0;
-      text-align:left;
-      background:#222;
-      border:1px solid #00aaff;
-      padding:10px;
-      border-radius:6px;
+      margin: 7px 0;
+      background:#1f1f26;
+      border:1px solid rgba(0,170,255,.85);
+      padding: 10px 12px;
+      border-radius: 14px;
       cursor:pointer;
       color:#fff;
+      font-weight: 800;
+      transition:.15s;
+      text-align:left;
     }
-    .matchBtn:hover{ background:#003344; }
+    .matchBtn:hover{ background:#003344; transform: translateY(-1px); }
     .matchBtn.selected{
-      outline:3px solid rgba(102,224,255,.25);
+      outline: 3px solid rgba(102,224,255,.22);
       border-color:#66e0ff;
     }
-    .matchBtn.paired{ opacity:.6; cursor:not-allowed; }
+    .matchBtn.paired{ opacity:.6; cursor:not-allowed; transform:none; }
+
+    /* Next button */
+    #nextBtn{
+      width: min(360px, 100%);
+      margin: 18px auto 0;
+      display:block;
+    }
 
     /* Overlays */
     .overlay{
@@ -201,29 +241,31 @@
       display:flex;
       justify-content:center;
       align-items:center;
-      padding:18px;
-      z-index:50;
+      padding: 16px;
+      z-index: 50;
     }
     .overlayContent{
       background:#111;
-      padding:30px;
-      border-radius:10px;
-      width:70%;
-      max-width:520px;
-      border:1px solid #00aaff;
-      box-shadow:0 0 20px #005577;
+      padding: clamp(16px, 3vw, 28px);
+      border-radius: 18px;
+      width: min(560px, 100%);
+      max-height: calc(100vh - 32px);
+      overflow:auto;
+      border:1px solid rgba(0,170,255,.85);
+      box-shadow: 0 0 22px rgba(0,87,119,.8);
     }
-    .overlayContent.small{ max-width:350px; }
+    .overlayContent.small{ width: min(380px, 100%); }
 
     .toggleRow{
       display:flex;
       align-items:center;
-      gap:10px;
-      margin:12px 0;
-      font-size:1.1rem;
+      gap: 10px;
+      margin: 12px 0;
+      font-size: 1.05rem;
+      font-weight: 800;
       justify-content:center;
     }
-    .toggleRow input{ transform:scale(1.2); }
+    .toggleRow input{ transform: scale(1.25); }
 
     .shake{
       animation: shake .25s linear 0s 2;
@@ -237,11 +279,19 @@
       100%{ transform:translateX(0); }
     }
 
-    @media (max-width:600px){
-      #sentenceCard{ width:95%; }
-      #optionsContainer{ width:95%; }
+    /* Breakpoints */
+    @media (max-width: 900px){
+      #topBar{ grid-template-columns: 1fr 1fr; }
+      #bestBox{ grid-column: 1 / -1; }
+    }
+    @media (max-width: 650px){
       .matchWrap{ grid-template-columns: 1fr; }
-      #topBar{ justify-content:center; }
+    }
+    @media (max-width: 520px){
+      #topBar{ grid-template-columns: 1fr; }
+      .mainBtn, .secondaryBtn{ width:min(360px, 100%); }
+      #scoreBox, #streakBox, #bestBox{ text-align:center; }
+      #sentenceCard{ text-align:left; }
     }
   </style>
 </head>
@@ -259,22 +309,24 @@
   <div id="gameScreen" class="screen hidden">
     <div id="teacherBtn" title="Teacher Access">🎓</div>
 
-    <div id="topBar">
-      <div id="scoreBox">Score: 0</div>
-      <div id="streakBox">Streak: 0</div>
-      <div id="bestBox">Best: 0</div>
+    <div class="appWrap">
+      <div id="topBar">
+        <div id="scoreBox">Score: 0</div>
+        <div id="streakBox">Streak: 0</div>
+        <div id="bestBox">Best: 0</div>
+      </div>
+
+      <div id="sentenceCard">
+        <p id="sentenceText">Sentence will appear here</p>
+      </div>
+
+      <div id="questionPrompt">What is the speaker's intended meaning?</div>
+      <div id="stepLabel">Step 1/3</div>
+
+      <div id="optionsContainer"></div>
+
+      <button id="nextBtn" class="hidden mainBtn">Next Round</button>
     </div>
-
-    <div id="sentenceCard">
-      <p id="sentenceText">Sentence will appear here</p>
-    </div>
-
-    <div id="questionPrompt">What is the speaker's intended meaning?</div>
-    <div id="stepLabel">Step 1/3</div>
-
-    <div id="optionsContainer"></div>
-
-    <button id="nextBtn" class="hidden mainBtn">Next Round</button>
   </div>
 
   <!-- FEEDBACK -->
@@ -350,7 +402,7 @@
     const STREAK_TARGET = 25;
 
     /* =========================================================
-       SENTENCES (your banks)
+       SENTENCES (banks)
     ========================================================= */
     const BANKS = {
       PS_aff: [
@@ -521,7 +573,7 @@
         "Present Continuous — question"
       ];
 
-      const certaintyOrdering = {
+      const orderingTemplate = {
         prompt: "Order these from MOST certain → LEAST certain (click in order):",
         items: ["definitely", "probably", "maybe", "unlikely"],
         correctOrder: ["definitely", "probably", "maybe", "unlikely"]
@@ -571,7 +623,7 @@
               correct: meta.grammarLabel,
               options: pick4GrammarOptions(meta.grammarLabel, grammarOptionsAll)
             },
-            ordering: certaintyOrdering,
+            ordering: orderingTemplate,
             matching: matchingTemplate
           });
         }
@@ -589,7 +641,6 @@
     const el = {
       nameScreen: $("#nameScreen"),
       gameScreen: $("#gameScreen"),
-
       studentNameInput: $("#studentNameInput"),
       startNameBtn: $("#startNameBtn"),
 
@@ -692,6 +743,7 @@
       if (el.scoreBox) el.scoreBox.textContent = `Score: ${state.score}`;
       if (el.streakBox) el.streakBox.textContent = `Streak: ${state.streak}`;
       if (el.bestBox) el.bestBox.textContent = `Best: ${state.bestStreak}`;
+      savePrefs();
     }
 
     function setSentence(text) {
@@ -732,7 +784,7 @@
 
     function savePrefs() {
       try {
-        localStorage.setItem("future_game_prefs_v1", JSON.stringify({
+        localStorage.setItem("future_game_prefs_v2", JSON.stringify({
           autoNext: state.autoNext,
           musicOn: state.musicOn,
           sfxOn: state.sfxOn,
@@ -743,7 +795,7 @@
 
     function loadPrefs() {
       try {
-        const raw = localStorage.getItem("future_game_prefs_v1");
+        const raw = localStorage.getItem("future_game_prefs_v2");
         if (!raw) return;
         const p = JSON.parse(raw);
         if (typeof p.autoNext === "boolean") state.autoNext = p.autoNext;
@@ -788,7 +840,6 @@
       });
 
       setHUD();
-      savePrefs();
     }
 
     /* =========================================================
@@ -817,10 +868,8 @@
       const close = () => {
         hide(el.celebrationOverlay);
         el.closeCelebrationBtn?.removeEventListener("click", close);
-        // Spec: reset streak to continue
-        state.streak = 0;
+        state.streak = 0; // reset streak to continue
         setHUD();
-        savePrefs();
         afterClose && afterClose();
       };
 
@@ -960,9 +1009,7 @@
               correct
             });
 
-            const msg = correct
-              ? "Correct!"
-              : `Not quite. Correct order: ${correctOrder.join(" → ")}`;
+            const msg = correct ? "Correct!" : `Not quite. Correct order: ${correctOrder.join(" → ")}`;
 
             showFeedback(correct ? "Correct!" : "Not quite", msg, correct, () => {
               maybeCelebrateThen(advanceStepOrFinish);
@@ -1078,200 +1125,7 @@
       hide(el.nextBtn);
 
       const stepType = state.stepPlan[state.currentStep - 1] || "meaning";
-      if (stepType === "meaning") renderMeaning();
-      else if (stepType === "grammar") renderGrammar();
-      else if (stepType === "ordering") renderOrdering();
-      else if (stepType === "matching") renderMatching();
-      else renderMeaning();
-    }
-
-    function advanceStepOrFinish() {
-      if (state.currentStep < 3) {
-        state.currentStep += 1;
-        renderCurrentStep();
-        return;
-      }
-      showFeedback("Round complete!", "Nice work. Click Next Round to continue.", true, () => {
-        show(el.nextBtn);
-      });
-    }
-
-    function startNewRound() {
-      if (!QUESTION_BANK.length) {
-        alert("QUESTION_BANK is empty.");
-        return;
-      }
-      state.currentBundle = QUESTION_BANK[Math.floor(Math.random() * QUESTION_BANK.length)];
-      state.stepPlan = pickStepPlan();
-      state.currentStep = 1;
-      renderCurrentStep();
-    }
-
-    /* =========================================================
-       TEACHER + STATS
-    ========================================================= */
-    function openTeacherLogin() {
-      show(el.teacherLogin);
-      if (el.teacherCodeInput) el.teacherCodeInput.value = "";
-      el.teacherCodeInput?.focus();
-    }
-    function closeTeacherLogin() { hide(el.teacherLogin); }
-
-    function openTeacherPanel() {
-      hide(el.teacherLogin);
-      show(el.teacherPanel);
-      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
-      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
-      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
-    }
-    function closeTeacherPanel() { hide(el.teacherPanel); }
-
-    function teacherSubmit() {
-      const code = (el.teacherCodeInput?.value || "").trim();
-      if (code === "1362") {
-        openTeacherPanel();
-      } else {
-        el.teacherCodeInput?.classList.remove("shake");
-        void el.teacherCodeInput?.offsetWidth;
-        el.teacherCodeInput?.classList.add("shake");
-      }
-    }
-
-    async function sendStatsNow() {
-      const payload = {
-        studentName: state.studentName,
-        summary: {
-          studentName: state.studentName,
-          score: state.score,
-          streak: state.streak,
-          bestStreak: state.bestStreak,
-          weakAreas: state.weakAreas,
-          sentAt: nowISO()
-        },
-        log: state.log
-      };
-
-      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")) {
-        alert("Add your GOOGLE_SCRIPT_URL in the script before sending stats.");
-        return;
-      }
-
-      try {
-        const res = await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        alert("Stats sent successfully ✅");
-      } catch (err) {
-        console.error(err);
-        alert("Failed to send stats. Check Apps Script URL + permissions.");
-      }
-    }
-
-    function resetGame() {
-      state.score = 0;
-      state.streak = 0;
-      state.weakAreas = {};
-      state.log = [];
-      state.currentBundle = null;
-      state.currentStep = 1;
-      state.stepPlan = [];
-
-      setHUD();
-      setSentence("Sentence will appear here");
-      setPrompt("What is the speaker's intended meaning?");
-      if (el.stepLabel) el.stepLabel.textContent = "Step 1/3";
-      clearOptions();
-      hide(el.nextBtn);
-    }
-
-    /* =========================================================
-       EVENTS
-    ========================================================= */
-    function wireEvents() {
-      el.startNameBtn?.addEventListener("click", () => {
-        const name = (el.studentNameInput?.value || "").trim();
-        if (!name) { alert("Please enter your name."); return; }
-        state.studentName = name;
-
-        hide(el.nameScreen);
-        show(el.gameScreen);
-
-        setHUD();
-        syncMusic();
-        startNewRound();
-      });
-
-      el.studentNameInput?.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") el.startNameBtn?.click();
-      });
-
-      el.nextBtn?.addEventListener("click", startNewRound);
-
-      // Teacher
-      el.teacherBtn?.addEventListener("click", openTeacherLogin);
-      el.closeTeacherLogin?.addEventListener("click", closeTeacherLogin);
-      el.teacherCodeBtn?.addEventListener("click", teacherSubmit);
-      el.teacherCodeInput?.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") teacherSubmit();
-        if (e.key === "Escape") closeTeacherLogin();
-      });
-
-      el.teacherLogin?.addEventListener("click", (e) => {
-        if (e.target === el.teacherLogin) closeTeacherLogin();
-      });
-
-      el.teacherStartBtn?.addEventListener("click", startNewRound);
-      el.teacherResetBtn?.addEventListener("click", resetGame);
-
-      el.autoNextToggle?.addEventListener("change", (e) => {
-        state.autoNext = !!e.target.checked;
-        savePrefs();
-      });
-
-      el.musicToggle?.addEventListener("change", (e) => {
-        state.musicOn = !!e.target.checked;
-        savePrefs();
-        syncMusic();
-      });
-
-      el.sfxToggle?.addEventListener("change", (e) => {
-        state.sfxOn = !!e.target.checked;
-        savePrefs();
-      });
-
-      el.sendStatsBtn?.addEventListener("click", sendStatsNow);
-      el.closeTeacherPanel?.addEventListener("click", closeTeacherPanel);
-
-      el.teacherPanel?.addEventListener("click", (e) => {
-        if (e.target === el.teacherPanel) closeTeacherPanel();
-      });
-    }
-
-    /* =========================================================
-       18) INIT
-       Loads preferences, syncs music, sets HUD, wires events.
-    ========================================================= */
-    function init() {
-      loadPrefs();
-      if (el.autoNextToggle) el.autoNextToggle.checked = state.autoNext;
-      if (el.musicToggle) el.musicToggle.checked = state.musicOn;
-      if (el.sfxToggle) el.sfxToggle.checked = state.sfxOn;
-
-      syncMusic();
-      setHUD();
-      wireEvents();
-    }
-
-    // Start the engine
-    init();
-
-  })();
-  </script>
-</body>
-</html>
+      if (stepType === "meaning
 
 
 
