@@ -8,7 +8,6 @@
 
 <style>
 :root{
-  /* Manga-ish bright palette */
   --bg1:#0b1026;
   --bg2:#111a44;
   --bg3:#091a2b;
@@ -17,9 +16,9 @@
   --ink:#f4f7ff;
   --mut: rgba(244,247,255,.72);
 
-  --accent:#ff4fd8;     /* neon pink */
-  --accent2:#48f0ff;    /* neon cyan */
-  --accent3:#ffe14a;    /* neon yellow */
+  --accent:#ff4fd8;
+  --accent2:#48f0ff;
+  --accent3:#ffe14a;
   --good:#22c55e;
   --bad:#ef4444;
 
@@ -35,7 +34,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%; margin:0;}
+html,body{height:100%;margin:0;}
 body{
   font-family:Montserrat,system-ui,sans-serif;
   background:
@@ -50,39 +49,38 @@ body{
   padding:12px;
 }
 
-/* ========= LAYOUT ========= */
+/* Layout */
 .container{
-  width:min(var(--wMax), 100%);
+  width:min(var(--wMax),100%);
   background:var(--panel);
   border-radius:18px;
   padding:14px;
   box-shadow:var(--shadow);
   border:1px solid var(--stroke);
-  backdrop-filter: blur(10px);
-
+  backdrop-filter:blur(10px);
   display:grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns:1fr;
+  grid-template-rows:auto auto 1fr auto;
   gap:12px;
-  overflow:visible;
 }
 
 /* Header */
-.header{grid-column:1/2; grid-row:1/2; display:flex; gap:12px; align-items:center}
+.header{grid-row:1/2;display:flex;gap:12px;align-items:center}
 .logo{
   width:56px;height:56px;border-radius:16px;
   background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
   border:1px solid rgba(255,255,255,.16);
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 14px 28px rgba(0,0,0,.25);
+  cursor:pointer;
 }
 .title{margin:0;font-size:20px;color:#fff;letter-spacing:.2px}
 .lead{margin:2px 0 0;font-size:13px;color:var(--mut)}
 
 /* Topbar */
 .topbar{
-  grid-column:1/2; grid-row:2/3;
-  display:flex; align-items:center; justify-content:space-between;
+  grid-row:2/3;
+  display:flex;align-items:center;justify-content:space-between;
   padding:10px 12px;
   border-radius:16px;
   border:1px solid var(--stroke);
@@ -102,124 +100,9 @@ body{
 .playerTag{font-size:13px;color:var(--mut)}
 .playerTag strong{color:var(--ink)}
 
-/* Teacher toggle (small) */
-.teacherToggle{
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.14);
-  color:var(--ink);
-  border-radius:14px;
-  padding:9px 12px;
-  font-weight:900;
-  cursor:pointer;
-  transition:transform .12s ease, filter .12s ease;
-}
-.teacherToggle:hover{transform:translateY(-2px);filter:brightness(1.05)}
-
-/* Right placeholder panel (for layout only, optional text) */
-.placeholderPanel{
-  grid-column:2/3; grid-row:1/4;
-  padding:12px;
-  border-radius:16px;
-  border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.03));
-  font-size:13px;
-  color:var(--mut);
-}
-
-/* ========= TEACHER OVERLAY ========= */
-.teacherOverlay{
-  position:fixed;
-  inset:0;
-  background:rgba(2,8,23,.70);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9998;
-  padding:18px;
-}
-.teacherOverlay.show{
-  display:flex;
-}
-
-/* Teacher panel (now modal, not in grid) */
-.controlsPanel{
-  width:min(380px, 100%);
-  max-height:90vh;
-  overflow-y:auto;
-  padding:14px;
-  border-radius:16px;
-  border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  box-shadow:0 24px 70px rgba(0,0,0,.70);
-}
-.inputRow{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
-.inputRow label{font-weight:900;font-size:13px;color:var(--ink)}
-.inputRow input{
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(0,0,0,.14);
-  color:var(--ink);
-  border-radius:14px;
-  padding:12px;
-  font-size:14px;
-  outline:none;
-}
-.inputRow input::placeholder{color:rgba(244,247,255,.55)}
-.inputRow input:focus{border-color: rgba(255,79,216,.70); box-shadow:var(--focus);}
-
-.controlsBtns{display:flex;gap:10px;margin:6px 0 10px}
-.btnPrimary,.btnSecondary{
-  width:50%;
-  border-radius:14px;
-  padding:12px 14px;
-  font-weight:900;
-  cursor:pointer;
-  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
-}
-.btnPrimary{
-  border:none;
-  color:#0b1026;
-  background:linear-gradient(180deg,var(--accent3),#ffd000);
-  box-shadow:0 14px 28px rgba(255,225,74,.20);
-}
-.btnSecondary{
-  border:1px solid rgba(255,255,255,.16);
-  color:var(--ink);
-  background:rgba(0,0,0,.14);
-}
-.btnPrimary:hover,.btnSecondary:hover{transform:translateY(-2px);filter:brightness(1.05)}
-
-.toggles{
-  display:flex; gap:10px; flex-wrap:wrap;
-  font-size:13px;color:var(--mut);
-  margin-bottom:10px;
-}
-.toggles label{display:flex;gap:8px;align-items:center;cursor:pointer;user-select:none}
-
-/* Simple teacher stats (visual) */
-.teacherBox{
-  border:1px dashed rgba(255,255,255,.18);
-  background:rgba(255,255,255,.05);
-  border-radius:14px;
-  padding:12px;
-  margin-bottom:10px;
-}
-.teacherBox h3{margin:0 0 8px; font-size:14px}
-.bar{
-  height:10px; border-radius:999px; overflow:hidden;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.10);
-}
-.bar > i{
-  display:block; height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent3));
-}
-.small{font-size:12.5px;color:rgba(244,247,255,.80);line-height:1.35}
-
-/* ========= GAME ========= */
+/* Game */
 .game{
-  grid-column:1/2; grid-row:3/4;
+  grid-row:3/4;
   overflow:auto;
   min-height:0;
 }
@@ -232,31 +115,30 @@ body{
   gap:10px;
 }
 
-/* Prompt card */
+/* Card */
 #card{
   border-radius:18px;
   padding:14px;
   background:linear-gradient(135deg,var(--cardA),var(--cardB),var(--cardC));
   box-shadow:0 18px 48px rgba(0,0,0,.30);
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   text-align:center;
   position:relative;
   overflow:hidden;
 }
 #card::before{
   content:"";
-  position:absolute; inset:-25%;
+  position:absolute;inset:-25%;
   background:
     radial-gradient(circle at 20% 30%, rgba(255,255,255,.22), transparent 45%),
     radial-gradient(circle at 80% 20%, rgba(255,255,255,.18), transparent 48%),
     radial-gradient(circle at 70% 75%, rgba(255,255,255,.14), transparent 52%);
   transform:rotate(-10deg);
   pointer-events:none;
-  animation: floatGlow 4.2s ease-in-out infinite;
+  animation:floatGlow 4.2s ease-in-out infinite;
 }
 @keyframes floatGlow{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-10deg) translateY(10px)}}
-
 #cardLabel{
   position:relative;
   font-size:13px;
@@ -266,25 +148,25 @@ body{
   border-radius:999px;
   background:rgba(0,0,0,.22);
   border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(8px);
+  backdrop-filter:blur(8px);
   margin:0 0 10px;
 }
 #cardText{
   position:relative;
-  width:min(94%, 820px);
+  width:min(94%,820px);
   padding:12px 14px;
   border-radius:14px;
   background:rgba(0,0,0,.18);
   border:1px solid rgba(255,255,255,.18);
   color:#fff;
   font-weight:900;
-  font-size:clamp(18px, 2.0vw, 30px);
+  font-size:clamp(18px,2.0vw,30px);
   line-height:1.18;
   text-shadow:0 2px 14px rgba(0,0,0,.35);
   overflow-wrap:anywhere;
 }
 
-/* Meaning question box */
+/* Prompt */
 .meaningPrompt{
   border:1px solid rgba(255,255,255,.14);
   border-radius:16px;
@@ -295,21 +177,17 @@ body{
   color:rgba(244,247,255,.92);
 }
 
-/* Options grid */
+/* Options */
 #options{
   width:100%;
   border-radius:16px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(0,0,0,.14);
   padding:10px;
-}
-
-#options.mode-meaning{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:1fr 1fr;
   gap:10px;
 }
-
 .choiceCard{
   border:none;
   border-radius:18px;
@@ -321,34 +199,33 @@ body{
   display:flex;
   align-items:flex-start;
   gap:12px;
-  min-height:86px;
+  min-height:72px;
   box-shadow:0 16px 34px rgba(0,0,0,.22);
   transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
   position:relative;
   overflow:hidden;
 }
-.choiceCard:focus-visible{outline:none; box-shadow: var(--focus), 0 18px 40px rgba(0,0,0,.30);}
+.choiceCard:focus-visible{outline:none;box-shadow:var(--focus),0 18px 40px rgba(0,0,0,.30);}
 .choiceCard::after{
   content:"";
-  position:absolute; inset:-40%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%);
+  position:absolute;inset:-40%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 55%);
   transform:rotate(10deg);
-  opacity:.7;
+  opacity:.6;
 }
 .choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06);box-shadow:0 18px 40px rgba(0,0,0,.30)}
 .choiceIcon{
-  width:46px;height:46px;border-radius:16px;
+  width:40px;height:40px;border-radius:14px;
   display:flex;align-items:center;justify-content:center;
   background:rgba(255,255,255,.16);
   border:1px solid rgba(255,255,255,.18);
-  font-size:22px;
+  font-size:20px;
   z-index:1;
   flex:0 0 auto;
 }
-.choiceText{z-index:1}
-.choiceText small{display:block;font-size:12px;font-weight:800;opacity:.92;margin-top:2px; line-height:1.25}
+.choiceText{z-index:1;font-size:14px;line-height:1.25}
 
-/* manga color blocks */
+/* Colors */
 .c1{background:linear-gradient(135deg,#ff4fd8,#c026d3);}
 .c2{background:linear-gradient(135deg,#48f0ff,#2563eb);}
 .c3{background:linear-gradient(135deg,#ffe14a,#f59e0b);}
@@ -372,8 +249,8 @@ body{
   background-size:200% 100%;
   transition:width 300ms ease;
 }
-.progressBar.moving{ animation: prog 1.1s linear infinite; }
-@keyframes prog{ 0%{background-position:0%} 100%{background-position:200%} }
+.progressBar.moving{animation:prog 1.1s linear infinite;}
+@keyframes prog{0%{background-position:0%}100%{background-position:200%}}
 .progressLabel{
   font-size:13px;
   color:rgba(244,247,255,.90);
@@ -382,23 +259,27 @@ body{
   font-weight:900;
 }
 
+/* Footer */
+.footer{
+  grid-row:4/5;
+  display:flex;justify-content:space-between;align-items:center;
+  color:var(--mut);font-size:13px;
+  gap:10px;flex-wrap:wrap;
+}
+
 /* Feedback overlay */
 .fbOverlay{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
   background:rgba(2,8,23,.62);
-  opacity:0;
-  pointer-events:none;
+  opacity:0;pointer-events:none;
   transition:opacity .18s ease;
   z-index:9999;
   padding:18px;
 }
-.fbOverlay.show{ opacity:1; pointer-events:auto; }
+.fbOverlay.show{opacity:1;pointer-events:auto;}
 .fbCard{
-  width:min(720px, 96%);
+  width:min(720px,96%);
   border-radius:18px;
   padding:18px 18px 16px;
   background:linear-gradient(180deg, rgba(10,14,30,.97), rgba(10,14,30,.93));
@@ -406,39 +287,33 @@ body{
   box-shadow:0 24px 70px rgba(0,0,0,.60);
   text-align:center;
   transform:scale(.965) translateY(6px);
-  animation: fbIn .22s ease both;
+  animation:fbIn .22s ease both;
 }
-@keyframes fbIn{ to{transform:scale(1) translateY(0)} }
-.fbTop{display:flex; align-items:center; justify-content:center; gap:10px; font-weight:900;}
+@keyframes fbIn{to{transform:scale(1) translateY(0)}}
+.fbTop{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:900;}
 .fbIcon{
-  width:48px;height:48px;
-  border-radius:16px;
+  width:48px;height:48px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
   background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.14);
   font-size:22px;
 }
-.fbTitle{font-size:22px; margin:0;}
+.fbTitle{font-size:22px;margin:0;}
 .fbSub{
   margin:10px auto 0;
-  font-size:16px;
-  color:#ffffff;
-  font-weight:900;
-  line-height:1.32;
-  max-width:650px;
+  font-size:16px;color:#ffffff;font-weight:900;
+  line-height:1.32;max-width:650px;
 }
 .fbDetail{
   margin:10px auto 0;
-  font-size:14px;
-  color:rgba(244,247,255,.92);
-  font-weight:800;
-  line-height:1.38;
+  font-size:14px;color:rgba(244,247,255,.92);
+  font-weight:800;line-height:1.38;
   max-width:650px;
   border-top:1px solid rgba(255,255,255,.12);
   padding-top:10px;
   white-space:pre-wrap;
 }
-.fbBtnRow{margin-top:14px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
+.fbBtnRow{margin-top:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
 .fbBtn{
   border-radius:14px;
   padding:12px 16px;
@@ -449,7 +324,7 @@ body{
   color:var(--ink);
   transition:transform .12s ease, filter .12s ease;
 }
-.fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05);}
 .fbBtn.primary{
   border:none;
   background:linear-gradient(180deg,var(--accent),#c026d3);
@@ -459,14 +334,14 @@ body{
 
 /* Celebration */
 .celebration-overlay{
-  position:fixed; inset:0;
-  display:none; align-items:center; justify-content:center;
+  position:fixed;inset:0;
+  display:none;align-items:center;justify-content:center;
   background:rgba(2,8,23,0.72);
   z-index:10000;
   padding:18px;
 }
 .celebration-card{
-  width:min(780px, 96%);
+  width:min(780px,96%);
   background:linear-gradient(180deg, rgba(10,14,30,.94), rgba(10,14,30,.90));
   border:1px solid rgba(255,255,255,.14);
   color:var(--ink);
@@ -476,42 +351,98 @@ body{
   box-shadow:0 20px 60px rgba(0,0,0,0.60);
 }
 .celebration-title{font-size:34px;font-weight:900;color:#fff;margin-bottom:8px}
-.celebration-sub{color:rgba(244,247,255,.86);font-weight:900; font-size:16px; margin-bottom:12px}
+.celebration-sub{color:rgba(244,247,255,.86);font-weight:900;font-size:16px;margin-bottom:12px}
 .celebration-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 
-/* Footer */
-.footer{
-  grid-column:1/2; grid-row:4/5;
-  display:flex; justify-content:space-between; align-items:center;
-  color:var(--mut); font-size:13px;
-  gap:10px;
-  flex-wrap:wrap;
+/* Teacher modal */
+.teacherModalOverlay{
+  position:fixed;inset:0;
+  background:rgba(2,8,23,.70);
+  display:none;align-items:center;justify-content:center;
+  z-index:9000;
+  padding:18px;
 }
+.teacherModalOverlay.show{display:flex;}
+.teacherModal{
+  width:min(380px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  box-shadow:0 24px 70px rgba(0,0,0,.70);
+}
+.teacherModal h2{
+  margin:0 0 8px;
+  font-size:18px;
+}
+.inputRow{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.inputRow label{font-weight:900;font-size:13px;color:var(--ink)}
+.inputRow input{
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.14);
+  color:var(--ink);
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:14px;
+  outline:none;
+}
+.inputRow input::placeholder{color:rgba(244,247,255,.55)}
+.inputRow input:focus{border-color:rgba(255,79,216,.70);box-shadow:var(--focus);}
+.controlsBtns{display:flex;gap:10px;margin:6px 0 10px}
+.btnPrimary,.btnSecondary{
+  width:50%;
+  border-radius:14px;
+  padding:10px 14px;
+  font-weight:900;
+  cursor:pointer;
+  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
+}
+.btnPrimary{
+  border:none;
+  color:#0b1026;
+  background:linear-gradient(180deg,var(--accent3),#ffd000);
+  box-shadow:0 14px 28px rgba(255,225,74,.20);
+}
+.btnSecondary{
+  border:1px solid rgba(255,255,255,.16);
+  color:var(--ink);
+  background:rgba(0,0,0,.14);
+}
+.btnPrimary:hover,.btnSecondary:hover{transform:translateY(-2px);filter:brightness(1.05);}
+.toggles{
+  display:flex;gap:10px;flex-wrap:wrap;
+  font-size:13px;color:var(--mut);
+  margin-bottom:10px;
+}
+.toggles label{display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none}
+.teacherBox{
+  border:1px dashed rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05);
+  border-radius:14px;
+  padding:10px;
+  margin-bottom:10px;
+}
+.teacherBox h3{margin:0 0 6px;font-size:14px}
+.bar{
+  height:10px;border-radius:999px;overflow:hidden;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.10);
+}
+.bar>i{
+  display:block;height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent3));
+}
+.small{font-size:12.5px;color:rgba(244,247,255,.80);line-height:1.35}
 
-/* ========= RESPONSIVE ========= */
-@media (max-width: 1020px){
-  .container{
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto 1fr auto;
-  }
-  .placeholderPanel{
-    display:none;
-  }
+/* Responsive */
+@media(max-width:640px){
+  #options{grid-template-columns:1fr;}
 }
-@media (max-width: 640px){
-  #options.mode-meaning{grid-template-columns:1fr}
-}
-@media (max-height: 760px){
-  .container{
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto 1fr auto;
-  }
-}
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce){
-  #card::before,.progressBar.moving{animation:none !important}
-  *{transition:none !important}
+@media(prefers-reduced-motion:reduce){
+  #card::before,.progressBar.moving{animation:none!important}
+  *{transition:none!important}
 }
 </style>
 </head>
@@ -520,7 +451,7 @@ body{
   <div class="container" role="application" aria-label="Future meaning game">
     <!-- Header -->
     <div class="header">
-      <div class="logo" aria-hidden="true">
+      <div class="logo" id="logo" aria-hidden="true">
         <svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
           <defs>
             <linearGradient id="g1" x1="0" x2="1">
@@ -533,7 +464,7 @@ body{
       </div>
       <div>
         <h1 class="title">Future Forms + First Conditional</h1>
-        <p class="lead">Choose the <b>intended meaning</b> (Synchrony Unit 2) • win at <b>25 in a row</b></p>
+        <p class="lead">Choose the <b>intended meaning</b> • win at <b>25 in a row</b></p>
       </div>
     </div>
 
@@ -546,14 +477,7 @@ body{
       </div>
       <div class="statRow">
         <div class="playerTag">Player: <strong id="playerName">—</strong></div>
-        <button id="teacherToggle" class="teacherToggle" type="button">Teacher</button>
       </div>
-    </div>
-
-    <!-- Placeholder right panel (keeps layout stable, optional info) -->
-    <div class="placeholderPanel">
-      <strong>Teacher panel</strong><br>
-      Open the <b>Teacher</b> button to start / reset the game, toggle music/SFX, and send stats.
     </div>
 
     <!-- Game -->
@@ -561,17 +485,17 @@ body{
       <div class="gameInner">
         <div id="card" role="region" aria-label="Prompt card">
           <div id="cardLabel">Ready</div>
-          <div id="cardText">Press <b>Teacher</b> → START to begin the game.</div>
+          <div id="cardText">Type <b>1362</b> (teacher) to open controls, then press START. Students just play and tap answers.</div>
         </div>
 
         <div class="meaningPrompt" id="meaningPrompt">
           Question: What is the speaker’s intended meaning?
         </div>
 
-        <div id="options" class="mode-meaning" role="group" aria-label="Answer options"></div>
+        <div id="options" role="group" aria-label="Answer options"></div>
 
-        <div class="progressWrap" aria-hidden="false">
-          <div id="progressBar" class="progressBar" style="width:0%"></div>
+        <div class="progressWrap">
+          <div id="progressBar" class="progressBar"></div>
         </div>
         <div class="progressLabel" id="progressLabel">Goal progress: 0 / 25 (0%)</div>
       </div>
@@ -579,16 +503,18 @@ body{
 
     <!-- Footer -->
     <div class="footer">
-      <div>Unit 2 focus: will / going to / present continuous / present simple / first conditional</div>
+      <div>Focus: will / going to / present continuous / present simple / first conditional</div>
       <div>Goal: <span id="targetLabel">25</span> in a row</div>
     </div>
   </div>
 
-  <!-- Teacher overlay (modal) -->
-  <div class="teacherOverlay" id="teacherOverlay" aria-hidden="true">
-    <div class="controlsPanel" aria-label="Teacher controls">
+  <!-- Teacher modal -->
+  <div class="teacherModalOverlay" id="teacherModalOverlay" aria-hidden="true">
+    <div class="teacherModal" role="dialog" aria-modal="true" aria-label="Teacher controls">
+      <h2>Teacher controls</h2>
+
       <div class="inputRow">
-        <label for="studentName">Name</label>
+        <label for="studentName">Student name</label>
         <input id="studentName" type="text" placeholder="E.g., Laura">
       </div>
 
@@ -613,7 +539,7 @@ body{
       <div class="teacherBox">
         <h3>Teacher snapshot</h3>
         <div class="small" id="weakText">Start the game to see weak areas.</div>
-        <div style="height:10px"></div>
+        <div style="height:8px"></div>
         <div class="small"><b>Progress</b></div>
         <div class="bar"><i id="tBar"></i></div>
         <div class="small" id="tBarLabel" style="margin-top:6px">0 / 25</div>
@@ -622,10 +548,10 @@ body{
       <div class="teacherBox">
         <h3>Google Sheets</h3>
         <div class="small">
-          Stats-only send on WIN (or when you press the button).
+          Stats-only send on WIN or when you press the button.
         </div>
-        <button id="sendStatsBtn" class="btnSecondary" type="button" style="width:100%; margin-top:10px">Send stats now</button>
-        <div class="small" id="sendMsg" style="margin-top:8px;color:rgba(244,247,255,.8)"></div>
+        <button id="sendStatsBtn" class="btnSecondary" type="button" style="width:100%;margin-top:8px">Send stats now</button>
+        <div class="small" id="sendMsg" style="margin-top:6px;color:rgba(244,247,255,.8)"></div>
       </div>
 
       <button id="closeTeacher" class="btnSecondary" type="button" style="width:100%;margin-top:4px">Close</button>
@@ -634,7 +560,7 @@ body{
 
   <!-- Feedback overlay -->
   <div id="feedbackOverlay" class="fbOverlay" aria-hidden="true">
-    <div class="fbCard" role="dialog" aria-modal="true" aria-label="Feedback popup">
+    <div class="fbCard">
       <div class="fbTop">
         <div class="fbIcon" id="fbIcon">✅</div>
         <h3 class="fbTitle" id="fbTitle">Nice!</h3>
@@ -649,8 +575,8 @@ body{
   </div>
 
   <!-- Celebration -->
-  <div id="celebration" class="celebration-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="celebration-card" role="document">
+  <div id="celebration" class="celebration-overlay" aria-hidden="true">
+    <div class="celebration-card">
       <div class="celebration-title">Perfect streak! 🏆</div>
       <div class="celebration-sub" id="celebrationSub">You reached 25 correct answers in a row.</div>
       <div class="celebration-actions">
@@ -664,39 +590,30 @@ body{
   <audio id="bgMusic" src="audio/koala2.mp3" preload="auto" loop></audio>
 
 <script>
-/* ==========================================================
-   CONFIG
-========================================================== */
+/* CONFIG */
 const TARGET_STREAK = 25;
-
-/* IMPORTANT: your Apps Script Web App URL (stats-only) */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
 
-/* ==========================================================
-   MEANING CATEGORIES (Synchrony Unit 2 logic)
-========================================================== */
+/* MEANINGS */
 const MEANINGS = [
-  { key:"prediction",      icon:"🔮", cls:"c1", title:"Prediction / opinion",  hint:"guess, opinion, ‘I think…’ → usually WILL" },
-  { key:"instant",         icon:"🤝", cls:"c2", title:"Offer / promise / decision now", hint:"offer/promise/decision → WILL" },
-  { key:"plan",            icon:"🧭", cls:"c3", title:"Plan / intention",      hint:"intention, plan → GOING TO" },
-  { key:"arrangement",     icon:"📅", cls:"c4", title:"Arrangement",          hint:"fixed plan, meeting time → PRESENT CONTINUOUS" },
-  { key:"timetable",       icon:"🚉", cls:"c5", title:"Timetable / schedule", hint:"official schedule → PRESENT SIMPLE" },
-  { key:"first_cond",      icon:"⚡", cls:"c6", title:"First conditional",     hint:"possible future + result (if + present, will…)" },
+  { key:"prediction",  icon:"🔮", cls:"c1", title:"Prediction / opinion" },
+  { key:"instant",     icon:"🤝", cls:"c2", title:"Offer / promise / decision now" },
+  { key:"plan",        icon:"🧭", cls:"c3", title:"Plan / intention" },
+  { key:"arrangement", icon:"📅", cls:"c4", title:"Arrangement" },
+  { key:"timetable",   icon:"🚉", cls:"c5", title:"Timetable / schedule" },
+  { key:"first_cond",  icon:"⚡", cls:"c6", title:"First conditional" }
 ];
 
-/* Mapping meaning → expected form (used for teacher explanation) */
 const FORM_BY_MEANING = {
-  prediction:  "will",
-  instant:     "will",
-  plan:        "be going to",
-  arrangement: "present continuous",
-  timetable:   "present simple",
-  first_cond:  "first conditional"
+  prediction:"will",
+  instant:"will",
+  plan:"be going to",
+  arrangement:"present continuous",
+  timetable:"present simple",
+  first_cond:"first conditional"
 };
 
-/* ==========================================================
-   BANKS
-========================================================== */
+/* BANKS */
 const BANKS = {
   prediction: [
     "I think it will rain later.",
@@ -802,11 +719,8 @@ const BANKS = {
   ]
 };
 
-/* ==========================================================
-   STATE
-========================================================== */
-const el = (id)=>document.getElementById(id);
-
+/* STATE */
+const el = id => document.getElementById(id);
 const state = {
   running:false,
   streak:0,
@@ -814,67 +728,53 @@ const state = {
   seconds:0,
   timer:null,
   locked:false,
-
-  stats: Object.fromEntries(MEANINGS.map(m => [m.key, {attempts:0, correct:0, wrong:0}])),
-  recent: Object.fromEntries(MEANINGS.map(m => [m.key, []])),
-
-  round:null, // { meaningKey, sentence }
-
+  stats:Object.fromEntries(MEANINGS.map(m=>[m.key,{attempts:0,correct:0,wrong:0}])),
+  recent:Object.fromEntries(MEANINGS.map(m=>[m.key,[]])),
+  round:null,
   bestStreak:0,
   log:[]
 };
 
-/* ==========================================================
-   AUDIO
-========================================================== */
+/* AUDIO */
 const bgMusic = el("bgMusic");
-
 function blip(ok){
   if(!el("soundToggle").checked) return;
   try{
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
     const o = ctx.createOscillator();
     const g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    o.type = "sine";
+    o.connect(g);g.connect(ctx.destination);
+    o.type="sine";
     o.frequency.value = ok ? 720 : 220;
     g.gain.value = 0.06;
     o.start();
-    setTimeout(()=>{ o.stop(); ctx.close(); }, ok ? 110 : 150);
+    setTimeout(()=>{o.stop();ctx.close();}, ok?110:150);
   }catch(e){}
 }
 
-/* ==========================================================
-   UI
-========================================================== */
+/* UI */
 function updateHeader(){
   el("scoreBox").textContent = `Score: ${state.score}`;
   el("timerBox").textContent = `Time: ${state.seconds}s`;
   el("streakBox").textContent = `Streak: ${state.streak}`;
   el("targetLabel").textContent = TARGET_STREAK;
-
-  const pct = Math.max(0, Math.min(100, Math.round((state.streak / TARGET_STREAK) * 100)));
+  const pct = Math.max(0,Math.min(100,Math.round((state.streak/TARGET_STREAK)*100)));
   el("tBar").style.width = `${pct}%`;
   el("tBarLabel").textContent = `${state.streak} / ${TARGET_STREAK}`;
 }
-
 function updateProgress(){
-  const pct = Math.max(0, Math.min(100, Math.round((state.streak / TARGET_STREAK) * 100)));
+  const pct = Math.max(0,Math.min(100,Math.round((state.streak/TARGET_STREAK)*100)));
   el("progressBar").style.width = `${pct}%`;
   el("progressLabel").textContent = `Goal progress: ${state.streak} / ${TARGET_STREAK} (${pct}%)`;
-
-  if(state.running && state.streak > 0 && state.streak < TARGET_STREAK) el("progressBar").classList.add("moving");
+  if(state.running && state.streak>0 && state.streak<TARGET_STREAK) el("progressBar").classList.add("moving");
   else el("progressBar").classList.remove("moving");
 }
-
-function setCard(label, text){
+function setCard(label,text){
   el("cardLabel").textContent = label;
   el("cardText").textContent = text;
 }
 
-/* ==========================================================
-   HELPERS
-========================================================== */
+/* HELPERS */
 function shuffle(arr){
   const a = arr.slice();
   for(let i=a.length-1;i>0;i--){
@@ -883,120 +783,114 @@ function shuffle(arr){
   }
   return a;
 }
-
 function pickSentenceNoRepeat(meaningKey){
   const bank = BANKS[meaningKey];
   const memory = state.recent[meaningKey] || [];
-  for(let tries=0; tries<12; tries++){
+  for(let tries=0;tries<12;tries++){
     const s = bank[Math.floor(Math.random()*bank.length)];
     if(!memory.includes(s)) return s;
   }
   return bank[Math.floor(Math.random()*bank.length)];
 }
-
-function rememberSentence(meaningKey, sentence){
+function rememberSentence(meaningKey,sentence){
   const q = state.recent[meaningKey] || [];
   q.unshift(sentence);
-  while(q.length > 8) q.pop();
-  state.recent[meaningKey] = q;
+  while(q.length>8) q.pop();
+  state.recent[meaningKey]=q;
 }
 
-/* ==========================================================
-   ADAPTIVE MEANING PICK
-========================================================== */
+/* ADAPTIVE */
 function weightForMeaning(key){
   const st = state.stats[key];
-  const attempts = st.attempts || 0;
-  const acc = attempts ? (st.correct / attempts) : 0.65;
+  const attempts = st.attempts||0;
+  const acc = attempts ? (st.correct/attempts) : 0.65;
   let w = 1.0;
-  if(attempts === 0) w += 1.2;
-  w += (1 - acc) * 2.0;
-  w += (st.wrong) * 0.10;
+  if(attempts===0) w += 1.2;
+  w += (1-acc)*2.0;
+  w += (st.wrong)*0.10;
   return w;
 }
-
 function pickMeaningAdaptive(){
-  const weights = MEANINGS.map(m => ({ key:m.key, w:weightForMeaning(m.key) }));
+  const weights = MEANINGS.map(m=>({key:m.key,w:weightForMeaning(m.key)}));
   const total = weights.reduce((s,x)=>s+x.w,0);
   let r = Math.random()*total;
   for(const item of weights){
-    if(r < item.w) return item.key;
+    if(r<item.w) return item.key;
     r -= item.w;
   }
   return MEANINGS[0].key;
 }
 
-/* ==========================================================
-   ROUND FLOW
-========================================================== */
+/* ROUND */
 function startRound(){
   if(!state.running) return;
-  state.locked = false;
+  state.locked=false;
 
   const meaningKey = pickMeaningAdaptive();
   const sentence = pickSentenceNoRepeat(meaningKey);
-  rememberSentence(meaningKey, sentence);
+  rememberSentence(meaningKey,sentence);
+  state.round = {meaningKey,sentence};
 
-  state.round = { meaningKey, sentence };
+  setCard("Read",sentence);
+  el("meaningPrompt").textContent = "Question: What is the speaker’s intended meaning?";
 
-  setCard("Read", sentence);
   renderOptions();
 }
-
 function renderOptions(){
   const optionsEl = el("options");
   optionsEl.innerHTML = "";
-  optionsEl.classList.add("mode-meaning");
 
-  const shuffled = shuffle(MEANINGS);
-  shuffled.forEach((m, idx)=>{
+  const correctKey = state.round.meaningKey;
+  const correctMeaning = MEANINGS.find(m=>m.key===correctKey);
+
+  const distractors = shuffle(MEANINGS.filter(m=>m.key!==correctKey)).slice(0,3);
+  const allOptions = shuffle([correctMeaning,...distractors]);
+
+  allOptions.forEach(m=>{
     const btn = document.createElement("button");
-    btn.type = "button";
+    btn.type="button";
     btn.className = `choiceCard ${m.cls}`;
-    btn.setAttribute("data-key", m.key);
+    btn.setAttribute("data-key",m.key);
 
     const icon = document.createElement("div");
-    icon.className = "choiceIcon";
+    icon.className="choiceIcon";
     icon.textContent = m.icon;
 
     const text = document.createElement("div");
-    text.className = "choiceText";
-    text.innerHTML = `${m.title}<small>${m.hint}</small>`;
+    text.className="choiceText";
+    text.textContent = m.title;
 
     btn.appendChild(icon);
     btn.appendChild(text);
 
-    btn.addEventListener("click", ()=>handleAnswer(m.key));
-
+    btn.addEventListener("click",()=>handleAnswer(m.key));
     optionsEl.appendChild(btn);
   });
 }
 
-/* ==========================================================
-   FEEDBACK + SNAPSHOT
-========================================================== */
+/* WEAK AREA */
 function updateWeakArea(){
   const entries = Object.entries(state.stats);
-  if(!entries.length) return;
-
-  let weakest = null;
-  for(const [key, st] of entries){
-    if(st.attempts === 0) continue;
-    const acc = st.correct / st.attempts;
-    if(!weakest || acc < weakest.acc){
-      weakest = { key, acc, st };
+  if(!entries.length){el("weakText").textContent="Not enough data yet.";return;}
+  let weakest=null;
+  for(const [key,st] of entries){
+    if(st.attempts===0) continue;
+    const acc = st.correct/st.attempts;
+    if(!weakest || acc<weakest.acc){
+      weakest={key,acc,st};
     }
   }
   if(!weakest){
-    el("weakText").textContent = "Not enough data yet. Keep playing.";
+    el("weakText").textContent="Not enough data yet. Keep playing.";
     return;
   }
-  const meaning = MEANINGS.find(m => m.key === weakest.key);
+  const meaning = MEANINGS.find(m=>m.key===weakest.key);
   const pct = Math.round(weakest.acc*100);
   el("weakText").textContent = `Weakest area: ${meaning.title} (${pct}% correct, ${weakest.st.wrong} wrong)`;
 }
 
-function showFeedback(correct, chosenKey){
+/* FEEDBACK */
+function showFeedback(correct,chosenKey){
   const overlay = el("feedbackOverlay");
   const icon = el("fbIcon");
   const title = el("fbTitle");
@@ -1004,25 +898,24 @@ function showFeedback(correct, chosenKey){
   const detail = el("fbDetail");
 
   const round = state.round;
-  const correctMeaning = MEANINGS.find(m => m.key === round.meaningKey);
-  const chosenMeaning = MEANINGS.find(m => m.key === chosenKey);
+  const correctMeaning = MEANINGS.find(m=>m.key===round.meaningKey);
+  const chosenMeaning = MEANINGS.find(m=>m.key===chosenKey);
   const form = FORM_BY_MEANING[round.meaningKey];
 
   if(correct){
-    icon.textContent = "✅";
-    title.textContent = "Nice!";
-    sub.textContent = "You chose the correct meaning.";
+    icon.textContent="✅";
+    title.textContent="Nice!";
+    sub.textContent="You chose the correct meaning.";
   }else{
-    icon.textContent = "❌";
-    title.textContent = "Not this time.";
-    sub.textContent = "Look at the meaning and form.";
+    icon.textContent="❌";
+    title.textContent="Not this time.";
+    sub.textContent="Look at the meaning and form.";
   }
 
   let detailText = `Sentence:\n${round.sentence}\n\nIntended meaning: ${correctMeaning.title}\nTypical form: ${form}`;
   if(!correct){
     detailText += `\n\nYou chose: ${chosenMeaning.title}`;
   }
-
   detail.textContent = detailText;
 
   overlay.classList.add("show");
@@ -1033,25 +926,22 @@ function showFeedback(correct, chosenKey){
     setTimeout(()=>{
       hideFeedback();
       if(state.running) startRound();
-    }, correct ? 900 : 1300);
+    }, correct?900:1300);
   }
 }
-
 function hideFeedback(){
   const overlay = el("feedbackOverlay");
   overlay.classList.remove("show");
   overlay.setAttribute("aria-hidden","true");
 }
 
-/* ==========================================================
-   ANSWER HANDLING
-========================================================== */
+/* ANSWER */
 function handleAnswer(chosenKey){
   if(!state.running || state.locked || !state.round) return;
-  state.locked = true;
+  state.locked=true;
 
   const correctKey = state.round.meaningKey;
-  const correct = (chosenKey === correctKey);
+  const correct = (chosenKey===correctKey);
 
   const st = state.stats[correctKey];
   st.attempts++;
@@ -1060,34 +950,32 @@ function handleAnswer(chosenKey){
   state.score++;
   if(correct){
     state.streak++;
-    state.bestStreak = Math.max(state.bestStreak, state.streak);
+    state.bestStreak = Math.max(state.bestStreak,state.streak);
     blip(true);
   }else{
-    state.streak = 0;
+    state.streak=0;
     blip(false);
   }
 
   state.log.push({
-    time: Date.now(),
-    sentence: state.round.sentence,
-    meaning: correctKey,
-    chosen: chosenKey,
+    time:Date.now(),
+    sentence:state.round.sentence,
+    meaning:correctKey,
+    chosen:chosenKey,
     correct
   });
 
   updateHeader();
   updateProgress();
   updateWeakArea();
-  showFeedback(correct, chosenKey);
+  showFeedback(correct,chosenKey);
 
-  if(state.streak >= TARGET_STREAK){
+  if(state.streak>=TARGET_STREAK){
     endGame(true);
   }
 }
 
-/* ==========================================================
-   TIMER
-========================================================== */
+/* TIMER */
 function startTimer(){
   if(state.timer) clearInterval(state.timer);
   state.timer = setInterval(()=>{
@@ -1095,164 +983,164 @@ function startTimer(){
     el("timerBox").textContent = `Time: ${state.seconds}s`;
   },1000);
 }
-
 function stopTimer(){
   if(state.timer){
     clearInterval(state.timer);
-    state.timer = null;
+    state.timer=null;
   }
 }
 
-/* ==========================================================
-   GAME CONTROL
-========================================================== */
+/* GAME CONTROL */
 function resetState(keepBest=false){
-  state.running = false;
-  state.streak = 0;
-  state.score = 0;
-  state.seconds = 0;
-  state.round = null;
-  state.locked = false;
-  if(!keepBest) state.bestStreak = 0;
-  state.stats = Object.fromEntries(MEANINGS.map(m => [m.key, {attempts:0, correct:0, wrong:0}]));
-  state.recent = Object.fromEntries(MEANINGS.map(m => [m.key, []]));
-  state.log = [];
+  state.running=false;
+  state.streak=0;
+  state.score=0;
+  state.seconds=0;
+  state.round=null;
+  state.locked=false;
+  if(!keepBest) state.bestStreak=0;
+  state.stats = Object.fromEntries(MEANINGS.map(m=>[m.key,{attempts:0,correct:0,wrong:0}]));
+  state.recent = Object.fromEntries(MEANINGS.map(m=>[m.key,[]]));
+  state.log=[];
 }
-
 function startGame(){
   const name = el("studentName").value.trim();
   el("playerName").textContent = name || "—";
 
   resetState(true);
-  state.running = true;
-  state.seconds = 0;
+  state.running=true;
+  state.seconds=0;
 
   updateHeader();
   updateProgress();
   updateWeakArea();
-  setCard("Ready", "Read the sentence and choose the intended meaning.");
+  setCard("Ready","Read the sentence and choose the intended meaning.");
   startTimer();
 
   if(el("musicToggle").checked){
-    bgMusic.volume = 0.4;
+    bgMusic.volume=0.4;
     bgMusic.play().catch(()=>{});
   }
 
   startRound();
 }
-
 function endGame(perfect=false){
-  state.running = false;
+  state.running=false;
   stopTimer();
   el("progressBar").classList.remove("moving");
-
   if(perfect){
     const c = el("celebration");
     el("celebrationSub").textContent = `You reached ${TARGET_STREAK} correct answers in a row.`;
-    c.style.display = "flex";
+    c.style.display="flex";
     c.setAttribute("aria-hidden","false");
   }
 }
-
 function hardReset(){
   stopTimer();
   resetState(false);
   updateHeader();
   updateProgress();
   updateWeakArea();
-  setCard("Reset", "Press START in the Teacher panel to begin a new game.");
+  setCard("Reset","Type 1362 (teacher) and press START to begin a new game.");
 }
 
-/* ==========================================================
-   STATS SEND
-========================================================== */
+/* STATS SEND */
 async function sendStats(){
   const name = el("studentName").value.trim() || "Unknown";
   const payload = {
     name,
-    streak: state.streak,
-    bestStreak: state.bestStreak,
-    score: state.score,
-    seconds: state.seconds,
-    stats: state.stats,
-    timestamp: new Date().toISOString()
+    streak:state.streak,
+    bestStreak:state.bestStreak,
+    score:state.score,
+    seconds:state.seconds,
+    stats:state.stats,
+    timestamp:new Date().toISOString()
   };
-
-  el("sendMsg").textContent = "Sending…";
-
+  el("sendMsg").textContent="Sending…";
   try{
-    const res = await fetch(APPS_SCRIPT_URL, {
+    const res = await fetch(APPS_SCRIPT_URL,{
       method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(payload)
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
     });
     if(!res.ok) throw new Error("Network error");
-    el("sendMsg").textContent = "Stats sent ✔";
+    el("sendMsg").textContent="Stats sent ✔";
   }catch(e){
-    el("sendMsg").textContent = "Could not send stats.";
+    el("sendMsg").textContent="Could not send stats.";
   }
 }
 
-/* ==========================================================
-   EVENT BINDINGS
-========================================================== */
-window.addEventListener("DOMContentLoaded", ()=>{
-  const teacherOverlay = el("teacherOverlay");
-
-  el("teacherToggle").addEventListener("click", ()=>{
-    teacherOverlay.classList.add("show");
-    teacherOverlay.setAttribute("aria-hidden","false");
+/* SECRET TEACHER CODE 1362 */
+(function(){
+  const SECRET_CODE = "1362";
+  let buffer = "";
+  window.addEventListener("keydown",(e)=>{
+    if(!/^[0-9]$/.test(e.key)) return;
+    buffer += e.key;
+    if(buffer.length>SECRET_CODE.length){
+      buffer = buffer.slice(-SECRET_CODE.length);
+    }
+    if(buffer===SECRET_CODE){
+      const overlay = el("teacherModalOverlay");
+      const visible = overlay.classList.contains("show");
+      if(visible){
+        overlay.classList.remove("show");
+        overlay.setAttribute("aria-hidden","true");
+      }else{
+        overlay.classList.add("show");
+        overlay.setAttribute("aria-hidden","false");
+      }
+      buffer="";
+    }
   });
+})();
 
-  el("closeTeacher").addEventListener("click", ()=>{
+/* EVENTS */
+window.addEventListener("DOMContentLoaded",()=>{
+  const teacherOverlay = el("teacherModalOverlay");
+
+  el("closeTeacher").addEventListener("click",()=>{
     teacherOverlay.classList.remove("show");
     teacherOverlay.setAttribute("aria-hidden","true");
   });
-
-  teacherOverlay.addEventListener("click", (e)=>{
-    if(e.target === teacherOverlay){
+  teacherOverlay.addEventListener("click",(e)=>{
+    if(e.target===teacherOverlay){
       teacherOverlay.classList.remove("show");
       teacherOverlay.setAttribute("aria-hidden","true");
     }
   });
 
-  el("startBtn").addEventListener("click", ()=>{
+  el("startBtn").addEventListener("click",()=>{
     teacherOverlay.classList.remove("show");
     teacherOverlay.setAttribute("aria-hidden","true");
     startGame();
   });
+  el("resetBtn").addEventListener("click",()=>hardReset());
 
-  el("resetBtn").addEventListener("click", ()=>{
-    hardReset();
-  });
-
-  el("musicToggle").addEventListener("change", ()=>{
+  el("musicToggle").addEventListener("change",()=>{
     if(el("musicToggle").checked){
-      bgMusic.volume = 0.4;
+      bgMusic.volume=0.4;
       bgMusic.play().catch(()=>{});
     }else{
       bgMusic.pause();
     }
   });
 
-  el("sendStatsBtn").addEventListener("click", ()=>sendStats());
-  el("celebrationSend").addEventListener("click", ()=>sendStats());
+  el("sendStatsBtn").addEventListener("click",()=>sendStats());
+  el("celebrationSend").addEventListener("click",()=>sendStats());
 
-  el("celebrationRestart").addEventListener("click", ()=>{
-    el("celebration").style.display = "none";
+  el("celebrationRestart").addEventListener("click",()=>{
+    el("celebration").style.display="none";
     el("celebration").setAttribute("aria-hidden","true");
     startGame();
   });
 
-  el("fbCloseBtn").addEventListener("click", ()=>{
-    hideFeedback();
-  });
-  el("fbNextBtn").addEventListener("click", ()=>{
+  el("fbCloseBtn").addEventListener("click",()=>hideFeedback());
+  el("fbNextBtn").addEventListener("click",()=>{
     hideFeedback();
     if(state.running) startRound();
   });
 
-  // Initial UI
   updateHeader();
   updateProgress();
   updateWeakArea();
@@ -1260,5 +1148,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 </script>
 </body>
 </html>
-
 
