@@ -3,113 +3,142 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Future Forms + First Conditional — Streak to 25 (Manga) + Simple Teacher Stats</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+<title>Future Forms + First Conditional — Meaning Game (Streak 25)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#05040d; --bg2:#0b0830; --bg3:#140a2b;
-  --ink:#f7fbff; --mut:rgba(247,251,255,.72);
-  --panel: rgba(18, 13, 34, .88);
-  --stroke: rgba(255,255,255,.14);
-  --pink:#ff2fb3; --cyan:#11e8ff; --yellow:#ffe04a; --lime:#7dff6a; --violet:#9b5cff;
-  --shadow: 0 26px 80px rgba(0,0,0,.60);
-  --focus: 0 0 0 5px rgba(17,232,255,.25);
+  /* Manga-ish bright palette */
+  --bg1:#0b1026;
+  --bg2:#111a44;
+  --bg3:#091a2b;
+
+  --panel: rgba(10, 14, 30, .90);
+  --ink:#f4f7ff;
+  --mut: rgba(244,247,255,.72);
+
+  --accent:#ff4fd8;     /* neon pink */
+  --accent2:#48f0ff;    /* neon cyan */
+  --accent3:#ffe14a;    /* neon yellow */
+  --good:#22c55e;
+  --bad:#ef4444;
+
+  --stroke: rgba(255,255,255,.12);
+  --shadow: 0 24px 70px rgba(0,0,0,.55);
   --wMax: 1200px;
+
+  --cardA:#ff4fd8;
+  --cardB:#7c3aed;
+  --cardC:#48f0ff;
+
+  --focus: 0 0 0 5px rgba(255,79,216,.22);
 }
+
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
+html,body{height:100%; margin:0;}
 body{
   font-family:Montserrat,system-ui,sans-serif;
-  color:var(--ink);
   background:
-    radial-gradient(900px 520px at 15% 18%, rgba(255,47,179,.22), transparent 60%),
-    radial-gradient(900px 520px at 85% 22%, rgba(17,232,255,.18), transparent 60%),
-    radial-gradient(720px 420px at 55% 85%, rgba(255,224,74,.12), transparent 60%),
+    radial-gradient(900px 520px at 15% 15%, rgba(255,79,216,.22), transparent 60%),
+    radial-gradient(900px 520px at 85% 20%, rgba(72,240,255,.18), transparent 60%),
+    radial-gradient(900px 520px at 55% 90%, rgba(255,225,74,.12), transparent 60%),
     linear-gradient(180deg,var(--bg1),var(--bg2),var(--bg3));
+  color:var(--ink);
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
   padding:12px;
 }
+
+/* ========= LAYOUT (NO CUT) ========= */
 .container{
   width:min(var(--wMax), 100%);
-  min-height: calc(100vh - 24px);
-  max-height: 980px;
   background:var(--panel);
   border-radius:18px;
   padding:14px;
   box-shadow:var(--shadow);
   border:1px solid var(--stroke);
   backdrop-filter: blur(10px);
+
+  /* fluid grid */
   display:grid;
-  grid-template-columns: 1fr 330px;
+  grid-template-columns: 1fr 320px;
   grid-template-rows: auto auto 1fr auto;
   gap:12px;
-  overflow:hidden;
+  overflow:visible;
 }
+
+/* Header */
 .header{grid-column:1/2; grid-row:1/2; display:flex; gap:12px; align-items:center}
 .logo{
   width:56px;height:56px;border-radius:16px;
-  background: linear-gradient(135deg, rgba(255,47,179,.25), rgba(17,232,255,.22), rgba(255,224,74,.18));
-  border:2px solid rgba(255,255,255,.18);
+  background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.16);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 14px 28px rgba(0,0,0,.30);
-  position:relative;
-}
-.logo:after{
-  content:"";
-  position:absolute; inset:6px;
-  border-radius:14px;
-  border:2px dashed rgba(255,255,255,.20);
-  pointer-events:none;
+  box-shadow:0 14px 28px rgba(0,0,0,.25);
 }
 .title{margin:0;font-size:20px;color:#fff;letter-spacing:.2px}
 .lead{margin:2px 0 0;font-size:13px;color:var(--mut)}
 
+/* Topbar */
 .topbar{
   grid-column:1/2; grid-row:2/3;
   display:flex; align-items:center; justify-content:space-between;
   padding:10px 12px;
   border-radius:16px;
   border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
   gap:10px;
   flex-wrap:wrap;
 }
 .statRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .stat{
-  border:2px solid rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.14);
   border-radius:14px;
   padding:8px 12px;
   font-weight:900;
   font-size:13px;
-  background:rgba(0,0,0,.18);
+  background:rgba(0,0,0,.12);
 }
 .playerTag{font-size:13px;color:var(--mut)}
 .playerTag strong{color:var(--ink)}
 
+/* Teacher toggle (small) */
+.teacherToggle{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.14);
+  color:var(--ink);
+  border-radius:14px;
+  padding:9px 12px;
+  font-weight:900;
+  cursor:pointer;
+  transition:transform .12s ease, filter .12s ease;
+}
+.teacherToggle:hover{transform:translateY(-2px);filter:brightness(1.05)}
+
+/* Right panel (teacher) */
 .controlsPanel{
   grid-column:2/3; grid-row:1/4;
   display:flex; flex-direction:column; gap:10px;
   padding:12px;
   border-radius:16px;
   border:1px solid var(--stroke);
-  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
-  overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+  overflow:visible;
 }
 .inputRow{display:flex;flex-direction:column;gap:6px}
 .inputRow label{font-weight:900;font-size:13px;color:var(--ink)}
 .inputRow input{
-  border:2px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.14);
   color:var(--ink);
   border-radius:14px;
   padding:12px;
   font-size:14px;
   outline:none;
 }
-.inputRow input:focus{border-color: rgba(17,232,255,.80); box-shadow:var(--focus);}
+.inputRow input::placeholder{color:rgba(244,247,255,.55)}
+.inputRow input:focus{border-color: rgba(255,79,216,.70); box-shadow:var(--focus);}
 
 .controlsBtns{display:flex;gap:10px}
 .btnPrimary,.btnSecondary{
@@ -118,21 +147,20 @@ body{
   padding:12px 14px;
   font-weight:900;
   cursor:pointer;
-  transition:transform .12s ease, filter .12s ease;
+  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
 }
 .btnPrimary{
-  border:2px solid rgba(255,255,255,.16);
-  color:#06101a;
-  background:linear-gradient(180deg,var(--yellow),#ffbf00);
-  box-shadow:0 14px 28px rgba(255,224,74,.18);
+  border:none;
+  color:#0b1026;
+  background:linear-gradient(180deg,var(--accent3),#ffd000);
+  box-shadow:0 14px 28px rgba(255,225,74,.20);
 }
 .btnSecondary{
-  border:2px solid rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.16);
   color:var(--ink);
-  background:rgba(0,0,0,.18);
+  background:rgba(0,0,0,.14);
 }
 .btnPrimary:hover,.btnSecondary:hover{transform:translateY(-2px);filter:brightness(1.05)}
-.btnPrimary:disabled,.btnSecondary:disabled{opacity:.6;cursor:not-allowed;transform:none}
 
 .toggles{
   display:flex; gap:10px; flex-wrap:wrap;
@@ -140,59 +168,47 @@ body{
 }
 .toggles label{display:flex;gap:8px;align-items:center;cursor:pointer;user-select:none}
 
-.tipBox{
-  margin-top:auto;
+/* Simple teacher stats (visual) */
+.teacherBox{
+  border:1px dashed rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05);
+  border-radius:14px;
   padding:12px;
-  border-radius:14px;
-  border:2px dashed rgba(255,255,255,.18);
-  background:rgba(0,0,0,.15);
-  font-size:12.7px;
-  color:rgba(247,251,255,.88);
-  line-height:1.35;
 }
-.bankStats{
-  margin-top:10px;
-  padding:10px;
-  border-radius:14px;
-  border:1px solid var(--stroke);
-  background:rgba(0,0,0,.16);
-  color:rgba(247,251,255,.90);
-  font-size:12.5px;
-  line-height:1.35;
+.teacherBox h3{margin:0 0 8px; font-size:14px}
+.bar{
+  height:10px; border-radius:999px; overflow:hidden;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.10);
 }
+.bar > i{
+  display:block; height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent3));
+}
+.small{font-size:12.5px;color:rgba(244,247,255,.80);line-height:1.35}
 
+/* ========= GAME ========= */
 .game{
   grid-column:1/2; grid-row:3/4;
-  overflow:hidden;
-  display:flex;
-  align-items:stretch;
-  justify-content:center;
-  position:relative;
+  overflow:auto;     /* allow scroll if needed */
+  min-height:0;      /* important */
 }
 .gameInner{
   width:100%;
-  max-width:860px;
-  height:100%;
-  display:grid;
-  grid-template-rows:
-    minmax(140px, .44fr)
-    minmax(54px, auto)
-    minmax(240px, 1fr)
-    auto
-    auto;
+  max-width:880px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
   gap:10px;
-  overflow:hidden;
 }
+
+/* Prompt card */
 #card{
   border-radius:18px;
-  padding:12px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(17,232,255,.22), transparent 50%),
-    radial-gradient(circle at 80% 25%, rgba(255,47,179,.22), transparent 55%),
-    radial-gradient(circle at 55% 90%, rgba(255,224,74,.16), transparent 55%),
-    linear-gradient(135deg, rgba(17,232,255,.16), rgba(255,47,179,.14), rgba(255,224,74,.10));
-  border:2px solid rgba(255,255,255,.18);
-  box-shadow:0 18px 48px rgba(0,0,0,.34);
+  padding:14px;
+  background:linear-gradient(135deg,var(--cardA),var(--cardB),var(--cardC));
+  box-shadow:0 18px 48px rgba(0,0,0,.30);
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
   text-align:center;
@@ -201,143 +217,117 @@ body{
 }
 #card::before{
   content:"";
-  position:absolute; inset:-30%;
+  position:absolute; inset:-25%;
   background:
-    repeating-linear-gradient(45deg,
-      rgba(255,255,255,.08) 0 10px,
-      rgba(255,255,255,.02) 10px 20px);
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.22), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.18), transparent 48%),
+    radial-gradient(circle at 70% 75%, rgba(255,255,255,.14), transparent 52%);
   transform:rotate(-10deg);
   pointer-events:none;
-  opacity:.35;
+  animation: floatGlow 4.2s ease-in-out infinite;
 }
+@keyframes floatGlow{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-10deg) translateY(10px)}}
+
 #cardLabel{
   position:relative;
   font-size:13px;
   font-weight:900;
-  color:#07111b;
+  color:#fff;
   padding:8px 14px;
   border-radius:999px;
-  background:linear-gradient(180deg, var(--cyan), #00c8dd);
-  border:2px solid rgba(0,0,0,.35);
-  margin:0 0 8px;
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(8px);
+  margin:0 0 10px;
 }
 #cardText{
   position:relative;
-  width:min(92%, 780px);
-  padding:10px 12px;
+  width:min(94%, 820px);
+  padding:12px 14px;
   border-radius:14px;
-  background:rgba(0,0,0,.22);
-  border:2px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.18);
   color:#fff;
   font-weight:900;
   font-size:clamp(18px, 2.0vw, 30px);
-  line-height:1.14;
+  line-height:1.18;
   text-shadow:0 2px 14px rgba(0,0,0,.35);
   overflow-wrap:anywhere;
-  word-break:break-word;
 }
-#orderBox{
-  border:2px solid rgba(255,255,255,.14);
+
+/* Meaning question box */
+.meaningPrompt{
+  border:1px solid rgba(255,255,255,.14);
   border-radius:16px;
-  background:rgba(0,0,0,.18);
-  padding:10px;
-  min-height:54px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-  justify-content:center;
+  background:rgba(0,0,0,.14);
+  padding:12px;
+  text-align:center;
   font-weight:900;
-  color:var(--ink);
-  overflow:hidden;
+  color:rgba(244,247,255,.92);
 }
+
+/* Options grid */
 #options{
   width:100%;
   border-radius:16px;
-  border:2px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.14);
   padding:10px;
-  overflow:hidden;
 }
 
-/* Multiple-choice */
-#options.mode-multiple{
+#options.mode-meaning{
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap:10px;
 }
+
 .choiceCard{
-  border:2px solid rgba(0,0,0,.35);
+  border:none;
   border-radius:18px;
   padding:14px 14px;
-  color:#07101a;
+  color:#fff;
   font-weight:900;
   cursor:pointer;
   text-align:left;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
   min-height:86px;
-  box-shadow:0 16px 34px rgba(0,0,0,.24);
-  transition:transform .12s ease, filter .12s ease;
+  box-shadow:0 16px 34px rgba(0,0,0,.22);
+  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
   position:relative;
   overflow:hidden;
 }
-.choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06)}
+.choiceCard:focus-visible{outline:none; box-shadow: var(--focus), 0 18px 40px rgba(0,0,0,.30);}
+.choiceCard::after{
+  content:"";
+  position:absolute; inset:-40%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%);
+  transform:rotate(10deg);
+  opacity:.7;
+}
+.choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06);box-shadow:0 18px 40px rgba(0,0,0,.30)}
 .choiceIcon{
   width:46px;height:46px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.45);
-  border:2px solid rgba(0,0,0,.35);
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.18);
   font-size:22px;
   z-index:1;
+  flex:0 0 auto;
 }
-.choiceText{z-index:1; font-size:18px; line-height:1.12}
-.choiceText small{display:block;font-size:13px;font-weight:800;opacity:.95;margin-top:3px}
-.choiceWILL{background:linear-gradient(180deg, var(--yellow), #ffb703);}
-.choiceGOING{background:linear-gradient(180deg, var(--pink), #ff5cc9);}
-.choicePC{background:linear-gradient(180deg, var(--cyan), #00b6ca);}
-.choicePS{background:linear-gradient(180deg, var(--lime), #56ff8b);}
-.choiceCOND{background:linear-gradient(180deg, var(--violet), #b78bff);}
+.choiceText{z-index:1}
+.choiceText small{display:block;font-size:12px;font-weight:800;opacity:.92;margin-top:2px; line-height:1.25}
 
-/* Ordering */
-#options.mode-order{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
-  gap:12px;
-  align-content:start;
-  grid-auto-rows: minmax(44px, auto);
-}
-.orderWord{
-  border:2px solid rgba(0,0,0,.35);
-  border-radius:16px;
-  padding: 11px 12px;
-  font-weight:900;
-  font-size: 16px;
-  cursor:pointer;
-  color:#07101a;
-  background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
-  box-shadow:0 12px 22px rgba(0,0,0,.18);
-  transition:transform .12s ease, filter .12s ease;
-  text-align:center;
-  white-space:nowrap;
-}
-.orderWord:hover{transform:translateY(-3px); filter:brightness(1.05);}
-.orderWord:disabled{opacity:.55;cursor:not-allowed;transform:none !important}
-.orderWord.chosen{ color:#fff; background:linear-gradient(180deg,#ef4444,#b91c1c); }
+/* manga color blocks */
+.c1{background:linear-gradient(135deg,#ff4fd8,#c026d3);}
+.c2{background:linear-gradient(135deg,#48f0ff,#2563eb);}
+.c3{background:linear-gradient(135deg,#ffe14a,#f59e0b);}
+.c4{background:linear-gradient(135deg,#22c55e,#10b981);}
+.c5{background:linear-gradient(135deg,#f97316,#ef4444);}
+.c6{background:linear-gradient(135deg,#a855f7,#7c3aed);}
 
-.selChip{
-  padding:8px 12px;
-  border-radius:14px;
-  background:rgba(17,232,255,.16);
-  border:2px solid rgba(17,232,255,.26);
-  font-weight:900;
-  cursor:pointer;
-  user-select:none;
-  transition:transform .12s ease, filter .12s ease;
-}
-.selChip:hover{transform:translateY(-2px);filter:brightness(1.05)}
-
+/* Progress */
 .progressWrap{
   width:100%;
   height:12px;
@@ -349,58 +339,118 @@ body{
 .progressBar{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg, var(--lime), var(--cyan), var(--yellow), var(--pink), var(--lime));
-  background-size:220% 100%;
-  transition:width 350ms ease;
+  background:linear-gradient(90deg,#22c55e,#16a34a,#22c55e);
+  background-size:200% 100%;
+  transition:width 300ms ease;
 }
 .progressBar.moving{ animation: prog 1.1s linear infinite; }
-@keyframes prog{ 0%{background-position:0%} 100%{background-position:220%} }
-.progressLabel{font-size:13px; color:rgba(247,251,255,.92); text-align:center; margin-top:-4px; font-weight:900;}
-
-.controlsRow{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
+@keyframes prog{ 0%{background-position:0%} 100%{background-position:200%} }
+.progressLabel{
+  font-size:13px;
+  color:rgba(244,247,255,.90);
+  text-align:center;
+  margin-top:-4px;
+  font-weight:900;
 }
-.smallBtn{
-  border:2px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.18);
-  color:var(--ink);
+
+/* Feedback overlay (shows AFTER answer only) */
+.fbOverlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(2,8,23,.62);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+  z-index:9999;
+  padding:18px;
+}
+.fbOverlay.show{ opacity:1; pointer-events:auto; }
+.fbCard{
+  width:min(720px, 96%);
+  border-radius:18px;
+  padding:18px 18px 16px;
+  background:linear-gradient(180deg, rgba(10,14,30,.97), rgba(10,14,30,.93));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 24px 70px rgba(0,0,0,.60);
+  text-align:center;
+  transform:scale(.965) translateY(6px);
+  animation: fbIn .22s ease both;
+}
+@keyframes fbIn{ to{transform:scale(1) translateY(0)} }
+.fbTop{display:flex; align-items:center; justify-content:center; gap:10px; font-weight:900;}
+.fbIcon{
+  width:48px;height:48px;
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:22px;
+}
+.fbTitle{font-size:22px; margin:0;}
+.fbSub{
+  margin:10px auto 0;
+  font-size:16px;
+  color:#ffffff;
+  font-weight:900;
+  line-height:1.32;
+  max-width:650px;
+}
+.fbDetail{
+  margin:10px auto 0;
+  font-size:14px;
+  color:rgba(244,247,255,.92);
+  font-weight:800;
+  line-height:1.38;
+  max-width:650px;
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:10px;
+  white-space:pre-wrap;
+}
+.fbBtnRow{margin-top:14px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
+.fbBtn{
   border-radius:14px;
-  padding:10px 14px;
+  padding:12px 16px;
   font-weight:900;
   cursor:pointer;
-  transition:transform .12s ease, filter .12s ease, opacity .12s ease;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.14);
+  color:var(--ink);
+  transition:transform .12s ease, filter .12s ease;
 }
-.smallBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
-.smallBtn:disabled{opacity:.55;cursor:not-allowed;transform:none !important}
-
-/* BIG blinking CHECK */
-#checkOrder.smallBtn{
-  padding: 18px 32px !important;
-  font-size: 19px !important;
-  border-radius: 18px !important;
-  min-width: 230px !important;
-  border:2px solid rgba(0,0,0,.35) !important;
-  color:#06101a !important;
-  background: linear-gradient(180deg, var(--yellow), #ffb703) !important;
-  box-shadow: 0 18px 38px rgba(255,224,74,.22) !important;
-}
-#checkOrder.smallBtn.checkAttention{ animation: checkPulse 1.0s ease-in-out infinite; }
-@keyframes checkPulse{
-  0%,100%{ transform: scale(1); filter: brightness(1); }
-  50%{ transform: scale(1.07); filter: brightness(1.12); }
+.fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.fbBtn.primary{
+  border:none;
+  background:linear-gradient(180deg,var(--accent),#c026d3);
+  color:#fff;
+  box-shadow:0 14px 28px rgba(255,79,216,.18);
 }
 
-#sendStats.smallBtn{
-  border:2px solid rgba(0,0,0,.35) !important;
-  color:#06101a !important;
-  background: linear-gradient(180deg, var(--cyan), #00b6ca) !important;
-  box-shadow: 0 18px 38px rgba(17,232,255,.16) !important;
+/* Celebration */
+.celebration-overlay{
+  position:fixed; inset:0;
+  display:none; align-items:center; justify-content:center;
+  background:rgba(2,8,23,0.72);
+  z-index:10000;
+  padding:18px;
 }
+.celebration-card{
+  width:min(780px, 96%);
+  background:linear-gradient(180deg, rgba(10,14,30,.94), rgba(10,14,30,.90));
+  border:1px solid rgba(255,255,255,.14);
+  color:var(--ink);
+  border-radius:18px;
+  padding:26px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.60);
+}
+.celebration-title{font-size:34px;font-weight:900;color:#fff;margin-bottom:8px}
+.celebration-sub{color:rgba(244,247,255,.86);font-weight:900; font-size:16px; margin-bottom:12px}
+.celebration-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 
+/* Footer */
 .footer{
   grid-column:1/2; grid-row:4/5;
   display:flex; justify-content:space-between; align-items:center;
@@ -409,122 +459,72 @@ body{
   flex-wrap:wrap;
 }
 
-/* Feedback overlay */
-.fbOverlay{
-  position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
-  background:rgba(2,8,23,.62);
-  opacity:0; pointer-events:none;
-  transition:opacity .18s ease;
-  z-index:20;
+/* ========= STUDENT MODE DEFAULT ========= */
+body.studentMode .controlsPanel{
+  display:none;
 }
-.fbOverlay.show{ opacity:1; pointer-events:auto; }
-.fbCard{
-  width:min(640px, 94%);
-  border-radius:18px;
-  padding:18px 18px 16px;
-  background:linear-gradient(180deg, rgba(20,14,36,.97), rgba(20,14,36,.93));
-  border:2px solid rgba(255,255,255,.16);
-  box-shadow:0 24px 70px rgba(0,0,0,.60);
-  text-align:center;
+body.studentMode .teacherToggle{
+  opacity:.92;
 }
-.fbTop{display:flex; align-items:center; justify-content:center; gap:10px; font-weight:900;}
-.fbIcon{
-  width:48px;height:48px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.10);
-  border:2px solid rgba(255,255,255,.14);
-  font-size:22px;
-}
-.fbTitle{font-size:22px; margin:0;}
-.fbSub{
-  margin:12px auto 0;
-  font-size:16px; color:#fff; font-weight:900;
-  line-height:1.32; max-width:600px;
-}
-.fbDetail{
-  margin:10px auto 0;
-  font-size:14.2px;
-  color:rgba(247,251,255,.92);
-  font-weight:800;
-  line-height:1.38;
-  max-width:600px;
-  border-top:1px solid rgba(255,255,255,.12);
-  padding-top:10px;
-  white-space:pre-line;
-}
-.fbBtnRow{margin-top:14px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
-.fbBtn{
-  border-radius:14px;
-  padding:10px 14px;
-  font-weight:900;
-  cursor:pointer;
-  border:2px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.18);
-  color:var(--ink);
-  transition:transform .12s ease, filter .12s ease;
-}
-.fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
 
-/* Celebration */
-.celebration-overlay{
-  position:fixed; inset:0;
-  display:none; align-items:center; justify-content:center;
-  background:rgba(2,8,23,0.72);
-  z-index:9999;
-  padding:18px;
-}
-.celebration-card{
-  width:min(780px, 96%);
-  background:linear-gradient(180deg, rgba(20,14,36,.95), rgba(20,14,36,.90));
-  border:2px solid rgba(255,255,255,.14);
-  color:var(--ink);
-  border-radius:18px;
-  padding:26px;
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,0.60);
-}
-.celebration-title{font-size:34px;font-weight:900;color:#fff;margin-bottom:8px}
-.celebration-sub{color:rgba(247,251,255,.88);font-weight:900; font-size:16px; margin-bottom:12px}
-.celebration-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-
-/* Responsive */
+/* ========= RESPONSIVE ========= */
 @media (max-width: 1020px){
-  .container{grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto auto}
-  .controlsPanel{grid-column:1/2; grid-row:5/6; flex-direction:row; flex-wrap:wrap; gap:10px}
-  .inputRow{width:calc(50% - 5px)}
-  .controlsBtns{width:100%}
-  .tipBox{width:100%; margin-top:0}
-  .bankStats{width:100%}
+  .container{grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto}
+  body.studentMode .controlsPanel{display:none;}
+  body:not(.studentMode) .controlsPanel{grid-column:1/2; grid-row:5/6;}
 }
 @media (max-width: 640px){
-  .inputRow{width:100%}
-  #options.mode-multiple{grid-template-columns:1fr}
+  #options.mode-meaning{grid-template-columns:1fr}
+}
+@media (max-height: 760px){
+  .container{grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto}
+  body:not(.studentMode) .controlsPanel{grid-column:1/2; grid-row:5/6;}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #card::before,.progressBar.moving{animation:none !important}
+  *{transition:none !important}
 }
 </style>
 </head>
 
-<body>
-  <div class="container" role="application" aria-label="Future forms and first conditional game">
-
+<body class="studentMode">
+  <div class="container" role="application" aria-label="Future meaning game">
+    <!-- Header -->
     <div class="header">
-      <div class="logo" aria-hidden="true">✦</div>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#ff4fd8"/>
+              <stop offset="1" stop-color="#48f0ff"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="30" fill="url(#g1)"/>
+        </svg>
+      </div>
       <div>
         <h1 class="title">Future Forms + First Conditional</h1>
-        <p class="lead">No answers shown before choosing • ordering less frequent • no-repeat + duplicates fixed • simple teacher stats</p>
+        <p class="lead">Choose the <b>intended meaning</b> (Synchrony Unit 2) • win at <b>25 in a row</b></p>
       </div>
     </div>
 
+    <!-- Topbar -->
     <div class="topbar">
       <div class="statRow">
         <div class="stat" id="scoreBox">Score: 0</div>
         <div class="stat" id="timerBox">Time: 0s</div>
         <div class="stat" id="streakBox">Streak: 0</div>
       </div>
-      <div class="playerTag">Player: <strong id="playerName">—</strong></div>
+      <div class="statRow">
+        <div class="playerTag">Player: <strong id="playerName">—</strong></div>
+        <button id="teacherToggle" class="teacherToggle" type="button">Teacher view</button>
+      </div>
     </div>
 
-    <div class="controlsPanel">
+    <!-- Teacher panel (hidden by default in studentMode) -->
+    <div class="controlsPanel" aria-label="Teacher controls">
       <div class="inputRow">
         <label for="studentName">Name</label>
         <input id="studentName" type="text" placeholder="E.g., Laura">
@@ -533,388 +533,261 @@ body{
       <div class="inputRow">
         <label for="targetStreak">Target streak</label>
         <input id="targetStreak" type="number" value="25" disabled>
-        <div style="font-size:12px;color:var(--mut);margin-top:-4px">Locked to 25 ✅</div>
       </div>
 
       <div class="controlsBtns">
-        <button id="startBtn" class="btnPrimary">START</button>
-        <button id="resetBtn" class="btnSecondary">RESET</button>
+        <button id="startBtn" class="btnPrimary" type="button">START</button>
+        <button id="resetBtn" class="btnSecondary" type="button">RESET</button>
       </div>
 
       <div class="toggles">
         <label><input id="soundToggle" type="checkbox" checked> SFX</label>
         <label><input id="musicToggle" type="checkbox" checked> Music</label>
+        <label title="Auto moves to the next question after feedback">
+          <input id="autoNextToggle" type="checkbox" checked> Auto-next
+        </label>
       </div>
 
-      <div class="tipBox">
-        <b>How it works</b><br>
-        • Choose the correct <b>form</b> (WILL / GOING TO / PS / PC / First conditional).<br>
-        • Ordering rounds: build the sentence then press the big <b>CHECK</b> button.<br>
-        • Mistakes reset streak to 0.<br>
-        • Win at <b>25 correct in a row</b> (stats send automatically).
+      <div class="teacherBox">
+        <h3>Teacher snapshot</h3>
+        <div class="small" id="weakText">Start the game to see weak areas.</div>
+        <div style="height:10px"></div>
+        <div class="small"><b>Progress</b></div>
+        <div class="bar"><i id="tBar"></i></div>
+        <div class="small" id="tBarLabel" style="margin-top:6px">0 / 25</div>
       </div>
 
-      <!-- SIMPLE TEACHER VIEW -->
-      <div class="bankStats" id="bankStats">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-          <b>Teacher view</b>
-          <span style="color:rgba(247,251,255,.75);font-weight:800;font-size:12px">
-            Focus = lowest accuracy (min 3 attempts)
-          </span>
+      <div class="teacherBox">
+        <h3>Google Sheets</h3>
+        <div class="small">
+          Stats-only send on WIN (or on RESET).
         </div>
-        <div id="teacherStats" style="margin-top:10px;display:grid;gap:10px"></div>
+        <button id="sendStatsBtn" class="btnSecondary" type="button" style="width:100%; margin-top:10px">Send stats now</button>
+        <div class="small" id="sendMsg" style="margin-top:8px;color:rgba(244,247,255,.8)"></div>
       </div>
     </div>
 
+    <!-- Game -->
     <div class="game" role="main" aria-live="polite">
-      <div id="feedbackOverlay" class="fbOverlay" aria-hidden="true">
-        <div class="fbCard" role="dialog" aria-modal="true" aria-label="Feedback popup">
-          <div class="fbTop">
-            <div class="fbIcon" id="fbIcon">✅</div>
-            <h3 class="fbTitle" id="fbTitle">Nice!</h3>
-          </div>
-          <div class="fbSub" id="fbSub">Keep it going.</div>
-          <div class="fbDetail" id="fbDetail"></div>
-          <div class="fbBtnRow">
-            <button class="fbBtn" id="fbCloseBtn" type="button">Close</button>
-          </div>
-        </div>
-      </div>
-
       <div class="gameInner">
         <div id="card" role="region" aria-label="Prompt card">
           <div id="cardLabel">Ready</div>
-          <div id="cardText">Press START to begin</div>
+          <div id="cardText">Press START (Teacher view) or just tap Teacher view → START.</div>
         </div>
 
-        <div id="orderBox" aria-live="polite">Selected words will appear here (ordering rounds).</div>
+        <div class="meaningPrompt" id="meaningPrompt">
+          Question: What is the speaker’s intended meaning?
+        </div>
 
-        <div id="options" role="group" aria-label="Answer options"></div>
+        <div id="options" class="mode-meaning" role="group" aria-label="Answer options"></div>
 
-        <div class="progressWrap">
+        <div class="progressWrap" aria-hidden="false">
           <div id="progressBar" class="progressBar" style="width:0%"></div>
         </div>
         <div class="progressLabel" id="progressLabel">Goal progress: 0 / 25 (0%)</div>
-
-        <div class="controlsRow">
-          <button id="resetOrder" class="smallBtn" style="display:none">Reset order</button>
-          <button id="checkOrder" class="smallBtn" style="display:none">CHECK</button>
-          <button id="sendStats" class="smallBtn" style="display:none">Send Stats</button>
-          <button id="downloadReport" class="smallBtn" style="display:none">CSV (stats)</button>
-        </div>
       </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
-      <div>Fair: affirmative • negative • questions (rotated per topic)</div>
+      <div>Unit 2 focus: will / going to / present continuous / present simple / first conditional</div>
       <div>Goal: <span id="targetLabel">25</span> in a row</div>
     </div>
+  </div>
 
-    <div id="celebration" class="celebration-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="celebration-card" role="document">
-        <div class="celebration-title">Perfect streak! 🏆</div>
-        <div class="celebration-sub" id="celebrationSub">You reached 25 correct answers in a row.</div>
-        <div class="celebration-actions">
-          <button id="celebrationDownload" class="btnPrimary" style="width:auto;padding:12px 18px">Download CSV</button>
-          <button id="celebrationRestart" class="btnSecondary" style="width:auto;padding:12px 18px">Restart</button>
-        </div>
+  <!-- Feedback overlay -->
+  <div id="feedbackOverlay" class="fbOverlay" aria-hidden="true">
+    <div class="fbCard" role="dialog" aria-modal="true" aria-label="Feedback popup">
+      <div class="fbTop">
+        <div class="fbIcon" id="fbIcon">✅</div>
+        <h3 class="fbTitle" id="fbTitle">Nice!</h3>
+      </div>
+      <div class="fbSub" id="fbSub">Keep it going.</div>
+      <div class="fbDetail" id="fbDetail"></div>
+      <div class="fbBtnRow">
+        <button class="fbBtn" id="fbCloseBtn" type="button">Close</button>
+        <button class="fbBtn primary" id="fbNextBtn" type="button">Next</button>
       </div>
     </div>
   </div>
 
-  <!-- Audio: fixed file name -->
+  <!-- Celebration -->
+  <div id="celebration" class="celebration-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="celebration-card" role="document">
+      <div class="celebration-title">Perfect streak! 🏆</div>
+      <div class="celebration-sub" id="celebrationSub">You reached 25 correct answers in a row.</div>
+      <div class="celebration-actions">
+        <button id="celebrationSend" class="btnPrimary" style="width:auto;padding:12px 18px">Send stats</button>
+        <button id="celebrationRestart" class="btnSecondary" style="width:auto;padding:12px 18px">Restart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background music -->
   <audio id="bgMusic" src="audio/koala2.mp3" preload="auto" loop></audio>
 
 <script>
 /* ==========================================================
-   GOOGLE SHEETS WEB APP URL (yours)
-========================================================== */
-const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
-
-/* ==========================================================
-   GOAL
+   CONFIG
 ========================================================== */
 const TARGET_STREAK = 25;
 
+/* IMPORTANT: your Apps Script Web App URL (stats-only) */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
+
 /* ==========================================================
-   TOPICS
+   MEANING CATEGORIES (Synchrony Unit 2 logic)
 ========================================================== */
-const TOPICS = [
-  { id:"WILL",  label:"Future form — WILL",              hint:"predictions • offers • promises", css:"choiceWILL", icon:"🟨",
-    subs:["WILL_aff","WILL_neg","WILL_q"] },
-  { id:"GOING", label:"Future form — BE GOING TO",       hint:"plans • intentions",              css:"choiceGOING", icon:"💗",
-    subs:["GOING_aff","GOING_neg","GOING_q"] },
-  { id:"PC",    label:"Future meaning — PRESENT CONT.",  hint:"definite arrangements",          css:"choicePC", icon:"🟦",
-    subs:["PC_aff","PC_neg","PC_q"] },
-  { id:"PS",    label:"Future meaning — PRESENT SIMPLE", hint:"timetables • schedules",         css:"choicePS", icon:"🟩",
-    subs:["PS_aff","PS_neg","PS_q"] },
-  { id:"FC",    label:"First conditional",               hint:"If + present, will + base",      css:"choiceCOND", icon:"🟪",
-    subs:["FC_aff","FC_neg","FC_q"] },
+const MEANINGS = [
+  { key:"prediction",      icon:"🔮", cls:"c1", title:"Prediction / opinion",  hint:"guess, opinion, ‘I think…’ → usually WILL" },
+  { key:"instant",         icon:"🤝", cls:"c2", title:"Offer / promise / decision now", hint:"offer/promise/decision → WILL" },
+  { key:"plan",            icon:"🧭", cls:"c3", title:"Plan / intention",      hint:"intention, plan → GOING TO" },
+  { key:"arrangement",     icon:"📅", cls:"c4", title:"Arrangement",          hint:"fixed plan, meeting time → PRESENT CONTINUOUS" },
+  { key:"timetable",       icon:"🚉", cls:"c5", title:"Timetable / schedule", hint:"official schedule → PRESENT SIMPLE" },
+  { key:"first_cond",      icon:"⚡", cls:"c6", title:"First conditional",     hint:"possible future + result (if + present, will…)" },
 ];
 
+/* Mapping meaning → expected form (used for teacher explanation) */
+const FORM_BY_MEANING = {
+  prediction:  "will",
+  instant:     "will",
+  plan:        "be going to",
+  arrangement: "present continuous",
+  timetable:   "present simple",
+  first_cond:  "first conditional"
+};
+
 /* ==========================================================
-   BANKS (15 per subbank)
+   BANKS (15+ per meaning)
+   Balanced: 5 affirmative + 5 negative + 5 questions (15 each)
+   (We keep them short and unit-aligned: travel / activities / recommendations)
 ========================================================== */
 const BANKS = {
-  WILL_aff: [
-    "I think it will be difficult to find a hotel at the last minute.",
-    "Don’t worry — I’ll help you choose a national park to visit.",
-    "Your best option will probably be the aquarium if it rains.",
-    "I’ll call the phone repair shop and ask about the price.",
-    "Personally, I think the theme park will be amazing.",
-    "I’ll send you the address of the botanical gardens.",
-    "The parade will start soon, so let’s get a good place to watch.",
-    "I think the tower will look fantastic at sunset.",
-    "We’ll meet you at the monument after lunch.",
-    "I’ll buy the tickets online tonight.",
-    "I’ll recommend a restaurant near the wildlife reserve.",
-    "I think the ancient site will be crowded tomorrow.",
-    "I’ll bring snacks for the trip.",
-    "I’m sure the tour will be interesting.",
-    "I’ll text you the timetable now."
-  ],
-  WILL_neg: [
-    "I don’t think it will be easy to park near the theme park.",
-    "She won’t forget the tickets this time.",
-    "We won’t be late if we leave now.",
-    "It won’t be warm enough for paddleboarding today.",
-    "He won’t need a guide for the museum tour.",
-    "I won’t recommend that hotel — it’s too noisy.",
-    "They won’t miss the parade if they arrive early.",
-    "The shop won’t be open after six.",
-    "I won’t buy trainers today — I’ll wait for a discount.",
-    "It won’t take long to get to the monument.",
-    "We won’t go scuba diving if the sea is rough.",
-    "She won’t choose canyoning — she prefers kayaking.",
-    "I won’t call now — I’ll email them later.",
-    "The bus won’t arrive on time in this traffic.",
-    "He won’t enjoy the trip without water."
-  ],
-  WILL_q: [
-    "Will you recommend a good hotel around here?",
-    "Will the aquarium be open today?",
-    "Will you help me choose the best option?",
-    "Will they buy tickets online or at the gate?",
-    "Will the parade start on time?",
-    "Will you call the phone repair shop for me?",
-    "Will it be too windy for parasailing?",
-    "Will the train be late again?",
-    "Will she visit the botanical gardens tomorrow?",
-    "Will we have time to see the ancient site?",
-    "Will you bring snacks for the trip?",
-    "Will the tower look good at night?",
-    "Will he need a helmet for canyoning?",
-    "Will you text me the timetable?",
-    "Will they meet us at the monument?"
+  prediction: [
+    // AFF
+    "I think it will rain later.",
+    "I’m sure you’ll love the festival.",
+    "The trip will be amazing.",
+    "I don’t think the museum will be boring.",
+    "People will probably buy tickets online.",
+    // NEG
+    "I don’t think we’ll miss the plane.",
+    "It won’t be easy to find a hotel tonight.",
+    "She won’t enjoy that scary ride.",
+    "They won’t be late, I’m sure.",
+    "It won’t cost much.",
+    // Q
+    "Do you think it will be crowded?",
+    "Will you enjoy mountain biking?",
+    "Do you think they’ll come with us?",
+    "Will it be cheaper if we pay today?",
+    "Do you think she’ll recommend that place?"
   ],
 
-  GOING_aff: [
-    "We’re going to explore the national park on Saturday.",
-    "I’m going to book a hotel near the botanical gardens.",
-    "She’s going to try canyoning for the first time.",
-    "They’re going to visit the aquarium after school.",
-    "I’m going to ask for recommendations at the tourist office.",
-    "We’re going to go sightseeing in the old town.",
-    "He’s going to buy trainers before the trek.",
-    "I’m going to take photos at the ancient site.",
-    "They’re going to ride horses near the wildlife reserve.",
-    "We’re going to eat at a small restaurant by the tower.",
-    "She’s going to learn new vocabulary for the project.",
-    "I’m going to plan a route to the monument.",
-    "They’re going to watch the parade from the main square.",
-    "We’re going to go scuba diving if the sea is calm.",
-    "I’m going to recommend the theme park to my cousins."
-  ],
-  GOING_neg: [
-    "I’m not going to buy tickets at the gate.",
-    "We aren’t going to stay in that hotel — it’s too expensive.",
-    "She isn’t going to go canyoning without a guide.",
-    "They’re not going to visit the aquarium today.",
-    "I’m not going to forget the timetable this time.",
-    "We aren’t going to go parasailing — it’s too windy.",
-    "He isn’t going to book the tour now.",
-    "I’m not going to ask for recommendations yet.",
-    "They’re not going to eat at the theme park.",
-    "We aren’t going to miss the parade.",
-    "She isn’t going to ride horses today.",
-    "I’m not going to take the bus — I’m going to walk.",
-    "They aren’t going to explore the national park in the rain.",
-    "We’re not going to buy new trainers this week.",
-    "He isn’t going to call the repair shop — he’ll email them."
-  ],
-  GOING_q: [
-    "Are you going to book a hotel near the tower?",
-    "Is she going to try kayaking this weekend?",
-    "Are they going to visit the aquarium after lunch?",
-    "Are we going to explore the national park tomorrow?",
-    "Are you going to ask for recommendations?",
-    "Is he going to buy trainers before the trek?",
-    "Are they going to watch the parade from the bridge?",
-    "Are you going to take photos at the ancient site?",
-    "Is she going to ride horses near the wildlife reserve?",
-    "Are we going to go sightseeing today?",
-    "Are you going to plan a route to the monument?",
-    "Is he going to call the phone repair shop?",
-    "Are they going to eat at a restaurant around here?",
-    "Are you going to recommend the theme park?",
-    "Are we going to go scuba diving if it’s calm?"
+  instant: [
+    // AFF
+    "I’ll help you with your brochure.",
+    "I’ll carry your bag.",
+    "Don’t worry — I’ll send you the photo.",
+    "Okay, I’ll buy the tickets now.",
+    "I’ll call you tonight.",
+    // NEG
+    "I won’t forget to message you.",
+    "I won’t be late — I promise.",
+    "I won’t tell anyone.",
+    "I won’t do that again.",
+    "I won’t leave without you.",
+    // Q
+    "Shall I book the tour for you?",
+    "Will you help me with this sentence?",
+    "Will you send me the link?",
+    "Shall we meet at the station?",
+    "Will you hold my place in the queue?"
   ],
 
-  PC_aff: [
-    "We’re meeting at the station at 8:00.",
-    "I’m having lunch with my friend after the museum visit.",
-    "She’s flying to Madrid tomorrow morning.",
-    "They’re visiting the theme park this afternoon.",
-    "I’m talking to a guide about the ancient site later.",
-    "We’re staying in a hotel near the tower tonight.",
-    "He’s going kayaking with his class on Friday.",
-    "I’m taking my brother to the aquarium on Saturday.",
-    "They’re going mountain biking after school.",
-    "We’re going to the botanical gardens at 5:30.",
-    "I’m seeing the teacher after class to ask a question.",
-    "She’s meeting us at the monument entrance.",
-    "They’re having a picnic in the national park tomorrow.",
-    "We’re watching the parade from the bridge this evening.",
-    "I’m calling you later to confirm the plan."
-  ],
-  PC_neg: [
-    "We aren’t meeting at the station — we’re meeting at the monument.",
-    "I’m not having lunch out today.",
-    "She isn’t flying tomorrow morning.",
-    "They aren’t visiting the aquarium this afternoon.",
-    "I’m not talking to the guide right now.",
-    "We aren’t staying in that hotel tonight.",
-    "He isn’t going kayaking on Friday.",
-    "I’m not taking my brother to the theme park.",
-    "They aren’t going mountain biking after school.",
-    "We aren’t going to the botanical gardens today.",
-    "I’m not seeing the teacher after class.",
-    "She isn’t meeting us at the tower.",
-    "They aren’t having a picnic tomorrow.",
-    "We aren’t watching the parade from the bridge.",
-    "I’m not calling you later — I’ll text you."
-  ],
-  PC_q: [
-    "Are we meeting at the station at 8:00?",
-    "Are you having lunch after the museum visit?",
-    "Is she flying tomorrow morning?",
-    "Are they visiting the theme park this afternoon?",
-    "Are you talking to a guide later?",
-    "Are we staying in a hotel near the tower tonight?",
-    "Is he going kayaking on Friday?",
-    "Are you taking your brother to the aquarium on Saturday?",
-    "Are they going mountain biking after school?",
-    "Are we going to the botanical gardens at 5:30?",
-    "Are you seeing the teacher after class?",
-    "Is she meeting us at the monument entrance?",
-    "Are they having a picnic in the national park tomorrow?",
-    "Are we watching the parade this evening?",
-    "Are you calling me later to confirm the plan?"
+  plan: [
+    // AFF
+    "I’m going to visit the aquarium tomorrow.",
+    "We’re going to explore the peninsula next weekend.",
+    "She’s going to buy a new backpack.",
+    "They’re going to try canyoning this summer.",
+    "I’m going to write an announcement.",
+    // NEG
+    "I’m not going to stay at home this weekend.",
+    "He isn’t going to do bungee-jumping.",
+    "They aren’t going to travel abroad this year.",
+    "We’re not going to miss the parade.",
+    "She isn’t going to buy that expensive ticket.",
+    // Q
+    "Are you going to visit London?",
+    "Is he going to go sightseeing tomorrow?",
+    "Are they going to book a package tour?",
+    "Are we going to meet at the café?",
+    "Is she going to write to you later?"
   ],
 
-  PS_aff: [
-    "The train leaves at 3 p.m.",
-    "The tour starts at 10:15.",
-    "The aquarium opens at nine.",
-    "The national park closes at six.",
-    "The museum bus arrives every thirty minutes.",
-    "The parade begins at noon.",
-    "The ticket office shuts at 5:45.",
-    "The boat departs from the harbour at 8:30.",
-    "The theme park opens at 10:00 on weekends.",
-    "The guided walk finishes at 2:00.",
-    "The flight lands at 7:20.",
-    "The lesson starts at 8:05.",
-    "The coach stops near the monument at 11:10.",
-    "The ferry leaves every hour.",
-    "The show ends at 9:00."
+  arrangement: [
+    // AFF
+    "We’re meeting at the station at 10.",
+    "I’m having lunch with Sam tomorrow.",
+    "She’s travelling to Greece on Friday.",
+    "They’re staying in a hostel tonight.",
+    "We’re going kayaking this afternoon.",
+    // NEG
+    "I’m not seeing him this evening.",
+    "They aren’t coming to the museum with us.",
+    "She isn’t meeting the group today.",
+    "We’re not leaving at six — we’re leaving at seven.",
+    "He isn’t joining the tour tomorrow.",
+    // Q
+    "Are you meeting your friends later?",
+    "Is she coming to the parade today?",
+    "Are they flying to Rome on Monday?",
+    "Are we having dinner at your house tonight?",
+    "Is he staying with his grandparents this weekend?"
   ],
-  PS_neg: [
-    "The train doesn’t leave at 2 p.m. — it leaves at 3 p.m.",
-    "The tour doesn’t start at ten — it starts at 10:15.",
-    "The aquarium doesn’t open at eight.",
-    "The national park doesn’t close at five.",
-    "The museum bus doesn’t arrive every ten minutes.",
-    "The parade doesn’t begin at one o’clock.",
-    "The ticket office doesn’t shut at six.",
-    "The boat doesn’t depart at 9:30.",
-    "The theme park doesn’t open at 9:00 on weekends.",
-    "The guided walk doesn’t finish at 1:00.",
-    "The flight doesn’t land at 6:20.",
-    "The lesson doesn’t start at 9:05.",
-    "The coach doesn’t stop at the tower first.",
-    "The ferry doesn’t leave every two hours.",
-    "The show doesn’t end at 8:00."
-  ],
-  PS_q: [
+
+  timetable: [
+    // AFF
+    "The train leaves from platform 2.",
+    "The museum opens at nine.",
+    "The bus arrives at 8:15.",
+    "The tour starts at 11:00.",
+    "The festival takes place in August.",
+    // NEG
+    "The shop doesn’t open on Sundays.",
+    "The tour doesn’t include lunch.",
+    "The train doesn’t stop here.",
+    "The museum doesn’t close at five today.",
+    "The bus doesn’t leave from this stop.",
+    // Q
     "Does the train leave at 3 p.m.?",
-    "Does the tour start at 10:15?",
-    "Does the aquarium open at nine?",
-    "Does the national park close at six?",
-    "Does the museum bus arrive every thirty minutes?",
-    "Does the parade begin at noon?",
-    "Does the ticket office shut at 5:45?",
-    "Does the boat depart at 8:30?",
-    "Does the theme park open at 10:00 on weekends?",
-    "Does the guided walk finish at 2:00?",
-    "Does the flight land at 7:20?",
-    "Does the lesson start at 8:05?",
-    "Does the coach stop near the monument at 11:10?",
-    "Does the ferry leave every hour?",
-    "Does the show end at 9:00?"
+    "What time does the castle open?",
+    "Does the tour start at ten?",
+    "When does the plane land?",
+    "Does the museum close early on Mondays?"
   ],
 
-  FC_aff: [
-    "If the traffic is bad, we’ll miss our flight.",
-    "If it rains, we’ll go to the aquarium instead.",
-    "If you ask politely, they’ll recommend a good hotel.",
-    "If we leave early, we’ll reach the national park before lunch.",
-    "If you don’t book now, the theme park tickets will sell out.",
-    "If the sea is calm, we’ll go scuba diving.",
-    "If you try canyoning, you’ll need a helmet.",
-    "If you get lost, I’ll send you the location.",
-    "If the parade starts late, we’ll wait near the tower.",
-    "If you want advice, I’ll recommend the botanical gardens.",
-    "If she finishes her homework, she’ll come sightseeing with us.",
-    "If the bus arrives late, we’ll take a taxi to the monument.",
-    "If you practice the key phrases, you’ll sound more confident.",
-    "If you pack water, you’ll feel better on the trek.",
-    "If we have time, we’ll visit the ancient site."
-  ],
-  FC_neg: [
-    "If the traffic is bad, we won’t catch the train.",
-    "If it rains, we won’t go paddleboarding.",
-    "If you don’t ask, they won’t give you recommendations.",
-    "If we leave late, we won’t reach the national park before lunch.",
-    "If you don’t book now, you won’t get a room in that hotel.",
-    "If the sea is rough, we won’t go scuba diving.",
-    "If you don’t wear a helmet, you won’t go canyoning.",
-    "If you get lost, don’t worry — I won’t stop helping you.",
-    "If the parade starts late, we won’t panic.",
-    "If you don’t check the timetable, you won’t know the time.",
-    "If she doesn’t finish her homework, she won’t come with us.",
-    "If the bus doesn’t arrive, we won’t wait forever.",
-    "If you don’t practice the phrases, you won’t sound confident.",
-    "If you don’t drink water, you won’t feel well on the trek.",
-    "If we don’t have time, we won’t visit the ancient site."
-  ],
-  FC_q: [
-    "What will you do if the traffic is bad?",
-    "Where will we go if it rains?",
-    "Will you recommend a good hotel if I ask politely?",
-    "What will happen if we leave late?",
-    "Will the tickets sell out if we don’t book now?",
-    "Will we go scuba diving if the sea is calm?",
-    "What will you need if you try canyoning?",
-    "Will you send me the location if I get lost?",
-    "What will we do if the parade starts late?",
-    "Will you recommend the botanical gardens if I want advice?",
-    "Will she come sightseeing if she finishes her homework?",
-    "What will we do if the bus doesn’t arrive?",
-    "Will you sound more confident if you practice the key phrases?",
-    "Will you feel better if you drink water?",
-    "Will we visit the ancient site if we have time?"
-  ],
+  first_cond: [
+    // AFF
+    "If it rains, we’ll stay at home.",
+    "If we miss the plane, we’ll get a taxi.",
+    "If you buy tickets online, you won’t have to wait outside.",
+    "If we have time, we’ll visit the temple.",
+    "If she studies, she’ll pass the test.",
+    // NEG
+    "If you don’t go now, you’ll miss the parade.",
+    "If we don’t leave early, we won’t get good seats.",
+    "If he doesn’t bring his map, he’ll get lost.",
+    "If they don’t book soon, they won’t find a hotel.",
+    "If I don’t have money, I won’t buy it.",
+    // Q
+    "If it rains, will you still go out?",
+    "What will you do if you miss the bus?",
+    "Will we get a discount if we pay before July?",
+    "If she loses her passport, what will she do?",
+    "If you don’t like it, will you tell me?"
+  ]
 };
 
 /* ==========================================================
@@ -925,53 +798,28 @@ const el = (id)=>document.getElementById(id);
 const state = {
   running:false,
   streak:0,
-  bestStreak:0,
   score:0,
   seconds:0,
   timer:null,
 
-  stats: Object.fromEntries(TOPICS.map(t => [t.id, {attempts:0, correct:0, wrong:0, recentWrong:0}])),
-  remediation: { topicId:null, remaining:0 },
-  lastTopicId:null,
+  // tracking per meaning (simple)
+  stats: Object.fromEntries(MEANINGS.map(m => [m.key, {attempts:0, correct:0, wrong:0}])),
 
-  // fairness: rotates aff->neg->q per topic
-  fairPtr: Object.fromEntries(TOPICS.map(t => [t.id, 0])),
+  // no-repeat memory per bank (keep last 8 sentences)
+  recent: Object.fromEntries(MEANINGS.map(m => [m.key, []])),
 
-  round:null,
-  orderSelected:[],
+  // current round
+  round:null, // { meaningKey, sentence, correctMeaningKey }
 
-  sentStats:false,
-  gameId: (crypto?.randomUUID?.() || String(Date.now())),
-
-  // No-repeat memory per subbank
-  recentBySub: Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []]))),
+  bestStreak:0,
+  log:[]
 };
 
-const RECENT_LIMIT = 8;
-const REROLL_TRIES = 12;
-
+/* ==========================================================
+   AUDIO
+========================================================== */
 const bgMusic = el("bgMusic");
 
-/* ==========================================================
-   UTIL
-========================================================== */
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-  return a;
-}
-function normalizeSentence(s){ return String(s).trim().replace(/\s+/g," "); }
-function escapeHtml(s){
-  return String(s ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
 function blip(ok){
   if(!el("soundToggle").checked) return;
   try{
@@ -979,26 +827,12 @@ function blip(ok){
     const o = ctx.createOscillator();
     const g = ctx.createGain();
     o.connect(g); g.connect(ctx.destination);
-    o.type = "square";
-    o.frequency.value = ok ? 740 : 220;
-    g.gain.value = 0.05;
+    o.type = "sine";
+    o.frequency.value = ok ? 720 : 220;
+    g.gain.value = 0.06;
     o.start();
-    setTimeout(()=>{ o.stop(); ctx.close(); }, ok ? 95 : 150);
+    setTimeout(()=>{ o.stop(); ctx.close(); }, ok ? 110 : 150);
   }catch(e){}
-}
-
-/* ==========================================================
-   DUPLICATE WORD DISPLAY (fix: "same structure twice" in row)
-========================================================== */
-function markDuplicateDisplays(words){
-  const counts = {};
-  words.forEach(w => { counts[w] = (counts[w] || 0) + 1; });
-  const seen = {};
-  return words.map(w=>{
-    if(counts[w] <= 1) return { word:w, display:w };
-    seen[w] = (seen[w] || 0) + 1;
-    return { word:w, display:`${w} (${seen[w]})` };
-  });
 }
 
 /* ==========================================================
@@ -1009,370 +843,164 @@ function updateHeader(){
   el("timerBox").textContent = `Time: ${state.seconds}s`;
   el("streakBox").textContent = `Streak: ${state.streak}`;
   el("targetLabel").textContent = TARGET_STREAK;
+
+  // teacher mini progress bar
+  const pct = Math.max(0, Math.min(100, Math.round((state.streak / TARGET_STREAK) * 100)));
+  el("tBar").style.width = `${pct}%`;
+  el("tBarLabel").textContent = `${state.streak} / ${TARGET_STREAK}`;
 }
+
 function updateProgress(){
   const pct = Math.max(0, Math.min(100, Math.round((state.streak / TARGET_STREAK) * 100)));
   el("progressBar").style.width = `${pct}%`;
   el("progressLabel").textContent = `Goal progress: ${state.streak} / ${TARGET_STREAK} (${pct}%)`;
+
   if(state.running && state.streak > 0 && state.streak < TARGET_STREAK) el("progressBar").classList.add("moving");
   else el("progressBar").classList.remove("moving");
 }
+
 function setCard(label, text){
   el("cardLabel").textContent = label;
   el("cardText").textContent = text;
 }
 
 /* ==========================================================
-   SIMPLE TEACHER STATS (replaces complex stats)
+   HELPERS
 ========================================================== */
-function topicPracticeText(topicId){
-  const map = {
-    WILL: "WILL: predictions/offers. Patterns: I’ll…, It will…, Will you…?",
-    GOING: "GOING TO: plans/intentions. Patterns: I’m going to…, Are you going to…?",
-    PC: "PRESENT CONT (future): arrangements. Patterns: We’re meeting…, Are you meeting…?",
-    PS: "PRESENT SIMPLE (future): schedules. Patterns: The train leaves…, Does it leave…?",
-    FC: "FIRST CONDITIONAL: If + present, will + base. Example: If it rains, we’ll…"
-  };
-  return map[topicId] || "Practice this topic with more examples (aff/neg/questions).";
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
 }
 
-function updateBankStats(){
-  const container = document.getElementById("teacherStats");
-  if(!container) return;
-
-  const rows = TOPICS.map(t=>{
-    const s = state.stats[t.id];
-    const attempts = s.attempts || 0;
-    const correct = s.correct || 0;
-    const acc = attempts ? (correct/attempts) : 0;
-
-    // Very simple "need practice" score (only meaningful after 3 attempts)
-    const eligible = attempts >= 3;
-    const score = eligible ? (1 - acc) : 0.25;
-
-    return {
-      id: t.id,
-      label: t.label,
-      attempts,
-      correct,
-      acc,
-      score,
-      practice: topicPracticeText(t.id)
-    };
-  });
-
-  rows.sort((a,b)=> b.score - a.score);
-  const top = rows.slice(0,3);
-
-  const totalAttempts = rows.reduce((a,x)=>a + x.attempts, 0);
-  if(totalAttempts === 0){
-    container.innerHTML = `
-      <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:10px;background:rgba(255,255,255,.05);color:rgba(247,251,255,.82);font-weight:800">
-        No data yet. Press START and complete a few rounds.
-      </div>
-    `;
-    return;
+function pickSentenceNoRepeat(meaningKey){
+  const bank = BANKS[meaningKey];
+  const memory = state.recent[meaningKey] || [];
+  // try a few times to avoid repeats
+  for(let tries=0; tries<12; tries++){
+    const s = bank[Math.floor(Math.random()*bank.length)];
+    if(!memory.includes(s)) return s;
   }
+  // if stuck, allow
+  return bank[Math.floor(Math.random()*bank.length)];
+}
 
-  container.innerHTML = top.map(r=>{
-    const pct = Math.round(r.acc*100);
-    const pctShow = r.attempts ? `${pct}%` : "—";
-    const barW = r.attempts ? Math.max(6, Math.min(100, pct)) : 8;
-
-    const sub = `${r.correct}/${r.attempts} correct`;
-
-    return `
-      <div style="
-        border:1px solid rgba(255,255,255,.14);
-        border-radius:14px;
-        padding:10px;
-        background:rgba(0,0,0,.14)
-      ">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-          <div style="font-weight:900">${escapeHtml(r.label)}</div>
-          <div style="font-weight:900;font-size:18px">${pctShow}</div>
-        </div>
-
-        <div style="margin-top:4px;color:rgba(247,251,255,.78);font-weight:800;font-size:12.5px">
-          ${escapeHtml(sub)}
-        </div>
-
-        <div style="margin-top:8px;height:10px;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06)">
-          <div style="height:100%;width:${barW}%;background:linear-gradient(90deg, rgba(255,47,179,.9), rgba(17,232,255,.9), rgba(255,224,74,.9))"></div>
-        </div>
-
-        <div style="margin-top:8px;color:rgba(247,251,255,.90);font-weight:800;font-size:12.5px;line-height:1.25">
-          <span style="opacity:.8">Practice:</span> ${escapeHtml(r.practice)}
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  // optional mini summary
-  const strong = [...rows].sort((a,b)=> (b.acc - a.acc))[0];
-  const weak = rows[0];
-  container.insertAdjacentHTML("beforeend", `
-    <div style="margin-top:8px;color:rgba(247,251,255,.75);font-weight:800;font-size:12px">
-      Weakest: <b>${escapeHtml(weak.id)}</b> • Strongest: <b>${escapeHtml(strong?.id || "—")}</b>
-    </div>
-  `);
+function rememberSentence(meaningKey, sentence){
+  const q = state.recent[meaningKey] || [];
+  q.unshift(sentence);
+  while(q.length > 8) q.pop();
+  state.recent[meaningKey] = q;
 }
 
 /* ==========================================================
-   NO-REPEAT sentence picker (per subbank)
+   ROUND LOGIC
+   Adaptive by weakness (simple): meanings with lower accuracy appear more
 ========================================================== */
-function pickSentenceNoRepeat(subKey){
-  const bank = BANKS[subKey];
-  const recent = state.recentBySub[subKey] || [];
-
-  let chosen = bank[Math.floor(Math.random()*bank.length)];
-  for(let t=0; t<REROLL_TRIES; t++){
-    const candidate = bank[Math.floor(Math.random()*bank.length)];
-    if(!recent.includes(candidate)){
-      chosen = candidate; break;
-    }
-    chosen = candidate;
-  }
-
-  recent.push(chosen);
-  while(recent.length > RECENT_LIMIT) recent.shift();
-  state.recentBySub[subKey] = recent;
-  return chosen;
+function weightForMeaning(key){
+  const st = state.stats[key];
+  const attempts = st.attempts || 0;
+  const acc = attempts ? (st.correct / attempts) : 0.65;
+  // More weight if low accuracy or unseen
+  let w = 1.0;
+  if(attempts === 0) w += 1.2;
+  w += (1 - acc) * 2.0;
+  w += (st.wrong) * 0.10;
+  return w;
 }
 
-/* ==========================================================
-   ADAPTIVE TOPIC picker
-========================================================== */
-function pickTopicId(){
-  if(state.remediation.remaining > 0 && state.remediation.topicId){
-    state.remediation.remaining--;
-    return state.remediation.topicId;
-  }
-
-  const weights = TOPICS.map(t=>{
-    const st = state.stats[t.id];
-    const acc = st.attempts ? (st.correct / st.attempts) : 0.75;
-    let w = 1.0;
-    w += st.wrong * 0.35;
-    w += st.recentWrong * 0.75;
-    w += (1 - acc) * 2.2;
-    if(st.attempts === 0) w += 1.2;
-    if(state.lastTopicId === t.id) w *= 0.65;
-    return { id:t.id, w };
-  });
-
+function pickMeaningAdaptive(){
+  const weights = MEANINGS.map(m => ({ key:m.key, w: weightForMeaning(m.key) }));
   const sum = weights.reduce((a,x)=>a+x.w,0);
   let r = Math.random() * sum;
   for(const x of weights){
     r -= x.w;
-    if(r <= 0) return x.id;
+    if(r <= 0) return x.key;
   }
-  return weights[weights.length-1].id;
+  return weights[weights.length-1].key;
 }
 
-/* FAIR subbank selection: rotates aff -> neg -> q */
-function pickSubKeyFair(topicId){
-  const topic = TOPICS.find(t=>t.id===topicId);
-  const idx = state.fairPtr[topicId] || 0;
-  const subKey = topic.subs[idx % topic.subs.length];
-  state.fairPtr[topicId] = (idx + 1) % topic.subs.length;
-  return subKey;
-}
-
-/* ==========================================================
-   Round builder (ordering freq: <12=0.20, >=12=0.30)
-========================================================== */
 function makeRound(){
-  const topicId = pickTopicId();
-  const subKey = pickSubKeyFair(topicId);
-  const sentence = pickSentenceNoRepeat(subKey);
-
-  const orderChance = state.streak >= 12 ? 0.30 : 0.20;
-  const mode = Math.random() < orderChance ? "order" : "multiple";
-
-  state.lastTopicId = topicId;
-
-  if(mode === "multiple"){
-    return { mode, topicId, subKey, sentence, correctKey: topicId };
-  }
-
-  // Ordering tokens (duplicate display fix)
-  const targetWords = normalizeSentence(sentence).split(" ");
-  const targetTokens = markDuplicateDisplays(targetWords);
-  const orderTokens = shuffle(targetTokens);
-
-  return { mode:"order", topicId, subKey, sentence, targetWords, orderTokens };
+  const correctMeaningKey = pickMeaningAdaptive();
+  const sentence = pickSentenceNoRepeat(correctMeaningKey);
+  rememberSentence(correctMeaningKey, sentence);
+  return { correctMeaningKey, sentence };
 }
 
 /* ==========================================================
-   Render
+   RENDER
 ========================================================== */
 function clearOptions(){
-  el("options").className = "";
+  el("options").className = "mode-meaning";
   el("options").innerHTML = "";
-}
-
-function renderSelectedChips(){
-  const box = el("orderBox");
-  box.innerHTML = "";
-  if(state.orderSelected.length === 0){
-    box.textContent = "Tap words to build the sentence.";
-    return;
-  }
-  state.orderSelected.forEach((it, i)=>{
-    const chip = document.createElement("span");
-    chip.className = "selChip";
-    chip.textContent = it.word;
-    chip.title = "Click to remove";
-    chip.onclick = ()=> removeSelectedAt(i);
-    box.appendChild(chip);
-  });
-}
-
-function removeSelectedAt(i){
-  if(!state.running) return;
-  const removed = state.orderSelected.splice(i,1)[0];
-  el("options").querySelectorAll(".orderWord").forEach(b=>{
-    if(b.dataset.idx === String(removed.idx)){
-      b.disabled = false;
-      b.classList.remove("chosen");
-    }
-  });
-  renderSelectedChips();
-}
-
-function pickWord(idx, word, btn){
-  if(!state.running) return;
-  btn.disabled = true;
-  btn.classList.add("chosen");
-  state.orderSelected.push({ idx, word });
-  renderSelectedChips();
-}
-
-function resetOrder(){
-  if(!state.running) return;
-  state.orderSelected = [];
-  el("options").querySelectorAll(".orderWord").forEach(b=>{
-    b.disabled = false;
-    b.classList.remove("chosen");
-  });
-  renderSelectedChips();
-}
-
-/* build 4-option MC (correct + 3 distractors) */
-function buildChoices(correctTopicId){
-  const others = TOPICS.map(t=>t.id).filter(id=>id !== correctTopicId);
-  const distractors = shuffle(others).slice(0,3);
-  return shuffle([correctTopicId, ...distractors]);
 }
 
 function renderRound(){
   clearOptions();
-  state.orderSelected = [];
-  updateBankStats();
+  const correctKey = state.round.correctMeaningKey;
+  const meaningObj = MEANINGS.find(m=>m.key===correctKey);
 
-  // NEVER reveal answer before student chooses
-  setCard("Choose the correct form", state.round.sentence);
+  // On the card, show ONLY meaning label + sentence (no teacher explanation)
+  setCard("Choose the intended meaning", state.round.sentence);
 
-  if(state.round.mode === "multiple"){
-    el("orderBox").textContent = "Ordering box is used only for ordering rounds.";
-    el("resetOrder").style.display = "none";
-    el("checkOrder").style.display = "none";
-    el("checkOrder").classList.remove("checkAttention");
+  // Build options: always the 6 meanings, shuffled
+  const opts = shuffle(MEANINGS);
 
-    el("options").classList.add("mode-multiple");
-
-    const keys = buildChoices(state.round.correctKey);
-    keys.forEach(id=>{
-      const t = TOPICS.find(x=>x.id===id);
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = `choiceCard ${t.css}`;
-      btn.innerHTML = `
-        <div class="choiceIcon">${escapeHtml(t.icon)}</div>
-        <div class="choiceText">${escapeHtml(t.label.replace("Future form — ","").replace("Future meaning — ",""))}
-          <small>${escapeHtml(t.hint)}</small>
-        </div>
-      `;
-      btn.onclick = ()=> submitMultiple(id);
-      el("options").appendChild(btn);
-    });
-
-    return;
-  }
-
-  // ORDERING mode
-  setCard("Ordering round", "Build the sentence from the scrambled words below.");
-  el("orderBox").textContent = "Tap words to build the sentence. Tap a chip to remove it.";
-
-  el("resetOrder").style.display = "inline-flex";
-  el("checkOrder").style.display = "inline-flex";
-  el("checkOrder").classList.add("checkAttention");
-
-  el("options").classList.add("mode-order");
-
-  state.round.orderTokens.forEach((tok, idx)=>{
+  opts.forEach((m, idx)=>{
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "orderWord";
-    b.textContent = tok.display;              // visible "the (1)", "the (2)"
-    b.dataset.idx = String(idx);
-    b.onclick = ()=> pickWord(idx, tok.word, b); // store real word
+    b.className = `choiceCard ${m.cls}`;
+    b.innerHTML = `
+      <div class="choiceIcon">${m.icon}</div>
+      <div class="choiceText">${m.title}
+        <small>${m.hint}</small>
+      </div>
+    `;
+    b.onclick = ()=> submitMeaning(m.key);
     el("options").appendChild(b);
   });
 
-  renderSelectedChips();
+  // Update teacher snapshot
+  updateTeacherWeak();
+}
+
+function lockOptions(lock){
+  el("options").querySelectorAll("button").forEach(b=> b.disabled = !!lock);
 }
 
 /* ==========================================================
-   Submit / Check
+   FEEDBACK (shows AFTER answer only)
 ========================================================== */
-function submitMultiple(choiceTopicId){
-  if(!state.running) return;
-  const ok = (choiceTopicId === state.round.correctKey);
-
-  const chosen = TOPICS.find(x=>x.id===choiceTopicId);
-  const correct = TOPICS.find(x=>x.id===state.round.correctKey);
-
-  gradeRound(ok, {
-    chosen: chosen ? chosen.label : choiceTopicId,
-    correct: correct ? correct.label : state.round.correctKey
-  });
-}
-
-function checkOrder(){
-  if(!state.running) return;
-  const built = normalizeSentence(state.orderSelected.map(x=>x.word).join(" "));
-  const correct = normalizeSentence(state.round.targetWords.join(" "));
-  gradeRound(built === correct, { built, correct });
-}
-
-/* ==========================================================
-   Feedback (auto-next always; no Next button)
-========================================================== */
-function showFeedback(ok, detail, isWin){
+function showFeedback(ok, chosenKey){
   const overlay = el("feedbackOverlay");
   overlay.classList.add("show");
   overlay.setAttribute("aria-hidden","false");
 
-  el("fbIcon").textContent = ok ? "✅" : "❌";
-  el("fbTitle").textContent = ok ? (isWin ? "Streak complete!" : "Correct!") : "Not yet";
-  el("fbSub").textContent = ok
-    ? (isWin ? `You reached ${TARGET_STREAK} correct answers in a row!` : `Streak: ${state.streak} / ${TARGET_STREAK}`)
-    : `Streak reset to 0. We’ll practice this topic again.`;
+  const correctKey = state.round.correctMeaningKey;
+  const chosen = MEANINGS.find(m=>m.key===chosenKey);
+  const correct = MEANINGS.find(m=>m.key===correctKey);
 
-  // Reveal correct form ONLY after answering
-  let d = "";
-  if(state.round.mode === "multiple"){
-    d = ok
-      ? `Correct form: ${detail.correct}`
-      : `You chose: ${detail.chosen}\nCorrect: ${detail.correct}`;
-  } else {
-    d = ok
-      ? `Nice ordering!`
-      : `Your order: “${detail.built || "(empty)"}”\nCorrect: “${detail.correct}”`;
-  }
-  el("fbDetail").textContent = d;
+  el("fbIcon").textContent = ok ? "✅" : "❌";
+  el("fbTitle").textContent = ok ? "Correct!" : "Not yet";
+  el("fbSub").textContent = ok
+    ? `Streak: ${state.streak} / ${TARGET_STREAK}`
+    : `Streak reset to 0 — we’ll practise this meaning again.`;
+
+  // Explanation AFTER answer (this fixes your “hint shows before choice” issue)
+  const expectedForm = FORM_BY_MEANING[correctKey] || "";
+  const detail =
+`Your choice: ${chosen ? chosen.title : chosenKey}
+Correct meaning: ${correct ? correct.title : correctKey}
+
+Why? ${correct ? correct.hint : ""}
+
+Expected form in Synchrony: ${expectedForm.toUpperCase()}`;
+  el("fbDetail").textContent = detail;
+
+  // Next behavior
+  el("fbNextBtn").disabled = false;
 }
 
 function hideFeedback(){
@@ -1381,97 +1009,127 @@ function hideFeedback(){
   overlay.setAttribute("aria-hidden","true");
 }
 
-function afterFeedbackAutoNext(isWin){
-  if(isWin) return;
-  setTimeout(()=>{
-    hideFeedback();
-    nextRound();
-  }, 650);
+function afterFeedbackNext(){
+  const autoNext = el("autoNextToggle").checked;
+
+  // Next button is only necessary when auto-next OFF
+  el("fbNextBtn").style.display = autoNext ? "none" : "inline-flex";
+
+  if(autoNext){
+    setTimeout(()=>{
+      hideFeedback();
+      nextRound();
+    }, 700);
+  }
 }
 
 /* ==========================================================
-   Grade
+   SUBMIT
 ========================================================== */
-function gradeRound(ok, detail){
-  const st = state.stats[state.round.topicId];
-  st.attempts++;
+function submitMeaning(chosenKey){
+  if(!state.running) return;
+  lockOptions(true);
 
+  const correctKey = state.round.correctMeaningKey;
+  const ok = (chosenKey === correctKey);
+
+  const st = state.stats[correctKey];
+  st.attempts++;
   if(ok){
     st.correct++;
-    st.recentWrong = Math.max(0, st.recentWrong - 1);
-
     state.score++;
     state.streak++;
     state.bestStreak = Math.max(state.bestStreak, state.streak);
-
     blip(true);
+  }else{
+    st.wrong++;
+    state.streak = 0;
+    blip(false);
+  }
 
-    updateHeader(); updateProgress(); updateBankStats();
+  updateHeader();
+  updateProgress();
+  updateTeacherWeak();
 
-    if(state.streak >= TARGET_STREAK){
-      showFeedback(true, detail, true);
+  showFeedback(ok, chosenKey);
+
+  // Win check
+  if(state.streak >= TARGET_STREAK){
+    setTimeout(()=>{
+      hideFeedback();
       winGame();
-      return;
-    }
-
-    showFeedback(true, detail, false);
-    afterFeedbackAutoNext(false);
+    }, 650);
     return;
   }
 
-  st.wrong++;
-  st.recentWrong++;
-
-  state.remediation.topicId = state.round.topicId;
-  state.remediation.remaining = 2;
-
-  state.streak = 0;
-  blip(false);
-
-  updateHeader(); updateProgress(); updateBankStats();
-
-  showFeedback(false, detail, false);
-  afterFeedbackAutoNext(false);
+  afterFeedbackNext();
 }
 
 /* ==========================================================
-   Flow
+   TEACHER STATS (simple, visual)
 ========================================================== */
-function lockRoundControls(lock){
-  el("options").querySelectorAll("button").forEach(b=> b.disabled = !!lock);
-  el("resetOrder").disabled = !!lock;
-  el("checkOrder").disabled = !!lock;
+function accFor(key){
+  const s = state.stats[key];
+  return s.attempts ? (s.correct / s.attempts) : 0;
 }
 
+function updateTeacherWeak(){
+  const arr = MEANINGS.map(m=>{
+    const s = state.stats[m.key];
+    const acc = accFor(m.key);
+    const wrong = s.wrong || 0;
+    const attempts = s.attempts || 0;
+    // priority: low accuracy and more attempts
+    const priority = (1-acc)*2 + (wrong*0.12) + (attempts===0 ? 0.7 : 0);
+    return { key:m.key, title:m.title, acc, wrong, attempts, priority };
+  }).sort((a,b)=> b.priority - a.priority);
+
+  const top1 = arr[0], top2 = arr[1];
+
+  const rec1 = top1 ? recommendFor(top1.key) : "";
+  const rec2 = top2 ? recommendFor(top2.key) : "";
+
+  el("weakText").innerHTML =
+    `<b>Weakest</b>: ${top1 ? `${top1.title} (${Math.round(top1.acc*100)}%)` : "—"}<br>`+
+    `<b>Next</b>: ${top2 ? `${top2.title} (${Math.round(top2.acc*100)}%)` : "—"}<br>`+
+    `<span style="opacity:.9">Practice:</span><br>• ${rec1}<br>• ${rec2}`;
+}
+
+function recommendFor(key){
+  switch(key){
+    case "prediction": return "WILL predictions: I think…, probably, I’m sure…";
+    case "instant": return "WILL offers/promises: I’ll…, Shall I…?";
+    case "plan": return "GOING TO plans/intentions: I’m going to…, Are you going to…?";
+    case "arrangement": return "Present continuous arrangements: We’re meeting…, I’m travelling…";
+    case "timetable": return "Present simple timetables: The train leaves…, Does it start…?";
+    case "first_cond": return "First conditional: If + present, will + infinitive.";
+    default: return "Review meaning + example sentences.";
+  }
+}
+
+/* ==========================================================
+   GAME FLOW
+========================================================== */
 function nextRound(){
   if(!state.running) return;
-  hideFeedback();
   state.round = makeRound();
   renderRound();
-  lockRoundControls(false);
+  lockOptions(false);
 }
 
 function startGame(){
   state.running = true;
   state.streak = 0;
-  state.bestStreak = 0;
   state.score = 0;
   state.seconds = 0;
-  state.remediation = { topicId:null, remaining:0 };
-  state.lastTopicId = null;
+  state.bestStreak = 0;
 
-  state.sentStats = false;
-  state.gameId = (crypto?.randomUUID?.() || String(Date.now())) ;
-
-  state.stats = Object.fromEntries(TOPICS.map(t => [t.id, {attempts:0, correct:0, wrong:0, recentWrong:0}]));
-  state.fairPtr = Object.fromEntries(TOPICS.map(t => [t.id, 0]));
-  state.recentBySub = Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []])));
+  // reset stats
+  MEANINGS.forEach(m => state.stats[m.key] = {attempts:0, correct:0, wrong:0});
+  MEANINGS.forEach(m => state.recent[m.key] = []);
 
   el("playerName").textContent = (el("studentName").value || "—").trim() || "—";
-
-  updateHeader();
-  updateProgress();
-  updateBankStats();
+  updateHeader(); updateProgress(); updateTeacherWeak();
 
   if(state.timer) clearInterval(state.timer);
   state.timer = setInterval(()=>{
@@ -1480,6 +1138,7 @@ function startGame(){
     updateHeader();
   }, 1000);
 
+  // music
   try{
     if(el("musicToggle").checked){
       bgMusic.volume = 0.6;
@@ -1488,14 +1147,13 @@ function startGame(){
     }
   }catch(e){}
 
-  el("sendStats").style.display = "inline-flex";
-  el("downloadReport").style.display = "inline-flex";
-
   nextRound();
 }
 
-function resetGame(){
+function resetGame(sendStats=true){
+  const wasRunning = state.running;
   state.running = false;
+
   if(state.timer) clearInterval(state.timer);
   state.timer = null;
 
@@ -1504,28 +1162,21 @@ function resetGame(){
   hideFeedback();
   closeCelebration();
 
+  if(sendStats && (wasRunning || state.score>0 || state.seconds>0)){
+    sendStatsToSheets();
+  }
+
   state.streak = 0;
-  state.bestStreak = 0;
   state.score = 0;
   state.seconds = 0;
   state.round = null;
-  state.orderSelected = [];
+  state.bestStreak = 0;
 
   updateHeader();
   updateProgress();
-
-  setCard("Ready", "Press START to begin");
-  el("orderBox").textContent = "Selected words will appear here (ordering rounds).";
+  setCard("Ready", "Open Teacher view → START (students only see the game).");
   clearOptions();
-
-  el("resetOrder").style.display = "none";
-  el("checkOrder").style.display = "none";
-  el("checkOrder").classList.remove("checkAttention");
-
-  el("sendStats").style.display = "none";
-  el("downloadReport").style.display = "none";
-
-  updateBankStats();
+  updateTeacherWeak();
 }
 
 function winGame(){
@@ -1535,21 +1186,14 @@ function winGame(){
 
   try{ bgMusic.pause(); bgMusic.currentTime = 0; }catch(e){}
 
-  lockRoundControls(true);
-
+  // show celebration
   const c = el("celebration");
   c.style.display = "flex";
   c.setAttribute("aria-hidden","false");
   el("celebrationSub").textContent = `Amazing! You got ${TARGET_STREAK} correct answers in a row.`;
 
-  state.streak = TARGET_STREAK;
-  updateHeader();
-  updateProgress();
-
-  if(!state.sentStats){
-    state.sentStats = true;
-    sendStatsToGoogleSheets();
-  }
+  // send stats automatically
+  sendStatsToSheets();
 }
 
 function closeCelebration(){
@@ -1559,184 +1203,134 @@ function closeCelebration(){
 }
 
 /* ==========================================================
-   Stats-only to Google Sheets (kept compatible)
+   STATS → GOOGLE SHEETS (stats-only)
 ========================================================== */
-function computePriorityScore(s){
-  const attempts = s.attempts || 0;
-  const acc = attempts ? (s.correct / attempts) : 0;
-  return (s.wrong * 2) + (s.recentWrong * 3) + ((1 - acc) * 10);
-}
+function buildPayload(){
+  const student = (el("studentName").value || el("playerName").textContent || "Unknown").trim() || "Unknown";
+  const timestamp = new Date().toISOString();
 
-function buildStatsPayload(){
-  const student = (el("studentName").value || "—").trim() || "—";
+  // summary
+  const attempts = MEANINGS.reduce((a,m)=> a + (state.stats[m.key].attempts||0), 0);
+  const correct  = MEANINGS.reduce((a,m)=> a + (state.stats[m.key].correct||0), 0);
+  const wrong    = MEANINGS.reduce((a,m)=> a + (state.stats[m.key].wrong||0), 0);
+  const accuracy = attempts ? (correct/attempts) : 0;
 
-  const topicRows = TOPICS.map(t=>{
-    const s = state.stats[t.id];
-    const attempts = s.attempts || 0;
-    const correct = s.correct || 0;
-    const wrong = s.wrong || 0;
-    const acc = attempts ? (correct / attempts) : 0;
-    const pr = computePriorityScore(s);
+  // weakest 2
+  const ranked = MEANINGS.map(m=>{
+    const s=state.stats[m.key];
+    const acc = s.attempts ? (s.correct/s.attempts) : 0;
+    const priority = (1-acc)*2 + (s.wrong*0.12) + (s.attempts===0 ? 0.7 : 0);
+    return { key:m.key, title:m.title, acc, priority };
+  }).sort((a,b)=> b.priority - a.priority);
 
+  const topWeak1 = ranked[0]?.title || "";
+  const topWeak2 = ranked[1]?.title || "";
+  const rec1 = ranked[0]?.key ? recommendFor(ranked[0].key) : "";
+  const rec2 = ranked[1]?.key ? recommendFor(ranked[1].key) : "";
+
+  const topics = MEANINGS.map(m=>{
+    const s = state.stats[m.key];
+    const att = s.attempts||0;
+    const cor = s.correct||0;
+    const wr  = s.wrong||0;
+    const acc = att ? (cor/att) : 0;
     return {
-      topic: t.id,
-      attempts,
-      correct,
-      wrong,
+      topic: m.title,
+      attempts: att,
+      correct: cor,
+      wrong: wr,
       accuracy: acc,
-      recentWrong: s.recentWrong || 0,
-      priorityScore: Math.round(pr * 100) / 100,
-      suggestedPractice: topicPracticeText(t.id)
+      suggestedPractice: recommendFor(m.key)
     };
-  }).sort((a,b)=> b.priorityScore - a.priorityScore);
-
-  const totalAttempts = topicRows.reduce((a,x)=>a + x.attempts, 0);
-  const totalCorrect  = topicRows.reduce((a,x)=>a + x.correct, 0);
-  const totalWrong    = topicRows.reduce((a,x)=>a + x.wrong, 0);
-  const accuracy = totalAttempts ? (totalCorrect / totalAttempts) : 0;
-
-  const top1 = topicRows[0]?.topic || "";
-  const top2 = topicRows[1]?.topic || "";
+  });
 
   return {
+    version: "stats_only_v1",
+    timestamp,
+    gameId: cryptoRandomId(),
     student,
-    gameId: state.gameId,
     summary: {
       seconds: state.seconds,
-      attempts: totalAttempts,
-      correct: totalCorrect,
-      wrong: totalWrong,
+      attempts, correct, wrong,
       accuracy,
-      bestStreak: state.bestStreak || 0,
-      topWeak1: top1,
-      topWeak2: top2,
-      rec1: topicPracticeText(top1),
-      rec2: topicPracticeText(top2)
+      bestStreak: state.bestStreak,
+      topWeak1, topWeak2,
+      rec1, rec2
     },
-    topics: topicRows
+    topics
   };
 }
 
-async function sendStatsToGoogleSheets(){
-  if(!SHEETS_WEBAPP_URL){
-    alert("Missing Google Sheets Web App URL.");
-    return false;
+function cryptoRandomId(){
+  try{
+    const b = new Uint8Array(8);
+    crypto.getRandomValues(b);
+    return Array.from(b).map(x=>x.toString(16).padStart(2,"0")).join("");
+  }catch(e){
+    return String(Date.now());
   }
+}
 
-  const payload = buildStatsPayload();
+async function sendStatsToSheets(){
+  const msg = el("sendMsg");
+  if(msg) msg.textContent = "Sending…";
+
+  const payload = buildPayload();
 
   try{
-    const res = await fetch(SHEETS_WEBAPP_URL, {
-      method: "POST",
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method:"POST",
+      mode:"no-cors", // Apps Script often requires no-cors from static hosting
       headers: { "Content-Type":"text/plain;charset=utf-8" },
       body: JSON.stringify(payload)
     });
 
-    const txt = await res.text();
-    let data = null;
-    try{ data = JSON.parse(txt); }catch(e){}
-
-    if(!res.ok || !data || data.ok !== true){
-      console.error("Sheets error:", txt);
-      alert("Could not send stats to Google Sheets. Check Apps Script deployment access.");
-      return false;
-    }
-    return true;
+    if(msg) msg.textContent = "Sent ✅ (If you don’t see it, check Apps Script deployment permissions.)";
   }catch(err){
-    console.error(err);
-    alert("Network error sending to Google Sheets.");
-    return false;
+    if(msg) msg.textContent = "Error sending. Check Apps Script deploy access = Anyone with link.";
   }
 }
 
 /* ==========================================================
-   CSV (stats only)
+   WIRE UI
 ========================================================== */
-function safeCsv(v){
-  const s = String(v ?? "").replaceAll('"','""');
-  return `"${s}"`;
-}
+el("teacherToggle").addEventListener("click", ()=>{
+  document.body.classList.toggle("studentMode");
+  const isStudent = document.body.classList.contains("studentMode");
+  el("teacherToggle").textContent = isStudent ? "Teacher view" : "Student view";
+});
 
-function downloadStatsCSV(){
-  const payload = buildStatsPayload();
-  const lines = [];
-
-  lines.push(["SECTION","student","seconds","attempts","correct","wrong","accuracy","bestStreak","topWeak1","topWeak2"].join(","));
-  lines.push([
-    "SUMMARY",
-    safeCsv(payload.student),
-    payload.summary.seconds,
-    payload.summary.attempts,
-    payload.summary.correct,
-    payload.summary.wrong,
-    payload.summary.accuracy,
-    payload.summary.bestStreak,
-    safeCsv(payload.summary.topWeak1),
-    safeCsv(payload.summary.topWeak2),
-  ].join(","));
-  lines.push("");
-
-  lines.push(["SECTION","topic","attempts","correct","wrong","accuracy","recentWrong","priorityScore","suggestedPractice"].join(","));
-  payload.topics.forEach(t=>{
-    lines.push([
-      "TOPIC",
-      safeCsv(t.topic),
-      t.attempts,
-      t.correct,
-      t.wrong,
-      t.accuracy,
-      t.recentWrong,
-      t.priorityScore,
-      safeCsv(t.suggestedPractice)
-    ].join(","));
-  });
-
-  const csv = lines.join("\n");
-  const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  const name = (payload.student || "student").replace(/[^\w\-]+/g,"_");
-  a.download = `future_forms_stats_${name}_${Date.now()}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
-
-/* ==========================================================
-   Wiring
-========================================================== */
 el("startBtn").addEventListener("click", ()=>{
   if(state.running) return;
   startGame();
 });
-el("resetBtn").addEventListener("click", resetGame);
+el("resetBtn").addEventListener("click", ()=> resetGame(true));
 
-el("resetOrder").addEventListener("click", resetOrder);
-el("checkOrder").addEventListener("click", checkOrder);
-
-el("fbCloseBtn").addEventListener("click", hideFeedback);
-
-el("sendStats").addEventListener("click", async ()=>{
-  if(state.sentStats) return;
-  const ok = await sendStatsToGoogleSheets();
-  if(ok) state.sentStats = true;
+el("fbCloseBtn").addEventListener("click", ()=>{
+  hideFeedback();
+  // If auto-next off, student stays until teacher clicks next (in teacher view)
 });
 
-el("downloadReport").addEventListener("click", downloadStatsCSV);
-el("celebrationDownload").addEventListener("click", downloadStatsCSV);
+el("fbNextBtn").addEventListener("click", ()=>{
+  hideFeedback();
+  nextRound();
+});
+
+el("sendStatsBtn").addEventListener("click", sendStatsToSheets);
+
+el("celebrationSend").addEventListener("click", sendStatsToSheets);
 el("celebrationRestart").addEventListener("click", ()=>{
   closeCelebration();
-  resetGame();
+  resetGame(false);
   startGame();
 });
 
+// name label live
 el("studentName").addEventListener("input", ()=>{
   el("playerName").textContent = (el("studentName").value || "—").trim() || "—";
 });
 
+// Music toggle
 el("musicToggle").addEventListener("change", ()=>{
   if(!el("musicToggle").checked){
     try{ bgMusic.pause(); bgMusic.currentTime = 0; }catch(e){}
@@ -1747,15 +1341,14 @@ el("musicToggle").addEventListener("change", ()=>{
   }
 });
 
-/* init */
+/* initial UI */
+clearOptions();
 updateHeader();
 updateProgress();
-updateBankStats();
+updateTeacherWeak();
 </script>
 </body>
 </html>
-
-
 
 
 
