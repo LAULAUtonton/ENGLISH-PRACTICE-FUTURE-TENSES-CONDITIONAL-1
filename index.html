@@ -3,52 +3,54 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Present Tense Practice — Streak to 25 (Adaptive + Order Game)</title>
+<title>Future Forms + First Conditional — Streak to 25 (Manga Colors)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#050816;
-  --bg2:#0a1740;
-  --bg3:#061a2a;
+  /* ===== Manga / pop palette ===== */
+  --bg1:#05040d;
+  --bg2:#0b0830;
+  --bg3:#140a2b;
 
-  --panel: rgba(10, 14, 30, .92);
-  --ink:#e9f2ff;
-  --mut: rgba(233,242,255,.72);
+  --ink:#f7fbff;
+  --mut:rgba(247,251,255,.72);
 
-  --ps:#2563eb; --ps2:#1d4ed8;
-  --pc:#10b981; --pc2:#0f766e;
-  --accent:#a855f7;
+  --panel: rgba(18, 13, 34, .88);
+  --stroke: rgba(255,255,255,.14);
 
-  --cardA:#7c3aed; --cardB:#db2777; --cardC:#f59e0b;
+  --pink:#ff2fb3;
+  --cyan:#11e8ff;
+  --yellow:#ffe04a;
+  --lime:#7dff6a;
+  --violet:#9b5cff;
 
-  --shadow: 0 26px 80px rgba(0,0,0,.55);
+  --shadow: 0 26px 80px rgba(0,0,0,.60);
+  --focus: 0 0 0 5px rgba(17,232,255,.25);
+
   --wMax: 1200px;
 
-  --wordFont: 15px;
-  --wordPadY: 10px;
-  --wordPadX: 12px;
-  --chipMinW: 98px;
-
-  --focus: 0 0 0 5px rgba(168,85,247,.22);
+  --wordFont: 16px;
+  --chipMinW: 108px;
 }
 
 *{box-sizing:border-box}
-html,body{height:100%; margin:0;}
+html,body{height:100%;margin:0}
 body{
   font-family:Montserrat,system-ui,sans-serif;
-  background:
-    radial-gradient(900px 520px at 15% 20%, rgba(168,85,247,.26), transparent 60%),
-    radial-gradient(900px 520px at 85% 20%, rgba(16,185,129,.18), transparent 60%),
-    linear-gradient(180deg,var(--bg1),var(--bg2),var(--bg3));
   color:var(--ink);
+  background:
+    radial-gradient(900px 520px at 15% 18%, rgba(255,47,179,.22), transparent 60%),
+    radial-gradient(900px 520px at 85% 22%, rgba(17,232,255,.18), transparent 60%),
+    radial-gradient(720px 420px at 55% 85%, rgba(255,224,74,.12), transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2),var(--bg3));
   display:flex;
   align-items:center;
   justify-content:center;
   padding:12px;
 }
 
-/* main container */
+/* ===== Layout ===== */
 .container{
   width:min(var(--wMax), 100%);
   min-height: calc(100vh - 24px);
@@ -57,73 +59,79 @@ body{
   border-radius:18px;
   padding:14px;
   box-shadow:var(--shadow);
-  border:1px solid rgba(255,255,255,.10);
+  border:1px solid var(--stroke);
   backdrop-filter: blur(10px);
   display:grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 330px;
   grid-template-rows: auto auto 1fr auto;
   gap:12px;
   overflow:hidden;
 }
 
-/* header */
 .header{grid-column:1/2; grid-row:1/2; display:flex; gap:12px; align-items:center}
 .logo{
   width:56px;height:56px;border-radius:16px;
-  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.16);
+  background:
+    linear-gradient(135deg, rgba(255,47,179,.25), rgba(17,232,255,.22), rgba(255,224,74,.18));
+  border:2px solid rgba(255,255,255,.18);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 14px 28px rgba(0,0,0,.25);
+  box-shadow:0 14px 28px rgba(0,0,0,.30);
+  position:relative;
 }
-.title{margin:0;font-size:20px;color:#f0e9ff;letter-spacing:.2px}
+.logo:after{
+  content:"";
+  position:absolute; inset:6px;
+  border-radius:14px;
+  border:2px dashed rgba(255,255,255,.20);
+  pointer-events:none;
+}
+.title{margin:0;font-size:20px;color:#fff;letter-spacing:.2px}
 .lead{margin:2px 0 0;font-size:13px;color:var(--mut)}
 
-/* topbar */
 .topbar{
   grid-column:1/2; grid-row:2/3;
   display:flex; align-items:center; justify-content:space-between;
   padding:10px 12px;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
   gap:10px;
   flex-wrap:wrap;
 }
 .statRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .stat{
-  border:1px solid rgba(255,255,255,.14);
+  border:2px solid rgba(255,255,255,.14);
   border-radius:14px;
   padding:8px 12px;
   font-weight:900;
   font-size:13px;
-  background:rgba(0,0,0,.12);
+  background:rgba(0,0,0,.18);
 }
 .playerTag{font-size:13px;color:var(--mut)}
 .playerTag strong{color:var(--ink)}
 
-/* right panel */
+/* ===== Right panel ===== */
 .controlsPanel{
   grid-column:2/3; grid-row:1/4;
   display:flex; flex-direction:column; gap:10px;
   padding:12px;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
   overflow:hidden;
 }
 .inputRow{display:flex;flex-direction:column;gap:6px}
 .inputRow label{font-weight:900;font-size:13px;color:var(--ink)}
 .inputRow input{
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(0,0,0,.14);
+  border:2px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.18);
   color:var(--ink);
   border-radius:14px;
   padding:12px;
   font-size:14px;
   outline:none;
 }
-.inputRow input::placeholder{color:rgba(233,242,255,.55)}
-.inputRow input:focus{border-color: rgba(168,85,247,.70); box-shadow:var(--focus);}
+.inputRow input:focus{border-color: rgba(17,232,255,.80); box-shadow:var(--focus);}
 .lockedHint{font-size:12px;color:var(--mut);margin-top:-4px}
 
 .controlsBtns{display:flex;gap:10px}
@@ -133,18 +141,18 @@ body{
   padding:12px 14px;
   font-weight:900;
   cursor:pointer;
-  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
+  transition:transform .12s ease, filter .12s ease;
 }
 .btnPrimary{
-  border:none;
-  color:#fff;
-  background:linear-gradient(180deg,var(--accent),#6d28d9);
-  box-shadow:0 14px 28px rgba(168,85,247,.20);
+  border:2px solid rgba(255,255,255,.16);
+  color:#06101a;
+  background:linear-gradient(180deg,var(--yellow),#ffbf00);
+  box-shadow:0 14px 28px rgba(255,224,74,.18);
 }
 .btnSecondary{
-  border:1px solid rgba(255,255,255,.16);
+  border:2px solid rgba(255,255,255,.16);
   color:var(--ink);
-  background:rgba(0,0,0,.14);
+  background:rgba(0,0,0,.18);
 }
 .btnPrimary:hover,.btnSecondary:hover{transform:translateY(-2px);filter:brightness(1.05)}
 .btnPrimary:disabled,.btnSecondary:disabled{opacity:.6;cursor:not-allowed;transform:none}
@@ -159,24 +167,24 @@ body{
   margin-top:auto;
   padding:12px;
   border-radius:14px;
-  border:1px dashed rgba(255,255,255,.18);
-  background:rgba(255,255,255,.05);
+  border:2px dashed rgba(255,255,255,.18);
+  background:rgba(0,0,0,.15);
   font-size:12.7px;
-  color:rgba(233,242,255,.84);
+  color:rgba(247,251,255,.88);
   line-height:1.35;
 }
 .bankStats{
   margin-top:10px;
   padding:10px;
   border-radius:14px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.12);
-  color:rgba(233,242,255,.85);
+  border:1px solid var(--stroke);
+  background:rgba(0,0,0,.16);
+  color:rgba(247,251,255,.90);
   font-size:12.5px;
   line-height:1.35;
 }
 
-/* game */
+/* ===== Game ===== */
 .game{
   grid-column:1/2; grid-row:3/4;
   overflow:hidden;
@@ -187,13 +195,13 @@ body{
 }
 .gameInner{
   width:100%;
-  max-width:820px;
+  max-width:860px;
   height:100%;
   display:grid;
   grid-template-rows:
-    minmax(130px, .44fr)
+    minmax(140px, .44fr)
     minmax(54px, auto)
-    minmax(230px, 1fr)
+    minmax(240px, 1fr)
     auto
     auto;
   gap:10px;
@@ -204,8 +212,13 @@ body{
 #card{
   border-radius:18px;
   padding:12px;
-  background:linear-gradient(135deg,var(--cardA),var(--cardB),var(--cardC));
-  box-shadow:0 18px 48px rgba(0,0,0,.30);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(17,232,255,.22), transparent 50%),
+    radial-gradient(circle at 80% 25%, rgba(255,47,179,.22), transparent 55%),
+    radial-gradient(circle at 55% 90%, rgba(255,224,74,.16), transparent 55%),
+    linear-gradient(135deg, rgba(17,232,255,.16), rgba(255,47,179,.14), rgba(255,224,74,.10));
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:0 18px 48px rgba(0,0,0,.34);
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
   text-align:center;
@@ -214,36 +227,33 @@ body{
 }
 #card::before{
   content:"";
-  position:absolute; inset:-25%;
+  position:absolute; inset:-30%;
   background:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,.22), transparent 45%),
-    radial-gradient(circle at 80% 20%, rgba(255,255,255,.18), transparent 48%),
-    radial-gradient(circle at 70% 75%, rgba(255,255,255,.14), transparent 52%);
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,.08) 0 10px,
+      rgba(255,255,255,.02) 10px 20px);
   transform:rotate(-10deg);
   pointer-events:none;
-  animation: floatGlow 4.2s ease-in-out infinite;
+  opacity:.35;
 }
-@keyframes floatGlow{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-10deg) translateY(10px)}}
-
 #cardLabel{
   position:relative;
   font-size:13px;
   font-weight:900;
-  color:#fff;
+  color:#07111b;
   padding:8px 14px;
   border-radius:999px;
-  background:rgba(0,0,0,.22);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(8px);
+  background:linear-gradient(180deg, var(--cyan), #00c8dd);
+  border:2px solid rgba(0,0,0,.35);
   margin:0 0 8px;
 }
 #cardText{
   position:relative;
-  width:min(92%, 760px);
+  width:min(92%, 780px);
   padding:10px 12px;
   border-radius:14px;
-  background:rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.22);
+  border:2px solid rgba(255,255,255,.18);
   color:#fff;
   font-weight:900;
   font-size:clamp(18px, 2.0vw, 30px);
@@ -255,9 +265,9 @@ body{
 
 /* order box */
 #orderBox{
-  border:1px solid rgba(255,255,255,.14);
+  border:2px solid rgba(255,255,255,.14);
   border-radius:16px;
-  background:rgba(255,255,255,.06);
+  background:rgba(0,0,0,.18);
   padding:10px;
   min-height:54px;
   display:flex;
@@ -274,8 +284,8 @@ body{
 #options{
   width:100%;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.14);
+  border:2px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.18);
   padding:10px;
   overflow:hidden;
 }
@@ -288,19 +298,19 @@ body{
   align-content:stretch;
 }
 .choiceCard{
-  border:none;
+  border:2px solid rgba(0,0,0,.35);
   border-radius:18px;
   padding:14px 14px;
-  color:#fff;
+  color:#07101a;
   font-weight:900;
   cursor:pointer;
   text-align:left;
   display:flex;
   align-items:center;
   gap:12px;
-  min-height:84px;
-  box-shadow:0 16px 34px rgba(0,0,0,.22);
-  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
+  min-height:86px;
+  box-shadow:0 16px 34px rgba(0,0,0,.24);
+  transition:transform .12s ease, filter .12s ease;
   position:relative;
   overflow:hidden;
 }
@@ -308,37 +318,27 @@ body{
 .choiceCard::after{
   content:"";
   position:absolute; inset:-40%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.28), transparent 55%);
   transform:rotate(10deg);
   opacity:.7;
 }
-.choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06);box-shadow:0 18px 40px rgba(0,0,0,.30)}
-.choiceCard:disabled{opacity:.65;cursor:not-allowed;transform:none !important}
+.choiceCard:hover{transform:translateY(-3px);filter:brightness(1.06)}
 .choiceIcon{
   width:46px;height:46px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.45);
+  border:2px solid rgba(0,0,0,.35);
   font-size:22px;
   z-index:1;
 }
+.choiceText{z-index:1; font-size:18px; line-height:1.12}
+.choiceText small{display:block;font-size:13px;font-weight:800;opacity:.95;margin-top:3px}
 
-/* bigger PS/PC labels on cards */
-.choiceText{
-  z-index:1;
-  font-size:18px;
-  line-height:1.12;
-}
-.choiceText small{
-  display:block;
-  font-size:13px;
-  font-weight:800;
-  opacity:.92;
-  margin-top:3px
-}
-
-.choicePS{background:linear-gradient(135deg,var(--ps),var(--ps2)); box-shadow:0 16px 34px rgba(37,99,235,.20);}
-.choicePC{background:linear-gradient(135deg,var(--pc),var(--pc2)); box-shadow:0 16px 34px rgba(16,185,129,.18);}
+.choiceWILL{background:linear-gradient(180deg, var(--yellow), #ffb703);}
+.choiceGOING{background:linear-gradient(180deg, var(--pink), #ff5cc9); color:#0b0712;}
+.choicePC{background:linear-gradient(180deg, var(--cyan), #00b6ca);}
+.choicePS{background:linear-gradient(180deg, var(--lime), #56ff8b);}
+.choiceCOND{background:linear-gradient(180deg, var(--violet), #b78bff);}
 
 /* ordering */
 #options.mode-order{
@@ -349,25 +349,24 @@ body{
   grid-auto-rows: minmax(44px, auto);
 }
 .orderWord{
-  border:none;
+  border:2px solid rgba(0,0,0,.35);
   border-radius:16px;
-  padding: var(--wordPadY) var(--wordPadX);
+  padding: 11px 12px;
   font-weight:900;
   font-size: var(--wordFont);
   cursor:pointer;
-  color:var(--ink);
-  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.14);
+  color:#07101a;
+  background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
   box-shadow:0 12px 22px rgba(0,0,0,.18);
-  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
+  transition:transform .12s ease, filter .12s ease;
   text-align:center;
   white-space:nowrap;
 }
-.orderWord:hover{transform:translateY(-3px); filter:brightness(1.06); box-shadow:0 14px 28px rgba(0,0,0,.26);}
+.orderWord:hover{transform:translateY(-3px); filter:brightness(1.05);}
 .orderWord:disabled{opacity:.55;cursor:not-allowed;transform:none !important}
 .orderWord.chosen{
   color:#fff;
-  border-color: rgba(239,68,68,.40);
+  border-color: rgba(0,0,0,.40);
   background:linear-gradient(180deg,#ef4444,#b91c1c);
 }
 
@@ -375,8 +374,8 @@ body{
 .selChip{
   padding:8px 12px;
   border-radius:14px;
-  background:rgba(168,85,247,.22);
-  border:1px solid rgba(168,85,247,.34);
+  background:rgba(17,232,255,.16);
+  border:2px solid rgba(17,232,255,.26);
   font-weight:900;
   cursor:pointer;
   user-select:none;
@@ -396,15 +395,15 @@ body{
 .progressBar{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,#22c55e,#16a34a,#22c55e);
-  background-size:200% 100%;
+  background:linear-gradient(90deg, var(--lime), var(--cyan), var(--yellow), var(--pink), var(--lime));
+  background-size:220% 100%;
   transition:width 350ms ease;
 }
 .progressBar.moving{ animation: prog 1.1s linear infinite; }
-@keyframes prog{ 0%{background-position:0%} 100%{background-position:200%} }
+@keyframes prog{ 0%{background-position:0%} 100%{background-position:220%} }
 .progressLabel{
   font-size:13px;
-  color:rgba(233,242,255,.90);
+  color:rgba(247,251,255,.92);
   text-align:center;
   margin-top:-4px;
   font-weight:900;
@@ -419,8 +418,8 @@ body{
   flex-wrap:wrap;
 }
 .smallBtn{
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.14);
+  border:2px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.18);
   color:var(--ink);
   border-radius:14px;
   padding:10px 14px;
@@ -440,7 +439,7 @@ body{
   flex-wrap:wrap;
 }
 
-/* popup feedback overlay */
+/* feedback overlay */
 .fbOverlay{
   position:absolute;
   inset:0;
@@ -458,21 +457,18 @@ body{
   width:min(640px, 94%);
   border-radius:18px;
   padding:18px 18px 16px;
-  background:linear-gradient(180deg, rgba(10,14,30,.97), rgba(10,14,30,.93));
-  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(180deg, rgba(20,14,36,.97), rgba(20,14,36,.93));
+  border:2px solid rgba(255,255,255,.16);
   box-shadow:0 24px 70px rgba(0,0,0,.60);
   text-align:center;
-  transform:scale(.965) translateY(6px);
-  animation: fbIn .22s ease both;
 }
-@keyframes fbIn{ to{transform:scale(1) translateY(0)} }
 .fbTop{display:flex; align-items:center; justify-content:center; gap:10px; font-weight:900;}
 .fbIcon{
   width:48px;height:48px;
   border-radius:16px;
   display:flex;align-items:center;justify-content:center;
   background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.14);
+  border:2px solid rgba(255,255,255,.14);
   font-size:22px;
 }
 .fbTitle{font-size:22px; margin:0;}
@@ -487,7 +483,7 @@ body{
 .fbDetail{
   margin:10px auto 0;
   font-size:14.2px;
-  color:rgba(233,242,255,.92);
+  color:rgba(247,251,255,.92);
   font-weight:800;
   line-height:1.38;
   max-width:600px;
@@ -501,15 +497,14 @@ body{
   padding:10px 14px;
   font-weight:900;
   cursor:pointer;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.14);
+  border:2px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.18);
   color:var(--ink);
   transition:transform .12s ease, filter .12s ease;
 }
 .fbBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
-.fbBtn.primary{border:none; background:linear-gradient(180deg,var(--accent),#6d28d9); color:#fff;}
 
-/* celebration overlay */
+/* celebration */
 .celebration-overlay{
   position:fixed; inset:0;
   display:none; align-items:center; justify-content:center;
@@ -519,16 +514,16 @@ body{
 }
 .celebration-card{
   width:min(780px, 96%);
-  background:linear-gradient(180deg, rgba(10,14,30,.94), rgba(10,14,30,.90));
-  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(180deg, rgba(20,14,36,.95), rgba(20,14,36,.90));
+  border:2px solid rgba(255,255,255,.14);
   color:var(--ink);
   border-radius:18px;
   padding:26px;
   text-align:center;
   box-shadow:0 20px 60px rgba(0,0,0,0.60);
 }
-.celebration-title{font-size:34px;font-weight:900;color:#f0e9ff;margin-bottom:8px}
-.celebration-sub{color:rgba(233,242,255,.86);font-weight:900; font-size:16px; margin-bottom:12px}
+.celebration-title{font-size:34px;font-weight:900;color:#fff;margin-bottom:8px}
+.celebration-sub{color:rgba(247,251,255,.88);font-weight:900; font-size:16px; margin-bottom:12px}
 .celebration-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 
 /* responsive */
@@ -545,60 +540,38 @@ body{
   #options.mode-multiple{grid-template-columns:1fr}
 }
 
-/* reduced motion */
-@media (prefers-reduced-motion: reduce){
-  #card::before,.progressBar.moving{animation:none !important}
-  *{transition:none !important}
-}
-
-/* ==========================================================
-   ✅ FORCE BIG, VISIBLE CHECK BUTTON (AT END TO WIN CASCADE)
-   - Always big
-   - Pulses ONLY when it is visible (we toggle a class in JS)
-========================================================== */
+/* ===== BIG CHECK (wins cascade) ===== */
 #checkOrder.smallBtn{
-  padding: 18px 30px !important;
-  font-size: 18px !important;
+  padding: 18px 32px !important;
+  font-size: 19px !important;
   border-radius: 18px !important;
-  min-width: 200px !important;
-
-  border: none !important;
-  color: #fff !important;
-  background: linear-gradient(180deg, var(--accent), #6d28d9) !important;
-  box-shadow: 0 16px 34px rgba(168,85,247,.28) !important;
+  min-width: 220px !important;
+  border:2px solid rgba(0,0,0,.35) !important;
+  color:#06101a !important;
+  background: linear-gradient(180deg, var(--yellow), #ffb703) !important;
+  box-shadow: 0 18px 38px rgba(255,224,74,.22) !important;
 }
 #checkOrder.smallBtn.checkAttention{
   animation: checkPulse 1.0s ease-in-out infinite;
 }
 @keyframes checkPulse{
   0%,100%{ transform: scale(1); filter: brightness(1); }
-  50%{ transform: scale(1.06); filter: brightness(1.12); }
+  50%{ transform: scale(1.07); filter: brightness(1.12); }
 }
 </style>
 </head>
 
 <body>
-  <div class="container" role="application" aria-label="Present tense practice game">
-    <!-- Header -->
+  <div class="container" role="application" aria-label="Future forms and first conditional game">
+
     <div class="header">
-      <div class="logo" aria-hidden="true">
-        <svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#a855f7"/>
-              <stop offset="1" stop-color="#10b981"/>
-            </linearGradient>
-          </defs>
-          <circle cx="32" cy="32" r="30" fill="url(#g1)"/>
-        </svg>
-      </div>
+      <div class="logo" aria-hidden="true">✦</div>
       <div>
-        <h1 class="title">Present Tense Practice</h1>
-        <p class="lead">Adaptive practice • ordering never reveals the answer • win at <b>25 in a row</b></p>
+        <h1 class="title">Future Forms + First Conditional</h1>
+        <p class="lead">Manga colors • adaptive practice • ordering never reveals the answer • win at <b>25 in a row</b></p>
       </div>
     </div>
 
-    <!-- Topbar -->
     <div class="topbar">
       <div class="statRow">
         <div class="stat" id="scoreBox">Score: 0</div>
@@ -608,7 +581,6 @@ body{
       <div class="playerTag">Player: <strong id="playerName">—</strong></div>
     </div>
 
-    <!-- Controls -->
     <div class="controlsPanel">
       <div class="inputRow">
         <label for="studentName">Name</label>
@@ -632,12 +604,15 @@ body{
       </div>
 
       <div class="tipBox">
-        <b>How to play</b><br>
-        • Some rounds are multiple-choice (PS vs PC).<br>
-        • Some rounds are ordering: build the sentence from scrambled words.<br>
-        • Click <b>CHECK</b> to submit your sentence in ordering rounds.<br>
-        • Any mistake resets your streak to 0.<br>
-        • Win when you reach <b>25 correct in a row</b>.
+        <b>What students practice</b><br>
+        • <b>will</b> (predictions / offers / promises)<br>
+        • <b>be going to</b> (plans / intentions)<br>
+        • <b>present continuous</b> (definite arrangements)<br>
+        • <b>present simple</b> (timetables / schedules)<br>
+        • <b>first conditional</b>: If + present, will + base verb<br><br>
+        <b>How it works</b><br>
+        • Multiple-choice rounds: choose the correct form.<br>
+        • Ordering rounds: build the sentence from scrambled words, then press <b>CHECK</b>.
       </div>
 
       <div class="bankStats" id="bankStats">
@@ -645,9 +620,7 @@ body{
       </div>
     </div>
 
-    <!-- Game -->
     <div class="game" role="main" aria-live="polite">
-      <!-- Popup feedback overlay -->
       <div id="feedbackOverlay" class="fbOverlay" aria-hidden="true">
         <div class="fbCard" role="dialog" aria-modal="true" aria-label="Feedback popup">
           <div class="fbTop">
@@ -672,7 +645,7 @@ body{
 
         <div id="options" role="group" aria-label="Answer options"></div>
 
-        <div class="progressWrap" aria-hidden="false">
+        <div class="progressWrap">
           <div id="progressBar" class="progressBar" style="width:0%"></div>
         </div>
         <div class="progressLabel" id="progressLabel">Goal progress: 0 / 25 (0%)</div>
@@ -685,13 +658,11 @@ body{
       </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
-      <div>Categories: PS/PC (Affirmative/Negative/Interrogative)</div>
+      <div>Forms: will • going to • pres cont • pres simple • 1st conditional</div>
       <div>Goal: <span id="targetLabel">25</span> in a row</div>
     </div>
 
-    <!-- Celebration -->
     <div id="celebration" class="celebration-overlay" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="celebration-card" role="document">
         <div class="celebration-title">Perfect streak! 🏆</div>
@@ -704,7 +675,7 @@ body{
     </div>
   </div>
 
-  <!-- Background music -->
+  <!-- Background music (optional) -->
   <audio id="bgMusic" src="audio/koala.mp3" preload="auto" loop></audio>
 
 <script>
@@ -714,156 +685,108 @@ body{
 const TARGET_STREAK = 25;
 
 /* ==========================================================
-   BANKS: 6 categories (21 each)
+   BANKS (≥ 15 sentences each)
+   - Vocabulary + structures from the page:
+     places (aquarium, theme park, national park...)
+     activities (kayaking, canyoning, white-water rafting...)
+     recommendations key phrases
+     future forms uses
+     first conditional structure
 ========================================================== */
 const BANKS = {
-  PS_aff: [
-    "She usually walks to school.",
-    "He plays the guitar every afternoon.",
-    "They enjoy quiet mornings together.",
-    "My cat sleeps on my backpack.",
-    "I like how this coffee smells.",
-    "We read the newspaper every morning.",
-    "The bus arrives at eight o'clock.",
-    "Tom studies French at university.",
-    "Anna works in a small bakery.",
-    "Birds fly south in winter.",
-    "The shop opens at nine every day.",
-    "He drinks green tea after lunch.",
-    "Students practice vocabulary every evening.",
-    "She always helps her neighbors.",
-    "The sun rises in the east.",
-    "He writes emails every morning.",
-    "We celebrate birthdays with cake.",
-    "The teacher explains the lesson clearly.",
-    "She takes the dog for a walk daily.",
-    "They visit the museum on weekends.",
-    "My brother cooks dinner on Fridays."
+  WILL: [
+    "I think it will be difficult to find a hotel at the last minute.",
+    "Don’t worry — I’ll help you choose a national park to visit.",
+    "I’m sure your best option will be the aquarium if it rains.",
+    "I’ll call the phone repair shop and ask about the price.",
+    "Personally, I think the theme park will be amazing.",
+    "Your best choice will probably be mountain biking this weekend.",
+    "I’ll send you the address of the botanical gardens.",
+    "The parade will start soon, so let’s get a good place to watch.",
+    "I think the tower will look fantastic at sunset.",
+    "We’ll meet you at the monument after lunch.",
+    "I’ll buy the tickets online tonight.",
+    "It will be too windy for parasailing, I think.",
+    "I’ll recommend a restaurant near the wildlife reserve.",
+    "I think the ancient site will be crowded tomorrow.",
+    "I’ll bring snacks for the trip."
   ],
-  PS_neg: [
-    "She doesn't like cold pizza.",
-    "They don't study on Sundays.",
-    "He does not enjoy long movies.",
-    "I don't drink soda anymore.",
-    "The cat doesn't sleep in its bed.",
-    "We don't watch TV at night.",
-    "He doesn't own a car.",
-    "She does not eat meat.",
-    "They don't arrive early.",
-    "I don't understand this word.",
-    "She doesn't answer her phone often.",
-    "We don't use that old computer anymore.",
-    "He doesn't believe the rumor.",
-    "They don't accept late homework.",
-    "I don't remember his name.",
-    "She doesn't drive to work.",
-    "He doesn't like loud music.",
-    "We don't go out when it rains.",
-    "The store doesn't open on Sundays.",
-    "He doesn't speak Spanish.",
-    "They don't play video games on school nights."
+  GOING_TO: [
+    "We’re going to explore the national park on Saturday.",
+    "I’m going to book a hotel near the botanical gardens.",
+    "She’s going to try canyoning for the first time.",
+    "They’re going to visit the aquarium after school.",
+    "I’m going to ask for recommendations at the tourist office.",
+    "We’re going to go sightseeing in the old town.",
+    "He’s going to buy trainers before the trek.",
+    "I’m going to take photos at the ancient site.",
+    "They’re going to ride horses near the wildlife reserve.",
+    "We’re going to eat at a small restaurant by the tower.",
+    "She’s going to learn new vocabulary for the project.",
+    "I’m going to plan a route to the monument.",
+    "They’re going to watch the parade from the main square.",
+    "We’re going to go scuba diving if the sea is calm.",
+    "I’m going to recommend the theme park to my cousins."
   ],
-  PS_int: [
-    "Do you like spicy food?",
-    "Does she play the violin?",
-    "Do they live near here?",
-    "Does he enjoy swimming?",
-    "Do we have class today?",
-    "Do you speak English?",
-    "Does it rain a lot here?",
-    "Do they know the answer?",
-    "Does she work on Saturdays?",
-    "Do I need to bring a book?",
-    "Do you usually study in the morning?",
-    "Does he visit his grandparents every week?",
-    "Do they play chess after school?",
-    "Does she cook for the family?",
-    "Do we meet at the library?",
-    "Do you understand the instructions?",
-    "Does he take the train to work?",
-    "Do they practice every day?",
-    "Does she prefer tea or coffee?",
-    "Do I have to finish this today?",
-    "Do you remember the homework?"
+  PRES_CONT: [
+    "We’re meeting at the station at 8:00.",
+    "I’m having lunch with my friend after the museum visit.",
+    "She’s flying to Madrid tomorrow morning.",
+    "They’re visiting the theme park this afternoon.",
+    "I’m talking to a guide about the ancient site later.",
+    "We’re staying in a hotel near the tower tonight.",
+    "He’s going kayaking with his class on Friday.",
+    "I’m taking my brother to the aquarium on Saturday.",
+    "They’re going mountain biking after school.",
+    "We’re going to the botanical gardens at 5:30.",
+    "I’m seeing the teacher after class to ask a question.",
+    "She’s meeting us at the monument entrance.",
+    "They’re having a picnic in the national park tomorrow.",
+    "We’re watching the parade from the bridge this evening.",
+    "I’m calling you later to confirm the plan."
   ],
-  PC_aff: [
-    "She's studying English right now.",
-    "They are cooking dinner together.",
-    "He's drawing a robot at the moment.",
-    "I'm listening to music.",
-    "We're walking to the bus stop.",
-    "She is reading a new novel.",
-    "They are playing football in the park.",
-    "He is fixing his bicycle.",
-    "I'm watching a documentary.",
-    "We are preparing for the exam.",
-    "She is practicing the piano this afternoon.",
-    "They are building a model in the workshop.",
-    "He is cleaning his room right now.",
-    "I'm checking my email at the moment.",
-    "We are learning a new song today.",
-    "She is talking on the phone now.",
-    "They are planting flowers in the garden.",
-    "He is making a sandwich right now.",
-    "I'm writing my notes at the moment.",
-    "We are working on our project today.",
-    "She is waiting for the bus right now."
+  PRES_SIMPLE: [
+    "The train leaves at 3 p.m.",
+    "The tour starts at 10:15.",
+    "The aquarium opens at nine.",
+    "The national park closes at six.",
+    "The museum bus arrives every thirty minutes.",
+    "The parade begins at noon.",
+    "The ticket office shuts at 5:45.",
+    "The boat departs from the harbour at 8:30.",
+    "The theme park opens at 10:00 on weekends.",
+    "The guided walk finishes at 2:00.",
+    "The flight lands at 7:20.",
+    "The lesson starts at 8:05.",
+    "The coach stops near the monument at 11:10.",
+    "The ferry leaves every hour.",
+    "The show ends at 9:00."
   ],
-  PC_neg: [
-    "She isn't sleeping at the moment.",
-    "They aren't watching TV right now.",
-    "He is not studying today.",
-    "I'm not feeling well right now.",
-    "We aren't going out tonight.",
-    "She isn't using her laptop now.",
-    "They are not listening to the teacher.",
-    "He isn't playing football today.",
-    "I'm not working on that task right now.",
-    "We are not talking about that now.",
-    "She isn't wearing her jacket today.",
-    "They aren't doing their homework at the moment.",
-    "He is not driving right now.",
-    "I'm not texting anyone right now.",
-    "We aren't waiting anymore.",
-    "She isn't smiling today.",
-    "They are not cleaning the classroom now.",
-    "He isn't helping right now.",
-    "I'm not eating at the moment.",
-    "We aren't practicing today.",
-    "She isn't studying right now."
-  ],
-  PC_int: [
-    "Are you studying right now?",
-    "Is she working today?",
-    "Are they playing outside?",
-    "Is he watching TV at the moment?",
-    "Are we meeting after school?",
-    "Are you listening to me?",
-    "Is it raining right now?",
-    "Are they using their phones?",
-    "Is she taking notes now?",
-    "Am I doing this correctly?",
-    "Are you working on the project?",
-    "Is he wearing his uniform today?",
-    "Are they preparing for the test?",
-    "Is she talking too loudly?",
-    "Are we waiting for the bus?",
-    "Are you learning new vocabulary today?",
-    "Is he fixing his bike right now?",
-    "Are they studying in the library?",
-    "Is she writing an email now?",
-    "Are we doing the activity right now?",
-    "Are you feeling tired today?"
+  FIRST_COND: [
+    "If the traffic is bad, we’ll miss our flight.",
+    "If it rains, we’ll go to the aquarium instead.",
+    "If you ask politely, they’ll recommend a good hotel.",
+    "If we leave early, we’ll reach the national park before lunch.",
+    "If you don’t book now, the theme park tickets will sell out.",
+    "If the sea is rough, we won’t go scuba diving.",
+    "If you try canyoning, you’ll need a helmet.",
+    "If you get lost, I’ll send you the location.",
+    "If the parade starts late, we’ll wait near the tower.",
+    "If you want advice, I’ll recommend the botanical gardens.",
+    "If she finishes her homework, she’ll come sightseeing with us.",
+    "If the bus doesn’t arrive, we’ll take a taxi to the monument.",
+    "If it’s too windy, we won’t go parasailing.",
+    "If you don’t feel well, you’ll stay at the hotel.",
+    "If you practice the key phrases, you’ll sound more confident."
   ]
 };
 
 const BANK_META = [
-  { key:"PS_aff", label:"Present Simple — Affirmative", tense:"PS" },
-  { key:"PS_neg", label:"Present Simple — Negative", tense:"PS" },
-  { key:"PS_int", label:"Present Simple — Interrogative", tense:"PS" },
-  { key:"PC_aff", label:"Present Continuous — Affirmative", tense:"PC" },
-  { key:"PC_neg", label:"Present Continuous — Negative", tense:"PC" },
-  { key:"PC_int", label:"Present Continuous — Interrogative", tense:"PC" },
+  { key:"WILL",        label:"Future form — WILL",                hint:"predictions • offers • promises", icon:"🟨", css:"choiceWILL" },
+  { key:"GOING_TO",    label:"Future form — BE GOING TO",         hint:"plans • intentions",            icon:"💗", css:"choiceGOING" },
+  { key:"PRES_CONT",   label:"Future meaning — PRESENT CONT.",    hint:"definite arrangements",         icon:"🟦", css:"choicePC" },
+  { key:"PRES_SIMPLE", label:"Future meaning — PRESENT SIMPLE",   hint:"timetables • schedules",        icon:"🟩", css:"choicePS" },
+  { key:"FIRST_COND",  label:"First conditional",                hint:"If + present, will + base",      icon:"🟪", css:"choiceCOND" },
 ];
 
 /* ==========================================================
@@ -883,12 +806,11 @@ const state = {
   remediation: { bankKey:null, remaining:0 },
   lastBankKey:null,
 
-  round:null,
+  round:null,        // {mode, bankKey, sentence, correctKey, targetWords, orderWords}
   orderSelected:[],
 
   log:[],
 
-  // no-repeat memory per bank
   recentByBank: Object.fromEntries(BANK_META.map(b => [b.key, []]))
 };
 
@@ -904,16 +826,16 @@ function blip(ok){
     const o = ctx.createOscillator();
     const g = ctx.createGain();
     o.connect(g); g.connect(ctx.destination);
-    o.type = "sine";
-    o.frequency.value = ok ? 660 : 220;
-    g.gain.value = 0.06;
+    o.type = "square";
+    o.frequency.value = ok ? 740 : 220;
+    g.gain.value = 0.05;
     o.start();
-    setTimeout(()=>{ o.stop(); ctx.close(); }, ok ? 110 : 150);
+    setTimeout(()=>{ o.stop(); ctx.close(); }, ok ? 95 : 150);
   }catch(e){}
 }
 
 /* ==========================================================
-   UI UPDATES
+   UI
 ========================================================== */
 function updateHeader(){
   el("scoreBox").textContent = `Score: ${state.score}`;
@@ -954,7 +876,7 @@ function updateBankStats(){
   }).join("<br>");
 
   el("bankStats").innerHTML =
-    `<b>Adaptive engine:</b><br>${top}<br><span style="color:rgba(233,242,255,.72)">Mistakes make that category appear more often.</span>`;
+    `<b>Adaptive engine:</b><br>${top}<br><span style="color:rgba(247,251,255,.72)">Mistakes make that category appear more often.</span>`;
 }
 
 function setCard(label, text){
@@ -975,7 +897,7 @@ function normalizeSentence(s){
 }
 
 /* ==========================================================
-   NO-REPEAT SENTENCE PICKER
+   NO-REPEAT sentence picker
 ========================================================== */
 const RECENT_LIMIT = 8;
 const REROLL_TRIES = 12;
@@ -985,13 +907,10 @@ function pickSentenceNoRepeat(bankKey){
   const recent = state.recentByBank[bankKey] || [];
 
   let chosen = bank[Math.floor(Math.random()*bank.length)];
-  if(bank.length <= 1) return chosen;
-
   for(let t=0; t<REROLL_TRIES; t++){
     const candidate = bank[Math.floor(Math.random()*bank.length)];
     if(!recent.includes(candidate)){
-      chosen = candidate;
-      break;
+      chosen = candidate; break;
     }
     chosen = candidate;
   }
@@ -999,12 +918,11 @@ function pickSentenceNoRepeat(bankKey){
   recent.push(chosen);
   while(recent.length > RECENT_LIMIT) recent.shift();
   state.recentByBank[bankKey] = recent;
-
   return chosen;
 }
 
 /* ==========================================================
-   ADAPTIVE BANK PICKER
+   Adaptive bank picker
 ========================================================== */
 function pickBankKey(){
   if(state.remediation.remaining > 0 && state.remediation.bankKey){
@@ -1034,15 +952,13 @@ function pickBankKey(){
 }
 
 /* ==========================================================
-   ROUND BUILDER
-   - ordering frequency lowered:
+   Round builder
+   - ordering frequency:
      streak < 12 → 0.20
      streak ≥ 12 → 0.30
 ========================================================== */
 function makeRound(){
   const bankKey = pickBankKey();
-  const meta = BANK_META.find(x=>x.key===bankKey);
-
   const sentence = pickSentenceNoRepeat(bankKey);
 
   const orderChance = state.streak >= 12 ? 0.30 : 0.20;
@@ -1051,7 +967,7 @@ function makeRound(){
   state.lastBankKey = bankKey;
 
   if(mode === "multiple"){
-    return { mode, bankKey, sentence, correctTense: meta.tense };
+    return { mode, bankKey, sentence, correctKey: bankKey };
   }
 
   const targetWords = normalizeSentence(sentence).split(" ");
@@ -1060,7 +976,7 @@ function makeRound(){
 }
 
 /* ==========================================================
-   RENDER
+   Render
 ========================================================== */
 function clearOptions(){
   el("options").className = "";
@@ -1070,12 +986,10 @@ function clearOptions(){
 function renderSelectedChips(){
   const box = el("orderBox");
   box.innerHTML = "";
-
   if(state.orderSelected.length === 0){
     box.textContent = "Tap words to build the sentence.";
     return;
   }
-
   state.orderSelected.forEach((it, i)=>{
     const chip = document.createElement("span");
     chip.className = "selChip";
@@ -1089,7 +1003,6 @@ function renderSelectedChips(){
 function removeSelectedAt(i){
   if(!state.running) return;
   const removed = state.orderSelected.splice(i,1)[0];
-
   el("options").querySelectorAll(".orderWord").forEach(b=>{
     if(b.dataset.idx === String(removed.idx)){
       b.disabled = false;
@@ -1117,14 +1030,23 @@ function resetOrder(){
   renderSelectedChips();
 }
 
+function buildChoices(correctKey){
+  // choose 3 distractors from other banks
+  const others = BANK_META.map(b=>b.key).filter(k=>k !== correctKey);
+  const distractors = shuffle(others).slice(0,3);
+  const all = shuffle([correctKey, ...distractors]);
+  return all;
+}
+
 function renderRound(){
   clearOptions();
   state.orderSelected = [];
-
-  const meta = BANK_META.find(x=>x.key===state.round.bankKey);
   updateBankStats();
 
+  const meta = BANK_META.find(x=>x.key===state.round.bankKey);
+
   if(state.round.mode === "multiple"){
+    // show sentence; student chooses which form it is
     setCard(meta.label, state.round.sentence);
 
     el("orderBox").textContent = "Ordering box is used only for ordering rounds.";
@@ -1134,43 +1056,33 @@ function renderRound(){
 
     el("options").classList.add("mode-multiple");
 
-    const btnPS = document.createElement("button");
-    btnPS.className = "choiceCard choicePS";
-    btnPS.type = "button";
-    btnPS.innerHTML = `
-      <div class="choiceIcon">🟦</div>
-      <div class="choiceText">Present Simple
-        <small>habits • routines • facts</small>
-      </div>
-    `;
-    btnPS.onclick = ()=> submitMultiple("PS");
+    const keys = buildChoices(state.round.correctKey);
 
-    const btnPC = document.createElement("button");
-    btnPC.className = "choiceCard choicePC";
-    btnPC.type = "button";
-    btnPC.innerHTML = `
-      <div class="choiceIcon">🟩</div>
-      <div class="choiceText">Present Continuous
-        <small>now • temporary • in progress</small>
-      </div>
-    `;
-    btnPC.onclick = ()=> submitMultiple("PC");
-
-    el("options").appendChild(btnPS);
-    el("options").appendChild(btnPC);
+    keys.forEach(k=>{
+      const m = BANK_META.find(x=>x.key===k);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `choiceCard ${m.css}`;
+      btn.innerHTML = `
+        <div class="choiceIcon">${escapeHtml(m.icon)}</div>
+        <div class="choiceText">${escapeHtml(m.label.replace("Future form — ","").replace("Future meaning — ",""))}
+          <small>${escapeHtml(m.hint)}</small>
+        </div>
+      `;
+      btn.onclick = ()=> submitMultiple(k);
+      el("options").appendChild(btn);
+    });
 
     el("downloadReport").style.display = state.running ? "inline-flex" : "none";
     return;
   }
 
-  // ORDERING MODE
+  // ordering mode (do NOT show the exact sentence)
   setCard(meta.label, "Build the sentence from the scrambled words below.");
 
-  el("orderBox").textContent = "Tap words to build the sentence. Tap a selected chip to remove it.";
+  el("orderBox").textContent = "Tap words to build the sentence. Tap a chip to remove it.";
   el("resetOrder").style.display = "inline-flex";
   el("checkOrder").style.display = "inline-flex";
-
-  // ✅ pulse CHECK only when visible
   el("checkOrder").classList.add("checkAttention");
 
   el("options").classList.add("mode-order");
@@ -1190,28 +1102,30 @@ function renderRound(){
 }
 
 /* ==========================================================
-   SUBMIT / CHECK
+   Submit / Check
 ========================================================== */
-function submitMultiple(choiceTense){
+function submitMultiple(choiceKey){
   if(!state.running) return;
-  const ok = (choiceTense === state.round.correctTense);
+  const ok = (choiceKey === state.round.correctKey);
+
+  const chosen = BANK_META.find(x=>x.key===choiceKey);
+  const correct = BANK_META.find(x=>x.key===state.round.correctKey);
+
   gradeRound(ok, {
-    student: choiceTense === "PS" ? "Present Simple" : "Present Continuous",
-    correct: state.round.correctTense === "PS" ? "Present Simple" : "Present Continuous"
+    chosen: chosen ? chosen.label : choiceKey,
+    correct: correct ? correct.label : state.round.correctKey
   });
 }
 
 function checkOrder(){
   if(!state.running) return;
-
   const built = normalizeSentence(state.orderSelected.map(x=>x.word).join(" "));
   const correct = normalizeSentence(state.round.targetWords.join(" "));
-
   gradeRound(built === correct, { built, correct });
 }
 
 /* ==========================================================
-   FEEDBACK + AUTO CONTINUE (Next button removed)
+   Feedback + auto-next (no Next button)
 ========================================================== */
 function showFeedback(ok, detail, isWin){
   const overlay = el("feedbackOverlay");
@@ -1227,8 +1141,8 @@ function showFeedback(ok, detail, isWin){
   let d = "";
   if(state.round.mode === "multiple"){
     d = ok
-      ? `You chose: ${detail.student}.`
-      : `You chose: ${detail.student}. Correct: ${detail.correct}.`;
+      ? `Correct form: ${detail.correct}`
+      : `You chose: ${detail.chosen}\nCorrect: ${detail.correct}`;
   } else {
     d = ok
       ? `Nice ordering!`
@@ -1244,7 +1158,7 @@ function hideFeedback(){
 }
 
 function afterFeedbackAutoNext(isWin){
-  if(isWin) return; // winGame handles end state
+  if(isWin) return;
   setTimeout(()=>{
     hideFeedback();
     nextRound();
@@ -1252,7 +1166,7 @@ function afterFeedbackAutoNext(isWin){
 }
 
 /* ==========================================================
-   GRADING
+   Grading
 ========================================================== */
 function logAttempt(ok, detail){
   const meta = BANK_META.find(x=>x.key===state.round.bankKey);
@@ -1275,7 +1189,6 @@ function gradeRound(ok, detail){
   if(ok){
     st.correct++;
     st.recentWrong = Math.max(0, st.recentWrong - 1);
-
     state.score++;
     state.streak++;
     blip(true);
@@ -1297,7 +1210,6 @@ function gradeRound(ok, detail){
   st.wrong++;
   st.recentWrong++;
 
-  // repeat this bank for next 2 rounds
   state.remediation.bankKey = state.round.bankKey;
   state.remediation.remaining = 2;
 
@@ -1312,7 +1224,7 @@ function gradeRound(ok, detail){
 }
 
 /* ==========================================================
-   GAME FLOW
+   Flow
 ========================================================== */
 function lockRoundControls(lock){
   el("options").querySelectorAll("button").forEach(b=> b.disabled = !!lock);
@@ -1322,9 +1234,7 @@ function lockRoundControls(lock){
 
 function nextRound(){
   if(!state.running) return;
-
   hideFeedback();
-
   state.round = makeRound();
   renderRound();
   lockRoundControls(false);
@@ -1339,12 +1249,9 @@ function startGame(){
   state.remediation = { bankKey:null, remaining:0 };
   state.lastBankKey = null;
 
-  // reset stats
   for(const k of Object.keys(state.stats)){
     state.stats[k] = {attempts:0, correct:0, wrong:0, recentWrong:0};
   }
-
-  // reset no-repeat queues
   state.recentByBank = Object.fromEntries(BANK_META.map(b => [b.key, []]));
 
   el("playerName").textContent = (el("studentName").value || "—").trim() || "—";
@@ -1374,7 +1281,6 @@ function startGame(){
 
 function resetGame(){
   state.running = false;
-
   if(state.timer) clearInterval(state.timer);
   state.timer = null;
 
@@ -1404,7 +1310,6 @@ function resetGame(){
 
 function winGame(){
   state.running = false;
-
   if(state.timer) clearInterval(state.timer);
   state.timer = null;
 
@@ -1447,7 +1352,7 @@ function downloadCSV(){
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `streak25_report_${Date.now()}.csv`;
+  a.download = `future_forms_report_${Date.now()}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -1456,7 +1361,7 @@ function downloadCSV(){
 }
 
 /* ==========================================================
-   WIRES
+   Wires
 ========================================================== */
 el("startBtn").addEventListener("click", ()=>{
   if(state.running) return;
@@ -1491,7 +1396,7 @@ el("musicToggle").addEventListener("change", ()=>{
   }
 });
 
-/* initial UI */
+/* init */
 updateHeader();
 updateProgress();
 updateBankStats();
