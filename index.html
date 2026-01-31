@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Future Forms + First Conditional — Streak to 25 (Manga Colors)</title>
+<title>Future Forms + First Conditional — Fair (A/N/Q) — Streak to 25 (Manga Colors)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 
 <style>
@@ -540,12 +540,12 @@ body{
   #options.mode-multiple{grid-template-columns:1fr}
 }
 
-/* ===== BIG CHECK (wins cascade) ===== */
+/* ===== BIG CHECK ===== */
 #checkOrder.smallBtn{
   padding: 18px 32px !important;
   font-size: 19px !important;
   border-radius: 18px !important;
-  min-width: 220px !important;
+  min-width: 230px !important;
   border:2px solid rgba(0,0,0,.35) !important;
   color:#06101a !important;
   background: linear-gradient(180deg, var(--yellow), #ffb703) !important;
@@ -568,7 +568,7 @@ body{
       <div class="logo" aria-hidden="true">✦</div>
       <div>
         <h1 class="title">Future Forms + First Conditional</h1>
-        <p class="lead">Manga colors • adaptive practice • ordering never reveals the answer • win at <b>25 in a row</b></p>
+        <p class="lead">Fair mix (affirmative / negative / questions) • manga colors • win at <b>25 in a row</b></p>
       </div>
     </div>
 
@@ -604,15 +604,10 @@ body{
       </div>
 
       <div class="tipBox">
-        <b>What students practice</b><br>
-        • <b>will</b> (predictions / offers / promises)<br>
-        • <b>be going to</b> (plans / intentions)<br>
-        • <b>present continuous</b> (definite arrangements)<br>
-        • <b>present simple</b> (timetables / schedules)<br>
-        • <b>first conditional</b>: If + present, will + base verb<br><br>
-        <b>How it works</b><br>
-        • Multiple-choice rounds: choose the correct form.<br>
-        • Ordering rounds: build the sentence from scrambled words, then press <b>CHECK</b>.
+        <b>Fair practice rule</b><br>
+        In each topic (WILL / GOING TO / Pres. Cont. / Pres. Simple / First Conditional),
+        the game selects <b>Affirmative, Negative, and Questions</b> in equal rotation (1/3 each).<br><br>
+        <b>Ordering</b> happens sometimes. Build the sentence and press <b>CHECK</b>.
       </div>
 
       <div class="bankStats" id="bankStats">
@@ -659,7 +654,7 @@ body{
     </div>
 
     <div class="footer">
-      <div>Forms: will • going to • pres cont • pres simple • 1st conditional</div>
+      <div>Fair: affirmative • negative • questions (per topic)</div>
       <div>Goal: <span id="targetLabel">25</span> in a row</div>
     </div>
 
@@ -685,33 +680,64 @@ body{
 const TARGET_STREAK = 25;
 
 /* ==========================================================
-   BANKS (≥ 15 sentences each)
-   - Vocabulary + structures from the page:
-     places (aquarium, theme park, national park...)
-     activities (kayaking, canyoning, white-water rafting...)
-     recommendations key phrases
-     future forms uses
-     first conditional structure
+   BANKS — FAIR: each topic has aff/neg/q (≥15 each)
 ========================================================== */
 const BANKS = {
-  WILL: [
+  /* ---------- WILL (predictions/offers/promises) ---------- */
+  WILL_aff: [
     "I think it will be difficult to find a hotel at the last minute.",
     "Don’t worry — I’ll help you choose a national park to visit.",
-    "I’m sure your best option will be the aquarium if it rains.",
+    "Your best option will probably be the aquarium if it rains.",
     "I’ll call the phone repair shop and ask about the price.",
     "Personally, I think the theme park will be amazing.",
-    "Your best choice will probably be mountain biking this weekend.",
     "I’ll send you the address of the botanical gardens.",
     "The parade will start soon, so let’s get a good place to watch.",
     "I think the tower will look fantastic at sunset.",
     "We’ll meet you at the monument after lunch.",
     "I’ll buy the tickets online tonight.",
-    "It will be too windy for parasailing, I think.",
     "I’ll recommend a restaurant near the wildlife reserve.",
     "I think the ancient site will be crowded tomorrow.",
-    "I’ll bring snacks for the trip."
+    "I’ll bring snacks for the trip.",
+    "I’m sure the tour will be interesting.",
+    "I’ll text you the timetable now."
   ],
-  GOING_TO: [
+  WILL_neg: [
+    "I don’t think it will be easy to park near the theme park.",
+    "She won’t forget the tickets this time.",
+    "We won’t be late if we leave now.",
+    "It won’t be warm enough for paddleboarding today.",
+    "He won’t need a guide for the museum tour.",
+    "I won’t recommend that hotel — it’s too noisy.",
+    "They won’t miss the parade if they arrive early.",
+    "The shop won’t be open after six.",
+    "I won’t buy trainers today — I’ll wait for a discount.",
+    "It won’t take long to get to the monument.",
+    "We won’t go scuba diving if the sea is rough.",
+    "She won’t choose canyoning — she prefers kayaking.",
+    "I won’t call now — I’ll email them later.",
+    "The bus won’t arrive on time in this traffic.",
+    "He won’t enjoy the trip without water."
+  ],
+  WILL_q: [
+    "Will you recommend a good hotel around here?",
+    "Will the aquarium be open today?",
+    "Will you help me choose the best option?",
+    "Will they buy tickets online or at the gate?",
+    "Will the parade start on time?",
+    "Will you call the phone repair shop for me?",
+    "Will it be too windy for parasailing?",
+    "Will the train be late again?",
+    "Will she visit the botanical gardens tomorrow?",
+    "Will we have time to see the ancient site?",
+    "Will you bring snacks for the trip?",
+    "Will the tower look good at night?",
+    "Will he need a helmet for canyoning?",
+    "Will you text me the timetable?",
+    "Will they meet us at the monument?"
+  ],
+
+  /* ---------- BE GOING TO (plans/intentions) ---------- */
+  GOING_aff: [
     "We’re going to explore the national park on Saturday.",
     "I’m going to book a hotel near the botanical gardens.",
     "She’s going to try canyoning for the first time.",
@@ -728,7 +754,43 @@ const BANKS = {
     "We’re going to go scuba diving if the sea is calm.",
     "I’m going to recommend the theme park to my cousins."
   ],
-  PRES_CONT: [
+  GOING_neg: [
+    "I’m not going to buy tickets at the gate.",
+    "We aren’t going to stay in that hotel — it’s too expensive.",
+    "She isn’t going to go canyoning without a guide.",
+    "They’re not going to visit the aquarium today.",
+    "I’m not going to forget the timetable this time.",
+    "We aren’t going to go parasailing — it’s too windy.",
+    "He isn’t going to book the tour now.",
+    "I’m not going to ask for recommendations yet.",
+    "They’re not going to eat at the theme park.",
+    "We aren’t going to miss the parade.",
+    "She isn’t going to ride horses today.",
+    "I’m not going to take the bus — I’m going to walk.",
+    "They aren’t going to explore the national park in the rain.",
+    "We’re not going to buy new trainers this week.",
+    "He isn’t going to call the repair shop — he’ll email them."
+  ],
+  GOING_q: [
+    "Are you going to book a hotel near the tower?",
+    "Is she going to try kayaking this weekend?",
+    "Are they going to visit the aquarium after lunch?",
+    "Are we going to explore the national park tomorrow?",
+    "Are you going to ask for recommendations?",
+    "Is he going to buy trainers before the trek?",
+    "Are they going to watch the parade from the bridge?",
+    "Are you going to take photos at the ancient site?",
+    "Is she going to ride horses near the wildlife reserve?",
+    "Are we going to go sightseeing today?",
+    "Are you going to plan a route to the monument?",
+    "Is he going to call the phone repair shop?",
+    "Are they going to eat at a restaurant around here?",
+    "Are you going to recommend the theme park?",
+    "Are we going to go scuba diving if it’s calm?"
+  ],
+
+  /* ---------- PRESENT CONTINUOUS (arrangements) ---------- */
+  PC_aff: [
     "We’re meeting at the station at 8:00.",
     "I’m having lunch with my friend after the museum visit.",
     "She’s flying to Madrid tomorrow morning.",
@@ -745,7 +807,43 @@ const BANKS = {
     "We’re watching the parade from the bridge this evening.",
     "I’m calling you later to confirm the plan."
   ],
-  PRES_SIMPLE: [
+  PC_neg: [
+    "We aren’t meeting at the station — we’re meeting at the monument.",
+    "I’m not having lunch out today.",
+    "She isn’t flying tomorrow morning.",
+    "They aren’t visiting the aquarium this afternoon.",
+    "I’m not talking to the guide right now.",
+    "We aren’t staying in that hotel tonight.",
+    "He isn’t going kayaking on Friday.",
+    "I’m not taking my brother to the theme park.",
+    "They aren’t going mountain biking after school.",
+    "We aren’t going to the botanical gardens today.",
+    "I’m not seeing the teacher after class.",
+    "She isn’t meeting us at the tower.",
+    "They aren’t having a picnic tomorrow.",
+    "We aren’t watching the parade from the bridge.",
+    "I’m not calling you later — I’ll text you."
+  ],
+  PC_q: [
+    "Are we meeting at the station at 8:00?",
+    "Are you having lunch after the museum visit?",
+    "Is she flying tomorrow morning?",
+    "Are they visiting the theme park this afternoon?",
+    "Are you talking to a guide later?",
+    "Are we staying in a hotel near the tower tonight?",
+    "Is he going kayaking on Friday?",
+    "Are you taking your brother to the aquarium on Saturday?",
+    "Are they going mountain biking after school?",
+    "Are we going to the botanical gardens at 5:30?",
+    "Are you seeing the teacher after class?",
+    "Is she meeting us at the monument entrance?",
+    "Are they having a picnic in the national park tomorrow?",
+    "Are we watching the parade this evening?",
+    "Are you calling me later to confirm the plan?"
+  ],
+
+  /* ---------- PRESENT SIMPLE (timetables) ---------- */
+  PS_aff: [
     "The train leaves at 3 p.m.",
     "The tour starts at 10:15.",
     "The aquarium opens at nine.",
@@ -762,32 +860,114 @@ const BANKS = {
     "The ferry leaves every hour.",
     "The show ends at 9:00."
   ],
-  FIRST_COND: [
+  PS_neg: [
+    "The train doesn’t leave at 2 p.m. — it leaves at 3 p.m.",
+    "The tour doesn’t start at ten — it starts at 10:15.",
+    "The aquarium doesn’t open at eight.",
+    "The national park doesn’t close at five.",
+    "The museum bus doesn’t arrive every ten minutes.",
+    "The parade doesn’t begin at one o’clock.",
+    "The ticket office doesn’t shut at six.",
+    "The boat doesn’t depart at 9:30.",
+    "The theme park doesn’t open at 9:00 on weekends.",
+    "The guided walk doesn’t finish at 1:00.",
+    "The flight doesn’t land at 6:20.",
+    "The lesson doesn’t start at 9:05.",
+    "The coach doesn’t stop at the tower first.",
+    "The ferry doesn’t leave every two hours.",
+    "The show doesn’t end at 8:00."
+  ],
+  PS_q: [
+    "Does the train leave at 3 p.m.?",
+    "Does the tour start at 10:15?",
+    "Does the aquarium open at nine?",
+    "Does the national park close at six?",
+    "Does the museum bus arrive every thirty minutes?",
+    "Does the parade begin at noon?",
+    "Does the ticket office shut at 5:45?",
+    "Does the boat depart at 8:30?",
+    "Does the theme park open at 10:00 on weekends?",
+    "Does the guided walk finish at 2:00?",
+    "Does the flight land at 7:20?",
+    "Does the lesson start at 8:05?",
+    "Does the coach stop near the monument at 11:10?",
+    "Does the ferry leave every hour?",
+    "Does the show end at 9:00?"
+  ],
+
+  /* ---------- FIRST CONDITIONAL ---------- */
+  FC_aff: [
     "If the traffic is bad, we’ll miss our flight.",
     "If it rains, we’ll go to the aquarium instead.",
     "If you ask politely, they’ll recommend a good hotel.",
     "If we leave early, we’ll reach the national park before lunch.",
     "If you don’t book now, the theme park tickets will sell out.",
-    "If the sea is rough, we won’t go scuba diving.",
+    "If the sea is calm, we’ll go scuba diving.",
     "If you try canyoning, you’ll need a helmet.",
     "If you get lost, I’ll send you the location.",
     "If the parade starts late, we’ll wait near the tower.",
     "If you want advice, I’ll recommend the botanical gardens.",
     "If she finishes her homework, she’ll come sightseeing with us.",
-    "If the bus doesn’t arrive, we’ll take a taxi to the monument.",
-    "If it’s too windy, we won’t go parasailing.",
-    "If you don’t feel well, you’ll stay at the hotel.",
-    "If you practice the key phrases, you’ll sound more confident."
-  ]
+    "If the bus arrives late, we’ll take a taxi to the monument.",
+    "If you practice the key phrases, you’ll sound more confident.",
+    "If you pack water, you’ll feel better on the trek.",
+    "If we have time, we’ll visit the ancient site."
+  ],
+  FC_neg: [
+    "If the traffic is bad, we won’t catch the train.",
+    "If it rains, we won’t go paddleboarding.",
+    "If you don’t ask, they won’t give you recommendations.",
+    "If we leave late, we won’t reach the national park before lunch.",
+    "If you don’t book now, you won’t get a room in that hotel.",
+    "If the sea is rough, we won’t go scuba diving.",
+    "If you don’t wear a helmet, you won’t go canyoning.",
+    "If you get lost, don’t worry — I won’t stop helping you.",
+    "If the parade starts late, we won’t panic.",
+    "If you don’t check the timetable, you won’t know the time.",
+    "If she doesn’t finish her homework, she won’t come with us.",
+    "If the bus doesn’t arrive, we won’t wait forever.",
+    "If you don’t practice the phrases, you won’t sound confident.",
+    "If you don’t drink water, you won’t feel well on the trek.",
+    "If we don’t have time, we won’t visit the ancient site."
+  ],
+  FC_q: [
+    "What will you do if the traffic is bad?",
+    "Where will we go if it rains?",
+    "Will you recommend a good hotel if I ask politely?",
+    "What will happen if we leave late?",
+    "Will the tickets sell out if we don’t book now?",
+    "Will we go scuba diving if the sea is calm?",
+    "What will you need if you try canyoning?",
+    "Will you send me the location if I get lost?",
+    "What will we do if the parade starts late?",
+    "Will you recommend the botanical gardens if I want advice?",
+    "Will she come sightseeing if she finishes her homework?",
+    "What will we do if the bus doesn’t arrive?",
+    "Will you sound more confident if you practice the key phrases?",
+    "Will you feel better if you drink water?",
+    "Will we visit the ancient site if we have time?"
+  ],
 };
 
-const BANK_META = [
-  { key:"WILL",        label:"Future form — WILL",                hint:"predictions • offers • promises", icon:"🟨", css:"choiceWILL" },
-  { key:"GOING_TO",    label:"Future form — BE GOING TO",         hint:"plans • intentions",            icon:"💗", css:"choiceGOING" },
-  { key:"PRES_CONT",   label:"Future meaning — PRESENT CONT.",    hint:"definite arrangements",         icon:"🟦", css:"choicePC" },
-  { key:"PRES_SIMPLE", label:"Future meaning — PRESENT SIMPLE",   hint:"timetables • schedules",        icon:"🟩", css:"choicePS" },
-  { key:"FIRST_COND",  label:"First conditional",                hint:"If + present, will + base",      icon:"🟪", css:"choiceCOND" },
+/* ==========================================================
+   TOPICS + FAIR ROTATION (A / N / Q)
+========================================================== */
+const TOPICS = [
+  { id:"WILL",  label:"Future form — WILL",              hint:"predictions • offers • promises", css:"choiceWILL", icon:"🟨",
+    subs:["WILL_aff","WILL_neg","WILL_q"] },
+  { id:"GOING", label:"Future form — BE GOING TO",       hint:"plans • intentions",              css:"choiceGOING", icon:"💗",
+    subs:["GOING_aff","GOING_neg","GOING_q"] },
+  { id:"PC",    label:"Future meaning — PRESENT CONT.",  hint:"definite arrangements",          css:"choicePC", icon:"🟦",
+    subs:["PC_aff","PC_neg","PC_q"] },
+  { id:"PS",    label:"Future meaning — PRESENT SIMPLE", hint:"timetables • schedules",         css:"choicePS", icon:"🟩",
+    subs:["PS_aff","PS_neg","PS_q"] },
+  { id:"FC",    label:"First conditional",               hint:"If + present, will + base",      css:"choiceCOND", icon:"🟪",
+    subs:["FC_aff","FC_neg","FC_q"] },
 ];
+
+const SUB_TO_TOPIC = Object.fromEntries(
+  TOPICS.flatMap(t => t.subs.map(s => [s, t.id]))
+);
 
 /* ==========================================================
    STATE
@@ -801,17 +981,23 @@ const state = {
   seconds:0,
   timer:null,
 
-  stats: Object.fromEntries(BANK_META.map(b => [b.key, {attempts:0, correct:0, wrong:0, recentWrong:0}])),
+  // Adaptive is by TOPIC (WILL/GOING/PC/PS/FC)
+  stats: Object.fromEntries(TOPICS.map(t => [t.id, {attempts:0, correct:0, wrong:0, recentWrong:0}])),
 
-  remediation: { bankKey:null, remaining:0 },
-  lastBankKey:null,
+  remediation: { topicId:null, remaining:0 },
+  lastTopicId:null,
 
-  round:null,        // {mode, bankKey, sentence, correctKey, targetWords, orderWords}
+  // fair rotation pointer per topic
+  fairPtr: Object.fromEntries(TOPICS.map(t => [t.id, 0])),
+
+  // round
+  round:null,        // {mode, topicId, subKey, sentence, correctKey, targetWords, orderWords}
   orderSelected:[],
 
   log:[],
 
-  recentByBank: Object.fromEntries(BANK_META.map(b => [b.key, []]))
+  // no-repeat memory per subKey
+  recentBySub: Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []])))
 };
 
 /* ==========================================================
@@ -863,11 +1049,11 @@ function escapeHtml(s){
 }
 
 function updateBankStats(){
-  const arr = BANK_META.map(b=>{
-    const s = state.stats[b.key];
+  const arr = TOPICS.map(t=>{
+    const s = state.stats[t.id];
     const acc = s.attempts ? (s.correct / s.attempts) : 1;
     const weightHint = (s.recentWrong*2) + (s.wrong) + (1-acc)*3;
-    return { key:b.key, label:b.label, wrong:s.wrong, recentWrong:s.recentWrong, acc, weightHint };
+    return { id:t.id, label:t.label, wrong:s.wrong, recentWrong:s.recentWrong, acc, weightHint };
   }).sort((a,b)=> b.weightHint - a.weightHint);
 
   const top = arr.slice(0,2).map(x=>{
@@ -876,7 +1062,7 @@ function updateBankStats(){
   }).join("<br>");
 
   el("bankStats").innerHTML =
-    `<b>Adaptive engine:</b><br>${top}<br><span style="color:rgba(247,251,255,.72)">Mistakes make that category appear more often.</span>`;
+    `<b>Adaptive engine:</b><br>${top}<br><span style="color:rgba(247,251,255,.72)">Mistakes make that topic appear more often.</span>`;
 }
 
 function setCard(label, text){
@@ -897,14 +1083,14 @@ function normalizeSentence(s){
 }
 
 /* ==========================================================
-   NO-REPEAT sentence picker
+   NO-REPEAT sentence picker (per subbank)
 ========================================================== */
 const RECENT_LIMIT = 8;
 const REROLL_TRIES = 12;
 
-function pickSentenceNoRepeat(bankKey){
-  const bank = BANKS[bankKey];
-  const recent = state.recentByBank[bankKey] || [];
+function pickSentenceNoRepeat(subKey){
+  const bank = BANKS[subKey];
+  const recent = state.recentBySub[subKey] || [];
 
   let chosen = bank[Math.floor(Math.random()*bank.length)];
   for(let t=0; t<REROLL_TRIES; t++){
@@ -917,38 +1103,49 @@ function pickSentenceNoRepeat(bankKey){
 
   recent.push(chosen);
   while(recent.length > RECENT_LIMIT) recent.shift();
-  state.recentByBank[bankKey] = recent;
+  state.recentBySub[subKey] = recent;
   return chosen;
 }
 
 /* ==========================================================
-   Adaptive bank picker
+   Adaptive TOPIC picker
 ========================================================== */
-function pickBankKey(){
-  if(state.remediation.remaining > 0 && state.remediation.bankKey){
+function pickTopicId(){
+  if(state.remediation.remaining > 0 && state.remediation.topicId){
     state.remediation.remaining--;
-    return state.remediation.bankKey;
+    return state.remediation.topicId;
   }
 
-  const weights = BANK_META.map(b=>{
-    const st = state.stats[b.key];
+  const weights = TOPICS.map(t=>{
+    const st = state.stats[t.id];
     const acc = st.attempts ? (st.correct / st.attempts) : 0.75;
     let w = 1.0;
     w += st.wrong * 0.35;
     w += st.recentWrong * 0.75;
     w += (1 - acc) * 2.2;
     if(st.attempts === 0) w += 1.2;
-    if(state.lastBankKey === b.key) w *= 0.65;
-    return { key:b.key, w };
+    if(state.lastTopicId === t.id) w *= 0.65;
+    return { id:t.id, w };
   });
 
   const sum = weights.reduce((a,x)=>a+x.w,0);
   let r = Math.random() * sum;
   for(const x of weights){
     r -= x.w;
-    if(r <= 0) return x.key;
+    if(r <= 0) return x.id;
   }
-  return weights[weights.length-1].key;
+  return weights[weights.length-1].id;
+}
+
+/* ==========================================================
+   FAIR subbank selection: rotates aff -> neg -> q
+========================================================== */
+function pickSubKeyFair(topicId){
+  const topic = TOPICS.find(t=>t.id===topicId);
+  const idx = state.fairPtr[topicId] || 0;
+  const subKey = topic.subs[idx % topic.subs.length];
+  state.fairPtr[topicId] = (idx + 1) % topic.subs.length;
+  return subKey;
 }
 
 /* ==========================================================
@@ -958,21 +1155,22 @@ function pickBankKey(){
      streak ≥ 12 → 0.30
 ========================================================== */
 function makeRound(){
-  const bankKey = pickBankKey();
-  const sentence = pickSentenceNoRepeat(bankKey);
+  const topicId = pickTopicId();
+  const subKey = pickSubKeyFair(topicId);
+  const sentence = pickSentenceNoRepeat(subKey);
 
   const orderChance = state.streak >= 12 ? 0.30 : 0.20;
   const mode = Math.random() < orderChance ? "order" : "multiple";
 
-  state.lastBankKey = bankKey;
+  state.lastTopicId = topicId;
 
   if(mode === "multiple"){
-    return { mode, bankKey, sentence, correctKey: bankKey };
+    return { mode, topicId, subKey, sentence, correctKey: topicId };
   }
 
   const targetWords = normalizeSentence(sentence).split(" ");
   const orderWords = shuffle(targetWords);
-  return { mode:"order", bankKey, sentence, targetWords, orderWords };
+  return { mode:"order", topicId, subKey, sentence, targetWords, orderWords };
 }
 
 /* ==========================================================
@@ -1030,12 +1228,11 @@ function resetOrder(){
   renderSelectedChips();
 }
 
-function buildChoices(correctKey){
-  // choose 3 distractors from other banks
-  const others = BANK_META.map(b=>b.key).filter(k=>k !== correctKey);
+/* Build 4 choices: correct topic + 3 other topics */
+function buildChoices(correctTopicId){
+  const others = TOPICS.map(t=>t.id).filter(id=>id !== correctTopicId);
   const distractors = shuffle(others).slice(0,3);
-  const all = shuffle([correctKey, ...distractors]);
-  return all;
+  return shuffle([correctTopicId, ...distractors]);
 }
 
 function renderRound(){
@@ -1043,11 +1240,10 @@ function renderRound(){
   state.orderSelected = [];
   updateBankStats();
 
-  const meta = BANK_META.find(x=>x.key===state.round.bankKey);
+  const topic = TOPICS.find(t=>t.id===state.round.topicId);
 
   if(state.round.mode === "multiple"){
-    // show sentence; student chooses which form it is
-    setCard(meta.label, state.round.sentence);
+    setCard(topic.label, state.round.sentence);
 
     el("orderBox").textContent = "Ordering box is used only for ordering rounds.";
     el("resetOrder").style.display = "none";
@@ -1057,19 +1253,18 @@ function renderRound(){
     el("options").classList.add("mode-multiple");
 
     const keys = buildChoices(state.round.correctKey);
-
-    keys.forEach(k=>{
-      const m = BANK_META.find(x=>x.key===k);
+    keys.forEach(id=>{
+      const t = TOPICS.find(x=>x.id===id);
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = `choiceCard ${m.css}`;
+      btn.className = `choiceCard ${t.css}`;
       btn.innerHTML = `
-        <div class="choiceIcon">${escapeHtml(m.icon)}</div>
-        <div class="choiceText">${escapeHtml(m.label.replace("Future form — ","").replace("Future meaning — ",""))}
-          <small>${escapeHtml(m.hint)}</small>
+        <div class="choiceIcon">${escapeHtml(t.icon)}</div>
+        <div class="choiceText">${escapeHtml(t.label.replace("Future form — ","").replace("Future meaning — ",""))}
+          <small>${escapeHtml(t.hint)}</small>
         </div>
       `;
-      btn.onclick = ()=> submitMultiple(k);
+      btn.onclick = ()=> submitMultiple(id);
       el("options").appendChild(btn);
     });
 
@@ -1078,7 +1273,7 @@ function renderRound(){
   }
 
   // ordering mode (do NOT show the exact sentence)
-  setCard(meta.label, "Build the sentence from the scrambled words below.");
+  setCard(topic.label, "Build the sentence from the scrambled words below.");
 
   el("orderBox").textContent = "Tap words to build the sentence. Tap a chip to remove it.";
   el("resetOrder").style.display = "inline-flex";
@@ -1104,15 +1299,15 @@ function renderRound(){
 /* ==========================================================
    Submit / Check
 ========================================================== */
-function submitMultiple(choiceKey){
+function submitMultiple(choiceTopicId){
   if(!state.running) return;
-  const ok = (choiceKey === state.round.correctKey);
+  const ok = (choiceTopicId === state.round.correctKey);
 
-  const chosen = BANK_META.find(x=>x.key===choiceKey);
-  const correct = BANK_META.find(x=>x.key===state.round.correctKey);
+  const chosen = TOPICS.find(x=>x.id===choiceTopicId);
+  const correct = TOPICS.find(x=>x.id===state.round.correctKey);
 
   gradeRound(ok, {
-    chosen: chosen ? chosen.label : choiceKey,
+    chosen: chosen ? chosen.label : choiceTopicId,
     correct: correct ? correct.label : state.round.correctKey
   });
 }
@@ -1136,12 +1331,12 @@ function showFeedback(ok, detail, isWin){
   el("fbTitle").textContent = ok ? (isWin ? "Streak complete!" : "Correct!") : "Not yet";
   el("fbSub").textContent = ok
     ? (isWin ? `You reached ${TARGET_STREAK} correct answers in a row!` : `Streak: ${state.streak} / ${TARGET_STREAK}`)
-    : `Streak reset to 0. We’ll practice this category again.`;
+    : `Streak reset to 0. We’ll practice this topic again.`;
 
   let d = "";
   if(state.round.mode === "multiple"){
     d = ok
-      ? `Correct form: ${detail.correct}`
+      ? `Correct topic: ${detail.correct}`
       : `You chose: ${detail.chosen}\nCorrect: ${detail.correct}`;
   } else {
     d = ok
@@ -1169,13 +1364,14 @@ function afterFeedbackAutoNext(isWin){
    Grading
 ========================================================== */
 function logAttempt(ok, detail){
-  const meta = BANK_META.find(x=>x.key===state.round.bankKey);
+  const topic = TOPICS.find(x=>x.id===state.round.topicId);
   state.log.push({
     time_s: state.seconds,
     ok: ok ? 1 : 0,
     streak_after: state.streak,
-    bank: state.round.bankKey,
-    bank_label: meta ? meta.label : state.round.bankKey,
+    topic: state.round.topicId,
+    subbank: state.round.subKey,
+    topic_label: topic ? topic.label : state.round.topicId,
     mode: state.round.mode,
     prompt: state.round.mode === "multiple" ? state.round.sentence : "(ordering round)",
     detail: JSON.stringify(detail || {})
@@ -1183,7 +1379,7 @@ function logAttempt(ok, detail){
 }
 
 function gradeRound(ok, detail){
-  const st = state.stats[state.round.bankKey];
+  const st = state.stats[state.round.topicId];
   st.attempts++;
 
   if(ok){
@@ -1210,7 +1406,7 @@ function gradeRound(ok, detail){
   st.wrong++;
   st.recentWrong++;
 
-  state.remediation.bankKey = state.round.bankKey;
+  state.remediation.topicId = state.round.topicId;
   state.remediation.remaining = 2;
 
   state.streak = 0;
@@ -1246,13 +1442,14 @@ function startGame(){
   state.score = 0;
   state.seconds = 0;
   state.log = [];
-  state.remediation = { bankKey:null, remaining:0 };
-  state.lastBankKey = null;
+  state.remediation = { topicId:null, remaining:0 };
+  state.lastTopicId = null;
 
   for(const k of Object.keys(state.stats)){
     state.stats[k] = {attempts:0, correct:0, wrong:0, recentWrong:0};
   }
-  state.recentByBank = Object.fromEntries(BANK_META.map(b => [b.key, []]));
+  state.fairPtr = Object.fromEntries(TOPICS.map(t => [t.id, 0]));
+  state.recentBySub = Object.fromEntries(TOPICS.flatMap(t => t.subs.map(s => [s, []])));
 
   el("playerName").textContent = (el("studentName").value || "—").trim() || "—";
 
@@ -1338,9 +1535,9 @@ function closeCelebration(){
 ========================================================== */
 function downloadCSV(){
   const rows = [
-    ["time_s","ok","streak_after","bank","bank_label","mode","prompt","detail"],
+    ["time_s","ok","streak_after","topic","subbank","topic_label","mode","prompt","detail"],
     ...state.log.map(r=>[
-      r.time_s, r.ok, r.streak_after, r.bank, r.bank_label, r.mode,
+      r.time_s, r.ok, r.streak_after, r.topic, r.subbank, r.topic_label, r.mode,
       r.prompt.replaceAll('"','""'),
       r.detail.replaceAll('"','""')
     ])
@@ -1352,7 +1549,7 @@ function downloadCSV(){
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `future_forms_report_${Date.now()}.csv`;
+  a.download = `future_forms_fair_report_${Date.now()}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -1403,6 +1600,7 @@ updateBankStats();
 </script>
 </body>
 </html>
+
 
 
 
