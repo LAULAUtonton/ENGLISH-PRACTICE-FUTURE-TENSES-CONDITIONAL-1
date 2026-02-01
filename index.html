@@ -4,463 +4,418 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Future Grammar Mastery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 
   <style>
-:root {
-  --bg: #0099cc;
-  --card-bg: #555555;
-  --text: #ffffff;
-  --btn-cyan: #00ffff;
-  --btn-yellow: #ffb703;
-  --btn-red: #d00000;
-  --btn-purple: #c77dff;
-  --bar-bg: #002b36;
-  --bar-fill: #00ff99;
-  --accent: #00e5ff;
-}
+    :root{
+      --bg:#0099cc;
+      --card:#515151;
+      --panel:#004b63;
+      --ink:#ffffff;
 
-* { box-sizing: border-box; }
+      --cyan:#00ffff;
+      --yellow:#ffb703;
+      --red:#d00000;
+      --purple:#c77dff;
+      --green:#00ff99;
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
+      --bar:#002b36;
+    }
 
-.app {
-  max-width: 960px;
-  margin: auto;
-  padding: 20px;
-}
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
 
-header {
-  text-align: center;
-  margin-bottom: 14px;
-}
+    .app{ max-width:980px; margin:0 auto; padding:16px; }
 
-header h1 {
-  font-size: 2.2rem;
-  margin: 0;
-  text-shadow: 0 0 10px #000;
-  font-weight: 900;
-}
+    header{ text-align:center; margin-bottom:12px; }
+    h1{
+      margin:0;
+      font-size:2rem;
+      font-weight:900;
+      text-shadow:0 0 10px rgba(0,0,0,.35);
+    }
+    header p{
+      margin:6px 0 10px;
+      font-weight:800;
+      opacity:.95;
+    }
 
-header p {
-  margin: 6px 0 12px;
-  font-weight: 800;
-}
+    .top-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:8px;
+    }
 
-.top-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  align-items: center;
-}
+    .name-box{
+      background:var(--panel);
+      padding:8px 10px;
+      border-radius:14px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      box-shadow:0 0 10px rgba(0,0,0,.22);
+    }
+    .name-box span{ font-weight:900; }
+    .name-box input{
+      border:none;
+      outline:none;
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:1rem;
+      font-weight:900;
+      min-width:170px;
+    }
 
-.name-box {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  background: #004b63;
-  padding: 8px 10px;
-  border-radius: 12px;
-  box-shadow: 0 0 6px #00000055;
-}
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+    }
 
-.name-box input {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 1rem;
-  font-weight: 800;
-  outline: none;
-  min-width: 170px;
-}
+    .btn{
+      border:none;
+      border-radius:16px;
+      padding:12px 18px;
+      font-weight:900;
+      font-size:1rem;
+      cursor:pointer;
+      box-shadow:0 0 14px rgba(0,0,0,.25);
+      transition:transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); filter:brightness(1.06); }
 
-.warning {
-  color: #ffdddd;
-  font-size: 0.9rem;
-  min-height: 18px;
-  text-align: center;
-  margin-top: 6px;
-  font-weight: 800;
-}
+    .btn.cyan{ background:var(--cyan); color:#001018; }
+    .btn.purple{ background:var(--purple); color:#120018; }
+    .btn.red{ background:var(--red); color:#fff; }
+    .btn.yellow{ background:var(--yellow); color:#2b1500; }
 
-.audioStatus {
-  color: #d9ffff;
-  font-size: 0.85rem;
-  min-height: 18px;
-  text-align: center;
-  margin-top: 4px;
-  font-weight: 800;
-  opacity: .95;
-}
+    .warning{
+      margin-top:8px;
+      min-height:18px;
+      font-weight:900;
+      color:#ffe3e3;
+    }
+    .audioStatus{
+      margin-top:4px;
+      min-height:18px;
+      font-weight:900;
+      color:#e8ffff;
+      opacity:.95;
+    }
 
-.controls {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    /* Minimal stats */
+    .stats{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:stretch;
+      justify-content:center;
+      margin:12px 0 14px;
+    }
+    .stat{
+      background:var(--panel);
+      border-radius:14px;
+      padding:10px 12px;
+      min-width:140px;
+      text-align:center;
+      box-shadow:0 0 10px rgba(0,0,0,.22);
+    }
+    .stat .label{ font-size:.8rem; font-weight:900; opacity:.9; }
+    .stat .value{ font-size:1.05rem; font-weight:900; margin-top:2px; }
 
-.btn {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 14px;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 0 10px #00000055;
-  font-size: 1rem;
-  transition: transform .12s ease, filter .12s ease;
-}
-.btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+    .progressWrap{
+      flex:1;
+      min-width:240px;
+      background:var(--panel);
+      border-radius:14px;
+      padding:10px 12px;
+      box-shadow:0 0 10px rgba(0,0,0,.22);
+    }
+    .progressWrap .label{
+      text-align:left;
+      font-size:.8rem;
+      font-weight:900;
+      opacity:.92;
+    }
+    .bar{
+      margin-top:8px;
+      height:22px;
+      background:var(--bar);
+      border-radius:999px;
+      overflow:hidden;
+      border:2px solid rgba(0,255,255,.65);
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--green), var(--cyan));
+      transition:width .25s ease;
+    }
 
-.btn.cyan { background: var(--btn-cyan); color: #000; }
-.btn.yellow { background: var(--btn-yellow); color: #000; }
-.btn.red { background: var(--btn-red); color: #fff; }
-.btn.purple { background: var(--btn-purple); color: #000; }
+    .card{
+      background:var(--card);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 0 14px rgba(0,0,0,.35);
+    }
 
-.stats {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-}
+    .prompt{
+      text-align:center;
+      font-weight:900;
+      font-size:1.12rem;
+      margin:0 0 10px;
+    }
 
-.stat-box {
-  background: #004b63;
-  padding: 10px 12px;
-  border-radius: 12px;
-  min-width: 120px;
-  text-align: center;
-  box-shadow: 0 0 6px #00000055;
-}
+    .activityTag{
+      display:inline-block;
+      margin:0 auto 12px;
+      padding:6px 12px;
+      border-radius:999px;
+      font-weight:900;
+      background:rgba(0,0,0,.22);
+      border:2px solid rgba(255,255,255,.16);
+      box-shadow:0 0 10px rgba(0,0,0,.18);
+    }
+    .tagWrap{ text-align:center; }
 
-.stat-label {
-  font-size: 0.8rem;
-  opacity: 0.95;
-  font-weight: 800;
-}
+    .interaction{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      min-height:52px;
+      padding-bottom:10px;
+      border-bottom:2px solid rgba(0,255,255,.32);
+      margin-bottom:12px;
+    }
 
-.stat-value {
-  font-size: 1.02rem;
-  font-weight: 900;
-}
+    /* ORDER word bank */
+    .word-bank{
+      background:#1f1f1f;
+      padding:14px;
+      border-radius:16px;
+      min-height:58px;
+      box-shadow:0 3px 10px rgba(0,0,0,.25);
+    }
+    .wordItem{
+      display:inline-block;
+      background:#ffffff;
+      color:#000;
+      border:2px solid #3b3b3b;
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:900;
+      font-size:1.05rem;
+      cursor:pointer;
+      margin:0 10px 10px 0;
+      box-shadow:0 2px 6px rgba(0,0,0,.22);
+      user-select:none;
+    }
+    .builtWord{
+      background:#111;
+      color:#fff;
+      border:2px solid rgba(255,255,255,.14);
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:900;
+      font-size:1.05rem;
+      cursor:pointer;
+      user-select:none;
+      box-shadow:0 2px 8px rgba(0,0,0,.25);
+    }
 
-.progress-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 200px;
-  background:#004b63;
-  padding: 10px 12px;
-  border-radius: 12px;
-  box-shadow: 0 0 6px #00000055;
-}
+    /* Cards area (NEXT WORD + INTENT) */
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width:680px){
+      .cards{ grid-template-columns:1fr; }
+      h1{ font-size:1.7rem; }
+    }
 
-.progress-label {
-  font-size: 0.85rem;
-  font-weight: 900;
-  text-align:left;
-}
+    .cardBtn{
+      border:none;
+      border-radius:18px;
+      padding:16px 16px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:1.08rem;
+      color:#0b0b0b;
+      box-shadow:0 0 16px rgba(0,0,0,.28);
+      border:3px solid rgba(255,255,255,.22);
+      text-align:left;
+      transition:transform .12s ease, filter .12s ease;
+      min-height:76px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:6px;
+    }
+    .cardBtn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
 
-.progress-bar {
-  position: relative;
-  width: 100%;
-  height: 22px;
-  background: var(--bar-bg);
-  border-radius: 999px;
-  overflow: hidden;
-  border: 2px solid #00ffffaa;
-}
+    .cardTitle{ font-size:1.08rem; font-weight:900; }
+    .cardDesc{ font-size:.9rem; font-weight:800; opacity:.92; }
 
-.progress-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--bar-fill), #00ffff);
-  transition: width 0.25s ease-out;
-}
+    /* Vibrant classes */
+    .c-prediction{ background:linear-gradient(135deg,#00ffff,#00ff99); }
+    .c-offer{ background:linear-gradient(135deg,#ffb703,#ffd166); }
+    .c-decision{ background:linear-gradient(135deg,#c77dff,#ff4dff); color:#140018; }
+    .c-announce{ background:linear-gradient(135deg,#ffffff,#b9f6ff); }
 
-.card {
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 0 12px #00000088;
-}
+    .c-plan{ background:linear-gradient(135deg,#00ff99,#00ffff); }
+    .c-evidence{ background:linear-gradient(135deg,#ff4d6d,#ffb703); color:#180007; }
 
-.prompt {
-  font-size: 1.15rem;
-  margin-bottom: 8px;
-  text-align: center;
-  font-weight: 900;
-}
+    .c-arrange{ background:linear-gradient(135deg,#8aff00,#00ffff); }
 
-.typeLine {
-  text-align:center;
-  font-weight: 900;
-  margin-bottom: 10px;
-  color: #fff6cf;
-  text-shadow: 0 0 10px rgba(0,0,0,.28);
-}
+    .c-schedule{ background:linear-gradient(135deg,#ffffff,#00ffff); }
 
-.interaction {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  min-height: 50px;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #00ffff55;
-  justify-content:center;
-}
+    .c-warning{ background:linear-gradient(135deg,#ff0033,#ffb703); color:#1a0006; }
+    .c-advice{ background:linear-gradient(135deg,#00ffff,#c77dff); }
+    .c-plancond{ background:linear-gradient(135deg,#00ff99,#8aff00); }
+    .c-predres{ background:linear-gradient(135deg,#ffd166,#ff4dff); }
 
-.word-bank-container {
-  background-color: #1f1f1f;
-  padding: 14px;
-  border-radius: 12px;
-  margin-top: 10px;
-  margin-bottom: 12px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
-  min-height: 52px;
-}
+    .feedback{
+      margin-top:12px;
+      min-height:26px;
+      text-align:center;
+      font-weight:900;
+      font-size:1.05rem;
+    }
+    .ok{ color:#a8ffd0; }
+    .no{ color:#ffd1d1; }
 
-.word-bank-item {
-  background-color: #ffffff;
-  color: #000000;
-  border: 2px solid #444444;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-weight: 900;
-  font-size: 1.05rem;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  margin-right: 10px;
-  margin-bottom: 10px;
-  display: inline-block;
-  user-select: none;
-}
+    .actions{
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
 
-.word.selected {
-  background: #333333;
-  color: #ffffff;
-  border: 2px solid #000000;
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-weight: 900;
-  font-size: 1.05rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-  user-select: none;
-}
-
-.feedback {
-  margin-top: 6px;
-  font-weight: 900;
-  min-height: 26px;
-  text-align: center;
-  font-size: 1.05rem;
-}
-.feedback.ok { color: #9cffb5; }
-.feedback.no { color: #ffb3b3; }
-
-.actions {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-/* intent / mcq area */
-.typeArea {
-  margin-top: 10px;
-}
-.mcqRow{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-}
-.mcqBtn{
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 2px solid rgba(255,255,255,.22);
-  font-weight: 900;
-  cursor:pointer;
-  background: rgba(0,0,0,.18);
-  color:#fff;
-  box-shadow: 0 0 10px rgba(0,0,0,.25);
-  min-width: 210px;
-  text-align:left;
-}
-.mcqBtn:hover{ filter:brightness(1.06); transform: translateY(-1px); }
-.mcqSmall{ display:block; font-size:.88rem; opacity:.92; font-weight:800; margin-top:4px; }
-
-.fillRow{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top: 10px;
-}
-.fillInput{
-  padding: 12px 12px;
-  border-radius: 14px;
-  border: 2px solid rgba(255,255,255,.25);
-  font-size:1.05rem;
-  font-weight:900;
-  outline:none;
-  min-width: 260px;
-}
-
-.hidden{ display:none !important; }
-
-@media (max-width: 600px) {
-  header h1 { font-size: 1.75rem; }
-  .mcqBtn{ min-width: 170px; }
-}
+    .hidden{ display:none !important; }
   </style>
 </head>
 
 <body>
-<!-- Background music -->
-<audio id="bgm" loop preload="auto">
-  <source src="audio/koala2.mp3" type="audio/mpeg">
-</audio>
+  <!-- Background music -->
+  <audio id="bgm" loop preload="auto">
+    <source src="audio/koala2.mp3" type="audio/mpeg">
+  </audio>
 
-<!-- Victory sound (optional, keep if you have file) -->
-<audio id="winSound" preload="auto">
-  <source src="tadaa.mp3" type="audio/mpeg">
-</audio>
+  <!-- Optional win sound -->
+  <audio id="winSound" preload="auto">
+    <source src="tadaa.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="app">
-  <header>
-    <h1>Future Grammar Mastery</h1>
-    <p>4 mixed activities • includes speaker intention</p>
+  <div class="app">
+    <header>
+      <h1>Future Grammar Mastery</h1>
+      <p>ORDER • NEXT WORD • INTENT (mixed)</p>
 
-    <div class="top-row">
-      <div class="name-box">
-        <span style="font-size:0.9rem;font-weight:900;">Name:</span>
-        <input id="playerName" type="text" placeholder="Enter your name">
+      <div class="top-row">
+        <div class="name-box">
+          <span>Name:</span>
+          <input id="playerName" type="text" placeholder="Enter your name">
+        </div>
+
+        <div class="controls">
+          <button class="btn cyan" onclick="startGame()">Start</button>
+          <button class="btn purple" id="musicBtn" onclick="toggleMusic()">Music: OFF</button>
+          <button class="btn red" onclick="resetGame()">Reset</button>
+        </div>
       </div>
 
-      <div class="controls">
-        <button class="btn cyan" onclick="startGame()">Start</button>
-        <button class="btn purple" id="musicBtn" onclick="toggleMusic()">Music: OFF</button>
-        <button class="btn red" onclick="resetGame()">Reset</button>
+      <div class="warning" id="nameWarning"></div>
+      <div class="audioStatus" id="audioStatus"></div>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Player</div>
+        <div class="value" id="displayName">---</div>
+      </div>
+
+      <div class="stat">
+        <div class="label">Streak</div>
+        <div class="value"><span id="streak">0</span> / 25</div>
+      </div>
+
+      <div class="progressWrap">
+        <div class="label">Progress</div>
+        <div class="bar"><div class="fill" id="progressFill"></div></div>
+      </div>
+
+      <div class="stat">
+        <div class="label">Time</div>
+        <div class="value" id="timerDisplay">00:00</div>
       </div>
     </div>
 
-    <div class="warning" id="nameWarning"></div>
-    <div class="audioStatus" id="audioStatus"></div>
-  </header>
+    <div class="card">
+      <p class="prompt" id="prompt">Enter your name and click Start</p>
+      <div class="tagWrap"><span class="activityTag" id="activityTag">Activity: ---</span></div>
 
-  <div class="stats">
-    <div class="stat-box">
-      <div class="stat-label">Player</div>
-      <div class="stat-value" id="displayName">---</div>
-    </div>
+      <div class="interaction" id="interaction"></div>
 
-    <div class="stat-box">
-      <div class="stat-label">Activity</div>
-      <div class="stat-value" id="typeStat">---</div>
-    </div>
+      <!-- Cards area (NEXT WORD / INTENT) -->
+      <div id="cardsArea" class="cards hidden"></div>
 
-    <div class="stat-box">
-      <div class="stat-label">Streak</div>
-      <div class="stat-value"><span id="streak">0</span> / 25</div>
-    </div>
+      <!-- Word bank (ORDER) -->
+      <div class="word-bank hidden" id="wordBank"></div>
 
-    <div class="progress-wrapper">
-      <div class="progress-label">Progress to mastery (25 in a row)</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+      <div class="feedback" id="feedback"></div>
+
+      <!-- Actions only for ORDER -->
+      <div class="actions hidden" id="orderActions">
+        <button class="btn red" onclick="clearWords()">Clear</button>
+        <button class="btn yellow" onclick="checkOrder()">Check</button>
       </div>
-    </div>
-
-    <div class="stat-box">
-      <div class="stat-label">Strikes</div>
-      <div class="stat-value" id="strikes">0</div>
-    </div>
-
-    <div class="stat-box">
-      <div class="stat-label">Time</div>
-      <div class="stat-value" id="timerDisplay">00:00</div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="prompt" id="prompt">Enter your name and click Start</div>
-    <div class="typeLine" id="typeDisplay">Activity: ---</div>
-
-    <div class="interaction" id="interaction"></div>
-
-    <!-- Activity-specific area (intent cards / next-word mcq / fill input) -->
-    <div class="typeArea" id="typeArea"></div>
-
-    <!-- Word bank (ORDER only) -->
-    <div class="word-bank-container" id="choices"></div>
-
-    <div class="feedback" id="feedback"></div>
-
-    <div class="actions" id="actionRow">
-      <button class="btn red" onclick="clearWords()">Clear</button>
-      <button class="btn yellow" onclick="checkAnswer()">Check</button>
-    </div>
-  </div>
-</div>
 
 <script>
 /* -----------------------------------------------------------
-   KEEP YOUR WORKING SENTENCE POOL (for ORDER/FILL/NEXT_WORD)
-   (This is your original idea: plain sentences)
+   DATA — Sentences (ORDER + NEXT WORD) keep working pool
 ----------------------------------------------------------- */
 const sentences = [
   "The train leaves at 8 a.m. tomorrow.","School starts at 9 o'clock on Monday.","The plane lands at 3:15 p.m.","The football match kicks off at noon.","The shop opens at 9 a.m. on Saturday.","The concert begins at 7 p.m. next Friday.","The ferry departs at 2 p.m.","My flight departs at 6 in the morning.","The museum closes at 6 p.m.","Our exam starts at 10 a.m. sharp.","The show begins at 7:30 tonight.","The train to Madrid leaves at 4:20.","The bus arrives at the station at 5:30.","The library opens at 8:30 a.m.","The movie starts at 6:45 tonight.",
-  "School doesn't start at 8 o'clock tomorrow.","The concert doesn't begin at 6 p.m.","The bus doesn't arrive at 6:30.","My flight doesn't depart at 7 in the morning.","The shop doesn't open at 10 a.m.","The museum doesn't close at 5 p.m.","The football match doesn't kick off at 1 p.m.","The plane doesn't land at 4 p.m.","The ferry doesn't depart at 3 p.m.","Our exam doesn't start at 11 a.m.","The train doesn't leave at 9 a.m.","The library doesn't open at 9 a.m.","The movie doesn't start at 7:30 tonight.","The train to Paris doesn't leave at 5:15.","The show doesn't begin at 8:30 tonight.",
-  "Does the train leave at 8 a.m. tomorrow?","Does school start at 9 o'clock on Monday?","Does the plane land at 3:15 p.m.?","Does the football match kick off at noon?","Does the shop open at 9 a.m. on Saturday?","Does the concert begin at 7 p.m. next Friday?","Does the ferry depart at 2 p.m.?","Does your flight depart at 6 in the morning?","Does the museum close at 6 p.m.?","Does our exam start at 10 a.m. sharp?","Does the show begin at 7:30 tonight?","Does the train to Madrid leave at 4:20?","Does the bus arrive at the station at 5:30?","Does the library open at 8:30 a.m.?","Does the movie start at 6:45 tonight?",
-  "I am meeting my friends at the cinema tonight.","We are watching a movie tonight.","We are having dinner with our cousins tomorrow.","I am seeing the dentist on Friday.","She is visiting her grandma this weekend.","We are celebrating my birthday on Saturday.","They are going shopping after school.","She is flying to Paris next week.","She is starting her new job next week.","They are coming over for lunch tomorrow.","He is playing football on Saturday.","He is taking his driving test on Monday.","I am joining the art club next term.","They are moving house next month.","We are going to the zoo next Sunday.",
-  "I am not meeting my friends tonight.","We aren't watching a movie tonight.","We aren't having dinner tomorrow.","I am not seeing the dentist on Friday.","She isn't visiting her grandma this weekend.","We aren't celebrating my birthday on Saturday.","They aren't going shopping after school.","She isn't flying to Paris next week.","She isn't starting her new job next week.","They aren't coming over for lunch tomorrow.","He isn't playing football on Saturday.","He isn't taking his driving test on Monday.","I am not joining the art club next term.","They aren't moving house next month.","We aren't going to the zoo next Sunday.",
-  "Are you meeting your friends tonight?","Are we watching a movie tonight?","Are we having dinner tomorrow?","Am I seeing the dentist on Friday?","Is she visiting her grandma this weekend?","Are we celebrating your birthday on Saturday?","Are they going shopping after school?","Is she flying to Paris next week?","Is she starting her new job next week?","Are they coming over for lunch tomorrow?","Is he playing football on Saturday?","Is he taking his driving test on Monday?","Am I joining the art club next term?","Are they moving house next month?","Are we going to the zoo next Sunday?",
-  "She will call you later.","He will arrive at noon.","They will go to the concert.","I will help you with your homework.","We will watch a movie tonight.","She will bake a cake.","He will fix his bike.","They will travel to Spain next summer.","We will visit grandma this weekend.","We will have a party on Friday.","I will bring the snacks.","They will win the match.","He will study for the test.","I will clean my room tomorrow.","She will join the team.",
-  "I won't help you with your homework.","We won't watch a movie tonight.","She won't call you later.","He won't fix his bike.","They won't travel to Spain next summer.","We won't visit grandma this weekend.","We won't have a party on Friday.","They won't go to the concert.","He won't arrive at noon.","I won't clean my room tomorrow.","They won't win the match.","He won't study for the test.","She won't bake a cake.","I won't bring the snacks.","She won't join the team.",
-  "Will she call you later?","Will he arrive at noon?","Will they go to the concert?","Will you help me with my homework?","Will we watch a movie tonight?","Will they travel to Spain next summer?","Will he fix his bike?","Will we have a party on Friday?","Will you clean your room tomorrow?","Will they win the match?","Will he study for the test?","Will she bake a cake?","Will you bring the snacks?","Will we visit grandma this weekend?","Will she join the team?",
-  "I am going to visit London next week.","He is going to learn Spanish.","They are going to play video games.","We are going to bake a cake tomorrow.","We are going to travel to Italy.","She is going to study for the exam.","He is going to cook dinner tonight.","They are going to have a barbecue.","They are going to watch a movie tonight.","I am going to read a new book.","I am going to help my dad clean the garage.","We are going to visit the museum.","She is going to start a new job.","She is going to paint her room.","They are going to play football in the park.",
-  "I am not going to visit London next week.","He isn't going to learn Spanish.","They aren't going to play video games.","We aren't going to bake a cake tomorrow.","We aren't going to travel to Italy.","She isn't going to study for the exam.","He isn't going to cook dinner tonight.","They aren't going to have a barbecue.","They aren't going to watch a movie tonight.","I am not going to read a new new book.","I am not going to help my dad clean the garage.","We aren't going to visit the museum.","She isn't going to start a new job.","She isn't going to paint her room.","He isn't going to play football on Saturday.",
-  "Are you going to visit London next week?","Is he going to learn Spanish?","Are they going to play video games?","Are we going to bake a cake tomorrow?","Are we going to travel to Italy?","Is she going to study for the exam?","Is he going to cook dinner tonight?","Are they going to have a barbecue?","Are they going to watch a movie tonight?","Are you going to read a new book?","Are you going to help your dad clean the garage?","Are we going to visit the museum?","Is she going to start a new job?","Is she going to paint her room?","Is he going to play football on Saturday?",
-  "If it rains, we will stay at home.","If it’s sunny, we will go to the beach.","If we leave now, we will catch the bus.","If you help me, I will finish faster.","If she studies, she will do well.","If they win, we will celebrate.","If he trains hard, he will win.","If we save money, we will go on holiday.","If I study hard, I will pass the exam.","If I see her, I will say hello.","If she calls me, I will answer.","If they arrive late, we will wait.","If he finishes early, he will join us.","If we go to the park, we will play football.","If I get the job, I will be happy.",
-  "If it rains, we won't go outside.","If we don't leave now, we won't catch the bus.","If I don't get the job, I won't be happy.","If I don't see her, I won't say hello.","If she doesn't study, she won't do well.","If it’s not sunny, we won't go to the beach.","If we don't go to the park, we won't play football.","If I don't study, I won't pass the exam.","If you don't help me, I won't finish in time.","If they don't win, we won't celebrate.","If we don't save money, we won't go on holiday.","If he doesn't train, he won't win.","If they don't arrive, we won't wait.","If she doesn't call me, I won't know.","If he doesn't finish, he won't join us.",
-  "If it rains, will we stay at home?","If you study hard, will you pass the exam?","If he trains hard, will he win?","If we save money, will we go on holiday?","If I study hard, will I pass the exam?","If she studies, will she do well?","If they win, will we celebrate?","If we go to the park, will we play football?","If I get the job, will I be happy?","If you help me, will I finish faster?","If she calls you, will you answer?","If they arrive late, will we wait?","If he finishes early, will he join us?","If we leave now, will we catch the bus?","If it’s sunny, will we go to the beach?"
+  "I am meeting my friends at the cinema tonight.","We are having dinner with our cousins tomorrow.","I am seeing the dentist on Friday.","She is visiting her grandma this weekend.","They are coming over for lunch tomorrow.","He is playing football on Saturday.","They are moving house next month.",
+  "She will call you later.","He will arrive at noon.","I will help you with your homework.","We will watch a movie tonight.","I will bring the snacks.",
+  "I am going to visit London next week.","He is going to learn Spanish.","We are going to bake a cake tomorrow.","She is going to study for the exam.",
+  "If it rains, we will stay at home.","If we leave now, we will catch the bus.","If she studies, she will do well."
 ];
 
 /* -----------------------------------------------------------
-   NEW: INTENT BANK (60 tagged) for INTENT activity only
+   DATA — INTENT BANK (>=50) — simplified but clear
 ----------------------------------------------------------- */
 const INTENT_BANK = [
   // WILL — prediction
   { text:"I think it will rain later.", form:"will", intent:"prediction" },
   { text:"They will probably win the match.", form:"will", intent:"prediction" },
-  { text:"I’m sure you will enjoy the trip.", form:"will", intent:"prediction" },
-  { text:"Maybe the teacher will give us homework.", form:"will", intent:"prediction" },
-  { text:"Do you think it will be difficult?", form:"will", intent:"prediction" },
+  { text:"I’m sure he will be late.", form:"will", intent:"prediction" },
+  { text:"Maybe we will have a test tomorrow.", form:"will", intent:"prediction" },
+  { text:"Do you think it will be hard?", form:"will", intent:"prediction" },
   { text:"It won’t be easy to finish today.", form:"will", intent:"prediction" },
 
   // WILL — offer/promise
-  { text:"I’ll help you with that exercise.", form:"will", intent:"offer_promise" },
-  { text:"Don’t worry, I’ll call you after class.", form:"will", intent:"offer_promise" },
-  { text:"I won’t tell anyone, I promise.", form:"will", intent:"offer_promise" },
-  { text:"We’ll bring the snacks for the trip.", form:"will", intent:"offer_promise" },
-  { text:"Will you carry my bag for a minute?", form:"will", intent:"offer_promise" },
-  { text:"I’ll explain it again if you want.", form:"will", intent:"offer_promise" },
+  { text:"Don’t worry, I’ll help you.", form:"will", intent:"offer_promise" },
+  { text:"I’ll carry that for you.", form:"will", intent:"offer_promise" },
+  { text:"I’ll explain it again.", form:"will", intent:"offer_promise" },
+  { text:"I won’t tell anyone. I promise.", form:"will", intent:"offer_promise" },
+  { text:"We’ll bring snacks for everyone.", form:"will", intent:"offer_promise" },
+  { text:"Will you open the door, please?", form:"will", intent:"offer_promise" },
 
   // WILL — decision now
   { text:"Okay, I’ll do it now.", form:"will", intent:"decision_now" },
@@ -470,90 +425,105 @@ const INTENT_BANK = [
   { text:"I won’t go out tonight then.", form:"will", intent:"decision_now" },
   { text:"Oh! I’ll answer it.", form:"will", intent:"decision_now" },
 
-  // WILL — announcement/future fact
+  // WILL — announcement
   { text:"The show will start in five minutes.", form:"will", intent:"announcement" },
-  { text:"The gate will open soon.", form:"will", intent:"announcement" },
   { text:"The results will be published tomorrow.", form:"will", intent:"announcement" },
+  { text:"The gate will open soon.", form:"will", intent:"announcement" },
   { text:"Your order will arrive on Friday.", form:"will", intent:"announcement" },
-  { text:"The exam will not take longer than one hour.", form:"will", intent:"announcement" },
-  { text:"Will the museum be open tomorrow?", form:"will", intent:"announcement" },
+  { text:"The exam will end at 11:00.", form:"will", intent:"announcement" },
+  { text:"The class will begin in two minutes.", form:"will", intent:"announcement" },
 
   // GOING TO — plan
-  { text:"I’m going to study for the test tonight.", form:"going_to", intent:"plan" },
-  { text:"We’re going to meet at the library after school.", form:"going_to", intent:"plan" },
-  { text:"She’s going to apply for that summer course.", form:"going_to", intent:"plan" },
+  { text:"I’m going to study tonight.", form:"going_to", intent:"plan" },
+  { text:"We’re going to meet after school.", form:"going_to", intent:"plan" },
+  { text:"She’s going to apply for that course.", form:"going_to", intent:"plan" },
   { text:"They aren’t going to travel this weekend.", form:"going_to", intent:"plan" },
-  { text:"Are you going to watch the new episode tonight?", form:"going_to", intent:"plan" },
-  { text:"I’m not going to buy a new phone this month.", form:"going_to", intent:"plan" },
+  { text:"Are you going to watch the new episode?", form:"going_to", intent:"plan" },
+  { text:"I’m not going to buy a new phone.", form:"going_to", intent:"plan" },
 
   // GOING TO — evidence prediction
   { text:"Look at those clouds! It’s going to rain.", form:"going_to", intent:"evidence_prediction" },
   { text:"Listen to that thunder—there’s going to be a storm.", form:"going_to", intent:"evidence_prediction" },
-  { text:"Be careful! You’re going to drop your laptop.", form:"going_to", intent:"evidence_prediction" },
+  { text:"Be careful! You’re going to drop your phone.", form:"going_to", intent:"evidence_prediction" },
   { text:"That glass is going to fall!", form:"going_to", intent:"evidence_prediction" },
-  { text:"You’re going to faint—sit down.", form:"going_to", intent:"evidence_prediction" },
-  { text:"He isn’t going to pass if he keeps skipping homework.", form:"going_to", intent:"evidence_prediction" },
+  { text:"He’s going to be sick—he looks terrible.", form:"going_to", intent:"evidence_prediction" },
+  { text:"You’re going to miss the bus—run!", form:"going_to", intent:"evidence_prediction" },
 
   // PRESENT CONTINUOUS — arrangement
-  { text:"I’m meeting my friends at 6 p.m. today.", form:"present_continuous", intent:"arrangement" },
-  { text:"We’re having dinner with my cousins tomorrow.", form:"present_continuous", intent:"arrangement" },
+  { text:"I’m meeting my friends at 6 p.m.", form:"present_continuous", intent:"arrangement" },
+  { text:"We’re having dinner together tomorrow.", form:"present_continuous", intent:"arrangement" },
   { text:"She’s seeing the dentist on Friday.", form:"present_continuous", intent:"arrangement" },
   { text:"They’re coming over for lunch tomorrow.", form:"present_continuous", intent:"arrangement" },
   { text:"He isn’t playing football on Saturday.", form:"present_continuous", intent:"arrangement" },
   { text:"Are you visiting your grandma this weekend?", form:"present_continuous", intent:"arrangement" },
 
-  // PRESENT SIMPLE — schedule/timetable
-  { text:"The train leaves at 8:10 tomorrow morning.", form:"present_simple", intent:"schedule" },
+  // PRESENT SIMPLE — schedule
+  { text:"The train leaves at 8:10 tomorrow.", form:"present_simple", intent:"schedule" },
   { text:"School starts at 9 o’clock on Monday.", form:"present_simple", intent:"schedule" },
   { text:"The plane lands at 3:15 p.m.", form:"present_simple", intent:"schedule" },
   { text:"The concert begins at 7 p.m. on Friday.", form:"present_simple", intent:"schedule" },
   { text:"The museum closes at 6 p.m.", form:"present_simple", intent:"schedule" },
   { text:"Does the match start at noon?", form:"present_simple", intent:"schedule" },
 
-  // FIRST CONDITIONAL — intent types
+  // FIRST CONDITIONAL — warning/consequence
   { text:"If you don’t study, you’ll fail the test.", form:"first_conditional", intent:"warning_consequence" },
   { text:"If you touch that, it will break.", form:"first_conditional", intent:"warning_consequence" },
+  { text:"If we are late, the teacher will be angry.", form:"first_conditional", intent:"warning_consequence" },
+  { text:"If you keep shouting, you’ll get in trouble.", form:"first_conditional", intent:"warning_consequence" },
+
+  // FIRST CONDITIONAL — advice/suggestion
+  { text:"If you feel tired, take a break.", form:"first_conditional", intent:"advice_suggestion" },
+  { text:"If you don’t understand, ask the teacher.", form:"first_conditional", intent:"advice_suggestion" },
+  { text:"If you want, I’ll explain it again.", form:"first_conditional", intent:"advice_suggestion" },
+
+  // FIRST CONDITIONAL — plan_condition
   { text:"If it rains, we’ll stay at home.", form:"first_conditional", intent:"plan_condition" },
   { text:"If the bus is full, we’ll take the next one.", form:"first_conditional", intent:"plan_condition" },
+  { text:"If you finish early, we’ll start the game.", form:"first_conditional", intent:"plan_condition" },
+
+  // FIRST CONDITIONAL — prediction_result
   { text:"If she studies, she’ll do well.", form:"first_conditional", intent:"prediction_result" },
-  { text:"If they train hard, they’ll win.", form:"first_conditional", intent:"prediction_result" }
+  { text:"If they train hard, they’ll win.", form:"first_conditional", intent:"prediction_result" },
+  { text:"If we leave now, we’ll catch the bus.", form:"first_conditional", intent:"prediction_result" }
 ];
 
-/* Intent options shown (cards) by form */
+/* -----------------------------------------------------------
+   INTENT OPTIONS (title + short description)
+----------------------------------------------------------- */
 const INTENT_OPTIONS = {
   will: [
-    { key:"prediction", label:"Prediction", desc:"Guess/opinion/hope (I think, probably…)" },
-    { key:"offer_promise", label:"Offer / Promise", desc:"I’ll help / I won’t… (promise)" },
-    { key:"decision_now", label:"Decision now", desc:"Spontaneous decision: Okay, I’ll…" },
-    { key:"announcement", label:"Announcement", desc:"Official/factual future info" }
+    { key:"prediction", label:"Prediction", desc:"Guess / opinion" , cls:"c-prediction"},
+    { key:"offer_promise", label:"Offer / Promise", desc:"Help / promise" , cls:"c-offer"},
+    { key:"decision_now", label:"Decision now", desc:"Made right now" , cls:"c-decision"},
+    { key:"announcement", label:"Announcement", desc:"Official info" , cls:"c-announce"}
   ],
   going_to: [
-    { key:"plan", label:"Plan / Intention", desc:"Already decided plan" },
-    { key:"evidence_prediction", label:"Prediction (evidence)", desc:"Look!/Listen! evidence now" }
+    { key:"plan", label:"Plan / Intention", desc:"Already decided" , cls:"c-plan"},
+    { key:"evidence_prediction", label:"Prediction (evidence)", desc:"Look! / evidence" , cls:"c-evidence"}
   ],
   present_continuous: [
-    { key:"arrangement", label:"Arrangement", desc:"Definite arrangement with time/people" }
+    { key:"arrangement", label:"Arrangement", desc:"Fixed plan" , cls:"c-arrange"}
   ],
   present_simple: [
-    { key:"schedule", label:"Schedule / Timetable", desc:"Public timetable times" }
+    { key:"schedule", label:"Schedule", desc:"Timetable time" , cls:"c-schedule"}
   ],
   first_conditional: [
-    { key:"warning_consequence", label:"Warning / Consequence", desc:"If you do this, bad result…" },
-    { key:"advice_suggestion", label:"Advice / Suggestion", desc:"If you…, you should/can…" },
-    { key:"plan_condition", label:"Plan (depends on condition)", desc:"If X happens, we’ll do Y" },
-    { key:"prediction_result", label:"Prediction (result)", desc:"If X happens, Y will happen" }
+    { key:"warning_consequence", label:"Warning", desc:"Bad result" , cls:"c-warning"},
+    { key:"advice_suggestion", label:"Advice", desc:"Suggestion" , cls:"c-advice"},
+    { key:"plan_condition", label:"Plan", desc:"If X, we do Y" , cls:"c-plancond"},
+    { key:"prediction_result", label:"Prediction", desc:"If X, Y happens" , cls:"c-predres"}
   ]
 };
 
 /* -----------------------------------------------------------
-   GAME STATE
+   STATE
 ----------------------------------------------------------- */
+let currentType = "";
 let current = "";
 let tokens = [];
 let built = [];
 
-let currentType = "";
-let currentQ = null; // only used by INTENT activity
+let currentIntentQ = null;
 
 let streak = 0;
 let strikes = 0;
@@ -564,65 +534,76 @@ let startTime = null;
 
 let musicOn = false;
 
-/* 4 activity types (no deleting what works) */
-const TYPES = ["ORDER","FILL_GAP","NEXT_WORD","INTENT"];
+/* 3 activities only */
+const TYPES = ["ORDER","NEXT_WORD","INTENT"];
 
 /* -----------------------------------------------------------
-   FIXED SHUFFLE (your old one was broken)
+   UTILS
 ----------------------------------------------------------- */
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
+function shuffle(arr){
+  for(let i = arr.length - 1; i > 0; i--){
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return array;
+  return arr;
 }
 
-function formatTime(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-  const seconds = String(totalSeconds % 60).padStart(2, "0");
-  return `${minutes}:${seconds}`;
+function formatTime(ms){
+  const s = Math.floor(ms / 1000);
+  const m = String(Math.floor(s / 60)).padStart(2,"0");
+  const r = String(s % 60).padStart(2,"0");
+  return `${m}:${r}`;
 }
 
-function updateTimerDisplay() {
-  if (!startTime) return;
+function updateTimerDisplay(){
+  if(!startTime) return;
   document.getElementById("timerDisplay").textContent = formatTime(Date.now() - startTime);
 }
 
-function startTimer() {
+function startTimer(){
   startTime = Date.now();
   clearInterval(timerInterval);
   timerInterval = setInterval(updateTimerDisplay, 500);
 }
 
-function stopTimer() {
+function stopTimer(){
   clearInterval(timerInterval);
   timerInterval = null;
 }
 
-/* -----------------------------------------------------------
-   MUSIC TOGGLE (audio/koala2.mp3)
------------------------------------------------------------ */
-function setAudioStatus(msg){ document.getElementById("audioStatus").textContent = msg || ""; }
+function updateStats(){
+  document.getElementById("streak").textContent = streak;
+  const pct = Math.max(0, Math.min(100, (streak / masteryGoal) * 100));
+  document.getElementById("progressFill").style.width = pct + "%";
+}
 
-function toggleMusic() {
+function setAudioStatus(msg){
+  document.getElementById("audioStatus").textContent = msg || "";
+}
+
+function setTag(text){
+  document.getElementById("activityTag").textContent = text;
+}
+
+/* -----------------------------------------------------------
+   MUSIC
+----------------------------------------------------------- */
+function toggleMusic(){
   const bgm = document.getElementById("bgm");
   const btn = document.getElementById("musicBtn");
   bgm.volume = 0.35;
 
-  if (!musicOn) {
+  if(!musicOn){
     const p = bgm.play();
-    if (p && typeof p.then === "function") {
-      p.then(() => {
+    if(p && p.then){
+      p.then(()=>{
         musicOn = true;
         btn.textContent = "Music: ON";
         setAudioStatus("Audio: playing ✅");
-      }).catch(err => {
+      }).catch(()=>{
         musicOn = false;
         btn.textContent = "Music: OFF";
-        setAudioStatus("Audio error ❌ Check: audio/koala2.mp3");
-        console.error(err);
+        setAudioStatus("Audio error ❌ Check audio/koala2.mp3");
       });
     } else {
       musicOn = true;
@@ -640,30 +621,19 @@ function toggleMusic() {
 /* -----------------------------------------------------------
    START / RESET
 ----------------------------------------------------------- */
-function startGame() {
-  const nameInput = document.getElementById("playerName");
-  const warning = document.getElementById("nameWarning");
-  const displayName = document.getElementById("displayName");
-
-  const name = nameInput.value.trim();
-  if (name === "") {
-    warning.textContent = "Please enter your name before starting.";
+function startGame(){
+  const name = document.getElementById("playerName").value.trim();
+  if(!name){
+    document.getElementById("nameWarning").textContent = "Please enter your name before starting.";
     return;
   }
-  warning.textContent = "";
-  displayName.textContent = name;
+  document.getElementById("nameWarning").textContent = "";
+  document.getElementById("displayName").textContent = name;
 
   streak = 0;
-  strikes = 0;
-  built = [];
   updateStats();
-
   document.getElementById("feedback").textContent = "";
-  document.getElementById("prompt").textContent = "Answer the challenge:";
-  document.getElementById("interaction").innerHTML = "";
-  document.getElementById("choices").innerHTML = "";
-  document.getElementById("typeArea").innerHTML = "";
-
+  document.getElementById("feedback").className = "feedback";
   document.getElementById("bgm").load();
   setAudioStatus("Audio ready (press Music).");
 
@@ -671,26 +641,23 @@ function startGame() {
   nextQuestion();
 }
 
-function resetGame() {
+function resetGame(){
   stopTimer();
   startTime = null;
   document.getElementById("timerDisplay").textContent = "00:00";
 
   streak = 0;
-  strikes = 0;
-  built = [];
-  current = "";
-  currentQ = null;
-
   updateStats();
+  current = "";
+  built = [];
+  tokens = [];
+  currentIntentQ = null;
 
   document.getElementById("prompt").textContent = "Enter your name and click Start";
-  document.getElementById("typeDisplay").textContent = "Activity: ---";
-  document.getElementById("typeStat").textContent = "---";
+  setTag("Activity: ---");
+  hideAllAreas();
   document.getElementById("interaction").innerHTML = "";
-  document.getElementById("choices").innerHTML = "";
-  document.getElementById("typeArea").innerHTML = "";
-  document.getElementById("feedback").textContent = "";
+  setFeedback("");
 
   const bgm = document.getElementById("bgm");
   bgm.pause();
@@ -699,354 +666,258 @@ function resetGame() {
   setAudioStatus("");
 }
 
-/* -----------------------------------------------------------
-   STATS
------------------------------------------------------------ */
-function updateStats() {
-  document.getElementById("streak").textContent = streak;
-  document.getElementById("strikes").textContent = strikes;
-  const fill = document.getElementById("progressFill");
-  const pct = Math.max(0, Math.min(100, (streak / masteryGoal) * 100));
-  fill.style.width = pct + "%";
+function setFeedback(text, ok=null){
+  const fb = document.getElementById("feedback");
+  fb.textContent = text || "";
+  fb.className = "feedback";
+  if(ok === true) fb.classList.add("ok");
+  if(ok === false) fb.classList.add("no");
 }
 
-/* -----------------------------------------------------------
-   NEXT QUESTION (keeps working stuff, adds INTENT)
------------------------------------------------------------ */
-function setTypeUI(type){
-  const nice = (type==="ORDER") ? "ORDER (Word Bank)"
-            : (type==="FILL_GAP") ? "FILL (Missing word)"
-            : (type==="NEXT_WORD") ? "NEXT WORD (MCQ build)"
-            : "INTENT CARDS (Speaker purpose)";
-  document.getElementById("typeDisplay").textContent = "Activity: " + nice;
-  document.getElementById("typeStat").textContent = nice;
-}
-
-function clearUI(){
+function hideAllAreas(){
+  document.getElementById("cardsArea").classList.add("hidden");
+  document.getElementById("wordBank").classList.add("hidden");
+  document.getElementById("orderActions").classList.add("hidden");
+  document.getElementById("cardsArea").innerHTML = "";
+  document.getElementById("wordBank").innerHTML = "";
   document.getElementById("interaction").innerHTML = "";
-  document.getElementById("choices").innerHTML = "";
-  document.getElementById("typeArea").innerHTML = "";
-  document.getElementById("feedback").textContent = "";
-  document.getElementById("feedback").className = "feedback";
-  document.getElementById("choices").classList.remove("hidden");
-  document.getElementById("actionRow").classList.remove("hidden");
 }
 
-function nextQuestion() {
+/* -----------------------------------------------------------
+   NEXT QUESTION — mix 3 activity types
+----------------------------------------------------------- */
+function nextQuestion(){
   built = [];
-  currentQ = null;
-  clearUI();
+  hideAllAreas();
+  setFeedback("");
 
-  // pick an activity randomly
-  currentType = TYPES[Math.floor(Math.random() * TYPES.length)];
-  setTypeUI(currentType);
+  currentType = TYPES[Math.floor(Math.random()*TYPES.length)];
 
-  if (currentType === "INTENT") {
-    // Use INTENT_BANK only
-    currentQ = INTENT_BANK[Math.floor(Math.random() * INTENT_BANK.length)];
-    current = currentQ.text;
+  if(currentType === "INTENT"){
+    currentIntentQ = INTENT_BANK[Math.floor(Math.random()*INTENT_BANK.length)];
+    current = currentIntentQ.text;
     tokens = current.split(" ");
-    renderIntentCards();
+    document.getElementById("prompt").textContent = "Choose the speaker's intention:";
+    setTag("Activity: INTENT");
+    renderSentenceChip(current);
+    renderIntentCards(currentIntentQ);
     return;
   }
 
-  // Otherwise: use your original sentences list (no changes)
-  current = sentences[Math.floor(Math.random() * sentences.length)];
+  // ORDER or NEXT_WORD use the working pool
+  currentIntentQ = null;
+  current = sentences[Math.floor(Math.random()*sentences.length)];
   tokens = current.split(" ");
 
-  if (currentType === "ORDER") renderOrder();
-  else if (currentType === "FILL_GAP") renderFillGap();
-  else renderNextWordMCQ();
-}
+  if(currentType === "ORDER"){
+    document.getElementById("prompt").textContent = "Build the sentence (tap words):";
+    setTag("Activity: ORDER");
+    renderOrder();
+    return;
+  }
 
-/* -----------------------------------------------------------
-   ACTIVITY 1: ORDER (your working logic)
------------------------------------------------------------ */
-function renderOrder() {
-  document.getElementById("prompt").textContent = "Build the sentence (tap words):";
-  const words = shuffle([...tokens]);
-
-  const choices = document.getElementById("choices");
-  words.forEach(word => {
-    const span = document.createElement("span");
-    span.textContent = word;
-    span.className = "word-bank-item";
-    span.onclick = () => {
-      built.push(word);
-      span.style.display = "none";
-      renderBuilt();
-    };
-    choices.appendChild(span);
-  });
-}
-
-function renderBuilt() {
-  const area = document.getElementById("interaction");
-  area.innerHTML = "";
-  built.forEach((word, i) => {
-    const span = document.createElement("span");
-    span.textContent = word;
-    span.className = "word selected";
-    span.onclick = () => {
-      const removed = built.splice(i, 1)[0];
-      renderBuilt();
-      Array.from(document.getElementById("choices").children).forEach(btn => {
-        if (btn.textContent === removed && btn.style.display === "none") {
-          btn.style.display = "inline-block";
-        }
-      });
-    };
-    area.appendChild(span);
-  });
-}
-
-function clearWords() {
-  built = [];
-  renderBuilt();
-  Array.from(document.getElementById("choices").children).forEach(btn => {
-    btn.style.display = "inline-block";
-  });
-}
-
-/* -----------------------------------------------------------
-   ACTIVITY 2: FILL GAP (minimal)
------------------------------------------------------------ */
-let missingIndex = -1;
-let missingAnswer = "";
-
-function cleanToken(t){ return t.replace(/[.,!?]$/g, ""); }
-
-function renderFillGap(){
-  document.getElementById("prompt").textContent = "Type the missing word:";
-  document.getElementById("choices").classList.add("hidden");
-
-  const candidates = tokens
-    .map((t,i)=>({t,i}))
-    .filter(x => cleanToken(x.t).length >= 3);
-
-  const pick = candidates[Math.floor(Math.random()*candidates.length)] || { i:1, t: tokens[1] };
-  missingIndex = pick.i;
-  missingAnswer = pick.t;
-
-  const masked = tokens.map((t,i)=> i===missingIndex ? "_____" : t).join(" ");
-
-  const area = document.getElementById("interaction");
-  const chip = document.createElement("span");
-  chip.textContent = masked;
-  chip.className = "word selected";
-  chip.style.cursor = "default";
-  area.appendChild(chip);
-
-  const typeArea = document.getElementById("typeArea");
-  const row = document.createElement("div");
-  row.className = "fillRow";
-
-  const input = document.createElement("input");
-  input.className = "fillInput";
-  input.id = "fillInput";
-  input.placeholder = "Type the missing word…";
-  input.autocomplete = "off";
-  input.spellcheck = false;
-
-  row.appendChild(input);
-  typeArea.appendChild(row);
-
-  setTimeout(()=> input.focus(), 60);
-}
-
-/* -----------------------------------------------------------
-   ACTIVITY 3: NEXT WORD (MCQ build)
------------------------------------------------------------ */
-function renderNextWordMCQ(){
+  // NEXT_WORD
   document.getElementById("prompt").textContent = "Choose the next word:";
-  document.getElementById("choices").classList.add("hidden");
+  setTag("Activity: NEXT WORD");
   renderNextWordStep();
 }
 
-function renderNextWordStep(){
+/* -----------------------------------------------------------
+   COMMON: show sentence chip in interaction
+----------------------------------------------------------- */
+function renderSentenceChip(text){
   const area = document.getElementById("interaction");
   area.innerHTML = "";
-  built.forEach(w => {
-    const span = document.createElement("span");
-    span.textContent = w;
-    span.className = "word selected";
-    span.style.cursor = "default";
-    area.appendChild(span);
+  const span = document.createElement("span");
+  span.textContent = text;
+  span.className = "builtWord";
+  span.style.cursor = "default";
+  area.appendChild(span);
+}
+
+/* -----------------------------------------------------------
+   ACTIVITY: ORDER
+----------------------------------------------------------- */
+function renderOrder(){
+  document.getElementById("wordBank").classList.remove("hidden");
+  document.getElementById("orderActions").classList.remove("hidden");
+
+  const bank = document.getElementById("wordBank");
+  bank.innerHTML = "";
+  const words = shuffle([...tokens]);
+
+  words.forEach(w=>{
+    const b = document.createElement("span");
+    b.className = "wordItem";
+    b.textContent = w;
+    b.onclick = ()=>{
+      built.push(w);
+      b.style.display = "none";
+      renderBuiltWords();
+    };
+    bank.appendChild(b);
   });
 
-  const typeArea = document.getElementById("typeArea");
-  typeArea.innerHTML = "";
+  renderBuiltWords();
+}
 
-  if (built.length >= tokens.length){
-    // auto-grade full sentence
-    const attempt = built.join(" ");
-    gradeAttempt(attempt === current);
+function renderBuiltWords(){
+  const area = document.getElementById("interaction");
+  area.innerHTML = "";
+  built.forEach((w,i)=>{
+    const chip = document.createElement("span");
+    chip.className = "builtWord";
+    chip.textContent = w;
+    chip.onclick = ()=>{
+      const removed = built.splice(i,1)[0];
+      // show back one hidden matching word
+      Array.from(document.getElementById("wordBank").children).forEach(el=>{
+        if(el.textContent === removed && el.style.display === "none"){
+          el.style.display = "inline-block";
+        }
+      });
+      renderBuiltWords();
+    };
+    area.appendChild(chip);
+  });
+}
+
+function clearWords(){
+  built = [];
+  renderBuiltWords();
+  Array.from(document.getElementById("wordBank").children).forEach(el=>{
+    el.style.display = "inline-block";
+  });
+}
+
+function checkOrder(){
+  if(!current) return;
+  const attempt = built.join(" ");
+  gradeAttempt(attempt === current);
+}
+
+/* -----------------------------------------------------------
+   ACTIVITY: NEXT WORD (MCQ build)
+----------------------------------------------------------- */
+function renderNextWordStep(){
+  document.getElementById("cardsArea").classList.remove("hidden");
+  const cards = document.getElementById("cardsArea");
+  cards.innerHTML = "";
+
+  // display built so far
+  const area = document.getElementById("interaction");
+  area.innerHTML = "";
+  built.forEach(w=>{
+    const chip = document.createElement("span");
+    chip.className = "builtWord";
+    chip.textContent = w;
+    chip.style.cursor = "default";
+    area.appendChild(chip);
+  });
+
+  if(built.length >= tokens.length){
+    gradeAttempt(built.join(" ") === current);
     return;
   }
 
   const correct = tokens[built.length];
-  const distractPool = shuffle([...tokens]).filter(t => t !== correct);
-  const distractors = [];
-  for (const t of distractPool){
-    if (distractors.length >= 3) break;
-    if (!distractors.includes(t)) distractors.push(t);
+  const pool = shuffle([...tokens]).filter(t=>t !== correct);
+  const distract = [];
+  for(const t of pool){
+    if(distract.length >= 3) break;
+    if(!distract.includes(t)) distract.push(t);
   }
-  while (distractors.length < 3){
-    distractors.push(tokens[Math.floor(Math.random()*tokens.length)]);
+  while(distract.length < 3){
+    distract.push(tokens[Math.floor(Math.random()*tokens.length)]);
   }
 
-  const options = shuffle([correct, ...distractors]);
+  const opts = shuffle([correct, ...distract]);
 
-  const row = document.createElement("div");
-  row.className = "mcqRow";
-  options.forEach(opt => {
-    const b = document.createElement("button");
-    b.className = "mcqBtn";
-    b.textContent = opt;
-    b.onclick = () => {
+  opts.forEach(opt=>{
+    const btn = document.createElement("button");
+    btn.className = "cardBtn";
+    btn.innerHTML = `<div class="cardTitle">${opt}</div><div class="cardDesc">Tap to choose</div>`;
+    btn.style.textAlign = "center";
+    btn.onclick = ()=>{
       built.push(opt);
       renderNextWordStep();
     };
-    row.appendChild(b);
+    cards.appendChild(btn);
   });
-
-  typeArea.appendChild(row);
 }
 
 /* -----------------------------------------------------------
-   ACTIVITY 4: INTENT CARDS (new, safe, separate bank)
+   ACTIVITY: INTENT (cards with short description)
 ----------------------------------------------------------- */
-function prettyForm(form){
-  if(form==="will") return "WILL";
-  if(form==="going_to") return "BE GOING TO";
-  if(form==="present_continuous") return "PRESENT CONTINUOUS";
-  if(form==="present_simple") return "PRESENT SIMPLE";
-  return "FIRST CONDITIONAL";
-}
+function renderIntentCards(q){
+  document.getElementById("cardsArea").classList.remove("hidden");
+  const cards = document.getElementById("cardsArea");
+  cards.innerHTML = "";
 
-function renderIntentCards(){
-  document.getElementById("prompt").textContent = "Read the sentence. Choose the speaker’s intention:";
-  document.getElementById("choices").classList.add("hidden");
-  document.getElementById("actionRow").classList.add("hidden");
+  const options = (INTENT_OPTIONS[q.form] || []).slice();
+  shuffle(options);
 
-  const area = document.getElementById("interaction");
-  const chip = document.createElement("span");
-  chip.textContent = current;
-  chip.className = "word selected";
-  chip.style.cursor = "default";
-  area.appendChild(chip);
-
-  const typeArea = document.getElementById("typeArea");
-  const row = document.createElement("div");
-  row.className = "mcqRow";
-
-  const opts = (INTENT_OPTIONS[currentQ.form] || []).slice();
-
-  // If only 1 option exists (e.g., present simple schedule), add two safe distractors
-  if (opts.length === 1){
+  // If only 1 option exists, add 2 generic distractors (visual only)
+  if(options.length === 1){
     const extra = [
-      { key:"prediction", label:"Prediction", desc:"Guess/opinion about the future" },
-      { key:"plan", label:"Plan / Intention", desc:"Already decided plan" }
-    ].filter(x => x.key !== opts[0].key);
-    opts.push(...extra.slice(0,2));
+      { key:"prediction", label:"Prediction", desc:"Guess / opinion", cls:"c-prediction"},
+      { key:"plan", label:"Plan / Intention", desc:"Already decided", cls:"c-plan"}
+    ].filter(x=>x.key !== options[0].key);
+    options.push(extra[0], extra[1]);
+    shuffle(options);
   }
 
-  shuffle(opts);
-
-  opts.forEach(o => {
-    const b = document.createElement("button");
-    b.className = "mcqBtn";
-    b.innerHTML = `${o.label}<span class="mcqSmall">${o.desc || ""}</span>`;
-    b.onclick = () => gradeIntent(o.key);
-    row.appendChild(b);
+  options.forEach(o=>{
+    const btn = document.createElement("button");
+    btn.className = "cardBtn " + (o.cls || "");
+    btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
+    btn.onclick = ()=> gradeAttempt(o.key === q.intent, q.intent);
+    cards.appendChild(btn);
   });
-
-  typeArea.appendChild(row);
-
-  // small hint in feedback line (non-intrusive)
-  const fb = document.getElementById("feedback");
-  fb.textContent = `Form inside the sentence: ${prettyForm(currentQ.form)}`;
-  fb.className = "feedback";
-}
-
-function gradeIntent(chosenKey){
-  const correct = (chosenKey === currentQ.intent);
-  gradeAttempt(correct, true);
-}
-
-/* -----------------------------------------------------------
-   CHECK BUTTON (works for ORDER + FILL only)
------------------------------------------------------------ */
-function checkAnswer() {
-  if (!current) return;
-
-  if (currentType === "ORDER"){
-    const attempt = built.join(" ");
-    gradeAttempt(attempt === current);
-    return;
-  }
-
-  if (currentType === "FILL_GAP"){
-    const input = document.getElementById("fillInput");
-    const user = (input?.value || "").trim();
-    const ok = cleanToken(user).toLowerCase() === cleanToken(missingAnswer).toLowerCase();
-    gradeAttempt(ok);
-    return;
-  }
-
-  // NEXT_WORD + INTENT are graded by clicking buttons
 }
 
 /* -----------------------------------------------------------
    GRADING
 ----------------------------------------------------------- */
-function gradeAttempt(correct, isIntent=false){
-  const feedback = document.getElementById("feedback");
-  if (correct) {
-    feedback.textContent = "✅ Correct!";
-    feedback.className = "feedback ok";
+function gradeAttempt(correct, correctIntent=null){
+  if(correct){
+    setFeedback("✅ Correct!", true);
     streak++;
     updateStats();
 
-    if (streak >= masteryGoal) {
-      // simple mastery message (no overlay to keep changes minimal)
-      feedback.textContent = "🏆 Mastery! 25 in a row!";
-      feedback.className = "feedback ok";
-      try { document.getElementById("winSound").play().catch(()=>{}); } catch(e){}
+    if(streak >= masteryGoal){
+      try{ document.getElementById("winSound").play().catch(()=>{}); }catch(e){}
+      setFeedback("🏆 Mastery! 25 in a row!", true);
       return;
     }
-
-    setTimeout(() => nextQuestion(), 650);
+    setTimeout(nextQuestion, 650);
   } else {
-    if (isIntent && currentQ){
-      feedback.textContent = `❌ Not this one. Correct intent: ${currentQ.intent.replaceAll("_"," ")}`;
-    } else if (currentType === "FILL_GAP"){
-      feedback.textContent = `❌ Try again! (Answer: ${missingAnswer})`;
-    } else {
-      feedback.textContent = "❌ Try again!";
-    }
-
-    feedback.className = "feedback no";
-    strikes++;
     streak = 0;
     updateStats();
 
-    // reset attempt for some activities
-    if (currentType === "ORDER") clearWords();
-    if (currentType === "FILL_GAP"){
-      const input = document.getElementById("fillInput");
-      if (input) { input.value=""; input.focus(); }
+    if(currentType === "INTENT" && correctIntent){
+      setFeedback("❌ Try again! (Correct: " + prettyIntent(correctIntent) + ")", false);
+    } else {
+      setFeedback("❌ Try again!", false);
+    }
+
+    if(currentType === "ORDER"){
+      clearWords();
+    } else if(currentType === "NEXT_WORD"){
+      built = [];
+      renderNextWordStep();
     }
   }
 }
 
-/* -----------------------------------------------------------
-   INIT
------------------------------------------------------------ */
-window.addEventListener("load", () => {
+function prettyIntent(key){
+  return key.replaceAll("_"," ").toUpperCase();
+}
+
+/* init */
+window.addEventListener("load", ()=>{
   const bgm = document.getElementById("bgm");
   bgm.volume = 0.35;
-  bgm.addEventListener("error", () => setAudioStatus("Audio load error ❌ Check audio/koala2.mp3"));
 });
 </script>
 </body>
