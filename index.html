@@ -125,52 +125,94 @@
     let index = 0;
 
     const questions = [
-      { s:"I will call you tomorrow.", correct:"will", opt:["am going to", "will", "calls"], cat:"Will – Affirmative" },
-      { s:"She isn’t going to work today.", correct:"isn’t going to", opt:["doesn't", "isn’t going to", "won’t"], cat:"Going to – Negative" },
-      { s:"Are they going to study tonight?", correct:"Are they going to", opt:["Will they", "Are they going to", "Do they"], cat:"Going to – Interrogative" }
-      // Agrega aquí tus 270 frases restantes
-    ];
+  // fill-type questions (reduced to 40)
+  ...[
+    // Example subset of 40 original fill-type questions
+    { s: "She ____ to the gym on Mondays.", correct: "goes", opt: ["goes", "go", "going"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "I ____ not watch TV.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
+    { s: "____ she speak French?", correct: "Does", opt: ["Does", "Do", "Did"], cat: "Present Simple – Interrogative", type: "fill" },
+    { s: "He ____ going to win.", correct: "is", opt: ["is", "are", "am"], cat: "Going to – Affirmative", type: "fill" },
+    { s: "She ____ not coming today.", correct: "is", opt: ["is", "are", "was"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "I ____ seeing my doctor in the morning.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "____ they playing in the match?", correct: "Are", opt: ["Are", "Do", "Will"], cat: "Present Continuous – Interrogative", type: "fill" },
+    { s: "He ____ not play football.", correct: "does", opt: ["does", "do", "did"], cat: "Present Simple – Negative", type: "fill" },
+    { s: "I ____ not drink soda.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
+    { s: "You ____ not write poems.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
+    { s: "She ____ not listen to music.", correct: "does", opt: ["does", "do", "did"], cat: "Present Simple – Negative", type: "fill" },
+    { s: "Does he ____ to school by bike?", correct: "go", opt: ["go", "goes", "went"], cat: "Present Simple – Interrogative", type: "fill" },
+    { s: "They ____ not go to the gym.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
+    { s: "She ____ Spanish and English.", correct: "speaks", opt: ["speaks", "speak", "spoke"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "____ she working tomorrow?", correct: "Is", opt: ["Is", "Does", "Will"], cat: "Present Continuous – Interrogative", type: "fill" },
+    { s: "You ____ taking the test this afternoon.", correct: "are", opt: ["are", "do", "will"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "She ____ not working tomorrow.", correct: "is", opt: ["is", "has", "will"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "I ____ not working tonight.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "They ____ not going on vacation.", correct: "are", opt: ["are", "is", "have"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "He ____ not traveling this week.", correct: "is", opt: ["is", "has", "do"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "We ____ not watching the movie.", correct: "are", opt: ["are", "is", "have"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "You ____ not helping much.", correct: "are", opt: ["are", "do", "is"], cat: "Present Continuous – Negative", type: "fill" },
+    { s: "He ____ playing football tomorrow.", correct: "is", opt: ["is", "has", "are"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "We ____ flying to New York next week.", correct: "are", opt: ["are", "is", "am"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "I ____ my homework every day.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "He ____ video games at night.", correct: "plays", opt: ["plays", "play", "playing"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "The sun ____ in the east.", correct: "rises", opt: ["rises", "rise", "rising"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "I ____ the guitar.", correct: "play", opt: ["play", "plays", "playing"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "Birds ____ in the sky.", correct: "fly", opt: ["fly", "flies", "flying"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "He ____ dinner at 7 PM.", correct: "eats", opt: ["eats", "eat", "eating"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "You ____ very well.", correct: "sing", opt: ["sing", "sings", "sang"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "I ____ tea every morning.", correct: "drink", opt: ["drink", "drinks", "drinking"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "They ____ early on Sundays.", correct: "wake", opt: ["wake", "wakes", "waking"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "We ____ lunch at noon.", correct: "have", opt: ["have", "has", "having"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "You ____ very fast.", correct: "run", opt: ["run", "runs", "ran"], cat: "Present Simple – Affirmative", type: "fill" },
+    { s: "We ____ meeting them later.", correct: "are", opt: ["are", "do", "is"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "She ____ leaving in an hour.", correct: "is", opt: ["is", "has", "do"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "They ____ coming to the party.", correct: "are", opt: ["are", "will", "have"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "He ____ giving a speech.", correct: "is", opt: ["is", "does", "has"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "I ____ working on a new book.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" },
+    { s: "We ____ attending a conference.", correct: "are", opt: ["are", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" }
+  ]
+];
 
-    function shuffle(a){
-      for(let i = a.length - 1; i > 0; i--){
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
       }
       return a;
     }
 
-    function startGame(){
+    function startGame() {
       streak = 0;
       index = 0;
       shuffle(questions);
       document.querySelector(".btnStart").style.display = "none";
       document.getElementById("promptCard").style.display = "block";
-      try { koala.volume = 0.5; koala.play(); } catch (e) {}
+      try { koala.volume = 0.5; koala.play(); } catch (e) { }
       next();
     }
 
-    function next(){
+    function next() {
       const q = questions[index % questions.length];
-      const opts = shuffle([...q.opt]);
       document.getElementById("sentence").innerText = q.s;
       document.getElementById("category").innerText = q.cat;
       document.getElementById("feedback").style.display = "none";
+      const opts = shuffle([...q.opt]);
 
-      for (let i = 0; i < 3; i++){
+      for (let i = 0; i < 3; i++) {
         const b = document.getElementById("opt" + i);
         b.innerText = opts[i];
         b.disabled = false;
         b.dataset.correct = (opts[i] === q.correct);
       }
+
       document.getElementById("progress").innerText = `Current streak: ${streak} / 25`;
       index++;
     }
 
-    function selectOption(i){
+    function selectOption(i) {
       const btn = document.getElementById("opt" + i);
       const fb = document.getElementById("feedback");
       const correct = btn.dataset.correct === "true";
-      if (correct){
+      if (correct) {
         fb.className = "feedback ok";
         fb.innerText = ["✅ Correct!", "🎯 You nailed it!", "🔥 Nice!"][Math.floor(Math.random() * 3)];
         streak++;
@@ -185,6 +227,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
