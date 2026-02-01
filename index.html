@@ -2,224 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Future Tense Practice — 25 Streak Game</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Grammar Mastery Game</title>
   <style>
     body {
-      font-family: Montserrat, sans-serif;
-      background: linear-gradient(180deg, #f1f5fe, #e2f2f1, #e8f4ff);
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
-    .container {
-      background: white;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      max-width: 720px;
-      width: 100%;
+      font-family: sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      padding: 2rem;
       text-align: center;
     }
-    .title {
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 8px;
+    .question-box {
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      max-width: 600px;
     }
-    .subtitle {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 18px;
+    .options button {
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
     }
-    .btnStart {
-      background: linear-gradient(135deg, #20c997, #0ca678);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-weight: 900;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 20px;
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
     }
-    .card {
-      background: #f9f9f9;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      padding: 20px;
-      display: none;
+    .word-bank button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
     }
-    .cardTitle {
+    #streak {
       font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 6px;
-      color: #888;
-    }
-    .cardSentence {
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 16px;
-    }
-    .optionBtn {
-      display: block;
-      width: 100%;
-      max-width: 400px;
-      margin: 8px auto;
-      padding: 10px 14px;
-      font-weight: bold;
-      border-radius: 10px;
-      border: none;
-      background: #e7f5ff;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .optionBtn:hover {
-      background: #d0ebff;
-    }
-    .feedback {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: bold;
-      display: none;
-    }
-    .ok {
-      background: #d3f9d8;
-      color: #2f9e44;
-    }
-    .no {
-      background: #ffe3e3;
-      color: #c92a2a;
-    }
-    .progress {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #444;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">Future Tense Mastery</div>
-    <div class="subtitle">Reach 25 correct in a row — randomized & adaptive</div>
-    <button class="btnStart" onclick="startGame()">Start Game</button>
+  <h1>Future Grammar Mastery Game</h1>
+  <div id="game" class="question-box"></div>
+  <div id="streak">Streak: 0</div>
 
-    <div class="card" id="promptCard">
-      <div class="cardTitle" id="category">Category</div>
-      <div class="cardSentence" id="sentence">Sentence appears here</div>
-      <button class="optionBtn" onclick="selectOption(0)" id="opt0"></button>
-      <button class="optionBtn" onclick="selectOption(1)" id="opt1"></button>
-      <button class="optionBtn" onclick="selectOption(2)" id="opt2"></button>
-      <div class="feedback" id="feedback"></div>
-      <div class="progress" id="progress">Current streak: 0 / 25</div>
-    </div>
-  </div>
-
-  <audio id="bgMusic" src="Koala2.mp3" preload="auto" loop></audio>
-
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    const koala = document.getElementById("bgMusic");
-    let streak = 0;
-    let index = 0;
-
     const questions = [
-  // fill-type questions (reduced to 20)
-  ...[
-    { s: "She ____ to the gym on Mondays.", correct: "goes", opt: ["goes", "go", "going"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "I ____ not watch TV.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
-    { s: "____ she speak French?", correct: "Does", opt: ["Does", "Do", "Did"], cat: "Present Simple – Interrogative", type: "fill" },
-    { s: "He ____ going to win.", correct: "is", opt: ["is", "are", "am"], cat: "Going to – Affirmative", type: "fill" },
-    { s: "She ____ not coming today.", correct: "is", opt: ["is", "are", "was"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "I ____ seeing my doctor in the morning.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "____ they playing in the match?", correct: "Are", opt: ["Are", "Do", "Will"], cat: "Present Continuous – Interrogative", type: "fill" },
-    { s: "He ____ not play football.", correct: "does", opt: ["does", "do", "did"], cat: "Present Simple – Negative", type: "fill" },
-    { s: "I ____ not drink soda.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
-    { s: "You ____ not write poems.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
-    { s: "She ____ not listen to music.", correct: "does", opt: ["does", "do", "did"], cat: "Present Simple – Negative", type: "fill" },
-    { s: "Does he ____ to school by bike?", correct: "go", opt: ["go", "goes", "went"], cat: "Present Simple – Interrogative", type: "fill" },
-    { s: "They ____ not go to the gym.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
-    { s: "She ____ Spanish and English.", correct: "speaks", opt: ["speaks", "speak", "spoke"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "____ she working tomorrow?", correct: "Is", opt: ["Is", "Does", "Will"], cat: "Present Continuous – Interrogative", type: "fill" },
-    { s: "You ____ taking the test this afternoon.", correct: "are", opt: ["are", "do", "will"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "She ____ not working tomorrow.", correct: "is", opt: ["is", "has", "will"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "I ____ not working tonight.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "He ____ giving a speech.", correct: "is", opt: ["is", "does", "has"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "I ____ working on a new book.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" }
-  ],
-
-  // identify tense/purpose questions (new)
-  ...[
-    { s: "Look at those clouds! It ____ rain soon.", correct: "is going to", opt: ["will", "is going to", "is raining"], cat: "Going to – Prediction", type: "choose-tense" },
-    { s: "We ____ visit our grandparents this Sunday. It's already planned.", correct: "are going to", opt: ["will", "are going to", "are visiting"], cat: "Going to – Plan", type: "choose-tense" },
-    { s: "She thinks he ____ win the race.", correct: "will", opt: ["will", "is going to", "is winning"], cat: "Will – Belief", type: "choose-tense" },
-    { s: "We ____ the project together. We've already discussed it.", correct: "are doing", opt: ["will do", "are going to do", "are doing"], cat: "Present Continuous – Arrangement", type: "choose-tense" },
-    { s: "I promise I ____ tell anyone.", correct: "won’t", opt: ["won’t", "am not going to", "don’t"], cat: "Will – Promise", type: "choose-tense" }
-  ],
-
-  // order-type questions (new)
-  ...[
-    { s: "What / will / you / do / tomorrow?", correct: "What will you do tomorrow?", opt: ["What will you do tomorrow?", "Will you do what tomorrow?", "You will do what tomorrow?"], cat: "Will – Interrogative", type: "order" },
-    { s: "going / am / I / to / the party", correct: "I am going to the party", opt: ["I am going to the party", "Am I going to the party", "Going I am to the party"], cat: "Going to – Affirmative", type: "order" },
-    { s: "is / She / tomorrow / working", correct: "She is working tomorrow", opt: ["She is working tomorrow", "Is she working tomorrow", "Working she is tomorrow"], cat: "Present Continuous – Affirmative", type: "order" },
-    { s: "to / We / going / are / win", correct: "We are going to win", opt: ["We are going to win", "Are we going to win", "Going we are to win"], cat: "Going to – Affirmative", type: "order" },
-    { s: "start / Will / class / the / soon", correct: "Will the class start soon?", opt: ["Will the class start soon?", "Class will start soon?", "Start the class will soon?"], cat: "Will – Interrogative", type: "order" }
-  ]
-];
-
-    function shuffle(a) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+      {
+        type: "fill",
+        sentence: "She ___ to the store tomorrow.",
+        options: ["go", "goes", "will go", "went"],
+        correct: "will go"
+      },
+      {
+        type: "order",
+        sentence: "They will arrive at noon.",
+        scrambled: ["arrive", "They", "at", "will", "noon"],
+        correct: "They will arrive at noon."
       }
-      return a;
-    }
+    ];
 
-    function startGame() {
-      streak = 0;
-      index = 0;
-      shuffle(questions);
-      document.querySelector(".btnStart").style.display = "none";
-      document.getElementById("promptCard").style.display = "block";
-      try { koala.volume = 0.5; koala.play(); } catch (e) { }
-      next();
-    }
+    let current = 0;
+    let streak = 0;
 
-    function next() {
-      const q = questions[index % questions.length];
-      document.getElementById("sentence").innerText = q.s;
-      document.getElementById("category").innerText = q.cat;
-      document.getElementById("feedback").style.display = "none";
-      const opts = shuffle([...q.opt]);
+    function showQuestion() {
+      const q = questions[current];
+      const game = document.getElementById("game");
+      game.innerHTML = "";
 
-      for (let i = 0; i < 3; i++) {
-        const b = document.getElementById("opt" + i);
-        b.innerText = opts[i];
-        b.disabled = false;
-        b.dataset.correct = (opts[i] === q.correct);
+      if (q.type === "fill") {
+        const p = document.createElement("p");
+        p.textContent = q.sentence.replace("___", "_____");
+        game.appendChild(p);
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "options";
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(opt === q.correct);
+          optionsDiv.appendChild(btn);
+        });
+        game.appendChild(optionsDiv);
+      } else if (q.type === "order") {
+        const p = document.createElement("p");
+        p.textContent = "Arrange the words:";
+        game.appendChild(p);
+
+        const wordBank = document.createElement("div");
+        wordBank.className = "word-bank";
+        let selected = [];
+
+        q.scrambled.forEach(word => {
+          const btn = document.createElement("button");
+          btn.textContent = word;
+          btn.onclick = () => {
+            selected.push(word);
+            btn.disabled = true;
+            if (selected.length === q.scrambled.length) {
+              checkAnswer(selected.join(" ") === q.correct);
+            }
+          };
+          wordBank.appendChild(btn);
+        });
+        game.appendChild(wordBank);
       }
-
-      document.getElementById("progress").innerText = `Current streak: ${streak} / 25`;
-      index++;
     }
 
-    function selectOption(i) {
-      const btn = document.getElementById("opt" + i);
-      const fb = document.getElementById("feedback");
-      const correct = btn.dataset.correct === "true";
+    function checkAnswer(correct) {
       if (correct) {
-        fb.className = "feedback ok";
-        fb.innerText = ["✅ Correct!", "🎯 You nailed it!", "🔥 Nice!"][Math.floor(Math.random() * 3)];
         streak++;
+        confetti();
       } else {
-        fb.className = "feedback no";
-        fb.innerText = ["❌ Oops!", "🚫 Wrong tense!", "😬 Try again!"][Math.floor(Math.random() * 3)];
         streak = 0;
+        alert("Try again!");
       }
-      fb.style.display = "block";
-      setTimeout(() => next(), 1300);
+      document.getElementById("streak").textContent = `Streak: ${streak}`;
+      current = (current + 1) % questions.length;
+      setTimeout(showQuestion, 1000);
     }
+
+    showQuestion();
   </script>
 </body>
 </html>
