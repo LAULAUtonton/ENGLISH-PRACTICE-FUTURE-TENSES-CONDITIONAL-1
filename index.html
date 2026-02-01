@@ -1,683 +1,615 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Future Grammar Mastery — 225 Sentence Bank</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Grammar Mastery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0099cc;        /* cyan screen background */
+      --card-bg: #555555;   /* grey game space */
+      --text: #ffffff;
+      --highlight: #ffe066;
+      --btn-cyan: #00ffff;
+      --btn-yellow: #ffb703;
+      --btn-red: #d00000;
+      --btn-purple: #c77dff;
+      --bar-bg: #002b36;
+      --bar-fill: #00ff99;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .app {
+      max-width: 960px;
+      margin: auto;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      margin: 0;
+      text-shadow: 0 0 10px #000;
+    }
+    header p {
+      margin: 6px 0 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00000055;
+      font-size: 0.95rem;
+    }
+    .btn.cyan { background: var(--btn-cyan); color: #000; }
+    .btn.yellow { background: var(--btn-yellow); color: #000; }
+    .btn.red { background: var(--btn-red); color: #fff; }
+    .btn.purple { background: var(--btn-purple); color: #000; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: #004b63;
+      padding: 8px 12px;
+      border-radius: 10px;
+      min-width: 110px;
+      text-align: center;
+      box-shadow: 0 0 6px #00000055;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
 
-<style>
-  :root {
-    --bg: #444444;               /* Medium grey */
-    --primary: #00ffff;
-    --secondary: #4cc9f0;
-    --text: #ffffff;
-    --muted: #dddddd;
-    --card-bg: #555555;
-    --border: #666666;
-    --focus: #ffb703;
-    --success: #38b000;
-    --error: #d00000;
-    --btn-cyan: #00ffff;
-    --btn-yellow: #ffb703;
-    --btn-red: #d00000;
-    --btn-purple: #c77dff;
-    --used-word: #ffe066;        /* Yellow highlight for selected words */
-  }
+    .progress-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .progress-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .progress-bar {
+      position: relative;
+      width: 100%;
+      height: 22px;
+      background: var(--bar-bg);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #00000088;
+      border: 2px solid #00ffffaa;
+    }
+    .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--bar-fill), #00ffff);
+      box-shadow: 0 0 15px #00ff99aa;
+      transition: width 0.25s ease-out;
+    }
+    .progress-ticks {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 6px;
+      font-size: 0.7rem;
+      color: #ffffffaa;
+      pointer-events: none;
+    }
 
-  * {
-    box-sizing: border-box;
-  }
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #00000088;
+    }
+    .prompt {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: 600;
+    }
 
-  body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    font-family: "Poppins", sans-serif;
-    color: var(--text);
-    font-size: 18px;
-  }
+    .interaction {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 50px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #00ffff55;
+    }
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 60px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
 
-  .app {
-    max-width: 960px;
-    margin: auto;
-    padding: 20px;
-  }
+    .word {
+      background: #333;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 0 6px #00000066;
+      border: 1px solid #00000055;
+      user-select: none;
+    }
+    .word.selected {
+      background: var(--highlight);
+      color: #000;
+      border-color: #000000aa;
+    }
 
-  header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+    .feedback {
+      margin-top: 6px;
+      font-weight: 600;
+      min-height: 24px;
+      text-align: center;
+    }
+    .feedback.ok { color: #9cffb5; }
+    .feedback.no { color: #ffb3b3; }
 
-  header h1 {
-    font-size: 2.4rem;
-    margin: 0;
-    color: var(--primary);
-    text-shadow: 0 0 10px var(--primary);
-  }
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-  header p {
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  .controls {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    border: none;
-    padding: 14px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.2s ease;
-    color: #000;
-    box-shadow: 0 0 10px var(--primary);
-  }
-
-  .btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--primary);
-  }
-
-  .btn.cyan { background: var(--btn-cyan); }
-  .btn.yellow { background: var(--btn-yellow); }
-  .btn.red { background: var(--btn-red); }
-  .btn.purple { background: var(--btn-purple); }
-
-  .stats {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .bar {
-    flex-grow: 1;
-    height: 20px;
-    background: #333;
-    border-radius: 10px;
-    margin: 0 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .barFill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    transition: width 0.3s ease;
-  }
-
-  main.card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-  }
-
-  .prompt {
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-
-  .interaction, .choices {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    min-height: 60px;
-    margin-bottom: 10px;
-  }
-
-  .choice {
-    background: #333;
-    padding: 10px 16px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    transition: 0.2s ease;
-  }
-
-  .choice:hover {
-    background: #444;
-  }
-
-  .choice.used {
-    background: var(--used-word);
-    color: #000;
-    border-color: #000;
-  }
-
-  .feedback {
-    display: none;
-    padding: 16px;
-    border-radius: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .feedback.ok {
-    background: #1b4332;
-    color: var(--success);
-  }
-
-  .feedback.no {
-    background: #641220;
-    color: var(--error);
-  }
-
-  .actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-
-  @media (max-width: 600px) {
-    .btn { width: 100%; }
-    .stats { flex-direction: column; gap: 10px; }
-  }
-</style>
+    @media (max-width: 700px) {
+      .stats {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .stat-box {
+        width: 100%;
+      }
+      .btn {
+        width: 100%;
+        max-width: 260px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-<div class="app">
+  <div class="app">
+    <header>
+      <h1>Future Grammar Mastery</h1>
+      <p>Present Simple • Present Continuous • Will • Going to • First Conditional</p>
+      <div class="controls">
+        <button class="btn cyan" onclick="startGame()">Start</button>
+        <button class="btn purple" onclick="resetGame()">Reset</button>
+      </div>
+    </header>
 
-  <header>
-    <h1>Future Grammar Mastery</h1>
-    <p>Present Simple • Present Continuous • Will • Going to • First Conditional</p>
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value"><span id="streak">0</span> / 25</div>
+      </div>
 
-    <div class="controls">
-      <button class="btn cyan" id="musicBtn">🔊 Music: On</button>
-      <button class="btn purple" id="resetBtn">🔁 Restart</button>
+      <div class="progress-wrapper">
+        <div class="progress-label">Progress</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-ticks">
+            <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-label">Strikes</div>
+        <div class="stat-value" id="strikes">0</div>
+      </div>
     </div>
-  </header>
 
-  <section class="stats">
-    <div class="stat">
-      <div>Streak</div>
-      <div><span id="streakVal">0</span> / 25</div>
+    <div class="card">
+      <div class="prompt" id="prompt">Click Start to begin</div>
+
+      <div class="interaction" id="interaction"></div>
+      <div class="choices" id="choices"></div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="actions">
+        <button class="btn red" onclick="clearWords()">Clear</button>
+        <button class="btn yellow" onclick="checkAnswer()">Check</button>
+      </div>
     </div>
+  </div>
 
-    <div class="bar"><div class="barFill" id="barFill"></div></div>
+  <script>
+    // 225 sentences: 5 tenses × (15 aff + 15 neg + 15 int)
+    const sentences = [
+      // PRESENT SIMPLE (future meaning) – affirmative (15)
+      "The train leaves at 8 a.m. tomorrow.",
+      "School starts at 9 o'clock on Monday.",
+      "The plane lands at 3:15 p.m.",
+      "The football match kicks off at noon.",
+      "The shop opens at 9 a.m. on Saturday.",
+      "The concert begins at 7 p.m. next Friday.",
+      "The ferry departs at 2 p.m.",
+      "My flight departs at 6 in the morning.",
+      "The museum closes at 6 p.m.",
+      "Our exam starts at 10 a.m. sharp.",
+      "The show begins at 7:30 tonight.",
+      "The train to Madrid leaves at 4:20.",
+      "The bus arrives at the station at 5:30.",
+      "The library opens at 8:30 a.m.",
+      "The movie starts at 6:45 tonight.",
+      // Present Simple – negative (15)
+      "School doesn't start at 8 o'clock tomorrow.",
+      "The concert doesn't begin at 6 p.m.",
+      "The bus doesn't arrive at 6:30.",
+      "My flight doesn't depart at 7 in the morning.",
+      "The shop doesn't open at 10 a.m.",
+      "The museum doesn't close at 5 p.m.",
+      "The football match doesn't kick off at 1 p.m.",
+      "The plane doesn't land at 4 p.m.",
+      "The ferry doesn't depart at 3 p.m.",
+      "Our exam doesn't start at 11 a.m.",
+      "The train doesn't leave at 9 a.m.",
+      "The library doesn't open at 9 a.m.",
+      "The movie doesn't start at 7:30 tonight.",
+      "The train to Paris doesn't leave at 5:15.",
+      "The show doesn't begin at 8:30 tonight.",
+      // Present Simple – interrogative (15)
+      "Does the train leave at 8 a.m. tomorrow?",
+      "Does school start at 9 o'clock on Monday?",
+      "Does the plane land at 3:15 p.m.?",
+      "Does the football match kick off at noon?",
+      "Does the shop open at 9 a.m. on Saturday?",
+      "Does the concert begin at 7 p.m. next Friday?",
+      "Does the ferry depart at 2 p.m.?",
+      "Does your flight depart at 6 in the morning?",
+      "Does the museum close at 6 p.m.?",
+      "Does our exam start at 10 a.m. sharp?",
+      "Does the show begin at 7:30 tonight?",
+      "Does the train to Madrid leave at 4:20?",
+      "Does the bus arrive at the station at 5:30?",
+      "Does the library open at 8:30 a.m.?",
+      "Does the movie start at 6:45 tonight?",
 
-    <div class="stat">
-      <div>Strikes</div>
-      <div id="strikesVal">0</div>
-    </div>
-  </section>
+      // PRESENT CONTINUOUS – affirmative (15)
+      "I am meeting my friends at the cinema tonight.",
+      "We are watching a movie tonight.",
+      "We are having dinner with our cousins tomorrow.",
+      "I am seeing the dentist on Friday.",
+      "She is visiting her grandma this weekend.",
+      "We are celebrating my birthday on Saturday.",
+      "They are going shopping after school.",
+      "She is flying to Paris next week.",
+      "She is starting her new job next week.",
+      "They are coming over for lunch tomorrow.",
+      "He is playing football on Saturday.",
+      "He is taking his driving test on Monday.",
+      "I am joining the art club next term.",
+      "They are moving house next month.",
+      "We are going to the zoo next Sunday.",
+      // Present Continuous – negative (15)
+      "I am not meeting my friends tonight.",
+      "We aren't watching a movie tonight.",
+      "We aren't having dinner tomorrow.",
+      "I am not seeing the dentist on Friday.",
+      "She isn't visiting her grandma this weekend.",
+      "We aren't celebrating my birthday on Saturday.",
+      "They aren't going shopping after school.",
+      "She isn't flying to Paris next week.",
+      "She isn't starting her new job next week.",
+      "They aren't coming over for lunch tomorrow.",
+      "He isn't playing football on Saturday.",
+      "He isn't taking his driving test on Monday.",
+      "I am not joining the art club next term.",
+      "They aren't moving house next month.",
+      "We aren't going to the zoo next Sunday.",
+      // Present Continuous – interrogative (15)
+      "Are you meeting your friends tonight?",
+      "Are we watching a movie tonight?",
+      "Are we having dinner tomorrow?",
+      "Am I seeing the dentist on Friday?",
+      "Is she visiting her grandma this weekend?",
+      "Are we celebrating your birthday on Saturday?",
+      "Are they going shopping after school?",
+      "Is she flying to Paris next week?",
+      "Is she starting her new job next week?",
+      "Are they coming over for lunch tomorrow?",
+      "Is he playing football on Saturday?",
+      "Is he taking his driving test on Monday?",
+      "Am I joining the art club next term?",
+      "Are they moving house next month?",
+      "Are we going to the zoo next Sunday?",
 
-  <main class="card">
-    <div class="prompt" id="prompt">Press Check to start 👇</div>
+      // WILL – affirmative (15)
+      "She will call you later.",
+      "He will arrive at noon.",
+      "They will go to the concert.",
+      "I will help you with your homework.",
+      "We will watch a movie tonight.",
+      "She will bake a cake.",
+      "He will fix his bike.",
+      "They will travel to Spain next summer.",
+      "We will visit grandma this weekend.",
+      "We will have a party on Friday.",
+      "I will bring the snacks.",
+      "They will win the match.",
+      "He will study for the test.",
+      "I will clean my room tomorrow.",
+      "She will join the team.",
+      // Will – negative (15)
+      "I won't help you with your homework.",
+      "We won't watch a movie tonight.",
+      "She won't call you later.",
+      "He won't fix his bike.",
+      "They won't travel to Spain next summer.",
+      "We won't visit grandma this weekend.",
+      "We won't have a party on Friday.",
+      "They won't go to the concert.",
+      "He won't arrive at noon.",
+      "I won't clean my room tomorrow.",
+      "They won't win the match.",
+      "He won't study for the test.",
+      "She won't bake a cake.",
+      "I won't bring the snacks.",
+      "She won't join the team.",
+      // Will – interrogative (15)
+      "Will she call you later?",
+      "Will he arrive at noon?",
+      "Will they go to the concert?",
+      "Will you help me with my homework?",
+      "Will we watch a movie tonight?",
+      "Will they travel to Spain next summer?",
+      "Will he fix his bike?",
+      "Will we have a party on Friday?",
+      "Will you clean your room tomorrow?",
+      "Will they win the match?",
+      "Will he study for the test?",
+      "Will she bake a cake?",
+      "Will you bring the snacks?",
+      "Will we visit grandma this weekend?",
+      "Will she join the team?",
 
-    <div class="interaction" id="interaction"></div>
-    <div class="choices" id="choices"></div>
+      // GOING TO – affirmative (15)
+      "I am going to visit London next week.",
+      "He is going to learn Spanish.",
+      "They are going to play video games.",
+      "We are going to bake a cake tomorrow.",
+      "We are going to travel to Italy.",
+      "She is going to study for the exam.",
+      "He is going to cook dinner tonight.",
+      "They are going to have a barbecue.",
+      "They are going to watch a movie tonight.",
+      "I am going to read a new book.",
+      "I am going to help my dad clean the garage.",
+      "We are going to visit the museum.",
+      "She is going to start a new job.",
+      "She is going to paint her room.",
+      "They are going to play football in the park.",
+      // Going to – negative (15)
+      "I am not going to visit London next week.",
+      "He isn't going to learn Spanish.",
+      "They aren't going to play video games.",
+      "We aren't going to bake a cake tomorrow.",
+      "We aren't going to travel to Italy.",
+      "She isn't going to study for the exam.",
+      "He isn't going to cook dinner tonight.",
+      "They aren't going to have a barbecue.",
+      "They aren't going to watch a movie tonight.",
+      "I am not going to read a new book.",
+      "I am not going to help my dad clean the garage.",
+      "We aren't going to visit the museum.",
+      "She isn't going to start a new job.",
+      "She isn't going to paint her room.",
+      "He isn't going to play football on Saturday.",
+      // Going to – interrogative (15)
+      "Are you going to visit London next week?",
+      "Is he going to learn Spanish?",
+      "Are they going to play video games?",
+      "Are we going to bake a cake tomorrow?",
+      "Are we going to travel to Italy?",
+      "Is she going to study for the exam?",
+      "Is he going to cook dinner tonight?",
+      "Are they going to have a barbecue?",
+      "Are they going to watch a movie tonight?",
+      "Are you going to read a new book?",
+      "Are you going to help your dad clean the garage?",
+      "Are we going to visit the museum?",
+      "Is she going to start a new job?",
+      "Is she going to paint her room?",
+      "Is he going to play football on Saturday?",
 
-    <div class="feedback" id="feedback"></div>
+      // FIRST CONDITIONAL – affirmative (15)
+      "If it rains, we will stay at home.",
+      "If it’s sunny, we will go to the beach.",
+      "If we leave now, we will catch the bus.",
+      "If you help me, I will finish faster.",
+      "If she studies, she will do well.",
+      "If they win, we will celebrate.",
+      "If he trains hard, he will win.",
+      "If we save money, we will go on holiday.",
+      "If I study hard, I will pass the exam.",
+      "If I see her, I will say hello.",
+      "If she calls me, I will answer.",
+      "If they arrive late, we will wait.",
+      "If he finishes early, he will join us.",
+      "If we go to the park, we will play football.",
+      "If I get the job, I will be happy.",
+      // First Conditional – negative (15)
+      "If it rains, we won't go outside.",
+      "If we don't leave now, we won't catch the bus.",
+      "If I don't get the job, I won't be happy.",
+      "If I don't see her, I won't say hello.",
+      "If she doesn't study, she won't do well.",
+      "If it’s not sunny, we won't go to the beach.",
+      "If we don't go to the park, we won't play football.",
+      "If I don't study, I won't pass the exam.",
+      "If you don't help me, I won't finish in time.",
+      "If they don't win, we won't celebrate.",
+      "If we don't save money, we won't go on holiday.",
+      "If he doesn't train, he won't win.",
+      "If they don't arrive, we won't wait.",
+      "If she doesn't call me, I won't know.",
+      "If he doesn't finish, he won't join us.",
+      // First Conditional – interrogative (15)
+      "If it rains, will we stay at home?",
+      "If you study hard, will you pass the exam?",
+      "If he trains hard, will he win?",
+      "If we save money, will we go on holiday?",
+      "If I study hard, will I pass the exam?",
+      "If she studies, will she do well?",
+      "If they win, will we celebrate?",
+      "If we go to the park, will we play football?",
+      "If I get the job, will I be happy?",
+      "If you help me, will I finish faster?",
+      "If she calls you, will you answer?",
+      "If they arrive late, will we wait?",
+      "If he finishes early, will he join us?",
+      "If we leave now, will we catch the bus?",
+      "If it’s sunny, will we go to the beach?"
+    ];
 
-    <div class="actions">
-      <button class="btn red" id="clearBtn" style="display:none;">Clear</button>
-      <button class="btn yellow" id="checkBtn">Check</button>
-      <button class="btn cyan" id="nextBtn" style="display:none;">Next</button>
-      <button class="btn purple" id="showBtn" style="display:none;">Show answer</button>
-    </div>
-  </main>
+    let current = "";
+    let built = [];
+    let streak = 0;
+    let strikes = 0;
 
-</div>
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
 
-<audio id="bgMusic" src="koala.mp3" preload="auto" loop></audio>
+    function updateStats() {
+      document.getElementById("streak").textContent = streak;
+      document.getElementById("strikes").textContent = strikes;
+      const fill = document.getElementById("progressFill");
+      const pct = Math.max(0, Math.min(100, (streak / 25) * 100));
+      fill.style.width = pct + "%";
+    }
 
-<script>
-// 225-sentence mixed bank (Present Simple, Present Continuous, Will, Going to, First Conditional)
-// Each item is a simple string used by the game.
-
-const sentenceBank = [
-  // Present Simple (future meaning) – affirmative
-  "The train leaves at 8 a.m. tomorrow.",
-  "School starts at 9 o'clock on Monday.",
-  "The plane lands at 3:15 p.m.",
-  "The football match kicks off at noon.",
-  "The shop opens at 9 a.m. on Saturday.",
-  "The concert begins at 7 p.m. next Friday.",
-  "The ferry departs at 2 p.m.",
-  "My flight departs at 6 in the morning.",
-  "The museum closes at 6 p.m.",
-  "Our exam starts at 10 a.m. sharp.",
-  "The show begins at 7:30 tonight.",
-  "The train to Madrid leaves at 4:20.",
-  "The bus arrives at the station at 5:30.",
-  "The library opens at 8:30 a.m.",
-  "The movie starts at 6:45 tonight.",
-
-  // Present Simple – negative
-  "School doesn't start at 8 o'clock tomorrow.",
-  "The concert doesn't begin at 6 p.m.",
-  "The bus doesn't arrive at 6:30.",
-  "My flight doesn't depart at 7 in the morning.",
-  "The shop doesn't open at 10 a.m.",
-  "The museum doesn't close at 5 p.m.",
-  "The football match doesn't kick off at 1 p.m.",
-  "The plane doesn't land at 4 p.m.",
-  "The ferry doesn't depart at 3 p.m.",
-  "Our exam doesn't start at 11 a.m.",
-  "The train doesn't leave at 9 a.m.",
-  "The library doesn't open at 9 a.m.",
-  "The movie doesn't start at 7:30 tonight.",
-  "The train to Paris doesn't leave at 5:15.",
-  "The show doesn't begin at 8:30 tonight.",
-
-  // Present Simple – interrogative
-  "Does the train leave at 8 a.m. tomorrow?",
-  "Does school start at 9 o'clock on Monday?",
-  "Does the plane land at 3:15 p.m.?",
-  "Does the football match kick off at noon?",
-  "Does the shop open at 9 a.m. on Saturday?",
-  "Does the concert begin at 7 p.m. next Friday?",
-  "Does the ferry depart at 2 p.m.?",
-  "Does your flight depart at 6 in the morning?",
-  "Does the museum close at 6 p.m.?",
-  "Does our exam start at 10 a.m. sharp?",
-  "Does the show begin at 7:30 tonight?",
-  "Does the train to Madrid leave at 4:20?",
-  "Does the bus arrive at the station at 5:30?",
-  "Does the library open at 8:30 a.m.?",
-  "Does the movie start at 6:45 tonight?",
-
-  // Present Continuous – affirmative
-  "I am meeting my friends at the cinema tonight.",
-  "We are watching a movie tonight.",
-  "We are having dinner with our cousins tomorrow.",
-  "I am seeing the dentist on Friday.",
-  "She is visiting her grandma this weekend.",
-  "We are celebrating my birthday on Saturday.",
-  "They are going shopping after school.",
-  "She is flying to Paris next week.",
-  "She is starting her new job next week.",
-  "They are coming over for lunch tomorrow.",
-  "He is playing football on Saturday.",
-  "He is taking his driving test on Monday.",
-  "I am joining the art club next term.",
-  "They are moving house next month.",
-  "We are going to the zoo next Sunday.",
-
-  // Present Continuous – negative
-  "I am not meeting my friends tonight.",
-  "We aren't watching a movie tonight.",
-  "We aren't having dinner tomorrow.",
-  "I am not seeing the dentist on Friday.",
-  "She isn't visiting her grandma this weekend.",
-  "We aren't celebrating my birthday on Saturday.",
-  "They aren't going shopping after school.",
-  "She isn't flying to Paris next week.",
-  "She isn't starting her new job next week.",
-  "They aren't coming over for lunch tomorrow.",
-  "He isn't playing football on Saturday.",
-  "He isn't taking his driving test on Monday.",
-  "I am not joining the art club next term.",
-  "They aren't moving house next month.",
-  "We aren't going to the zoo next Sunday.",
-
-  // Present Continuous – interrogative
-  "Are you meeting your friends tonight?",
-  "Are we watching a movie tonight?",
-  "Are we having dinner tomorrow?",
-  "Am I seeing the dentist on Friday?",
-  "Is she visiting her grandma this weekend?",
-  "Are we celebrating your birthday on Saturday?",
-  "Are they going shopping after school?",
-  "Is she flying to Paris next week?",
-  "Is she starting her new job next week?",
-  "Are they coming over for lunch tomorrow?",
-  "Is he playing football on Saturday?",
-  "Is he taking his driving test on Monday?",
-  "Am I joining the art club next term?",
-  "Are they moving house next month?",
-  "Are we going to the zoo next Sunday?",
-
-  // Will – affirmative
-  "She will call you later.",
-  "He will arrive at noon.",
-  "They will go to the concert.",
-  "I will help you with your homework.",
-  "We will watch a movie tonight.",
-  "She will bake a cake.",
-  "He will fix his bike.",
-  "They will travel to Spain next summer.",
-  "We will visit grandma this weekend.",
-  "We will have a party on Friday.",
-  "I will bring the snacks.",
-  "They will win the match.",
-  "He will study for the test.",
-  "I will clean my room tomorrow.",
-  "She will join the team.",
-
-  // Will – negative
-  "I won't help you with your homework.",
-  "We won't watch a movie tonight.",
-  "She won't call you later.",
-  "He won't fix his bike.",
-  "They won't travel to Spain next summer.",
-  "We won't visit grandma this weekend.",
-  "We won't have a party on Friday.",
-  "They won't go to the concert.",
-  "He won't arrive at noon.",
-  "I won't clean my room tomorrow.",
-  "They won't win the match.",
-  "He won't study for the test.",
-  "She won't bake a cake.",
-  "I won't bring the snacks.",
-  "She won't join the team.",
-
-  // Will – interrogative
-  "Will she call you later?",
-  "Will he arrive at noon?",
-  "Will they go to the concert?",
-  "Will you help me with my homework?",
-  "Will we watch a movie tonight?",
-  "Will they travel to Spain next summer?",
-  "Will he fix his bike?",
-  "Will we have a party on Friday?",
-  "Will you clean your room tomorrow?",
-  "Will they win the match?",
-  "Will he study for the test?",
-  "Will she bake a cake?",
-  "Will you bring the snacks?",
-  "Will we visit grandma this weekend?",
-  "Will she join the team?",
-
-  // Going to – affirmative
-  "I am going to visit London next week.",
-  "He is going to learn Spanish.",
-  "They are going to play video games.",
-  "We are going to bake a cake tomorrow.",
-  "We are going to travel to Italy.",
-  "She is going to study for the exam.",
-  "He is going to cook dinner tonight.",
-  "They are going to have a barbecue.",
-  "They are going to watch a movie tonight.",
-  "I am going to read a new book.",
-  "I am going to help my dad clean the garage.",
-  "We are going to visit the museum.",
-  "She is going to start a new job.",
-  "She is going to paint her room.",
-  "They are going to play football in the park.",
-
-  // Going to – negative
-  "I am not going to visit London next week.",
-  "He isn't going to learn Spanish.",
-  "They aren't going to play video games.",
-  "We aren't going to bake a cake tomorrow.",
-  "We aren't going to travel to Italy.",
-  "She isn't going to study for the exam.",
-  "He isn't going to cook dinner tonight.",
-  "They aren't going to have a barbecue.",
-  "They aren't going to watch a movie tonight.",
-  "I am not going to read a new book.",
-  "I am not going to help my dad clean the garage.",
-  "We aren't going to visit the museum.",
-  "She isn't going to start a new job.",
-  "She isn't going to paint her room.",
-  "He isn't going to play football on Saturday.",
-
-  // Going to – interrogative
-  "Are you going to visit London next week?",
-  "Is he going to learn Spanish?",
-  "Are they going to play video games?",
-  "Are we going to bake a cake tomorrow?",
-  "Are we going to travel to Italy?",
-  "Is she going to study for the exam?",
-  "Is he going to cook dinner tonight?",
-  "Are they going to have a barbecue?",
-  "Are they going to watch a movie tonight?",
-  "Are you going to read a new book?",
-  "Are you going to help your dad clean the garage?",
-  "Are we going to visit the museum?",
-  "Is she going to start a new job?",
-  "Is she going to paint her room?",
-  "Is he going to play football on Saturday?",
-
-  // First Conditional – affirmative
-  "If it rains, we will stay at home.",
-  "If it’s sunny, we will go to the beach.",
-  "If we leave now, we will catch the bus.",
-  "If you help me, I will finish faster.",
-  "If she studies, she will do well.",
-  "If they win, we will celebrate.",
-  "If he trains hard, he will win.",
-  "If we save money, we will go on holiday.",
-  "If I study hard, I will pass the exam.",
-  "If I see her, I will say hello.",
-  "If she calls me, I will answer.",
-  "If they arrive late, we will wait.",
-  "If he finishes early, he will join us.",
-  "If we go to the park, we will play football.",
-  "If I get the job, I will be happy.",
-
-  // First Conditional – negative
-  "If it rains, we won't go outside.",
-  "If we don't leave now, we won't catch the bus.",
-  "If I don't get the job, I won't be happy.",
-  "If I don't see her, I won't say hello.",
-  "If she doesn't study, she won't do well.",
-  "If it’s not sunny, we won't go to the beach.",
-  "If we don't go to the park, we won't play football.",
-  "If I don't study, I won't pass the exam.",
-  "If you don't help me, I won't finish in time.",
-  "If they don't win, we won't celebrate.",
-  "If we don't save money, we won't go on holiday.",
-  "If he doesn't train, he won't win.",
-  "If they don't arrive, we won't wait.",
-  "If she doesn't call me, I won't know.",
-  "If he doesn't finish, he won't join us.",
-
-  // First Conditional – interrogative
-  "If it rains, will we stay at home?",
-  "If you study hard, will you pass the exam?",
-  "If he trains hard, will he win?",
-  "If we save money, will we go on holiday?",
-  "If I study hard, will I pass the exam?",
-  "If she studies, will she do well?",
-  "If they win, will we celebrate?",
-  "If we go to the park, will we play football?",
-  "If I get the job, will I be happy?",
-  "If you help me, will I finish faster?",
-  "If she calls you, will you answer?",
-  "If they arrive late, will we wait?",
-  "If he finishes early, will he join us?",
-  "If we leave now, will we catch the bus?",
-  "If it’s sunny, will we go to the beach?"
-];
-
-// ----------------- GAME LOGIC -----------------
-
-let currentIndex = 0;
-let streak = 0;
-let strikes = 0;
-let built = [];
-
-const streakVal = document.getElementById("streakVal");
-const strikesVal = document.getElementById("strikesVal");
-const barFill = document.getElementById("barFill");
-const prompt = document.getElementById("prompt");
-const interaction = document.getElementById("interaction");
-const choices = document.getElementById("choices");
-const feedback = document.getElementById("feedback");
-const clearBtn = document.getElementById("clearBtn");
-const checkBtn = document.getElementById("checkBtn");
-const nextBtn = document.getElementById("nextBtn");
-const showBtn = document.getElementById("showBtn");
-const resetBtn = document.getElementById("resetBtn");
-const musicBtn = document.getElementById("musicBtn");
-const bgMusic = document.getElementById("bgMusic");
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-function startGame() {
-  streak = 0;
-  strikes = 0;
-  updateStats();
-  currentIndex = Math.floor(Math.random() * sentenceBank.length);
-  nextSentence();
-}
-
-function updateStats() {
-  streakVal.textContent = streak;
-  strikesVal.textContent = strikes;
-  barFill.style.width = (streak / 25 * 100) + "%";
-}
-
-function nextSentence() {
-  // pick a random sentence from the full bank
-  currentIndex = Math.floor(Math.random() * sentenceBank.length);
-  const sentence = sentenceBank[currentIndex];
-
-  const words = shuffle(sentence.split(" "));
-
-  prompt.textContent = "Build the sentence:";
-  interaction.innerHTML = "";
-  choices.innerHTML = "";
-  feedback.style.display = "none";
-
-  clearBtn.style.display = "inline-block";
-  nextBtn.style.display = "none";
-  showBtn.style.display = "none";
-
-  built = [];
-
-  words.forEach(word => {
-    const btn = document.createElement("div");
-    btn.className = "choice";
-    btn.textContent = word;
-
-  btn.onclick = () => {
-  built.push(word);
-  renderBuilt();
-  btn.style.display = "none";   // hides the word from the bank
-};
-
-    choices.appendChild(btn);
-  });
-}
-
-function renderBuilt() {
-  interaction.innerHTML = "";
-
-  built.forEach((word, index) => {
-    const chip = document.createElement("div");
-    chip.className = "choice used";
-    chip.textContent = word;
-
-    chip.onclick = () => {
-      built.splice(index, 1);
-      renderBuilt();
-
-      Array.from(choices.children).forEach(btn => {
-        if (btn.textContent === word && btn.classList.contains("used")) {
-          btn.classList.remove("used");
-          return;
-        }
-      });
-    };
-
-    interaction.appendChild(chip);
-  });
-}
-
-checkBtn.onclick = () => {
-  const userSentence = built.join(" ");
-  const correct = sentenceBank[currentIndex];
-
-  if (userSentence === correct) {
-    feedback.textContent = "✅ Correct!";
-    feedback.className = "feedback ok";
-    feedback.style.display = "block";
-
-    streak++;
-    updateStats();
-
-    // Auto-next after 1.2 seconds
-    setTimeout(() => {
+    function startGame() {
+      streak = 0;
+      strikes = 0;
+      updateStats();
       nextSentence();
-    }, 1200);
+    }
 
-  } else {
-    feedback.textContent = "❌ Try again!";
-    feedback.className = "feedback no";
-    feedback.style.display = "block";
+    function resetGame() {
+      startGame();
+    }
 
-    strikes++;
-    updateStats();
+    function nextSentence() {
+      built = [];
+      const index = Math.floor(Math.random() * sentences.length);
+      current = sentences[index];
 
-    nextBtn.style.display = "inline-block";
-    showBtn.style.display = "inline-block";
-  }
-};
+      const words = shuffle(current.split(" "));
 
-nextBtn.onclick = () => {
-  nextSentence();
-};
+      document.getElementById("prompt").textContent = "Build the sentence:";
+      document.getElementById("interaction").innerHTML = "";
+      document.getElementById("choices").innerHTML = "";
+      document.getElementById("feedback").textContent = "";
 
-clearBtn.onclick = () => {
-  built = [];
-  renderBuilt();
-  Array.from(choices.children).forEach(btn => btn.classList.remove("used"));
-};
+      const choices = document.getElementById("choices");
+      words.forEach(word => {
+        const span = document.createElement("span");
+        span.textContent = word;
+        span.className = "word";
+        span.onclick = () => {
+          built.push(word);
+          span.style.display = "none";   // disappear from bank
+          renderBuilt();
+        };
+        choices.appendChild(span);
+      });
+    }
 
-showBtn.onclick = () => {
-  feedback.textContent = "💡 " + sentenceBank[currentIndex];
-  feedback.className = "feedback ok";
-  feedback.style.display = "block";
-};
+    function renderBuilt() {
+      const area = document.getElementById("interaction");
+      area.innerHTML = "";
+      built.forEach((word, i) => {
+        const span = document.createElement("span");
+        span.textContent = word;
+        span.className = "word selected";
+        span.onclick = () => {
+          const removed = built.splice(i, 1)[0];
+          renderBuilt();
+          Array.from(document.getElementById("choices").children).forEach(btn => {
+            if (btn.textContent === removed && btn.style.display === "none") {
+              btn.style.display = "inline-block";
+            }
+          });
+        };
+        area.appendChild(span);
+      });
+    }
 
-resetBtn.onclick = () => {
-  startGame();
-};
+    function clearWords() {
+      built = [];
+      renderBuilt();
+      const choiceButtons = document.getElementById("choices").children;
+      Array.from(choiceButtons).forEach(btn => {
+        btn.style.display = "inline-block";
+      });
+    }
 
-musicBtn.onclick = () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    musicBtn.textContent = "🔊 Music: On";
-  } else {
-    bgMusic.pause();
-    musicBtn.textContent = "🔇 Music: Off";
-  }
-};
-
-window.onload = () => {
-  startGame();
-};
-</script>
-
+    function checkAnswer() {
+      const attempt = built.join(" ");
+      const feedback = document.getElementById("feedback");
+      if (attempt === current) {
+        feedback.textContent = "✅ Correct!";
+        feedback.className = "feedback ok";
+        streak++;
+        updateStats();
+        setTimeout(() => nextSentence(), 1000);
+      } else {
+        feedback.textContent = "❌ Try again!";
+        feedback.className = "feedback no";
+        strikes++;
+        updateStats();
+        clearWords();
+      }
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
 
