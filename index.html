@@ -125,9 +125,8 @@
     let index = 0;
 
     const questions = [
-  // fill-type questions (reduced to 40)
+  // fill-type questions (reduced to 20)
   ...[
-    // Example subset of 40 original fill-type questions
     { s: "She ____ to the gym on Mondays.", correct: "goes", opt: ["goes", "go", "going"], cat: "Present Simple – Affirmative", type: "fill" },
     { s: "I ____ not watch TV.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Negative", type: "fill" },
     { s: "____ she speak French?", correct: "Does", opt: ["Does", "Do", "Did"], cat: "Present Simple – Interrogative", type: "fill" },
@@ -146,29 +145,26 @@
     { s: "You ____ taking the test this afternoon.", correct: "are", opt: ["are", "do", "will"], cat: "Present Continuous – Affirmative", type: "fill" },
     { s: "She ____ not working tomorrow.", correct: "is", opt: ["is", "has", "will"], cat: "Present Continuous – Negative", type: "fill" },
     { s: "I ____ not working tonight.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "They ____ not going on vacation.", correct: "are", opt: ["are", "is", "have"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "He ____ not traveling this week.", correct: "is", opt: ["is", "has", "do"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "We ____ not watching the movie.", correct: "are", opt: ["are", "is", "have"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "You ____ not helping much.", correct: "are", opt: ["are", "do", "is"], cat: "Present Continuous – Negative", type: "fill" },
-    { s: "He ____ playing football tomorrow.", correct: "is", opt: ["is", "has", "are"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "We ____ flying to New York next week.", correct: "are", opt: ["are", "is", "am"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "I ____ my homework every day.", correct: "do", opt: ["do", "does", "did"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "He ____ video games at night.", correct: "plays", opt: ["plays", "play", "playing"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "The sun ____ in the east.", correct: "rises", opt: ["rises", "rise", "rising"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "I ____ the guitar.", correct: "play", opt: ["play", "plays", "playing"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "Birds ____ in the sky.", correct: "fly", opt: ["fly", "flies", "flying"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "He ____ dinner at 7 PM.", correct: "eats", opt: ["eats", "eat", "eating"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "You ____ very well.", correct: "sing", opt: ["sing", "sings", "sang"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "I ____ tea every morning.", correct: "drink", opt: ["drink", "drinks", "drinking"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "They ____ early on Sundays.", correct: "wake", opt: ["wake", "wakes", "waking"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "We ____ lunch at noon.", correct: "have", opt: ["have", "has", "having"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "You ____ very fast.", correct: "run", opt: ["run", "runs", "ran"], cat: "Present Simple – Affirmative", type: "fill" },
-    { s: "We ____ meeting them later.", correct: "are", opt: ["are", "do", "is"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "She ____ leaving in an hour.", correct: "is", opt: ["is", "has", "do"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "They ____ coming to the party.", correct: "are", opt: ["are", "will", "have"], cat: "Present Continuous – Affirmative", type: "fill" },
     { s: "He ____ giving a speech.", correct: "is", opt: ["is", "does", "has"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "I ____ working on a new book.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" },
-    { s: "We ____ attending a conference.", correct: "are", opt: ["are", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" }
+    { s: "I ____ working on a new book.", correct: "am", opt: ["am", "is", "do"], cat: "Present Continuous – Affirmative", type: "fill" }
+  ],
+
+  // identify tense/purpose questions (new)
+  ...[
+    { s: "Look at those clouds! It ____ rain soon.", correct: "is going to", opt: ["will", "is going to", "is raining"], cat: "Going to – Prediction", type: "choose-tense" },
+    { s: "We ____ visit our grandparents this Sunday. It's already planned.", correct: "are going to", opt: ["will", "are going to", "are visiting"], cat: "Going to – Plan", type: "choose-tense" },
+    { s: "She thinks he ____ win the race.", correct: "will", opt: ["will", "is going to", "is winning"], cat: "Will – Belief", type: "choose-tense" },
+    { s: "We ____ the project together. We've already discussed it.", correct: "are doing", opt: ["will do", "are going to do", "are doing"], cat: "Present Continuous – Arrangement", type: "choose-tense" },
+    { s: "I promise I ____ tell anyone.", correct: "won’t", opt: ["won’t", "am not going to", "don’t"], cat: "Will – Promise", type: "choose-tense" }
+  ],
+
+  // order-type questions (new)
+  ...[
+    { s: "What / will / you / do / tomorrow?", correct: "What will you do tomorrow?", opt: ["What will you do tomorrow?", "Will you do what tomorrow?", "You will do what tomorrow?"], cat: "Will – Interrogative", type: "order" },
+    { s: "going / am / I / to / the party", correct: "I am going to the party", opt: ["I am going to the party", "Am I going to the party", "Going I am to the party"], cat: "Going to – Affirmative", type: "order" },
+    { s: "is / She / tomorrow / working", correct: "She is working tomorrow", opt: ["She is working tomorrow", "Is she working tomorrow", "Working she is tomorrow"], cat: "Present Continuous – Affirmative", type: "order" },
+    { s: "to / We / going / are / win", correct: "We are going to win", opt: ["We are going to win", "Are we going to win", "Going we are to win"], cat: "Going to – Affirmative", type: "order" },
+    { s: "start / Will / class / the / soon", correct: "Will the class start soon?", opt: ["Will the class start soon?", "Class will start soon?", "Start the class will soon?"], cat: "Will – Interrogative", type: "order" }
   ]
 ];
 
