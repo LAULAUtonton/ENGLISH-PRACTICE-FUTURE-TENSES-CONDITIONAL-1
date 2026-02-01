@@ -574,11 +574,11 @@ function nextSentence() {
     btn.className = "choice";
     btn.textContent = word;
 
-    btn.onclick = () => {
-      built.push(word);
-      renderBuilt();
-      btn.classList.add("used");
-    };
+  btn.onclick = () => {
+  built.push(word);
+  renderBuilt();
+  btn.style.display = "none";   // hides the word from the bank
+};
 
     choices.appendChild(btn);
   });
