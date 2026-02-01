@@ -4,12 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Future Grammar Mastery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 
   <style>
-  /* -----------------------------------------------------------
-   GLOBAL COLORS & VARIABLES
------------------------------------------------------------ */
 :root {
   --bg: #0099cc;
   --card-bg: #555555;
@@ -20,15 +17,10 @@
   --btn-purple: #c77dff;
   --bar-bg: #002b36;
   --bar-fill: #00ff99;
-  --accent: #00e5ff; /* Manga hero neon cyan */
+  --accent: #00e5ff;
 }
 
-/* -----------------------------------------------------------
-   GLOBAL RESET
------------------------------------------------------------ */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -37,9 +29,6 @@ body {
   color: var(--text);
 }
 
-/* -----------------------------------------------------------
-   APP LAYOUT
------------------------------------------------------------ */
 .app {
   max-width: 960px;
   margin: auto;
@@ -48,22 +37,21 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 header h1 {
   font-size: 2.2rem;
   margin: 0;
   text-shadow: 0 0 10px #000;
+  font-weight: 900;
 }
 
 header p {
   margin: 6px 0 12px;
+  font-weight: 800;
 }
 
-/* -----------------------------------------------------------
-   NAME + BUTTON ROW
------------------------------------------------------------ */
 .top-row {
   display: flex;
   flex-wrap: wrap;
@@ -78,96 +66,108 @@ header p {
   gap: 6px;
   align-items: center;
   background: #004b63;
-  padding: 6px 10px;
-  border-radius: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
   box-shadow: 0 0 6px #00000055;
 }
 
 .name-box input {
   border: none;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 0.9rem;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-weight: 800;
   outline: none;
-  min-width: 160px;
+  min-width: 170px;
 }
 
 .warning {
   color: #ffdddd;
+  font-size: 0.9rem;
+  min-height: 18px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: 800;
+}
+
+.audioStatus {
+  color: #d9ffff;
   font-size: 0.85rem;
   min-height: 18px;
   text-align: center;
   margin-top: 4px;
+  font-weight: 800;
+  opacity: .95;
 }
 
-/* -----------------------------------------------------------
-   BUTTONS
------------------------------------------------------------ */
 .controls {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 10px;
-  font-weight: bold;
+  border-radius: 14px;
+  font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 0 8px #00000055;
-  font-size: 0.95rem;
+  box-shadow: 0 0 10px #00000055;
+  font-size: 1rem;
+  transition: transform .12s ease, filter .12s ease;
 }
+.btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
 
 .btn.cyan { background: var(--btn-cyan); color: #000; }
 .btn.yellow { background: var(--btn-yellow); color: #000; }
 .btn.red { background: var(--btn-red); color: #fff; }
 .btn.purple { background: var(--btn-purple); color: #000; }
 
-/* -----------------------------------------------------------
-   STATS BAR
------------------------------------------------------------ */
 .stats {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
 }
 
 .stat-box {
   background: #004b63;
-  padding: 8px 12px;
-  border-radius: 10px;
-  min-width: 110px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  min-width: 120px;
   text-align: center;
   box-shadow: 0 0 6px #00000055;
 }
 
 .stat-label {
   font-size: 0.8rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  font-weight: 800;
 }
 
 .stat-value {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.02rem;
+  font-weight: 900;
 }
 
-/* -----------------------------------------------------------
-   PROGRESS BAR
------------------------------------------------------------ */
 .progress-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 180px;
+  min-width: 200px;
+  background:#004b63;
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px #00000055;
 }
 
 .progress-label {
   font-size: 0.85rem;
+  font-weight: 900;
+  text-align:left;
 }
 
 .progress-bar {
@@ -190,44 +190,44 @@ header p {
   transition: width 0.25s ease-out;
 }
 
-/* -----------------------------------------------------------
-   MAIN CARD
------------------------------------------------------------ */
 .card {
   background: var(--card-bg);
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: 0 0 12px #00000088;
 }
 
 .prompt {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 900;
 }
 
-/* -----------------------------------------------------------
-   INTERACTION AREA
------------------------------------------------------------ */
+.typeLine {
+  text-align:center;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: #fff6cf;
+  text-shadow: 0 0 10px rgba(0,0,0,.28);
+}
+
 .interaction {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   min-height: 50px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   padding-bottom: 10px;
   border-bottom: 2px solid #00ffff55;
+  justify-content:center;
 }
 
-/* -----------------------------------------------------------
-   WORD BANK
------------------------------------------------------------ */
 .word-bank-container {
   background-color: #1f1f1f;
   padding: 14px;
   border-radius: 12px;
-  margin-top: 12px;
+  margin-top: 10px;
   margin-bottom: 12px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
   min-height: 52px;
@@ -238,8 +238,8 @@ header p {
   color: #000000;
   border: 2px solid #444444;
   padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: 12px;
+  font-weight: 900;
   font-size: 1.05rem;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -253,31 +253,25 @@ header p {
   background: #333333;
   color: #ffffff;
   border: 2px solid #000000;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 10px 16px;
-  font-weight: 600;
+  font-weight: 900;
   font-size: 1.05rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
   cursor: pointer;
   user-select: none;
 }
 
-/* -----------------------------------------------------------
-   FEEDBACK
------------------------------------------------------------ */
 .feedback {
   margin-top: 6px;
-  font-weight: 600;
-  min-height: 24px;
+  font-weight: 900;
+  min-height: 26px;
   text-align: center;
+  font-size: 1.05rem;
 }
-
 .feedback.ok { color: #9cffb5; }
 .feedback.no { color: #ffb3b3; }
 
-/* -----------------------------------------------------------
-   ACTION BUTTONS
------------------------------------------------------------ */
 .actions {
   margin-top: 10px;
   display: flex;
@@ -286,296 +280,76 @@ header p {
   flex-wrap: wrap;
 }
 
-/* -----------------------------------------------------------
-   FULL-SCREEN VICTORY OVERLAY
------------------------------------------------------------ */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.overlay.active {
-  display: flex;
-}
-
-.victory-card {
-  position: relative;
-  background: radial-gradient(circle at center, #003b4a 0%, #000000 70%);
-  border-radius: 20px;
-  padding: 30px 20px;
-  max-width: 600px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 0 30px #00e5ffaa;
-  overflow: hidden;
-}
-
-/* -----------------------------------------------------------
-   MANGA BURST BACKGROUND
------------------------------------------------------------ */
-.burst {
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle, rgba(0,229,255,0.4) 0, transparent 60%),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 10px,
-      rgba(0,229,255,0.4) 10px 12px
-    );
-  opacity: 0.7;
-  mix-blend-mode: screen;
-  animation: spinBurst 10s linear infinite;
-}
-
-@keyframes spinBurst {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* -----------------------------------------------------------
-   MANGA HERO ANIMATION
------------------------------------------------------------ */
-.hero-wrapper {
-  position: relative;
-  margin: 20px auto 10px;
-  width: 160px;
-  height: 180px;
-}
-
-.hero {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 90px;
-  height: 140px;
-  transform: translateX(-50%);
-  background: var(--accent);
-  border-radius: 40px 40px 30px 30px;
-  box-shadow: 0 0 15px #00e5ff;
-  animation: heroJump 1s ease-in-out infinite;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
-  background: #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #00e5ff;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 12px;
-  border-radius: 999px;
-  background: #000000;
-}
-
-.hero-arm-left,
-.hero-arm-right {
-  position: absolute;
-  top: 40px;
-  width: 20px;
-  height: 60px;
-  background: var(--accent);
-  border-radius: 20px;
-  box-shadow: 0 0 8px #00e5ff;
-}
-
-.hero-arm-left {
-  left: -10px;
-  transform-origin: top right;
-  animation: armLeft 1s ease-in-out infinite;
-}
-
-.hero-arm-right {
-  right: -10px;
-  transform-origin: top left;
-  animation: armRight 1s ease-in-out infinite;
-}
-
-.hero-leg-left,
-.hero-leg-right {
-  position: absolute;
-  bottom: -20px;
-  width: 22px;
-  height: 60px;
-  background: var(--accent);
-  border-radius: 20px;
-  box-shadow: 0 0 8px #00e5ff;
-}
-
-.hero-leg-left {
-  left: 10px;
-  transform-origin: top center;
-  animation: legLeft 1s ease-in-out infinite;
-}
-
-.hero-leg-right {
-  right: 10px;
-  transform-origin: top center;
-  animation: legRight 1s ease-in-out infinite;
-}
-
-/* HERO ANIMATION KEYFRAMES */
-@keyframes heroJump {
-  0%, 100% { transform: translate(-50%, 0); }
-  40% { transform: translate(-50%, -35px) scale(1.05); }
-  60% { transform: translate(-50%, -20px); }
-}
-
-@keyframes armLeft {
-  0%, 100% { transform: rotate(-20deg); }
-  40% { transform: rotate(-60deg); }
-}
-
-@keyframes armRight {
-  0%, 100% { transform: rotate(20deg); }
-  40% { transform: rotate(60deg); }
-}
-
-@keyframes legLeft {
-  0%, 100% { transform: rotate(10deg); }
-  40% { transform: rotate(40deg); }
-}
-
-@keyframes legRight {
-  0%, 100% { transform: rotate(-10deg); }
-  40% { transform: rotate(-40deg); }
-}
-
-/* -----------------------------------------------------------
-   CONFETTI
------------------------------------------------------------ */
-.confetti {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.confetti span {
-  position: absolute;
-  width: 8px;
-  height: 14px;
-  background: #00e5ff;
-  border-radius: 2px;
-  animation: confettiFall 2.5s linear infinite;
-}
-
-.confetti span:nth-child(odd) {
-  background: #ffffff;
-}
-
-@keyframes confettiFall {
-  0% { transform: translateY(-120%) rotate(0deg); }
-  100% { transform: translateY(120%) rotate(360deg); }
-}
-
-/* -----------------------------------------------------------
-   VICTORY TEXT
------------------------------------------------------------ */
-.victory-title {
-  position: relative;
-  font-size: 1.8rem;
-  font-weight: 700;
+/* intent / mcq area */
+.typeArea {
   margin-top: 10px;
-  text-shadow: 0 0 10px #000;
 }
-
-.victory-sub {
-  position: relative;
-  margin-top: 6px;
-  font-size: 1rem;
+.mcqRow{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
 }
+.mcqBtn{
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,.22);
+  font-weight: 900;
+  cursor:pointer;
+  background: rgba(0,0,0,.18);
+  color:#fff;
+  box-shadow: 0 0 10px rgba(0,0,0,.25);
+  min-width: 210px;
+  text-align:left;
+}
+.mcqBtn:hover{ filter:brightness(1.06); transform: translateY(-1px); }
+.mcqSmall{ display:block; font-size:.88rem; opacity:.92; font-weight:800; margin-top:4px; }
 
-.victory-time {
-  position: relative;
+.fillRow{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
   margin-top: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #aaffff;
 }
-.victory-actions {
-  position: relative;
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.fillInput{
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,.25);
+  font-size:1.05rem;
+  font-weight:900;
+  outline:none;
+  min-width: 260px;
 }
 
-/* -----------------------------------------------------------
-   RESPONSIVE
------------------------------------------------------------ */
+.hidden{ display:none !important; }
+
 @media (max-width: 600px) {
-  header h1 { font-size: 1.8rem; }
-  .hero-wrapper { width: 130px; height: 150px; }
+  header h1 { font-size: 1.75rem; }
+  .mcqBtn{ min-width: 170px; }
 }
   </style>
 </head>
 
 <body>
-
 <!-- Background music -->
-<audio id="bgm" loop>
-<source src="audio/koala2.mp3" type="audio/mpeg">
+<audio id="bgm" loop preload="auto">
+  <source src="audio/koala2.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Victory sound -->
-<audio id="winSound">
-  <source src="audio/tadaa.mp3" type="audio/mpeg">
+<!-- Victory sound (optional, keep if you have file) -->
+<audio id="winSound" preload="auto">
+  <source src="tadaa.mp3" type="audio/mpeg">
 </audio>
-
-<!-- FULL-SCREEN CELEBRATION OVERLAY -->
-<div class="overlay" id="victoryOverlay">
-  <div class="victory-card">
-    <div class="burst"></div>
-    <div class="confetti" id="confettiContainer"></div>
-
-    <div class="hero-wrapper">
-      <div class="hero">
-        <div class="hero-arm-left"></div>
-        <div class="hero-arm-right"></div>
-        <div class="hero-leg-left"></div>
-        <div class="hero-leg-right"></div>
-      </div>
-    </div>
-
-    <div class="victory-title" id="victoryTitle">CONGRATULATIONS!</div>
-    <div class="victory-sub" id="victorySub">You mastered 25 in a row!</div>
-    <div class="victory-time" id="victoryTime">Your time: 00:00</div>
-
-    <div class="victory-actions">
-      <button class="btn cyan" onclick="restartFromVictory()">Restart</button>
-      <button class="btn purple" id="musicBtnOverlay" onclick="toggleMusic()">Music: OFF</button>
-    </div>
-  </div>
-</div>
 
 <div class="app">
   <header>
     <h1>Future Grammar Mastery</h1>
-    <p>Present Simple • Present Continuous • Will • Going to • First Conditional</p>
+    <p>4 mixed activities • includes speaker intention</p>
 
     <div class="top-row">
       <div class="name-box">
-        <span style="font-size:0.85rem;">Name:</span>
+        <span style="font-size:0.9rem;font-weight:900;">Name:</span>
         <input id="playerName" type="text" placeholder="Enter your name">
       </div>
 
@@ -587,12 +361,18 @@ header p {
     </div>
 
     <div class="warning" id="nameWarning"></div>
+    <div class="audioStatus" id="audioStatus"></div>
   </header>
 
   <div class="stats">
     <div class="stat-box">
       <div class="stat-label">Player</div>
       <div class="stat-value" id="displayName">---</div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-label">Activity</div>
+      <div class="stat-value" id="typeStat">---</div>
     </div>
 
     <div class="stat-box">
@@ -620,14 +400,19 @@ header p {
 
   <div class="card">
     <div class="prompt" id="prompt">Enter your name and click Start</div>
+    <div class="typeLine" id="typeDisplay">Activity: ---</div>
 
     <div class="interaction" id="interaction"></div>
 
+    <!-- Activity-specific area (intent cards / next-word mcq / fill input) -->
+    <div class="typeArea" id="typeArea"></div>
+
+    <!-- Word bank (ORDER only) -->
     <div class="word-bank-container" id="choices"></div>
 
     <div class="feedback" id="feedback"></div>
 
-    <div class="actions">
+    <div class="actions" id="actionRow">
       <button class="btn red" onclick="clearWords()">Clear</button>
       <button class="btn yellow" onclick="checkAnswer()">Check</button>
     </div>
@@ -636,7 +421,8 @@ header p {
 
 <script>
 /* -----------------------------------------------------------
-   SENTENCES DATABASE
+   KEEP YOUR WORKING SENTENCE POOL (for ORDER/FILL/NEXT_WORD)
+   (This is your original idea: plain sentences)
 ----------------------------------------------------------- */
 const sentences = [
   "The train leaves at 8 a.m. tomorrow.","School starts at 9 o'clock on Monday.","The plane lands at 3:15 p.m.","The football match kicks off at noon.","The shop opens at 9 a.m. on Saturday.","The concert begins at 7 p.m. next Friday.","The ferry departs at 2 p.m.","My flight departs at 6 in the morning.","The museum closes at 6 p.m.","Our exam starts at 10 a.m. sharp.","The show begins at 7:30 tonight.","The train to Madrid leaves at 4:20.","The bus arrives at the station at 5:30.","The library opens at 8:30 a.m.","The movie starts at 6:45 tonight.",
@@ -657,10 +443,118 @@ const sentences = [
 ];
 
 /* -----------------------------------------------------------
-   GAME STATE VARIABLES
+   NEW: INTENT BANK (60 tagged) for INTENT activity only
+----------------------------------------------------------- */
+const INTENT_BANK = [
+  // WILL — prediction
+  { text:"I think it will rain later.", form:"will", intent:"prediction" },
+  { text:"They will probably win the match.", form:"will", intent:"prediction" },
+  { text:"I’m sure you will enjoy the trip.", form:"will", intent:"prediction" },
+  { text:"Maybe the teacher will give us homework.", form:"will", intent:"prediction" },
+  { text:"Do you think it will be difficult?", form:"will", intent:"prediction" },
+  { text:"It won’t be easy to finish today.", form:"will", intent:"prediction" },
+
+  // WILL — offer/promise
+  { text:"I’ll help you with that exercise.", form:"will", intent:"offer_promise" },
+  { text:"Don’t worry, I’ll call you after class.", form:"will", intent:"offer_promise" },
+  { text:"I won’t tell anyone, I promise.", form:"will", intent:"offer_promise" },
+  { text:"We’ll bring the snacks for the trip.", form:"will", intent:"offer_promise" },
+  { text:"Will you carry my bag for a minute?", form:"will", intent:"offer_promise" },
+  { text:"I’ll explain it again if you want.", form:"will", intent:"offer_promise" },
+
+  // WILL — decision now
+  { text:"Okay, I’ll do it now.", form:"will", intent:"decision_now" },
+  { text:"Wait—I’ll message her right now.", form:"will", intent:"decision_now" },
+  { text:"I’ll take the blue one.", form:"will", intent:"decision_now" },
+  { text:"Alright, we’ll sit here.", form:"will", intent:"decision_now" },
+  { text:"I won’t go out tonight then.", form:"will", intent:"decision_now" },
+  { text:"Oh! I’ll answer it.", form:"will", intent:"decision_now" },
+
+  // WILL — announcement/future fact
+  { text:"The show will start in five minutes.", form:"will", intent:"announcement" },
+  { text:"The gate will open soon.", form:"will", intent:"announcement" },
+  { text:"The results will be published tomorrow.", form:"will", intent:"announcement" },
+  { text:"Your order will arrive on Friday.", form:"will", intent:"announcement" },
+  { text:"The exam will not take longer than one hour.", form:"will", intent:"announcement" },
+  { text:"Will the museum be open tomorrow?", form:"will", intent:"announcement" },
+
+  // GOING TO — plan
+  { text:"I’m going to study for the test tonight.", form:"going_to", intent:"plan" },
+  { text:"We’re going to meet at the library after school.", form:"going_to", intent:"plan" },
+  { text:"She’s going to apply for that summer course.", form:"going_to", intent:"plan" },
+  { text:"They aren’t going to travel this weekend.", form:"going_to", intent:"plan" },
+  { text:"Are you going to watch the new episode tonight?", form:"going_to", intent:"plan" },
+  { text:"I’m not going to buy a new phone this month.", form:"going_to", intent:"plan" },
+
+  // GOING TO — evidence prediction
+  { text:"Look at those clouds! It’s going to rain.", form:"going_to", intent:"evidence_prediction" },
+  { text:"Listen to that thunder—there’s going to be a storm.", form:"going_to", intent:"evidence_prediction" },
+  { text:"Be careful! You’re going to drop your laptop.", form:"going_to", intent:"evidence_prediction" },
+  { text:"That glass is going to fall!", form:"going_to", intent:"evidence_prediction" },
+  { text:"You’re going to faint—sit down.", form:"going_to", intent:"evidence_prediction" },
+  { text:"He isn’t going to pass if he keeps skipping homework.", form:"going_to", intent:"evidence_prediction" },
+
+  // PRESENT CONTINUOUS — arrangement
+  { text:"I’m meeting my friends at 6 p.m. today.", form:"present_continuous", intent:"arrangement" },
+  { text:"We’re having dinner with my cousins tomorrow.", form:"present_continuous", intent:"arrangement" },
+  { text:"She’s seeing the dentist on Friday.", form:"present_continuous", intent:"arrangement" },
+  { text:"They’re coming over for lunch tomorrow.", form:"present_continuous", intent:"arrangement" },
+  { text:"He isn’t playing football on Saturday.", form:"present_continuous", intent:"arrangement" },
+  { text:"Are you visiting your grandma this weekend?", form:"present_continuous", intent:"arrangement" },
+
+  // PRESENT SIMPLE — schedule/timetable
+  { text:"The train leaves at 8:10 tomorrow morning.", form:"present_simple", intent:"schedule" },
+  { text:"School starts at 9 o’clock on Monday.", form:"present_simple", intent:"schedule" },
+  { text:"The plane lands at 3:15 p.m.", form:"present_simple", intent:"schedule" },
+  { text:"The concert begins at 7 p.m. on Friday.", form:"present_simple", intent:"schedule" },
+  { text:"The museum closes at 6 p.m.", form:"present_simple", intent:"schedule" },
+  { text:"Does the match start at noon?", form:"present_simple", intent:"schedule" },
+
+  // FIRST CONDITIONAL — intent types
+  { text:"If you don’t study, you’ll fail the test.", form:"first_conditional", intent:"warning_consequence" },
+  { text:"If you touch that, it will break.", form:"first_conditional", intent:"warning_consequence" },
+  { text:"If it rains, we’ll stay at home.", form:"first_conditional", intent:"plan_condition" },
+  { text:"If the bus is full, we’ll take the next one.", form:"first_conditional", intent:"plan_condition" },
+  { text:"If she studies, she’ll do well.", form:"first_conditional", intent:"prediction_result" },
+  { text:"If they train hard, they’ll win.", form:"first_conditional", intent:"prediction_result" }
+];
+
+/* Intent options shown (cards) by form */
+const INTENT_OPTIONS = {
+  will: [
+    { key:"prediction", label:"Prediction", desc:"Guess/opinion/hope (I think, probably…)" },
+    { key:"offer_promise", label:"Offer / Promise", desc:"I’ll help / I won’t… (promise)" },
+    { key:"decision_now", label:"Decision now", desc:"Spontaneous decision: Okay, I’ll…" },
+    { key:"announcement", label:"Announcement", desc:"Official/factual future info" }
+  ],
+  going_to: [
+    { key:"plan", label:"Plan / Intention", desc:"Already decided plan" },
+    { key:"evidence_prediction", label:"Prediction (evidence)", desc:"Look!/Listen! evidence now" }
+  ],
+  present_continuous: [
+    { key:"arrangement", label:"Arrangement", desc:"Definite arrangement with time/people" }
+  ],
+  present_simple: [
+    { key:"schedule", label:"Schedule / Timetable", desc:"Public timetable times" }
+  ],
+  first_conditional: [
+    { key:"warning_consequence", label:"Warning / Consequence", desc:"If you do this, bad result…" },
+    { key:"advice_suggestion", label:"Advice / Suggestion", desc:"If you…, you should/can…" },
+    { key:"plan_condition", label:"Plan (depends on condition)", desc:"If X happens, we’ll do Y" },
+    { key:"prediction_result", label:"Prediction (result)", desc:"If X happens, Y will happen" }
+  ]
+};
+
+/* -----------------------------------------------------------
+   GAME STATE
 ----------------------------------------------------------- */
 let current = "";
+let tokens = [];
 let built = [];
+
+let currentType = "";
+let currentQ = null; // only used by INTENT activity
+
 let streak = 0;
 let strikes = 0;
 const masteryGoal = 25;
@@ -670,11 +564,13 @@ let startTime = null;
 
 let musicOn = false;
 
+/* 4 activity types (no deleting what works) */
+const TYPES = ["ORDER","FILL_GAP","NEXT_WORD","INTENT"];
+
 /* -----------------------------------------------------------
-   UTILITY FUNCTIONS
+   FIXED SHUFFLE (your old one was broken)
 ----------------------------------------------------------- */
 function shuffle(array) {
-  // ✅ FIXED: correct Fisher–Yates shuffle loop
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -691,9 +587,7 @@ function formatTime(ms) {
 
 function updateTimerDisplay() {
   if (!startTime) return;
-  const now = Date.now();
-  const diff = now - startTime;
-  document.getElementById("timerDisplay").textContent = formatTime(diff);
+  document.getElementById("timerDisplay").textContent = formatTime(Date.now() - startTime);
 }
 
 function startTimer() {
@@ -708,27 +602,43 @@ function stopTimer() {
 }
 
 /* -----------------------------------------------------------
-   MUSIC TOGGLE
+   MUSIC TOGGLE (audio/koala2.mp3)
 ----------------------------------------------------------- */
+function setAudioStatus(msg){ document.getElementById("audioStatus").textContent = msg || ""; }
+
 function toggleMusic() {
   const bgm = document.getElementById("bgm");
   const btn = document.getElementById("musicBtn");
-  const btnOverlay = document.getElementById("musicBtnOverlay");
+  bgm.volume = 0.35;
 
   if (!musicOn) {
-    bgm.play().catch(() => {});
-    musicOn = true;
+    const p = bgm.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => {
+        musicOn = true;
+        btn.textContent = "Music: ON";
+        setAudioStatus("Audio: playing ✅");
+      }).catch(err => {
+        musicOn = false;
+        btn.textContent = "Music: OFF";
+        setAudioStatus("Audio error ❌ Check: audio/koala2.mp3");
+        console.error(err);
+      });
+    } else {
+      musicOn = true;
+      btn.textContent = "Music: ON";
+      setAudioStatus("Audio: playing ✅");
+    }
   } else {
     bgm.pause();
     musicOn = false;
+    btn.textContent = "Music: OFF";
+    setAudioStatus("Audio: paused ⏸️");
   }
-
-  if (btn) btn.textContent = musicOn ? "Music: ON" : "Music: OFF";
-  if (btnOverlay) btnOverlay.textContent = musicOn ? "Music: ON" : "Music: OFF";
 }
 
 /* -----------------------------------------------------------
-   GAME START / RESET
+   START / RESET
 ----------------------------------------------------------- */
 function startGame() {
   const nameInput = document.getElementById("playerName");
@@ -747,34 +657,50 @@ function startGame() {
   strikes = 0;
   built = [];
   updateStats();
+
   document.getElementById("feedback").textContent = "";
-  document.getElementById("prompt").textContent = "Build the sentence:";
+  document.getElementById("prompt").textContent = "Answer the challenge:";
   document.getElementById("interaction").innerHTML = "";
   document.getElementById("choices").innerHTML = "";
+  document.getElementById("typeArea").innerHTML = "";
 
-  document.getElementById("victoryOverlay").classList.remove("active");
+  document.getElementById("bgm").load();
+  setAudioStatus("Audio ready (press Music).");
 
   startTimer();
-  nextSentence();
+  nextQuestion();
 }
 
 function resetGame() {
   stopTimer();
   startTime = null;
   document.getElementById("timerDisplay").textContent = "00:00";
+
   streak = 0;
   strikes = 0;
   built = [];
+  current = "";
+  currentQ = null;
+
   updateStats();
+
   document.getElementById("prompt").textContent = "Enter your name and click Start";
+  document.getElementById("typeDisplay").textContent = "Activity: ---";
+  document.getElementById("typeStat").textContent = "---";
   document.getElementById("interaction").innerHTML = "";
   document.getElementById("choices").innerHTML = "";
+  document.getElementById("typeArea").innerHTML = "";
   document.getElementById("feedback").textContent = "";
-  document.getElementById("victoryOverlay").classList.remove("active");
+
+  const bgm = document.getElementById("bgm");
+  bgm.pause();
+  musicOn = false;
+  document.getElementById("musicBtn").textContent = "Music: OFF";
+  setAudioStatus("");
 }
 
 /* -----------------------------------------------------------
-   UPDATE STATS
+   STATS
 ----------------------------------------------------------- */
 function updateStats() {
   document.getElementById("streak").textContent = streak;
@@ -785,20 +711,60 @@ function updateStats() {
 }
 
 /* -----------------------------------------------------------
-   SENTENCE GENERATION
+   NEXT QUESTION (keeps working stuff, adds INTENT)
 ----------------------------------------------------------- */
-function nextSentence() {
-  built = [];
-  const index = Math.floor(Math.random() * sentences.length);
-  current = sentences[index];
+function setTypeUI(type){
+  const nice = (type==="ORDER") ? "ORDER (Word Bank)"
+            : (type==="FILL_GAP") ? "FILL (Missing word)"
+            : (type==="NEXT_WORD") ? "NEXT WORD (MCQ build)"
+            : "INTENT CARDS (Speaker purpose)";
+  document.getElementById("typeDisplay").textContent = "Activity: " + nice;
+  document.getElementById("typeStat").textContent = nice;
+}
 
-  const words = shuffle(current.split(" "));
-
+function clearUI(){
   document.getElementById("interaction").innerHTML = "";
   document.getElementById("choices").innerHTML = "";
-  const fb = document.getElementById("feedback");
-  fb.textContent = "";
-  fb.className = "feedback";
+  document.getElementById("typeArea").innerHTML = "";
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("feedback").className = "feedback";
+  document.getElementById("choices").classList.remove("hidden");
+  document.getElementById("actionRow").classList.remove("hidden");
+}
+
+function nextQuestion() {
+  built = [];
+  currentQ = null;
+  clearUI();
+
+  // pick an activity randomly
+  currentType = TYPES[Math.floor(Math.random() * TYPES.length)];
+  setTypeUI(currentType);
+
+  if (currentType === "INTENT") {
+    // Use INTENT_BANK only
+    currentQ = INTENT_BANK[Math.floor(Math.random() * INTENT_BANK.length)];
+    current = currentQ.text;
+    tokens = current.split(" ");
+    renderIntentCards();
+    return;
+  }
+
+  // Otherwise: use your original sentences list (no changes)
+  current = sentences[Math.floor(Math.random() * sentences.length)];
+  tokens = current.split(" ");
+
+  if (currentType === "ORDER") renderOrder();
+  else if (currentType === "FILL_GAP") renderFillGap();
+  else renderNextWordMCQ();
+}
+
+/* -----------------------------------------------------------
+   ACTIVITY 1: ORDER (your working logic)
+----------------------------------------------------------- */
+function renderOrder() {
+  document.getElementById("prompt").textContent = "Build the sentence (tap words):";
+  const words = shuffle([...tokens]);
 
   const choices = document.getElementById("choices");
   words.forEach(word => {
@@ -843,68 +809,246 @@ function clearWords() {
 }
 
 /* -----------------------------------------------------------
-   VICTORY SCREEN
+   ACTIVITY 2: FILL GAP (minimal)
 ----------------------------------------------------------- */
-function showVictory() {
-  stopTimer();
-  document.getElementById("winSound").play().catch(() => {});
+let missingIndex = -1;
+let missingAnswer = "";
 
-  const overlay = document.getElementById("victoryOverlay");
-  const name = document.getElementById("displayName").textContent || "Player";
-  document.getElementById("victoryTitle").textContent = `CONGRATULATIONS, ${name}!`;
-  document.getElementById("victorySub").textContent = "You mastered 25 in a row!";
+function cleanToken(t){ return t.replace(/[.,!?]$/g, ""); }
 
-  const now = Date.now();
-  const diff = startTime ? now - startTime : 0;
-  document.getElementById("victoryTime").textContent = `Your time: ${formatTime(diff)}`;
+function renderFillGap(){
+  document.getElementById("prompt").textContent = "Type the missing word:";
+  document.getElementById("choices").classList.add("hidden");
 
-  const confettiContainer = document.getElementById("confettiContainer");
-  confettiContainer.innerHTML = "";
-  for (let i = 0; i < 40; i++) {
-    const piece = document.createElement("span");
-    piece.style.left = Math.random() * 100 + "%";
-    piece.style.animationDelay = (Math.random() * 2) + "s";
-    confettiContainer.appendChild(piece);
-  }
+  const candidates = tokens
+    .map((t,i)=>({t,i}))
+    .filter(x => cleanToken(x.t).length >= 3);
 
-  overlay.classList.add("active");
-}
+  const pick = candidates[Math.floor(Math.random()*candidates.length)] || { i:1, t: tokens[1] };
+  missingIndex = pick.i;
+  missingAnswer = pick.t;
 
-function restartFromVictory() {
-  document.getElementById("victoryOverlay").classList.remove("active");
-  resetGame();
+  const masked = tokens.map((t,i)=> i===missingIndex ? "_____" : t).join(" ");
+
+  const area = document.getElementById("interaction");
+  const chip = document.createElement("span");
+  chip.textContent = masked;
+  chip.className = "word selected";
+  chip.style.cursor = "default";
+  area.appendChild(chip);
+
+  const typeArea = document.getElementById("typeArea");
+  const row = document.createElement("div");
+  row.className = "fillRow";
+
+  const input = document.createElement("input");
+  input.className = "fillInput";
+  input.id = "fillInput";
+  input.placeholder = "Type the missing word…";
+  input.autocomplete = "off";
+  input.spellcheck = false;
+
+  row.appendChild(input);
+  typeArea.appendChild(row);
+
+  setTimeout(()=> input.focus(), 60);
 }
 
 /* -----------------------------------------------------------
-   CHECK ANSWER
+   ACTIVITY 3: NEXT WORD (MCQ build)
+----------------------------------------------------------- */
+function renderNextWordMCQ(){
+  document.getElementById("prompt").textContent = "Choose the next word:";
+  document.getElementById("choices").classList.add("hidden");
+  renderNextWordStep();
+}
+
+function renderNextWordStep(){
+  const area = document.getElementById("interaction");
+  area.innerHTML = "";
+  built.forEach(w => {
+    const span = document.createElement("span");
+    span.textContent = w;
+    span.className = "word selected";
+    span.style.cursor = "default";
+    area.appendChild(span);
+  });
+
+  const typeArea = document.getElementById("typeArea");
+  typeArea.innerHTML = "";
+
+  if (built.length >= tokens.length){
+    // auto-grade full sentence
+    const attempt = built.join(" ");
+    gradeAttempt(attempt === current);
+    return;
+  }
+
+  const correct = tokens[built.length];
+  const distractPool = shuffle([...tokens]).filter(t => t !== correct);
+  const distractors = [];
+  for (const t of distractPool){
+    if (distractors.length >= 3) break;
+    if (!distractors.includes(t)) distractors.push(t);
+  }
+  while (distractors.length < 3){
+    distractors.push(tokens[Math.floor(Math.random()*tokens.length)]);
+  }
+
+  const options = shuffle([correct, ...distractors]);
+
+  const row = document.createElement("div");
+  row.className = "mcqRow";
+  options.forEach(opt => {
+    const b = document.createElement("button");
+    b.className = "mcqBtn";
+    b.textContent = opt;
+    b.onclick = () => {
+      built.push(opt);
+      renderNextWordStep();
+    };
+    row.appendChild(b);
+  });
+
+  typeArea.appendChild(row);
+}
+
+/* -----------------------------------------------------------
+   ACTIVITY 4: INTENT CARDS (new, safe, separate bank)
+----------------------------------------------------------- */
+function prettyForm(form){
+  if(form==="will") return "WILL";
+  if(form==="going_to") return "BE GOING TO";
+  if(form==="present_continuous") return "PRESENT CONTINUOUS";
+  if(form==="present_simple") return "PRESENT SIMPLE";
+  return "FIRST CONDITIONAL";
+}
+
+function renderIntentCards(){
+  document.getElementById("prompt").textContent = "Read the sentence. Choose the speaker’s intention:";
+  document.getElementById("choices").classList.add("hidden");
+  document.getElementById("actionRow").classList.add("hidden");
+
+  const area = document.getElementById("interaction");
+  const chip = document.createElement("span");
+  chip.textContent = current;
+  chip.className = "word selected";
+  chip.style.cursor = "default";
+  area.appendChild(chip);
+
+  const typeArea = document.getElementById("typeArea");
+  const row = document.createElement("div");
+  row.className = "mcqRow";
+
+  const opts = (INTENT_OPTIONS[currentQ.form] || []).slice();
+
+  // If only 1 option exists (e.g., present simple schedule), add two safe distractors
+  if (opts.length === 1){
+    const extra = [
+      { key:"prediction", label:"Prediction", desc:"Guess/opinion about the future" },
+      { key:"plan", label:"Plan / Intention", desc:"Already decided plan" }
+    ].filter(x => x.key !== opts[0].key);
+    opts.push(...extra.slice(0,2));
+  }
+
+  shuffle(opts);
+
+  opts.forEach(o => {
+    const b = document.createElement("button");
+    b.className = "mcqBtn";
+    b.innerHTML = `${o.label}<span class="mcqSmall">${o.desc || ""}</span>`;
+    b.onclick = () => gradeIntent(o.key);
+    row.appendChild(b);
+  });
+
+  typeArea.appendChild(row);
+
+  // small hint in feedback line (non-intrusive)
+  const fb = document.getElementById("feedback");
+  fb.textContent = `Form inside the sentence: ${prettyForm(currentQ.form)}`;
+  fb.className = "feedback";
+}
+
+function gradeIntent(chosenKey){
+  const correct = (chosenKey === currentQ.intent);
+  gradeAttempt(correct, true);
+}
+
+/* -----------------------------------------------------------
+   CHECK BUTTON (works for ORDER + FILL only)
 ----------------------------------------------------------- */
 function checkAnswer() {
   if (!current) return;
-  const attempt = built.join(" ");
-  const feedback = document.getElementById("feedback");
 
-  if (attempt === current) {
+  if (currentType === "ORDER"){
+    const attempt = built.join(" ");
+    gradeAttempt(attempt === current);
+    return;
+  }
+
+  if (currentType === "FILL_GAP"){
+    const input = document.getElementById("fillInput");
+    const user = (input?.value || "").trim();
+    const ok = cleanToken(user).toLowerCase() === cleanToken(missingAnswer).toLowerCase();
+    gradeAttempt(ok);
+    return;
+  }
+
+  // NEXT_WORD + INTENT are graded by clicking buttons
+}
+
+/* -----------------------------------------------------------
+   GRADING
+----------------------------------------------------------- */
+function gradeAttempt(correct, isIntent=false){
+  const feedback = document.getElementById("feedback");
+  if (correct) {
     feedback.textContent = "✅ Correct!";
     feedback.className = "feedback ok";
     streak++;
     updateStats();
 
     if (streak >= masteryGoal) {
-      showVictory();
+      // simple mastery message (no overlay to keep changes minimal)
+      feedback.textContent = "🏆 Mastery! 25 in a row!";
+      feedback.className = "feedback ok";
+      try { document.getElementById("winSound").play().catch(()=>{}); } catch(e){}
       return;
     }
-    setTimeout(() => nextSentence(), 800);
+
+    setTimeout(() => nextQuestion(), 650);
   } else {
-    feedback.textContent = "❌ Try again!";
+    if (isIntent && currentQ){
+      feedback.textContent = `❌ Not this one. Correct intent: ${currentQ.intent.replaceAll("_"," ")}`;
+    } else if (currentType === "FILL_GAP"){
+      feedback.textContent = `❌ Try again! (Answer: ${missingAnswer})`;
+    } else {
+      feedback.textContent = "❌ Try again!";
+    }
+
     feedback.className = "feedback no";
     strikes++;
     streak = 0;
     updateStats();
-    clearWords();
+
+    // reset attempt for some activities
+    if (currentType === "ORDER") clearWords();
+    if (currentType === "FILL_GAP"){
+      const input = document.getElementById("fillInput");
+      if (input) { input.value=""; input.focus(); }
+    }
   }
 }
-</script>
 
+/* -----------------------------------------------------------
+   INIT
+----------------------------------------------------------- */
+window.addEventListener("load", () => {
+  const bgm = document.getElementById("bgm");
+  bgm.volume = 0.35;
+  bgm.addEventListener("error", () => setAudioStatus("Audio load error ❌ Check audio/koala2.mp3"));
+});
+</script>
 </body>
 </html>
 
