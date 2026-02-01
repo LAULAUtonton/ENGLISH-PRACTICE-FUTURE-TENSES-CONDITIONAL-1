@@ -3,1283 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Future Forms Sprint — Soft Manga</title>
-
+  <title>Future Tense Practice — 25 Streak Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
   <style>
-    *{ box-sizing:border-box; }
-    :root{
-      --bg1:#fff7fb;
-      --bg2:#f3fbff;
-      --ink:#111827;
-
-      --card: rgba(255,255,255,.88);
-      --stroke: rgba(17,24,39,.14);
-
-      --pink:#ff73b6;
-      --sky:#6fd3ff;
-      --vio:#a78bfa;
-      --mint:#6ee7b7;
-      --sun:#ffd166;
-      --rose:#fb7185;
-
-      --shadow: 0 18px 60px rgba(17,24,39,.16);
-      --shadow2: 0 12px 32px rgba(17,24,39,.12);
+    body {
+      font-family: Montserrat, sans-serif;
+      background: linear-gradient(180deg, #f1f5fe, #e2f2f1, #e8f4ff);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
     }
-
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(900px 520px at 15% 10%, rgba(255,115,182,.22), transparent 60%),
-        radial-gradient(700px 450px at 90% 15%, rgba(111,211,255,.22), transparent 60%),
-        radial-gradient(800px 520px at 45% 95%, rgba(110,231,183,.18), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      overflow-x:hidden;
-    }
-
-    .hidden{ display:none !important; }
-    .srOnly{
-      position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-      clip:rect(0,0,0,0);white-space:nowrap;border:0;
-    }
-
-    /* ---------- NAME SCREEN ---------- */
-    #nameScreen{
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding: 18px;
-    }
-    .nameWrap{
-      width: min(820px, 100%);
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: 28px;
-      padding: clamp(18px, 3.8vw, 36px);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow:hidden;
-    }
-    .nameWrap::before{
-      content:"";
-      position:absolute; inset:-140px;
-      background:
-        radial-gradient(circle at 25% 25%, rgba(255,115,182,.22), transparent 60%),
-        radial-gradient(circle at 75% 30%, rgba(111,211,255,.22), transparent 60%),
-        radial-gradient(circle at 40% 85%, rgba(167,139,250,.18), transparent 60%);
-      filter: blur(2px);
-      opacity:.95;
-      z-index:0;
-    }
-    .nameWrap > *{ position:relative; z-index:1; }
-
-    .title{
-      margin:0 0 8px;
-      font-weight: 1000;
-      letter-spacing: .2px;
-      font-size: clamp(2.0rem, 5vw, 3.1rem);
-    }
-    .subtitle{
-      margin: 0 0 14px;
-      font-weight: 900;
-      color: rgba(17,24,39,.72);
-      line-height: 1.35;
-    }
-
-    .pillRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-start;
-      margin: 10px 0 16px;
-    }
-    .pill{
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow2);
-      font-weight: 1000;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      user-select:none;
-    }
-
-    input[type="text"], input[type="password"]{
-      width: 100%;
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(17,24,39,.16);
-      background: rgba(255,255,255,.92);
-      outline:none;
-      font-size: 1.05rem;
-      box-shadow: 0 0 0 2px rgba(111,211,255,.12) inset;
-    }
-    input::placeholder{ color: rgba(17,24,39,.46); }
-
-    .btn{
-      border: 0;
-      cursor:pointer;
-      font-weight: 1000;
-      padding: 14px 16px;
-      border-radius: 18px;
-      transition: transform .14s ease, filter .14s ease;
-      box-shadow: var(--shadow2);
-      user-select:none;
-    }
-    .btn:active{ transform: translateY(1px); }
-    .btnPrimary{
-      width:100%;
-      color:white;
-      background: linear-gradient(90deg, var(--sky), var(--pink));
-    }
-    .btnPrimary:hover{ filter: brightness(1.03); transform: translateY(-2px); }
-    .hint{
-      margin: 12px 0 0;
-      font-weight: 900;
-      color: rgba(17,24,39,.64);
-    }
-
-    /* ---------- GAME ---------- */
-    #teacherBtn{
-      position: fixed;
-      top: 12px; right: 12px;
-      font-size: 2rem;
-      cursor:pointer;
-      user-select:none;
-      z-index: 70;
-      filter: drop-shadow(0 6px 16px rgba(17,24,39,.18));
-    }
-
-    #gameScreen{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 14px;
-    }
-
-    .panel{
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: 24px;
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
-
-    .panelHead{
-      padding: 12px 14px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      background: linear-gradient(90deg, rgba(111,211,255,.30), rgba(255,115,182,.22));
-      border-bottom: 1px solid var(--stroke);
-    }
-    .panelHead h2{
-      margin:0;
-      font-size: 1.05rem;
-      font-weight: 1000;
-      letter-spacing:.3px;
-    }
-    .hud{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .hudBox{
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.75);
-      border: 1px solid var(--stroke);
-      font-weight: 1000;
-      box-shadow: 0 8px 18px rgba(17,24,39,.10);
-      user-select:none;
-    }
-
-    .bodyPad{ padding: 14px; }
-
-    .badgeRow{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.78);
-      box-shadow: 0 10px 24px rgba(17,24,39,.10);
-      font-weight: 1000;
-      user-select:none;
-    }
-    .badgeDot{
-      width: 14px; height:14px;
-      border-radius:999px;
-      background: var(--sky);
-      box-shadow: 0 0 0 4px rgba(111,211,255,.24);
-    }
-
-    .sentenceCard{
-      border-radius: 22px;
-      border: 1px solid rgba(17,24,39,.12);
-      background:
-        radial-gradient(900px 240px at 18% 0%, rgba(111,211,255,.26), transparent 55%),
-        radial-gradient(900px 240px at 88% 10%, rgba(255,115,182,.22), transparent 60%),
-        radial-gradient(700px 260px at 40% 100%, rgba(110,231,183,.18), transparent 55%),
-        rgba(255,255,255,.90);
-      padding: 14px 14px;
-      box-shadow: 0 16px 40px rgba(17,24,39,.12);
-    }
-    #sentenceText{
-      margin:0;
-      font-size: clamp(1.25rem, 2.6vw, 1.85rem);
-      font-weight: 1000;
-      letter-spacing:.2px;
-      line-height: 1.3;
-    }
-
-    .stepRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-    }
-    .chip{
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.75);
-      box-shadow: 0 10px 24px rgba(17,24,39,.10);
-      font-weight: 1000;
-      user-select:none;
-    }
-    .chipBig{
-      background: linear-gradient(90deg, rgba(110,231,183,.28), rgba(111,211,255,.22));
-    }
-
-    #optionsContainer{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-
-    .optBtn{
-      width:100%;
-      text-align:left;
-      padding: 14px 14px;
-      border-radius: 20px;
-      border: 1px solid rgba(17,24,39,.14);
-      box-shadow: 0 14px 32px rgba(17,24,39,.10);
-      font-weight: 1000;
-      font-size: 1.05rem;
-      cursor:pointer;
-      transition: transform .12s ease, filter .12s ease;
-      background: rgba(255,255,255,.85);
-    }
-    .optBtn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
-    .optBtn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
-
-    /* Option color variants (soft manga) */
-    .optA{ background: linear-gradient(180deg, rgba(255,209,102,.35), rgba(255,255,255,.86)); }
-    .optB{ background: linear-gradient(180deg, rgba(111,211,255,.30), rgba(255,255,255,.86)); }
-    .optC{ background: linear-gradient(180deg, rgba(110,231,183,.26), rgba(255,255,255,.86)); }
-    .optD{ background: linear-gradient(180deg, rgba(167,139,250,.26), rgba(255,255,255,.86)); }
-
-    /* Ordering UI (present-tense style) */
-    .orderTop{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      margin: 0 0 10px;
-    }
-    .tinyBtn{
-      padding: 10px 12px;
+    .container {
+      background: white;
+      padding: 24px;
       border-radius: 16px;
-      border: 1px solid rgba(17,24,39,.14);
-      background: rgba(255,255,255,.78);
-      font-weight: 1000;
-      cursor:pointer;
-      box-shadow: 0 10px 24px rgba(17,24,39,.10);
-      transition: transform .12s ease;
-      user-select:none;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      max-width: 720px;
+      width: 100%;
+      text-align: center;
     }
-    .tinyBtn:hover{ transform: translateY(-1px); }
-
-    .buildBox{
-      border-radius: 20px;
-      border: 1px dashed rgba(17,24,39,.22);
-      background: rgba(255,255,255,.74);
+    .title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 18px;
+    }
+    .btnStart {
+      background: linear-gradient(135deg, #20c997, #0ca678);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #f9f9f9;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      display: none;
+    }
+    .cardTitle {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #888;
+    }
+    .cardSentence {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .optionBtn {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 8px auto;
+      padding: 10px 14px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      background: #e7f5ff;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .optionBtn:hover {
+      background: #d0ebff;
+    }
+    .feedback {
+      margin-top: 12px;
       padding: 12px;
-      min-height: 56px;
-      display:flex;
-      gap: 8px;
-      flex-wrap:wrap;
-      align-items:center;
+      border-radius: 10px;
+      font-weight: bold;
+      display: none;
     }
-    .token{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,.14);
-      background: rgba(255,255,255,.94);
-      font-weight: 1000;
-      box-shadow: 0 10px 20px rgba(17,24,39,.08);
-      user-select:none;
+    .ok {
+      background: #d3f9d8;
+      color: #2f9e44;
     }
-    .tokenBtn{
-      background: linear-gradient(90deg, rgba(111,211,255,.25), rgba(255,115,182,.18));
+    .no {
+      background: #ffe3e3;
+      color: #c92a2a;
     }
-
-    /* Overlay modals */
-    .overlay{
-      position: fixed;
-      inset:0;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding: 16px;
-      background: rgba(17,24,39,.55);
-      backdrop-filter: blur(6px);
-      z-index: 90;
-    }
-    .modal{
-      width: min(560px, 100%);
-      border-radius: 26px;
-      background: rgba(255,255,255,.93);
-      border: 1px solid rgba(17,24,39,.14);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .modalHead{
-      padding: 12px 14px;
-      background: linear-gradient(90deg, rgba(255,209,102,.28), rgba(167,139,250,.20));
-      border-bottom: 1px solid rgba(17,24,39,.12);
-      font-weight: 1000;
-    }
-    .modalBody{ padding: 14px; font-weight: 1000; }
-    .modalBody p{ margin: 0 0 12px; }
-    .modalBtns{
-      padding: 14px;
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .btnOk{
-      color:white;
-      background: linear-gradient(90deg, var(--mint), var(--sky));
-      padding: 12px 16px;
-      border-radius: 18px;
-      border:0;
-      font-weight: 1000;
-      cursor:pointer;
-      box-shadow: var(--shadow2);
-      transition: transform .12s ease;
-    }
-    .btnOk:hover{ transform: translateY(-2px); }
-
-    .pop{ animation: pop .18s ease; }
-    @keyframes pop{ from{ transform: scale(.97); opacity: 0; } to{ transform: scale(1); opacity: 1; } }
-
-    .shake{ animation: shake .22s ease; }
-    @keyframes shake{
-      0%{ transform: translateX(0); }
-      30%{ transform: translateX(-6px); }
-      60%{ transform: translateX(6px); }
-      100%{ transform: translateX(0); }
-    }
-
-    @media (max-width: 680px){
-      .hud{ justify-content:flex-start; }
+    .progress {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #444;
     }
   </style>
 </head>
-
 <body>
-  <!-- NAME SCREEN -->
-  <div id="nameScreen">
-    <div class="nameWrap">
-      <h1 class="title">Future Forms Sprint</h1>
-      <p class="subtitle">
-        Fast practice: choose the <b>future form</b>, then the <b>future meaning</b>, then <b>order the sentence</b>.
-      </p>
+  <div class="container">
+    <div class="title">Future Tense Mastery</div>
+    <div class="subtitle">Reach 25 correct in a row — randomized & adaptive</div>
+    <button class="btnStart" onclick="startGame()">Start Game</button>
 
-      <div class="pillRow">
-        <span class="pill">⚡ click fast</span>
-        <span class="pill">🧠 grammar clues</span>
-        <span class="pill">🐨 koala2 music</span>
-      </div>
-
-      <label class="srOnly" for="studentNameInput">Student name</label>
-      <input id="studentNameInput" type="text" placeholder="Enter your name" autocomplete="name" />
-
-      <button id="startNameBtn" class="btn btnPrimary">Start</button>
-      <p class="hint">Tip: press Enter • music starts after Start</p>
+    <div class="card" id="promptCard">
+      <div class="cardTitle" id="category">Category</div>
+      <div class="cardSentence" id="sentence">Sentence appears here</div>
+      <button class="optionBtn" onclick="selectOption(0)" id="opt0"></button>
+      <button class="optionBtn" onclick="selectOption(1)" id="opt1"></button>
+      <button class="optionBtn" onclick="selectOption(2)" id="opt2"></button>
+      <div class="feedback" id="feedback"></div>
+      <div class="progress" id="progress">Current streak: 0 / 25</div>
     </div>
   </div>
 
-  <!-- GAME SCREEN -->
-  <div id="gameScreen" class="hidden">
-    <div id="teacherBtn" title="Teacher Access">🎓</div>
-
-    <div class="panel">
-      <div class="panelHead">
-        <h2>FUTURE FORMS GAME</h2>
-        <div class="hud">
-          <div id="scoreBox" class="hudBox">Score: 0</div>
-          <div id="streakBox" class="hudBox">Streak: 0</div>
-          <div id="bestBox" class="hudBox">Best: 0</div>
-        </div>
-      </div>
-
-      <div class="bodyPad">
-        <div class="badgeRow">
-          <span class="badge"><span class="badgeDot" id="dot"></span> <span id="mysteryLabel">Mystery future sentence</span></span>
-          <span class="badge">🎯 <span id="stepLabel">Step 1/3</span></span>
-          <span class="badge">✨ <span id="taskLabel">Grammar form</span></span>
-        </div>
-
-        <div class="sentenceCard">
-          <p id="sentenceText">Click Start to begin.</p>
-        </div>
-
-        <div class="stepRow">
-          <span class="chip chipBig" id="questionChip">Which form is used?</span>
-          <button id="nextBtn" class="btn btnPrimary hidden" style="width:auto;padding:12px 16px;">Next round</button>
-        </div>
-      </div>
-
-      <div id="optionsContainer"></div>
-    </div>
-  </div>
-
-  <!-- FEEDBACK -->
-  <div id="feedbackOverlay" class="overlay hidden" aria-hidden="true">
-    <div class="modal pop">
-      <div class="modalHead" id="feedbackTitle">Nice!</div>
-      <div class="modalBody">
-        <p id="feedbackText">Keep going!</p>
-      </div>
-      <div class="modalBtns">
-        <button id="closeFeedbackBtn" class="btnOk">Continue</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- CELEBRATION -->
-  <div id="celebrationOverlay" class="overlay hidden" aria-hidden="true">
-    <div class="modal pop">
-      <div class="modalHead">🎉 25 IN A ROW!</div>
-      <div class="modalBody">
-        <p>Legend mode! Streak resets to 0 — keep playing!</p>
-      </div>
-      <div class="modalBtns">
-        <button id="closeCelebrationBtn" class="btnOk">Keep going</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TEACHER LOGIN -->
-  <div id="teacherLogin" class="overlay hidden" aria-hidden="true">
-    <div class="modal pop" style="max-width:460px;">
-      <div class="modalHead">Teacher Access</div>
-      <div class="modalBody">
-        <input id="teacherCodeInput" type="password" placeholder="Enter code" inputmode="numeric" />
-      </div>
-      <div class="modalBtns">
-        <button id="teacherCodeBtn" class="btnOk">Enter</button>
-        <button id="closeTeacherLogin" class="tinyBtn">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TEACHER PANEL -->
-  <div id="teacherPanel" class="overlay hidden" aria-hidden="true">
-    <div class="modal pop" style="max-width:560px;">
-      <div class="modalHead">Teacher Panel</div>
-      <div class="modalBody">
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;">
-          <button id="teacherStartBtn" class="btnOk">Start Round</button>
-          <button id="teacherResetBtn" class="tinyBtn">Reset Game</button>
-        </div>
-
-        <label style="display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-weight:1000;">
-          <input type="checkbox" id="autoNextToggle" /> Auto-next
-        </label>
-        <label style="display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-weight:1000;">
-          <input type="checkbox" id="musicToggle" checked /> Music
-        </label>
-        <label style="display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-weight:1000;">
-          <input type="checkbox" id="sfxToggle" checked /> Sound effects
-        </label>
-
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
-          <button id="sendStatsBtn" class="tinyBtn">Send Stats Now</button>
-          <button id="closeTeacherPanel" class="tinyBtn">Close</button>
-        </div>
-
-        <p style="margin:12px 0 0;opacity:.7;font-weight:900;text-align:center;">Teacher code: <b>1362</b></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- AUDIO (same folder as index.html) -->
-  <audio id="bgMusic" src="koala2.mp3" preload="auto"></audio>
-  <audio id="correctSound" src="correct.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="wrong.mp3" preload="auto"></audio>
-  <audio id="celebrationSound" src="celebration.mp3" preload="auto"></audio>
+  <audio id="bgMusic" src="Koala2.mp3" preload="auto" loop></audio>
 
   <script>
-  (() => {
-    "use strict";
+    const koala = document.getElementById("bgMusic");
+    let streak = 0;
+    let index = 0;
 
-    /* =======================
-       CONFIG
-    ======================= */
-    const GOOGLE_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // optional
-    const STREAK_TARGET = 25;
-
-    /* =======================
-       SENTENCES (15 each) — FUTURE ONLY
-    ======================= */
-    const PS_FUTURE = [
-      "The train leaves at 7:30 tomorrow.",
-      "School starts again next Monday.",
-      "The film begins at eight tonight.",
-      "The bus arrives at noon.",
-      "The shop opens at ten tomorrow.",
-      "The flight lands at six in the evening.",
-      "The lesson finishes at one o’clock.",
-      "The match starts at three on Saturday.",
-      "The exam begins at nine tomorrow.",
-      "The museum closes at five.",
-      "The concert ends at eleven.",
-      "The class starts after lunch.",
-      "The train departs at six forty-five.",
-      "The library opens at nine.",
-      "The show starts in ten minutes."
+    const questions = [
+      { s:"I will call you tomorrow.", correct:"will", opt:["am going to", "will", "calls"], cat:"Will – Affirmative" },
+      { s:"She isn’t going to work today.", correct:"isn’t going to", opt:["doesn't", "isn’t going to", "won’t"], cat:"Going to – Negative" },
+      { s:"Are they going to study tonight?", correct:"Are they going to", opt:["Will they", "Are they going to", "Do they"], cat:"Going to – Interrogative" }
+      // Agrega aquí tus 270 frases restantes
     ];
 
-    const PC_FUTURE = [
-      "I’m meeting Sara after school.",
-      "We’re having a test tomorrow.",
-      "She’s visiting her grandparents this weekend.",
-      "They’re playing a match on Saturday.",
-      "I’m seeing the dentist tomorrow morning.",
-      "We’re studying together tonight.",
-      "He’s flying to Berlin next week.",
-      "I’m working late tonight.",
-      "They’re having dinner with us.",
-      "She’s starting a new course next month.",
-      "We’re going to the cinema tonight.",
-      "I’m not going to school tomorrow.",
-      "They’re staying at a hotel.",
-      "I’m helping my dad later.",
-      "She’s leaving early tomorrow."
-    ];
-
-    const GOING_TO = [
-      "I’m going to study harder this term.",
-      "She’s going to buy a new laptop.",
-      "They’re going to visit London next week.",
-      "We’re going to start a new project.",
-      "He’s going to learn French.",
-      "I’m going to call you later.",
-      "She’s going to join the basketball team.",
-      "They’re going to build a robot.",
-      "We’re going to revise for the exam.",
-      "He’s going to cook dinner tonight.",
-      "I’m going to save money.",
-      "She’s going to change schools.",
-      "They’re going to watch a documentary.",
-      "We’re going to clean the classroom.",
-      "I’m going to help my friend."
-    ];
-
-    const WILL = [
-      "I’ll help you with your homework.",
-      "Don’t worry, I’ll explain it again.",
-      "I think it will rain tomorrow.",
-      "I’ll open the window.",
-      "She will probably pass the exam.",
-      "I’ll call you later, I promise.",
-      "That bag looks heavy — I’ll carry it.",
-      "They will win the match.",
-      "I’ll answer the phone.",
-      "He will be late.",
-      "I won’t forget your birthday.",
-      "We’ll see you tomorrow.",
-      "I’ll do it now.",
-      "The test will be easy.",
-      "I’ll tell the teacher."
-    ];
-
-    const FIRST_COND = [
-      "If I study, I will pass the exam.",
-      "If it rains, we will stay inside.",
-      "If you hurry, you will catch the bus.",
-      "If she practices, she will improve.",
-      "If we leave now, we will arrive on time.",
-      "If you don’t listen, you won’t understand.",
-      "If he eats breakfast, he will feel better.",
-      "If I see her, I will tell her.",
-      "If they work together, they will finish early.",
-      "If we don’t hurry, we will be late.",
-      "If you ask nicely, he will help you.",
-      "If I don’t sleep, I will be tired.",
-      "If she studies, she will pass.",
-      "If we save money, we will travel.",
-      "If you try again, you will succeed."
-    ];
-
-    /* =======================
-       FUTURE FORMS + MEANINGS
-    ======================= */
-    const FORM_LABELS = [
-      "Present simple (future)",
-      "Present continuous (future)",
-      "Going to",
-      "Will",
-      "First conditional"
-    ];
-
-    const MEANING_LABELS = [
-      "timetable / schedule",
-      "fixed arrangement",
-      "plan / intention",
-      "prediction / promise / offer",
-      "condition → result"
-    ];
-
-    const CATS = [
-      { key:"PS", form:"Present simple (future)", meaning:"timetable / schedule", sentences: PS_FUTURE },
-      { key:"PC", form:"Present continuous (future)", meaning:"fixed arrangement", sentences: PC_FUTURE },
-      { key:"GT", form:"Going to", meaning:"plan / intention", sentences: GOING_TO },
-      { key:"WI", form:"Will", meaning:"prediction / promise / offer", sentences: WILL },
-      { key:"FC", form:"First conditional", meaning:"condition → result", sentences: FIRST_COND }
-    ];
-
-    /* =======================
-       HELPERS
-    ======================= */
-    const $ = (s)=>document.querySelector(s);
-
-    const shuffle = (arr)=>{
-      const a = arr.slice();
-      for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i],a[j]] = [a[j],a[i]];
+    function shuffle(a){
+      for(let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
       return a;
-    };
-
-    function tokenizeSentence(s){
-      return s
-        .replace(/([,.!?])/g, " $1")
-        .replace(/\s+/g, " ")
-        .trim()
-        .split(" ")
-        .filter(Boolean);
     }
 
-    function normalizeTokens(tokens){
-      return tokens.join(" ").replace(/\s+([,.!?])/g, "$1").trim();
+    function startGame(){
+      streak = 0;
+      index = 0;
+      shuffle(questions);
+      document.querySelector(".btnStart").style.display = "none";
+      document.getElementById("promptCard").style.display = "block";
+      try { koala.volume = 0.5; koala.play(); } catch (e) {}
+      next();
     }
 
-    function pick4(correct, pool){
-      const others = pool.filter(x=>x!==correct);
-      return shuffle([correct, ...shuffle(others).slice(0,3)]);
-    }
+    function next(){
+      const q = questions[index % questions.length];
+      const opts = shuffle([...q.opt]);
+      document.getElementById("sentence").innerText = q.s;
+      document.getElementById("category").innerText = q.cat;
+      document.getElementById("feedback").style.display = "none";
 
-    function nowISO(){ return new Date().toISOString(); }
-
-    /* =======================
-       BUILD BANK (75 items)
-       Each item has 3 separate question types:
-       - grammar(form)
-       - meaning
-       - word order
-    ======================= */
-    function buildBank(){
-      const out = [];
-      for(const cat of CATS){
-        for(const sentence of cat.sentences){
-          const tokens = tokenizeSentence(sentence);
-          out.push({
-            sentence,
-            correctForm: cat.form,
-            correctMeaning: cat.meaning,
-            orderTokens: tokens,
-            formOptions: pick4(cat.form, FORM_LABELS),
-            meaningOptions: pick4(cat.meaning, MEANING_LABELS),
-            orderOptions: shuffle(tokens)
-          });
-        }
+      for (let i = 0; i < 3; i++){
+        const b = document.getElementById("opt" + i);
+        b.innerText = opts[i];
+        b.disabled = false;
+        b.dataset.correct = (opts[i] === q.correct);
       }
-      return out;
+      document.getElementById("progress").innerText = `Current streak: ${streak} / 25`;
+      index++;
     }
 
-    const BANK = buildBank();
-
-    /* =======================
-       DOM
-    ======================= */
-    const el = {
-      nameScreen: $("#nameScreen"),
-      gameScreen: $("#gameScreen"),
-      studentNameInput: $("#studentNameInput"),
-      startNameBtn: $("#startNameBtn"),
-
-      teacherBtn: $("#teacherBtn"),
-
-      scoreBox: $("#scoreBox"),
-      streakBox: $("#streakBox"),
-      bestBox: $("#bestBox"),
-
-      dot: $("#dot"),
-      mysteryLabel: $("#mysteryLabel"),
-      stepLabel: $("#stepLabel"),
-      taskLabel: $("#taskLabel"),
-      questionChip: $("#questionChip"),
-      sentenceText: $("#sentenceText"),
-      optionsContainer: $("#optionsContainer"),
-      nextBtn: $("#nextBtn"),
-
-      feedbackOverlay: $("#feedbackOverlay"),
-      feedbackTitle: $("#feedbackTitle"),
-      feedbackText: $("#feedbackText"),
-      closeFeedbackBtn: $("#closeFeedbackBtn"),
-
-      celebrationOverlay: $("#celebrationOverlay"),
-      closeCelebrationBtn: $("#closeCelebrationBtn"),
-
-      teacherLogin: $("#teacherLogin"),
-      teacherCodeInput: $("#teacherCodeInput"),
-      teacherCodeBtn: $("#teacherCodeBtn"),
-      closeTeacherLogin: $("#closeTeacherLogin"),
-
-      teacherPanel: $("#teacherPanel"),
-      teacherStartBtn: $("#teacherStartBtn"),
-      teacherResetBtn: $("#teacherResetBtn"),
-      autoNextToggle: $("#autoNextToggle"),
-      musicToggle: $("#musicToggle"),
-      sfxToggle: $("#sfxToggle"),
-      sendStatsBtn: $("#sendStatsBtn"),
-      closeTeacherPanel: $("#closeTeacherPanel"),
-
-      bgMusic: $("#bgMusic"),
-      correctSound: $("#correctSound"),
-      wrongSound: $("#wrongSound"),
-      celebrationSound: $("#celebrationSound")
-    };
-
-    /* =======================
-       STATE
-    ======================= */
-    const state = {
-      studentName:"",
-      score:0,
-      streak:0,
-      bestStreak:0,
-
-      autoNext:false,
-      musicOn:true,
-      sfxOn:true,
-
-      bundle:null,
-      step:1,
-
-      log:[]
-    };
-
-    /* =======================
-       PREFS
-    ======================= */
-    function savePrefs(){
-      try{
-        localStorage.setItem("future_sprint_prefs_v1", JSON.stringify({
-          autoNext: state.autoNext,
-          musicOn: state.musicOn,
-          sfxOn: state.sfxOn,
-          bestStreak: state.bestStreak
-        }));
-      }catch(_){}
-    }
-    function loadPrefs(){
-      try{
-        const raw = localStorage.getItem("future_sprint_prefs_v1");
-        if(!raw) return;
-        const p = JSON.parse(raw);
-        if(typeof p.autoNext==="boolean") state.autoNext = p.autoNext;
-        if(typeof p.musicOn==="boolean") state.musicOn = p.musicOn;
-        if(typeof p.sfxOn==="boolean") state.sfxOn = p.sfxOn;
-        if(typeof p.bestStreak==="number") state.bestStreak = p.bestStreak;
-      }catch(_){}
-    }
-
-    function setHUD(){
-      el.scoreBox.textContent = `Score: ${state.score}`;
-      el.streakBox.textContent = `Streak: ${state.streak}`;
-      el.bestBox.textContent = `Best: ${state.bestStreak}`;
-      savePrefs();
-    }
-
-    function playSfx(kind){
-      if(!state.sfxOn) return;
-      const a =
-        kind==="correct" ? el.correctSound :
-        kind==="wrong" ? el.wrongSound :
-        kind==="celebration" ? el.celebrationSound : null;
-      if(!a) return;
-      try{ a.currentTime = 0; a.play(); }catch(_){}
-    }
-
-    function syncMusic(){
-      if(!el.bgMusic) return;
-      try{
-        el.bgMusic.loop = true;
-        el.bgMusic.volume = 0.35;
-        if(state.musicOn) el.bgMusic.play().catch(()=>{});
-        else el.bgMusic.pause();
-      }catch(_){}
-    }
-
-    function show(n){ n.classList.remove("hidden"); n.setAttribute("aria-hidden","false"); }
-    function hide(n){ n.classList.add("hidden"); n.setAttribute("aria-hidden","true"); }
-
-    /* =======================
-       FEEDBACK
-    ======================= */
-    function showFeedback(title, msg, correct, onClose){
-      el.feedbackTitle.textContent = title;
-      el.feedbackText.textContent = msg;
-      show(el.feedbackOverlay);
-      playSfx(correct ? "correct" : "wrong");
-
-      const handler = ()=>{
-        hide(el.feedbackOverlay);
-        el.closeFeedbackBtn.removeEventListener("click", handler);
-        if(state.autoNext) setTimeout(()=>onClose && onClose(), 120);
-        else onClose && onClose();
-      };
-      el.closeFeedbackBtn.addEventListener("click", handler);
-    }
-
-    function showCelebration(onClose){
-      show(el.celebrationOverlay);
-      playSfx("celebration");
-
-      const handler = ()=>{
-        hide(el.celebrationOverlay);
-        el.closeCelebrationBtn.removeEventListener("click", handler);
-        state.streak = 0;
-        setHUD();
-        onClose && onClose();
-      };
-      el.closeCelebrationBtn.addEventListener("click", handler);
-    }
-
-    function maybeCelebrate(next){
-      if(state.streak >= STREAK_TARGET) showCelebration(next);
-      else next();
-    }
-
-    /* =======================
-       LOGGING
-    ======================= */
-    function scoreIt(correct){
-      if(correct){
-        state.score += 1;
-        state.streak += 1;
-        state.bestStreak = Math.max(state.bestStreak, state.streak);
+    function selectOption(i){
+      const btn = document.getElementById("opt" + i);
+      const fb = document.getElementById("feedback");
+      const correct = btn.dataset.correct === "true";
+      if (correct){
+        fb.className = "feedback ok";
+        fb.innerText = ["✅ Correct!", "🎯 You nailed it!", "🔥 Nice!"][Math.floor(Math.random() * 3)];
+        streak++;
       } else {
-        state.streak = 0;
+        fb.className = "feedback no";
+        fb.innerText = ["❌ Oops!", "🚫 Wrong tense!", "😬 Try again!"][Math.floor(Math.random() * 3)];
+        streak = 0;
       }
-      setHUD();
+      fb.style.display = "block";
+      setTimeout(() => next(), 1300);
     }
-
-    function logEntry(kind, chosen, correctAnswer, correct){
-      state.log.push({
-        studentName: state.studentName,
-        timeISO: nowISO(),
-        sentence: state.bundle?.sentence || "",
-        kind,
-        chosen,
-        correctAnswer,
-        correct: !!correct,
-        streakAfter: state.streak,
-        scoreAfter: state.score
-      });
-    }
-
-    async function sendStatsNow(){
-      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_")){
-        alert("Add GOOGLE_SCRIPT_URL first (optional).");
-        return;
-      }
-      const payload = {
-        studentName: state.studentName,
-        summary: {
-          studentName: state.studentName,
-          score: state.score,
-          bestStreak: state.bestStreak,
-          sentAt: nowISO()
-        },
-        log: state.log
-      };
-      try{
-        const res = await fetch(GOOGLE_SCRIPT_URL, {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify(payload)
-        });
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        alert("Stats sent ✅");
-      }catch(e){
-        console.error(e);
-        alert("Failed to send stats. Check Apps Script URL/permissions.");
-      }
-    }
-
-    /* =======================
-       RENDER HELPERS
-    ======================= */
-    function clearOptions(){
-      el.optionsContainer.innerHTML = "";
-    }
-
-    function renderOptionButtons(options, onPick){
-      clearOptions();
-      const classes = ["optA","optB","optC","optD"];
-      options.forEach((opt, idx)=>{
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = `optBtn ${classes[idx % 4]}`;
-        b.textContent = opt;
-        b.addEventListener("click", ()=>onPick(opt));
-        el.optionsContainer.appendChild(b);
-      });
-    }
-
-    function setStepUI(){
-      el.stepLabel.textContent = `Step ${state.step}/3`;
-
-      if(state.step===1){
-        el.taskLabel.textContent = "Grammar form";
-        el.questionChip.textContent = "Which form is used?";
-      } else if(state.step===2){
-        el.taskLabel.textContent = "Future meaning";
-        el.questionChip.textContent = "What does it mean?";
-      } else {
-        el.taskLabel.textContent = "Word order";
-        el.questionChip.textContent = "Order the sentence";
-      }
-    }
-
-    /* =======================
-       STEP 1 — GRAMMAR FORM
-    ======================= */
-    function renderStep1(){
-      setStepUI();
-      renderOptionButtons(state.bundle.formOptions, (chosen)=>{
-        const correct = chosen === state.bundle.correctForm;
-        scoreIt(correct);
-        logEntry("form", chosen, state.bundle.correctForm, correct);
-
-        const msg = correct
-          ? "Yes! ✅"
-          : `Nope — correct: ${state.bundle.correctForm}.`;
-
-        showFeedback(correct ? "Correct!" : "Try again!", msg, correct, ()=> maybeCelebrate(advance));
-      });
-    }
-
-    /* =======================
-       STEP 2 — MEANING
-    ======================= */
-    function renderStep2(){
-      setStepUI();
-      renderOptionButtons(state.bundle.meaningOptions, (chosen)=>{
-        const correct = chosen === state.bundle.correctMeaning;
-        scoreIt(correct);
-        logEntry("meaning", chosen, state.bundle.correctMeaning, correct);
-
-        const msg = correct
-          ? "Great clue! 🌟"
-          : `Clue: ${state.bundle.correctMeaning}.`;
-
-        showFeedback(correct ? "Correct!" : "Not quite!", msg, correct, ()=> maybeCelebrate(advance));
-      });
-    }
-
-    /* =======================
-       STEP 3 — WORD ORDER (present-style)
-    ======================= */
-    function renderStep3(){
-      setStepUI();
-      clearOptions();
-
-      const correctTokens = state.bundle.orderTokens.slice();
-      const shuffled = state.bundle.orderOptions.slice();
-
-      let built = [];
-
-      const top = document.createElement("div");
-      top.className = "orderTop";
-      top.innerHTML = `
-        <div class="chip">Click words to build</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="tinyBtn" id="undoBtn" type="button">Undo</button>
-          <button class="tinyBtn" id="resetBtn" type="button">Reset</button>
-        </div>
-      `;
-
-      const buildBox = document.createElement("div");
-      buildBox.className = "buildBox";
-
-      const tokensWrap = document.createElement("div");
-      tokensWrap.style.display = "flex";
-      tokensWrap.style.gap = "10px";
-      tokensWrap.style.flexWrap = "wrap";
-
-      const refreshBuild = ()=>{
-        buildBox.innerHTML = "";
-        if(built.length===0){
-          const ghost = document.createElement("span");
-          ghost.style.opacity = ".7";
-          ghost.style.fontWeight = "900";
-          ghost.textContent = "(build here)";
-          buildBox.appendChild(ghost);
-          return;
-        }
-        built.forEach(t=>{
-          const s = document.createElement("span");
-          s.className = "token";
-          s.textContent = t;
-          buildBox.appendChild(s);
-        });
-      };
-
-      const checkFinish = ()=>{
-        if(built.length !== correctTokens.length) return;
-
-        const builtSentence = normalizeTokens(built);
-        const correctSentence = normalizeTokens(correctTokens);
-        const correct = builtSentence === correctSentence;
-
-        scoreIt(correct);
-        logEntry("order", builtSentence, correctSentence, correct);
-
-        if(correct){
-          showFeedback("Correct!", "Boom! 💥", true, ()=> maybeCelebrate(advance));
-        } else {
-          buildBox.classList.remove("shake");
-          void buildBox.offsetWidth;
-          buildBox.classList.add("shake");
-          showFeedback("Not yet!", `Correct: ${correctSentence}`, false, ()=> maybeCelebrate(advance));
-        }
-      };
-
-      shuffled.forEach(tok=>{
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = "tinyBtn tokenBtn";
-        b.textContent = tok;
-        b.addEventListener("click", ()=>{
-          built.push(tok);
-          b.disabled = true;
-          refreshBuild();
-          checkFinish();
-        });
-        tokensWrap.appendChild(b);
-      });
-
-      el.optionsContainer.appendChild(top);
-      el.optionsContainer.appendChild(buildBox);
-      el.optionsContainer.appendChild(tokensWrap);
-
-      top.querySelector("#undoBtn").addEventListener("click", ()=>{
-        if(built.length===0) return;
-        const last = built.pop();
-        const btns = [...tokensWrap.querySelectorAll("button")];
-        // re-enable one matching disabled token
-        const target = btns.find(x => x.disabled && x.textContent === last);
-        if(target) target.disabled = false;
-        refreshBuild();
-      });
-
-      top.querySelector("#resetBtn").addEventListener("click", ()=>{
-        built = [];
-        tokensWrap.querySelectorAll("button").forEach(b=>b.disabled=false);
-        refreshBuild();
-      });
-
-      refreshBuild();
-    }
-
-    /* =======================
-       ROUND FLOW
-    ======================= */
-    function render(){
-      hide(el.nextBtn);
-      el.mysteryLabel.textContent = "Mystery future sentence";
-      el.sentenceText.textContent = state.bundle.sentence;
-
-      // do NOT reveal category/form at top (prevents giving answers)
-      el.dot.style.background = "var(--sky)";
-      el.dot.style.boxShadow = "0 0 0 4px rgba(111,211,255,.24)";
-
-      if(state.step===1) renderStep1();
-      else if(state.step===2) renderStep2();
-      else renderStep3();
-    }
-
-    function advance(){
-      if(state.step < 3){
-        state.step += 1;
-        render();
-        return;
-      }
-      showFeedback("Round complete!", "Next round ✅", true, ()=> show(el.nextBtn));
-    }
-
-    function startRound(){
-      state.bundle = BANK[Math.floor(Math.random()*BANK.length)];
-      state.step = 1;
-      render();
-    }
-
-    function resetGame(){
-      state.score = 0;
-      state.streak = 0;
-      state.log = [];
-      setHUD();
-
-      el.mysteryLabel.textContent = "Mystery future sentence";
-      el.stepLabel.textContent = "Step 1/3";
-      el.taskLabel.textContent = "Grammar form";
-      el.questionChip.textContent = "Which form is used?";
-      el.sentenceText.textContent = "Ready! Start a round.";
-      clearOptions();
-      hide(el.nextBtn);
-    }
-
-    /* =======================
-       TEACHER
-    ======================= */
-    function openTeacherLogin(){
-      show(el.teacherLogin);
-      el.teacherCodeInput.value = "";
-      el.teacherCodeInput.focus();
-    }
-    function closeTeacherLogin(){ hide(el.teacherLogin); }
-    function openTeacherPanel(){
-      hide(el.teacherLogin);
-      show(el.teacherPanel);
-      el.autoNextToggle.checked = state.autoNext;
-      el.musicToggle.checked = state.musicOn;
-      el.sfxToggle.checked = state.sfxOn;
-    }
-    function closeTeacherPanel(){ hide(el.teacherPanel); }
-
-    function teacherSubmit(){
-      const code = (el.teacherCodeInput.value || "").trim();
-      if(code === "1362") openTeacherPanel();
-      else{
-        el.teacherCodeInput.classList.remove("shake");
-        void el.teacherCodeInput.offsetWidth;
-        el.teacherCodeInput.classList.add("shake");
-      }
-    }
-
-    /* =======================
-       EVENTS
-    ======================= */
-    function wire(){
-      el.startNameBtn.addEventListener("click", ()=>{
-        const n = (el.studentNameInput.value || "").trim();
-        if(!n){ alert("Enter your name."); return; }
-        state.studentName = n;
-
-        hide(el.nameScreen);
-        show(el.gameScreen);
-
-        // Music starts AFTER user click (autoplay rules)
-        syncMusic();
-
-        loadPrefs();
-        el.autoNextToggle.checked = state.autoNext;
-        el.musicToggle.checked = state.musicOn;
-        el.sfxToggle.checked = state.sfxOn;
-
-        setHUD();
-        resetGame();
-        startRound();
-      });
-
-      el.studentNameInput.addEventListener("keydown", (e)=>{
-        if(e.key === "Enter") el.startNameBtn.click();
-      });
-
-      el.nextBtn.addEventListener("click", startRound);
-
-      el.teacherBtn.addEventListener("click", openTeacherLogin);
-      el.closeTeacherLogin.addEventListener("click", closeTeacherLogin);
-      el.teacherCodeBtn.addEventListener("click", teacherSubmit);
-      el.teacherCodeInput.addEventListener("keydown", (e)=>{
-        if(e.key==="Enter") teacherSubmit();
-        if(e.key==="Escape") closeTeacherLogin();
-      });
-
-      el.teacherStartBtn.addEventListener("click", startRound);
-      el.teacherResetBtn.addEventListener("click", resetGame);
-
-      el.autoNextToggle.addEventListener("change", (e)=>{
-        state.autoNext = !!e.target.checked;
-        savePrefs();
-      });
-
-      el.musicToggle.addEventListener("change", (e)=>{
-        state.musicOn = !!e.target.checked;
-        savePrefs();
-        syncMusic();
-      });
-
-      el.sfxToggle.addEventListener("change", (e)=>{
-        state.sfxOn = !!e.target.checked;
-        savePrefs();
-      });
-
-      el.sendStatsBtn.addEventListener("click", sendStatsNow);
-      el.closeTeacherPanel.addEventListener("click", closeTeacherPanel);
-
-      // click outside modals closes them
-      el.teacherLogin.addEventListener("click", (e)=>{ if(e.target===el.teacherLogin) closeTeacherLogin(); });
-      el.teacherPanel.addEventListener("click", (e)=>{ if(e.target===el.teacherPanel) closeTeacherPanel(); });
-    }
-
-    /* =======================
-       INIT
-    ======================= */
-    function init(){
-      loadPrefs();
-      setHUD();
-      wire();
-    }
-    init();
-  })();
   </script>
 </body>
 </html>
