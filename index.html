@@ -3,268 +3,300 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Future Grammar Mastery — Blue Remix (Responsive + Bottom Bar + Sheets)</title>
+  <title>Future Grammar Mastery — Blue Edition</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      /* ===== BACKGROUND vs GAME CONTRAST (flat colors, no gradients) ===== */
-      --page:#031B33;        /* very dark navy (page) */
-      --page2:#05284A;       /* slightly lighter strip */
-      --card:#0C3A66;        /* game card blue (clearly different from page) */
-      --surface:#072B4D;     /* inner surfaces */
-      --panel:#0A4A86;       /* header / pills */
+      /* BLUE, FLAT (NO GRADIENTS) */
+      --bg:#0b66b2;          /* page background */
+      --bg2:#094a80;         /* subtle darker zones */
+      --game:#0a2f4f;        /* game shell */
+      --card:#0f3b63;        /* inner card */
       --ink:#ffffff;
-      --mut:rgba(255,255,255,.80);
-      --stroke:rgba(255,255,255,.16);
-      --shadow:0 14px 28px rgba(0,0,0,.35);
+      --mut:rgba(255,255,255,.82);
 
-      /* ===== lively flat accents ===== */
-      --cyan:#2FE6FF;
-      --mint:#6BFFCF;
-      --yellow:#FFD166;
-      --orange:#FF9F1C;
-      --pink:#FF4DAB;
-      --purple:#9B5CFF;
-      --lime:#B6FF4D;
-      --red:#FF4D6D;
+      /* accents */
+      --cyan:#18d3ff;
+      --mint:#38f2c7;
+      --yellow:#ffd34d;
+      --coral:#ff5c7a;
+      --purple:#b58cff;
+      --lime:#b9ff4d;
 
-      --btnDark:#06131f;
-      --bar:#021427;
+      --line:rgba(255,255,255,.16);
+      --shadow:0 10px 24px rgba(0,0,0,.28);
+
+      /* ORDER live colors */
+      --orderBox:#10b6d6;       /* built sentence area */
+      --chip:#082b43;           /* chip bg */
+      --chipInk:#ffffff;
+      --word:#ffffff;           /* word bank button */
+      --wordInk:#082b43;
+      --wordChosen:#ffd34d;     /* chosen word */
+      --wordChosenInk:#2a1b00;
+
+      --radius:18px;
+      --radius2:14px;
+      --radius3:12px;
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
     body{
       margin:0;
       font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
       color:var(--ink);
-      background:var(--page);
     }
 
-    /* Subtle top strip (still flat color) */
-    .topStrip{
-      background:var(--page2);
-      border-bottom:2px solid rgba(255,255,255,.06);
-    }
-
-    .app{
-      max-width:980px;
-      margin:0 auto;
+    /* Layout: main + side rail */
+    .shell{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
       padding:14px;
+      gap:14px;
+    }
+    .app{
+      width:100%;
+      max-width:1020px;
+      background:var(--game);
+      border-radius:22px;
+      padding:14px;
+      box-shadow:var(--shadow);
+      border:2px solid var(--line);
     }
 
     header{
-      text-align:center;
-      padding:14px 10px 12px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      padding:6px 6px 12px;
+      border-bottom:2px solid var(--line);
+      margin-bottom:12px;
+    }
+    .titleWrap{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex:1;
+      min-width:260px;
+    }
+    .logo{
+      width:54px;height:54px;
+      border-radius:16px;
+      background:var(--cyan);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      color:#06263b;
+      font-weight:900;
+      box-shadow:var(--shadow);
+      flex-shrink:0;
     }
     h1{
       margin:0;
-      font-size:2rem;
+      font-size:1.55rem;
       font-weight:900;
-      letter-spacing:.2px;
+      line-height:1.05;
     }
-    header p{
-      margin:6px 0 10px;
+    .sub{
+      margin:6px 0 0;
       font-weight:800;
       color:var(--mut);
+      font-size:.98rem;
     }
 
-    /* ===== TOP: keep it minimal ===== */
-    .topRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      align-items:center;
-      margin-top:8px;
-    }
     .nameBox{
       display:flex;
       gap:10px;
       align-items:center;
-      background:var(--panel);
-      border:2px solid var(--stroke);
+      background:var(--card);
+      border:2px solid var(--line);
       border-radius:16px;
       padding:10px 12px;
-      box-shadow:var(--shadow);
-      width:min(520px, 100%);
-      justify-content:center;
+      min-width:280px;
     }
-    .nameBox span{ font-weight:900; white-space:nowrap; }
+    .nameBox span{ font-weight:900; }
     .nameBox input{
+      width:100%;
       border:none;
       outline:none;
       border-radius:12px;
       padding:10px 12px;
       font-size:1rem;
       font-weight:900;
-      min-width:180px;
-      width:100%;
-      max-width:280px;
+      background:#ffffff;
+      color:#082b43;
     }
 
-    .startOnly{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .warning{
-      margin-top:8px;
-      min-height:18px;
-      font-weight:900;
-      color:#ffe3e3;
-    }
-
-    /* ===== stats row ===== */
+    /* Stats row */
     .stats{
-      display:flex;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr 1.4fr;
       gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
+      align-items:stretch;
       margin:12px 0 12px;
     }
     .stat{
-      background:var(--panel);
-      border:2px solid var(--stroke);
+      background:var(--card);
+      border:2px solid var(--line);
       border-radius:16px;
       padding:10px 12px;
-      min-width:150px;
       text-align:center;
-      box-shadow:var(--shadow);
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
     }
     .stat .label{
-      font-size:.82rem;
+      font-size:.8rem;
       font-weight:900;
-      opacity:.95;
+      opacity:.92;
     }
     .stat .value{
-      font-size:1.07rem;
+      font-size:1.06rem;
       font-weight:900;
-      margin-top:2px;
+      margin-top:4px;
     }
 
     .progressWrap{
-      flex:1;
-      min-width:260px;
-      background:var(--panel);
-      border:2px solid var(--stroke);
+      background:var(--card);
+      border:2px solid var(--line);
       border-radius:16px;
       padding:10px 12px;
-      box-shadow:var(--shadow);
-    }
-    .progressWrap .label{
-      text-align:left;
-      font-size:.82rem;
-      font-weight:900;
-      opacity:.95;
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:8px;
     }
     .bar{
-      margin-top:8px;
-      height:22px;
-      background:var(--bar);
+      height:20px;
+      background:#06263b;
       border-radius:999px;
       overflow:hidden;
-      border:2px solid rgba(47,230,255,.55);
+      border:2px solid rgba(24,211,255,.5);
     }
     .fill{
       height:100%;
       width:0%;
-      background:var(--lime);
-      transition:width .25s ease;
+      background:var(--mint);
+      transition:width .2s ease;
     }
 
-    /* ===== game card ===== */
-    .card{
+    /* Main card */
+    .mainCard{
       background:var(--card);
-      border:2px solid rgba(255,255,255,.12);
-      border-radius:18px;
+      border:2px solid var(--line);
+      border-radius:var(--radius);
       padding:14px;
-      box-shadow:0 18px 32px rgba(0,0,0,.42);
-      position:relative;
-      overflow:hidden;
+      box-shadow:0 8px 18px rgba(0,0,0,.18);
     }
 
-    .miniTypeWrap{ text-align:center; }
+    .miniTypeWrap{ text-align:center; margin-bottom:10px; }
     .miniType{
       display:inline-block;
-      margin:0 auto 10px;
-      padding:7px 14px;
+      padding:7px 12px;
       border-radius:999px;
       font-weight:900;
-      background:var(--surface);
-      border:2px solid rgba(255,255,255,.12);
+      background:var(--bg2);
+      border:2px solid var(--line);
+      color:var(--ink);
+      letter-spacing:.2px;
     }
 
     .sentenceBox{
       display:flex;
       justify-content:center;
-      margin: 10px 0 14px;
+      margin: 10px 0 12px;
     }
     .sentenceBig{
       width:100%;
-      background:var(--surface);
-      border:3px solid rgba(47,230,255,.55);
+      background:#ffffff;
+      color:#072740;
+      border:3px solid rgba(24,211,255,.55);
       border-radius:18px;
-      padding:18px 16px;
+      padding:16px 14px;
       font-weight:900;
-      font-size:1.55rem;
-      line-height:1.25;
+      font-size:1.45rem;
+      line-height:1.22;
       text-align:center;
       user-select:none;
     }
 
-    /* ORDER */
-    .interaction{
+    /* ORDER built area (lively) */
+    .builtArea{
+      background:var(--orderBox);
+      border:3px solid rgba(255,255,255,.45);
+      border-radius:18px;
+      padding:12px;
+      min-height:58px;
       display:flex;
       flex-wrap:wrap;
       gap:10px;
+      align-items:center;
       justify-content:center;
-      min-height:52px;
-      padding-bottom:10px;
-      border-bottom:2px solid rgba(47,230,255,.20);
       margin-bottom:12px;
     }
-    .word-bank{
-      background:var(--surface);
-      border:2px solid rgba(255,255,255,.12);
-      padding:14px;
-      border-radius:16px;
-      min-height:58px;
-    }
-    .wordItem{
-      display:inline-block;
-      background:#ffffff;
-      color:#000;
-      border:2px solid rgba(0,0,0,.18);
-      padding:10px 14px;
-      border-radius:14px;
+    .builtArea.empty{
+      justify-content:center;
+      color:#06314a;
       font-weight:900;
-      font-size:1.05rem;
-      cursor:pointer;
-      margin:0 10px 10px 0;
-      user-select:none;
-    }
-    .builtWord{
-      background:#0B2E4F; /* darker than surface for contrast */
-      color:#fff;
-      border:2px solid rgba(255,255,255,.16);
-      padding:10px 14px;
-      border-radius:14px;
-      font-weight:900;
-      font-size:1.05rem;
-      cursor:pointer;
-      user-select:none;
     }
 
-    /* Cards */
+    .chip{
+      background:var(--chip);
+      color:var(--chipInk);
+      border:2px solid rgba(255,255,255,.18);
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+      user-select:none;
+      box-shadow:0 6px 14px rgba(0,0,0,.18);
+    }
+
+    .wordBank{
+      background:#062b45;
+      border:2px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      min-height:64px;
+    }
+    .wordBtn{
+      display:inline-block;
+      background:var(--word);
+      color:var(--wordInk);
+      border:2px solid rgba(7,39,64,.25);
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:900;
+      font-size:1.03rem;
+      cursor:pointer;
+      margin:0 10px 10px 0;
+      box-shadow:0 4px 10px rgba(0,0,0,.18);
+      user-select:none;
+    }
+    .wordBtn:hover{ filter:brightness(1.03); }
+    .wordBtn:disabled{
+      opacity:1;
+      cursor:not-allowed;
+      background:var(--wordChosen);
+      color:var(--wordChosenInk);
+      border-color:rgba(0,0,0,.15);
+    }
+
+    /* Cards for TENSE/MEANING */
     .cards{
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
       gap:12px;
-      margin-top:8px;
+      margin-top:10px;
+    }
+    @media (max-width:720px){
+      .cards{ grid-template-columns:1fr; }
     }
     .cardBtn{
       border:none;
@@ -272,203 +304,159 @@
       padding:16px 16px;
       cursor:pointer;
       font-weight:900;
-      font-size:1.08rem;
-      box-shadow:0 10px 18px rgba(0,0,0,.25);
-      border:3px solid rgba(255,255,255,.14);
+      font-size:1.06rem;
+      color:#072740;
+      box-shadow:0 8px 16px rgba(0,0,0,.18);
+      border:3px solid rgba(255,255,255,.22);
       text-align:left;
       transition:transform .12s ease, filter .12s ease;
-      min-height:86px;
+      min-height:84px;
       display:flex;
       flex-direction:column;
       justify-content:center;
       gap:6px;
-      user-select:none;
-      color:#06131f;
     }
-    .cardBtn:hover{ transform:translateY(-1px); filter:brightness(1.04); }
-    .cardTitle{ font-size:1.14rem; font-weight:900; }
+    .cardBtn:hover{ transform:translateY(-1px); filter:brightness(1.03); }
+    .cardTitle{ font-size:1.1rem; font-weight:900; }
     .cardDesc{ font-size:.92rem; font-weight:800; opacity:.92; }
 
-    /* flat palettes */
+    /* Flat palette blocks (NO gradients) */
     .pal0{ background:var(--cyan); }
     .pal1{ background:var(--yellow); }
     .pal2{ background:var(--mint); }
-    .pal3{ background:var(--pink); color:#210013; }
-    .pal4{ background:var(--purple); color:#120018; }
+    .pal3{ background:var(--coral); color:#fff; }
+    .pal4{ background:var(--purple); color:#160018; }
     .pal5{ background:var(--lime); }
 
     .feedback{
-      margin:12px 0 58px; /* leave space for bottom bar inside card */
-      min-height:28px;
+      margin-top:12px;
+      min-height:26px;
       text-align:center;
       font-weight:900;
       font-size:1.05rem;
     }
-    .ok{ color:var(--mint); }
-    .no{ color:#ffd1d1; }
+    .ok{ color:#c9ffe9; }
+    .no{ color:#ffe0e0; }
 
-    /* ===== bottom bar (moved controls here) ===== */
-    .bottomBar{
-      position:sticky;
-      bottom:0;
+    .actions{
       margin-top:10px;
-      background:rgba(0,0,0,.18);   /* still flat-ish; overlay */
-      border:2px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:10px;
       display:flex;
       gap:10px;
       justify-content:center;
       flex-wrap:wrap;
-      box-shadow:0 18px 28px rgba(0,0,0,.35);
-      backdrop-filter: blur(6px);
     }
 
     .btn{
       border:none;
       border-radius:16px;
-      padding:12px 18px;
+      padding:12px 16px;
       font-weight:900;
       font-size:1rem;
       cursor:pointer;
-      box-shadow:0 8px 18px rgba(0,0,0,.25);
+      box-shadow:0 8px 16px rgba(0,0,0,.18);
       transition:transform .12s ease, filter .12s ease;
-      user-select:none;
-      white-space:nowrap;
     }
-    .btn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
-    .btn:active{ transform:translateY(0px) scale(.99); }
-    .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; filter:none; }
+    .btn:hover{ transform:translateY(-1px); filter:brightness(1.03); }
+    .btn.cyan{ background:var(--cyan); color:#06263b; }
+    .btn.mint{ background:var(--mint); color:#06263b; }
+    .btn.yellow{ background:var(--yellow); color:#2a1b00; }
+    .btn.coral{ background:var(--coral); color:#fff; }
+    .btn.purple{ background:var(--purple); color:#160018; }
 
-    .bMusic{ background:var(--cyan); color:var(--btnDark); }
-    .bLevel{ background:var(--yellow); color:#2b1500; }
-    .bPause{ background:var(--purple); color:#13002b; }
-    .bExit{ background:var(--red); color:#fff; }
-    .bReset{ background:var(--orange); color:#2b1500; }
-    .bClear{ background:var(--pink); color:#210013; }
-    .bCheck{ background:var(--mint); color:var(--btnDark); }
-
-    /* overlays */
-    .overlay{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,.55);
-      padding:16px;
-      z-index:50;
-    }
-    .overlay.show{ display:flex; }
-    .modal{
-      width:min(520px, 100%);
-      background:var(--panel);
-      border:2px solid rgba(255,255,255,.16);
-      border-radius:18px;
-      padding:16px;
-      box-shadow:0 18px 34px rgba(0,0,0,.45);
-      text-align:center;
-    }
-    .modal h2{ margin:0 0 6px; font-size:1.35rem; }
-    .modal p{ margin:0 0 14px; font-weight:800; color:var(--mut); }
-    .modalActions{
+    /* Side rail */
+    .rail{
+      width:220px;
+      flex-shrink:0;
+      background:var(--game);
+      border-radius:22px;
+      padding:12px;
+      border:2px solid var(--line);
+      box-shadow:var(--shadow);
       display:flex;
+      flex-direction:column;
       gap:10px;
-      justify-content:center;
-      flex-wrap:wrap;
+      position:sticky;
+      top:14px;
+      height:fit-content;
+    }
+    .rail h3{
+      margin:4px 0 2px;
+      font-size:1rem;
+      font-weight:900;
+      opacity:.95;
+    }
+    .rail .railBox{
+      background:var(--card);
+      border:2px solid var(--line);
+      border-radius:16px;
+      padding:10px;
+    }
+    .railBtns{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    /* Mobile: rail becomes bottom bar */
+    @media (max-width:980px){
+      .shell{ flex-direction:column; }
+      .rail{
+        width:100%;
+        position:static;
+        display:grid;
+        grid-template-columns:1.2fr 1fr;
+        gap:10px;
+      }
+      .rail .railBox{ height:100%; }
+      .railBtns{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    }
+
+    @media (max-width:720px){
+      .stats{
+        grid-template-columns:1fr 1fr;
+      }
+      .sentenceBig{ font-size:1.18rem; }
+      .nameBox{ min-width:100%; }
+      .rail{ grid-template-columns:1fr; }
+      .railBtns{ grid-template-columns:repeat(2, minmax(0,1fr)); }
     }
 
     .hidden{ display:none !important; }
 
-    /* ===== responsive tweaks ===== */
-    @media (max-width:680px){
-      h1{ font-size:1.65rem; }
-      .sentenceBig{ font-size:1.22rem; padding:16px 14px; }
-      .stats{ gap:8px; }
-      .stat{ min-width:140px; }
-      .cards{ grid-template-columns:1fr; }
-      .btn{ width:calc(50% - 8px); }          /* bottom bar buttons become 2 per row */
-      .bottomBar{ justify-content:space-between; }
+    /* Pause overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
     }
-    @media (max-width:420px){
-      .btn{ width:100%; }
-      .wordItem,.builtWord{ font-size:1rem; padding:10px 12px; }
+    .overlay.show{ display:flex; }
+    .overlayCard{
+      width:min(520px, 96vw);
+      background:var(--game);
+      border:2px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+    .overlayCard h2{
+      margin:0 0 6px;
+      font-weight:900;
+    }
+    .overlayCard p{
+      margin:0 0 14px;
+      font-weight:800;
+      color:var(--mut);
     }
   </style>
 </head>
 
 <body>
-  <div class="topStrip">
-    <div class="app">
-      <header>
-        <h1>Future Grammar Mastery</h1>
-        <p>ORDER • TENSE • MEANING — reach 25 correct in a row.</p>
-
-        <div class="topRow">
-          <div class="nameBox">
-            <span>Name:</span>
-            <input id="playerName" type="text" placeholder="Enter your name">
-          </div>
-
-          <div class="startOnly">
-            <button class="btn bCheck" id="startBtn" type="button">Start</button>
-            <button class="btn bReset" id="resetBtnTop" type="button">Reset</button>
-          </div>
-        </div>
-
-        <div class="warning" id="nameWarning"></div>
-      </header>
-    </div>
-  </div>
-
-  <div class="app">
-    <div class="stats">
-      <div class="stat">
-        <div class="label">Player</div>
-        <div class="value" id="displayName">---</div>
-      </div>
-
-      <div class="stat">
-        <div class="label">Streak</div>
-        <div class="value"><span id="streak">0</span> / 25</div>
-      </div>
-
-      <div class="progressWrap">
-        <div class="label">Progress</div>
-        <div class="bar"><div class="fill" id="progressFill"></div></div>
-      </div>
-
-      <div class="stat">
-        <div class="label">Time</div>
-        <div class="value" id="timerDisplay">00:00</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="miniTypeWrap"><span class="miniType" id="miniType">Ready</span></div>
-
-      <div class="sentenceBox hidden" id="sentenceBox">
-        <div class="sentenceBig" id="sentenceBig"></div>
-      </div>
-
-      <div class="interaction hidden" id="interaction"></div>
-      <div id="cardsArea" class="cards hidden"></div>
-      <div class="word-bank hidden" id="wordBank"></div>
-
-      <div class="feedback" id="feedback"></div>
-
-      <!-- bottom controls moved here -->
-      <div class="bottomBar" id="bottomBar">
-        <button class="btn bMusic" id="musicBtn" type="button">Music: OFF</button>
-        <button class="btn bLevel" id="levelBtn" type="button">Level: EASY</button>
-        <button class="btn bPause" id="pauseBtn" type="button" disabled>Pause</button>
-        <button class="btn bExit" id="exitBtn" type="button">Exit</button>
-        <button class="btn bClear" id="clearBtn" type="button" disabled>Clear</button>
-        <button class="btn bCheck" id="checkBtn" type="button" disabled>Check</button>
-      </div>
-    </div>
-  </div>
-
   <!-- AUDIO -->
   <audio id="bgm" loop preload="auto">
     <source src="audio/koala2.mp3" type="audio/mpeg">
@@ -477,105 +465,200 @@
     <source src="audio/tadaa.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- PAUSE OVERLAY -->
+  <!-- Pause overlay -->
   <div class="overlay" id="pauseOverlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Paused">
+    <div class="overlayCard" role="dialog" aria-modal="true" aria-label="Pause dialog">
       <h2>⏸ Paused</h2>
-      <p>Press Resume to continue.</p>
-      <div class="modalActions">
-        <button class="btn bCheck" id="resumeBtn" type="button">Resume</button>
-        <button class="btn bReset" id="pauseResetBtn" type="button">Reset</button>
-        <button class="btn bExit" id="pauseExitBtn" type="button">Exit</button>
+      <p>Resume to continue, or Exit to reset the game.</p>
+      <div class="actions">
+        <button class="btn mint" id="resumeBtn" type="button">▶ Resume</button>
+        <button class="btn coral" id="exitBtn2" type="button">⏹ Exit</button>
       </div>
     </div>
   </div>
 
-  <!-- EXIT CONFIRM -->
-  <div class="overlay" id="exitOverlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Exit confirm">
-      <h2>Exit game?</h2>
-      <p>Your current streak will be lost.</p>
-      <div class="modalActions">
-        <button class="btn bCheck" id="stayBtn" type="button">Stay</button>
-        <button class="btn bExit" id="confirmExitBtn" type="button">Exit</button>
+  <div class="shell">
+    <div class="app">
+      <header>
+        <div class="titleWrap">
+          <div class="logo" aria-hidden="true">🔷</div>
+          <div>
+            <h1>Future Grammar Mastery</h1>
+            <div class="sub">Get <b>25 correct</b> in a row. Mixed activities: Order • Tense • Meaning</div>
+          </div>
+        </div>
+
+        <div class="nameBox">
+          <span>Name:</span>
+          <input id="playerName" type="text" placeholder="Enter your name">
+        </div>
+      </header>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="label">Player</div>
+          <div class="value" id="displayName">---</div>
+        </div>
+
+        <div class="stat">
+          <div class="label">Streak</div>
+          <div class="value"><span id="streak">0</span> / 25</div>
+        </div>
+
+        <div class="stat">
+          <div class="label">Time</div>
+          <div class="value" id="timerDisplay">00:00</div>
+        </div>
+
+        <div class="progressWrap">
+          <div class="label" style="font-weight:900;">Progress</div>
+          <div class="bar"><div class="fill" id="progressFill"></div></div>
+        </div>
+      </div>
+
+      <div class="mainCard">
+        <div class="miniTypeWrap"><span class="miniType" id="miniType">Ready</span></div>
+
+        <!-- Sentence big (for tense/meaning) -->
+        <div class="sentenceBox hidden" id="sentenceBox">
+          <div class="sentenceBig" id="sentenceBig"></div>
+        </div>
+
+        <!-- ORDER built words area -->
+        <div class="builtArea hidden" id="builtArea"></div>
+
+        <!-- Cards area -->
+        <div id="cardsArea" class="cards hidden"></div>
+
+        <!-- Word bank -->
+        <div class="wordBank hidden" id="wordBank"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="actions hidden" id="orderActions">
+          <button class="btn purple" id="clearBtn" type="button">Clear</button>
+          <button class="btn yellow" id="checkBtn" type="button">Check</button>
+        </div>
       </div>
     </div>
+
+    <!-- SIDE RAIL -->
+    <aside class="rail" aria-label="Game controls">
+      <div class="railBox">
+        <h3>Game</h3>
+        <div class="railBtns">
+          <button class="btn cyan" id="startBtn" type="button">Start</button>
+          <button class="btn coral" id="resetBtn" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div class="railBox">
+        <h3>Level</h3>
+        <div class="railBtns">
+          <button class="btn mint" id="easyBtn" type="button">Easy</button>
+          <button class="btn purple" id="hardBtn" type="button">Hard</button>
+        </div>
+        <div style="margin-top:8px;font-weight:900;color:var(--mut);">
+          Current: <span id="levelLabel" style="color:var(--yellow)">Easy</span>
+        </div>
+      </div>
+
+      <div class="railBox">
+        <h3>Audio / Pause</h3>
+        <div class="railBtns">
+          <button class="btn yellow" id="musicBtn" type="button">Music: OFF</button>
+          <button class="btn cyan" id="pauseBtn" type="button">Pause</button>
+          <button class="btn coral" id="exitBtn" type="button">Exit</button>
+        </div>
+      </div>
+    </aside>
   </div>
 
 <script>
-/* ============================
-   GOOGLE SHEETS (YOUR URL)
-============================ */
+/* ===========================================================
+   GOOGLE SHEETS (Integrated)
+=========================================================== */
 const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
-const SECRET_KEY = "CHANGE_ME_TO_SOMETHING_PRIVATE";
+const SECRET_KEY = "CHANGE_ME_TO_SOMETHING_PRIVATE"; // must match Apps Script
 
-async function sendToSheet(payload){
-  const body = {
+async function sendAttemptToSheet(row){
+  if(!SHEET_ENDPOINT || SHEET_ENDPOINT.includes("CHANGE_ME")) return;
+
+  const payload = {
     secret: SECRET_KEY,
-    name: String(payload.name || ""),
-    time_s: Number(payload.time_s || 0),
-    attempts: Number(payload.attempts || 0),
-    most_failed_category: String(payload.most_failed_category || ""),
-    activity_type: String(payload.activity_type || ""),
-    sentence: String(payload.sentence || ""),
-    level: String(payload.level || "")
+    // keep compatibility with your current Apps Script columns:
+    player: row.player,
+    time_s: row.time_s,
+    ok: row.ok,
+    streak_after: row.streak_after,
+    bank: row.bank,
+    bank_label: row.bank_label,
+    mode: row.mode,
+    prompt: row.prompt,
+    detail: row.detail
   };
+
   try{
-    await fetch(SHEET_ENDPOINT, {
+    await fetch(SHEET_ENDPOINT,{
       method:"POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(body)
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
     });
-  }catch(err){
-    console.error("Sheets send error:", err);
+  }catch(e){
+    console.error("Sheets error:", e);
   }
 }
 
 /* ===========================================================
-   BANK (same categories as before; your list can be extended)
+   BANK (expanded-ready structure)
+   - You can add more sentences later without breaking logic.
 =========================================================== */
 const BANK = [
-  /* PRESENT SIMPLE (schedule) */
-  { text:"The train leaves at 8:10 tomorrow.", form:"present_simple", intent:"schedule", diff:"easy" },
-  { text:"School starts at 9 o’clock on Monday.", form:"present_simple", intent:"schedule", diff:"easy" },
-  { text:"The concert begins at 7 p.m. on Friday.", form:"present_simple", intent:"schedule", diff:"easy" },
-  { text:"The museum closes at 6 p.m.", form:"present_simple", intent:"schedule", diff:"easy" },
-  { text:"Does the match start at noon?", form:"present_simple", intent:"schedule", diff:"easy" },
+  /* Present Simple (schedule) */
+  { text:"The train leaves at 8:10 tomorrow.", form:"present_simple", intent:"schedule" },
+  { text:"School starts at 9 o’clock on Monday.", form:"present_simple", intent:"schedule" },
+  { text:"The concert begins at 7 p.m. on Friday.", form:"present_simple", intent:"schedule" },
+  { text:"The museum closes at 6 p.m.", form:"present_simple", intent:"schedule" },
+  { text:"Does the match start at noon?", form:"present_simple", intent:"schedule" },
 
-  /* PRESENT CONTINUOUS (arrangement) */
-  { text:"I’m meeting my friends at 6 p.m.", form:"present_continuous", intent:"arrangement", diff:"easy" },
-  { text:"We’re having dinner together tomorrow.", form:"present_continuous", intent:"arrangement", diff:"easy" },
-  { text:"She’s seeing the dentist on Friday.", form:"present_continuous", intent:"arrangement", diff:"easy" },
-  { text:"They’re coming over for lunch tomorrow.", form:"present_continuous", intent:"arrangement", diff:"easy" },
-  { text:"Are you visiting your grandma this weekend?", form:"present_continuous", intent:"arrangement", diff:"easy" },
+  /* Present Continuous (arrangement) */
+  { text:"I’m meeting my friends at 6 p.m.", form:"present_continuous", intent:"arrangement" },
+  { text:"We’re having dinner together tomorrow.", form:"present_continuous", intent:"arrangement" },
+  { text:"She’s seeing the dentist on Friday.", form:"present_continuous", intent:"arrangement" },
+  { text:"They’re coming over for lunch tomorrow.", form:"present_continuous", intent:"arrangement" },
+  { text:"Are you visiting your grandma this weekend?", form:"present_continuous", intent:"arrangement" },
 
   /* WILL */
-  { text:"I think it will rain later.", form:"will", intent:"prediction", diff:"easy" },
-  { text:"They will probably win the match.", form:"will", intent:"prediction", diff:"easy" },
-  { text:"Don’t worry, I’ll help you.", form:"will", intent:"offer_promise", diff:"easy" },
-  { text:"Okay, I’ll do it now.", form:"will", intent:"decision_now", diff:"easy" },
-  { text:"The results will be published tomorrow.", form:"will", intent:"announcement", diff:"hard" },
+  { text:"I think it will rain later.", form:"will", intent:"prediction" },
+  { text:"They will probably win the match.", form:"will", intent:"prediction" },
+  { text:"Maybe we will have a test tomorrow.", form:"will", intent:"prediction" },
+  { text:"Don’t worry, I’ll help you.", form:"will", intent:"offer_promise" },
+  { text:"I won’t tell anyone. I promise.", form:"will", intent:"offer_promise" },
+  { text:"Okay, I’ll do it now.", form:"will", intent:"decision_now" },
+  { text:"Wait—I’ll message her right now.", form:"will", intent:"decision_now" },
+  { text:"The show will start in five minutes.", form:"will", intent:"announcement" },
+  { text:"The results will be published tomorrow.", form:"will", intent:"announcement" },
 
   /* GOING TO */
-  { text:"I’m going to study tonight.", form:"going_to", intent:"plan", diff:"easy" },
-  { text:"Are you going to watch the new episode?", form:"going_to", intent:"plan", diff:"easy" },
-  { text:"Look at those clouds! It’s going to rain.", form:"going_to", intent:"evidence_prediction", diff:"easy" },
-  { text:"That glass is going to fall!", form:"going_to", intent:"evidence_prediction", diff:"easy" },
-  { text:"You’re going to miss the bus—run!", form:"going_to", intent:"evidence_prediction", diff:"hard" },
+  { text:"I’m going to study tonight.", form:"going_to", intent:"plan" },
+  { text:"We’re going to meet after school.", form:"going_to", intent:"plan" },
+  { text:"Are you going to watch the new episode?", form:"going_to", intent:"plan" },
+  { text:"Look at those clouds! It’s going to rain.", form:"going_to", intent:"evidence_prediction" },
+  { text:"That glass is going to fall!", form:"going_to", intent:"evidence_prediction" },
+  { text:"You’re going to miss the bus—run!", form:"going_to", intent:"evidence_prediction" },
 
   /* FIRST CONDITIONAL */
-  { text:"If you don’t study, you’ll fail the test.", form:"first_conditional", intent:"warning_consequence", diff:"easy" },
-  { text:"If you feel tired, take a break.", form:"first_conditional", intent:"advice_suggestion", diff:"easy" },
-  { text:"If it rains, we’ll stay at home.", form:"first_conditional", intent:"plan_condition", diff:"easy" },
-  { text:"If she studies, she’ll do well.", form:"first_conditional", intent:"prediction_result", diff:"easy" },
-  { text:"If you forget your homework, you’ll lose points.", form:"first_conditional", intent:"warning_consequence", diff:"hard" }
+  { text:"If you don’t study, you’ll fail the test.", form:"first_conditional", intent:"warning_consequence" },
+  { text:"If you feel tired, take a break.", form:"first_conditional", intent:"advice_suggestion" },
+  { text:"If it rains, we’ll stay at home.", form:"first_conditional", intent:"plan_condition" },
+  { text:"If she studies, she’ll do well.", form:"first_conditional", intent:"prediction_result" }
 ];
 
 const TENSE_OPTIONS = [
   { key:"present_simple", label:"Present Simple", desc:"Schedules / timetables" },
-  { key:"present_continuous", label:"Present Continuous", desc:"Arrangements / plans" },
-  { key:"will", label:"Future (will)", desc:"Prediction / decision / promise" },
-  { key:"going_to", label:"Be going to", desc:"Plan / evidence prediction" },
+  { key:"present_continuous", label:"Present Continuous", desc:"Arrangements" },
+  { key:"will", label:"Future (will)", desc:"Predictions / promises" },
+  { key:"going_to", label:"Be going to", desc:"Plans / evidence" },
   { key:"first_conditional", label:"First Conditional", desc:"If + present, will..." }
 ];
 
@@ -589,19 +672,19 @@ const MEANING_OPTIONS = {
   going_to: [
     { key:"plan", label:"Plan / Intention", desc:"Already decided" },
     { key:"evidence_prediction", label:"Prediction (evidence)", desc:"Look! / evidence" },
-    { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
-    { key:"announcement", label:"Announcement", desc:"Official info" }
+    { key:"announcement", label:"Announcement", desc:"Official info" },
+    { key:"prediction", label:"Prediction", desc:"Guess / opinion" }
   ],
   present_simple: [
     { key:"schedule", label:"Schedule", desc:"Timetable time" },
     { key:"arrangement", label:"Arrangement", desc:"Fixed plan" },
-    { key:"plan", label:"Plan", desc:"Already decided" },
+    { key:"plan", label:"Plan / Intention", desc:"Already decided" },
     { key:"prediction", label:"Prediction", desc:"Guess / opinion" }
   ],
   present_continuous: [
     { key:"arrangement", label:"Arrangement", desc:"Fixed plan" },
     { key:"schedule", label:"Schedule", desc:"Timetable time" },
-    { key:"plan", label:"Plan", desc:"Already decided" },
+    { key:"plan", label:"Plan / Intention", desc:"Already decided" },
     { key:"prediction", label:"Prediction", desc:"Guess / opinion" }
   ],
   first_conditional: [
@@ -613,124 +696,113 @@ const MEANING_OPTIONS = {
 };
 
 /* ===========================================================
-   State
+   STATE
+=========================================================== */
+const masteryGoal = 25;
+
+let level = "easy"; // easy | hard
+let running = false;
+let paused = false;
+
+let currentType = "";
+let currentQ = null;
+let built = [];                 // array of strings
+let wordButtons = [];           // array of {word, btn, idx}
+
+let streak = 0;
+let startTime = null;
+let timerInterval = null;
+let musicOn = false;
+
+/* attempts tracking */
+let attemptsTotal = 0;
+let wrongByType = { ORDER:0, TENSE:0, MEANING:0 };
+
+const TYPES_EASY = ["ORDER","TENSE"];
+const TYPES_HARD = ["ORDER","TENSE","MEANING"];
+
+/* ===========================================================
+   DOM
 =========================================================== */
 const $ = (id)=>document.getElementById(id);
-
-let running=false, paused=false, musicOn=false;
-let level="easy"; // easy|hard
-
-let currentType="";
-let currentQ=null;
-let tokens=[];
-let built=[];              // STRINGS ONLY (fixes {object Object})
-
-let streak=0;
-const goal=25;
-let attempts=0;
-const wrongCounts={ ORDER:0, TENSE:0, MEANING:0 };
-
-let startTime=null, timerInterval=null;
+const bgm = $("bgm");
+const winSound = $("winSound");
 
 /* ===========================================================
    Utils
 =========================================================== */
 function shuffle(arr){
-  const a=arr.slice();
+  const a = arr.slice();
   for(let i=a.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
+    const j = Math.floor(Math.random()*(i+1));
     [a[i],a[j]]=[a[j],a[i]];
   }
   return a;
 }
-function playerName(){
-  const n=$("playerName").value.trim();
-  return n || "—";
-}
 function formatTime(ms){
-  const s=Math.floor(ms/1000);
-  const m=String(Math.floor(s/60)).padStart(2,"0");
-  const r=String(s%60).padStart(2,"0");
+  const s = Math.floor(ms/1000);
+  const m = String(Math.floor(s/60)).padStart(2,"0");
+  const r = String(s%60).padStart(2,"0");
   return `${m}:${r}`;
 }
-function secondsElapsed(){
-  if(!startTime) return 0;
-  return Math.floor((Date.now()-startTime)/1000);
+function nowMs(){
+  return startTime ? (Date.now()-startTime) : 0;
 }
-function updateTimer(){
-  $("timerDisplay").textContent = startTime ? formatTime(Date.now()-startTime) : "00:00";
+function updateTimerDisplay(){
+  $("timerDisplay").textContent = formatTime(nowMs());
 }
 function startTimer(){
-  startTime=Date.now();
-  clearInterval(timerInterval);
-  timerInterval=setInterval(()=>{ if(running && !paused) updateTimer(); }, 500);
+  startTime = Date.now();
+  stopTimer();
+  timerInterval = setInterval(updateTimerDisplay, 400);
 }
 function stopTimer(){
-  clearInterval(timerInterval);
-  timerInterval=null;
-}
-function mostFailedCategory(){
-  const entries=Object.entries(wrongCounts).sort((a,b)=>b[1]-a[1]);
-  if(entries[0][1]===0) return "—";
-  return entries[0][0];
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = null;
 }
 function updateStats(){
-  $("displayName").textContent=playerName();
-  $("streak").textContent=String(streak);
-  const pct=Math.max(0,Math.min(100,(streak/goal)*100));
-  $("progressFill").style.width=pct+"%";
+  $("streak").textContent = streak;
+  const pct = Math.max(0, Math.min(100, (streak/masteryGoal)*100));
+  $("progressFill").style.width = pct + "%";
 }
-function setMiniType(txt){ $("miniType").textContent=txt; }
+function setMiniType(txt){ $("miniType").textContent = txt; }
 function setFeedback(text, ok=null){
-  const fb=$("feedback");
-  fb.textContent=text||"";
-  fb.className="feedback";
+  const fb = $("feedback");
+  fb.textContent = text || "";
+  fb.className = "feedback";
   if(ok===true) fb.classList.add("ok");
   if(ok===false) fb.classList.add("no");
 }
 function show(el){ el.classList.remove("hidden"); }
 function hide(el){ el.classList.add("hidden"); }
+
 function resetView(){
   setFeedback("");
   hide($("sentenceBox"));
-  hide($("interaction"));
+  hide($("builtArea"));
   hide($("cardsArea"));
   hide($("wordBank"));
-  $("cardsArea").innerHTML="";
-  $("wordBank").innerHTML="";
-  $("interaction").innerHTML="";
-  // disable order buttons by default
-  $("clearBtn").disabled=true;
-  $("checkBtn").disabled=true;
-}
-function pickPaletteClass(i){
-  const pals=["pal0","pal1","pal2","pal3","pal4","pal5"];
-  return pals[i % pals.length];
+  hide($("orderActions"));
+
+  $("cardsArea").innerHTML = "";
+  $("wordBank").innerHTML = "";
+  $("builtArea").innerHTML = "";
+  built = [];
+  wordButtons = [];
 }
 
-/* ===========================================================
-   Difficulty
-=========================================================== */
-function bankForLevel(){
-  if(level==="easy"){
-    return BANK.filter(q => q.diff!=="hard" && q.text.split(" ").length <= 10);
-  }
-  return BANK.slice();
-}
-function typeMixForLevel(){
-  return (level==="easy")
-    ? ["ORDER","ORDER","TENSE","TENSE","MEANING"]
-    : ["ORDER","TENSE","TENSE","MEANING","MEANING"];
+function pickPaletteClass(i){
+  const pals = ["pal0","pal1","pal2","pal3","pal4","pal5"];
+  return pals[i % pals.length];
 }
 
 /* ===========================================================
    Music
 =========================================================== */
 function toggleMusic(){
-  const bgm=$("bgm");
-  bgm.volume=0.35;
+  bgm.volume = 0.35;
   if(!musicOn){
-    const p=bgm.play();
+    const p = bgm.play();
     if(p && p.then){
       p.then(()=>{ musicOn=true; $("musicBtn").textContent="Music: ON"; })
        .catch(()=>{ musicOn=false; $("musicBtn").textContent="Music: OFF"; });
@@ -745,320 +817,356 @@ function toggleMusic(){
 }
 
 /* ===========================================================
-   Start / Reset / Exit / Pause
+   Level
+=========================================================== */
+function setLevel(newLevel){
+  level = newLevel;
+  $("levelLabel").textContent = (level==="hard" ? "Hard" : "Easy");
+  $("levelLabel").style.color = (level==="hard" ? "var(--coral)" : "var(--yellow)");
+}
+
+/* ===========================================================
+   Pause / Resume
+=========================================================== */
+function openPause(){
+  if(!running || paused) return;
+  paused = true;
+  $("pauseOverlay").classList.add("show");
+  $("pauseOverlay").setAttribute("aria-hidden","false");
+  try{ bgm.pause(); }catch(e){}
+}
+function closePause(){
+  if(!running || !paused) return;
+  paused = false;
+  $("pauseOverlay").classList.remove("show");
+  $("pauseOverlay").setAttribute("aria-hidden","true");
+  if(musicOn){
+    bgm.play().catch(()=>{});
+  }
+}
+
+/* ===========================================================
+   Start / Reset
 =========================================================== */
 function startGame(){
-  const name=$("playerName").value.trim();
+  const name = $("playerName").value.trim();
   if(!name){
-    $("nameWarning").textContent="Please enter your name before starting.";
+    setFeedback("Please enter your name before starting.", false);
     return;
   }
-  $("nameWarning").textContent="";
+  $("displayName").textContent = name;
 
-  running=true; paused=false;
-  streak=0; attempts=0;
-  wrongCounts.ORDER=0; wrongCounts.TENSE=0; wrongCounts.MEANING=0;
+  // reset stats
+  running = true;
+  paused = false;
+  streak = 0;
+  attemptsTotal = 0;
+  wrongByType = { ORDER:0, TENSE:0, MEANING:0 };
 
-  $("pauseBtn").disabled=false;
-  $("pauseBtn").textContent="Pause";
-
-  resetView();
   updateStats();
-  updateTimer();
+  setFeedback("");
+  resetView();
+
+  // reset audio
+  try{ bgm.load(); }catch(e){}
+  if(musicOn){
+    bgm.currentTime = 0;
+    bgm.play().catch(()=>{});
+    $("musicBtn").textContent="Music: ON";
+  }else{
+    $("musicBtn").textContent="Music: OFF";
+  }
+
   startTimer();
   nextQuestion();
 }
 
 function resetGame(){
-  running=false; paused=false;
+  running = false;
+  paused = false;
 
-  stopTimer(); startTime=null; updateTimer();
+  stopTimer();
+  startTime = null;
+  $("timerDisplay").textContent = "00:00";
 
-  streak=0; attempts=0;
-  wrongCounts.ORDER=0; wrongCounts.TENSE=0; wrongCounts.MEANING=0;
-  currentType=""; currentQ=null; tokens=[]; built=[];
-
-  resetView();
-  setMiniType("Ready");
+  streak = 0;
+  attemptsTotal = 0;
+  wrongByType = { ORDER:0, TENSE:0, MEANING:0 };
   updateStats();
 
-  $("pauseBtn").disabled=true;
-  $("pauseBtn").textContent="Pause";
+  currentQ = null;
+  currentType = "";
+  resetView();
 
-  try{ $("bgm").pause(); $("bgm").currentTime=0; }catch(e){}
-  musicOn=false; $("musicBtn").textContent="Music: OFF";
+  setMiniType("Ready");
+  $("displayName").textContent = "---";
 
-  closePause();
-  closeExitConfirm();
-  setFeedback("Reset.", true);
-}
+  // audio off
+  try{ bgm.pause(); }catch(e){}
+  musicOn = false;
+  $("musicBtn").textContent="Music: OFF";
 
-function toggleLevel(){
-  level = (level==="easy") ? "hard" : "easy";
-  $("levelBtn").textContent = "Level: " + level.toUpperCase();
-  setFeedback("Level set to " + level.toUpperCase() + ".", true);
-  if(running && !paused) nextQuestion();
-}
-
-function openPause(){
-  paused=true;
-  $("pauseOverlay").classList.add("show");
-  $("pauseOverlay").setAttribute("aria-hidden","false");
-  $("pauseBtn").textContent="Resume";
-  if(musicOn) $("bgm").pause();
-}
-function closePause(){
   $("pauseOverlay").classList.remove("show");
   $("pauseOverlay").setAttribute("aria-hidden","true");
 }
-function resumeGame(){
-  if(!running) return;
-  paused=false;
-  closePause();
-  $("pauseBtn").textContent="Pause";
-  if(musicOn) $("bgm").play().catch(()=>{});
-}
-function pauseToggle(){
-  if(!running) return;
-  if(paused) resumeGame();
-  else openPause();
-}
-
-function openExitConfirm(){
-  $("exitOverlay").classList.add("show");
-  $("exitOverlay").setAttribute("aria-hidden","false");
-}
-function closeExitConfirm(){
-  $("exitOverlay").classList.remove("show");
-  $("exitOverlay").setAttribute("aria-hidden","true");
-}
-function confirmExit(){
-  resetGame();
-}
 
 /* ===========================================================
-   Next question
+   Pick next question
 =========================================================== */
 function nextQuestion(){
   if(!running || paused) return;
 
-  built=[];
   resetView();
 
-  const mix=typeMixForLevel();
-  currentType=mix[Math.floor(Math.random()*mix.length)];
+  // activity type depends on level
+  const types = (level==="hard") ? TYPES_HARD : TYPES_EASY;
+  currentType = types[Math.floor(Math.random()*types.length)];
 
-  const pool=bankForLevel();
-  currentQ=pool[Math.floor(Math.random()*pool.length)];
-  tokens=currentQ.text.split(" ");
+  currentQ = BANK[Math.floor(Math.random()*BANK.length)];
 
-  if(currentType==="ORDER"){
-    setMiniType(level==="hard" ? "Order words (HARD)" : "Order words");
-    renderOrder();
+  if(currentType === "ORDER"){
+    setMiniType("Order words");
+    renderOrder(currentQ.text);
     return;
   }
-  if(currentType==="TENSE"){
-    setMiniType(level==="hard" ? "Verb tense (HARD)" : "Verb tense");
-    showSentence(currentQ.text);
+
+  if(currentType === "TENSE"){
+    setMiniType("Verb tense");
+    showBigSentence(currentQ.text);
     renderTenseCards(currentQ.form);
     return;
   }
-  setMiniType(level==="hard" ? "Speaker meaning (HARD)" : "Speaker meaning");
-  showSentence(currentQ.text);
+
+  // MEANING only in hard
+  setMiniType("Speaker meaning");
+  showBigSentence(currentQ.text);
   renderMeaningCards(currentQ.form, currentQ.intent);
 }
 
-function showSentence(text){
-  $("sentenceBig").textContent=text;
+function showBigSentence(text){
+  $("sentenceBig").textContent = text;
   show($("sentenceBox"));
 }
 
 /* ===========================================================
-   ORDER (no {object Object})
+   ORDER
 =========================================================== */
-function renderOrder(){
-  const interaction=$("interaction");
-  const bank=$("wordBank");
-  show(interaction); show(bank);
-
-  $("clearBtn").disabled=false;
-  $("checkBtn").disabled=false;
-
-  bank.innerHTML="";
-  const words=shuffle(tokens);
-
-  words.forEach((w)=>{
-    const b=document.createElement("span");
-    b.className="wordItem";
-    b.textContent=w;
-    b.onclick=()=>{
-      if(!running || paused) return;
-      built.push(w);              // push string
-      b.style.display="none";
-      renderBuiltWords();
-    };
-    bank.appendChild(b);
-  });
-
-  renderBuiltWords();
+function tokenize(text){
+  // keep punctuation attached (simple), avoid empty tokens
+  return text.split(" ").map(t=>t.trim()).filter(Boolean);
 }
 
-function renderBuiltWords(){
-  const area=$("interaction");
-  area.innerHTML="";
+function renderBuiltArea(){
+  const area = $("builtArea");
+  area.innerHTML = "";
+  show(area);
+
+  if(built.length === 0){
+    area.classList.add("empty");
+    area.textContent = "Tap words below to build your sentence…";
+    return;
+  }
+  area.classList.remove("empty");
+
   built.forEach((w,i)=>{
-    const chip=document.createElement("span");
-    chip.className="builtWord";
-    chip.textContent=w;
-    chip.onclick=()=>{
+    const chip = document.createElement("div");
+    chip.className = "chip";
+    chip.textContent = w; // ✅ no more [object Object]
+    chip.title = "Click to remove";
+    chip.onclick = ()=>{
       if(!running || paused) return;
-      const removed=built.splice(i,1)[0];
-      const kids=Array.from($("wordBank").children);
-      for(const el of kids){
-        if(el.textContent===removed && el.style.display==="none"){
-          el.style.display="inline-block";
-          break;
-        }
+      const removed = built.splice(i,1)[0];
+
+      // re-enable the first matching disabled word button for that word
+      const match = wordButtons.find(x => x.word === removed && x.btn.disabled);
+      if(match){
+        match.btn.disabled = false;
       }
-      renderBuiltWords();
+      renderBuiltArea();
     };
     area.appendChild(chip);
   });
 }
 
+function renderOrder(text){
+  show($("builtArea"));
+  show($("wordBank"));
+  show($("orderActions"));
+
+  const bankEl = $("wordBank");
+  bankEl.innerHTML = "";
+
+  const tokens = shuffle(tokenize(text));
+
+  wordButtons = tokens.map((word, idx)=>{
+    const b = document.createElement("button");
+    b.type="button";
+    b.className = "wordBtn";
+    b.textContent = word;
+    b.onclick = ()=>{
+      if(!running || paused) return;
+      built.push(word);
+      b.disabled = true; // ✅ chosen state color (CSS)
+      renderBuiltArea();
+    };
+    bankEl.appendChild(b);
+    return { word, btn:b, idx };
+  });
+
+  renderBuiltArea();
+}
+
 function clearWords(){
   if(!running || paused) return;
-  built=[];
-  renderBuiltWords();
-  Array.from($("wordBank").children).forEach(el=> el.style.display="inline-block");
+  built = [];
+  wordButtons.forEach(x => x.btn.disabled = false);
+  renderBuiltArea();
 }
 
-function normalizeLoose(s){
-  return String(s).trim().replace(/\s+/g," ").replace(/[“”]/g,'"').replace(/[’]/g,"'")
-    .replace(/[!?.,:;]+/g,"").toLowerCase();
-}
-function normalizeStrict(s){
-  return String(s).trim().replace(/\s+/g," ");
-}
 function checkOrder(){
-  if(!currentQ || !running || paused) return;
-  const attempt=built.join(" ");
-  const ok=(level==="hard")
-    ? (normalizeStrict(attempt)===normalizeStrict(currentQ.text))
-    : (normalizeLoose(attempt)===normalizeLoose(currentQ.text));
-  grade(ok, { activity:"ORDER", sentence: currentQ.text });
+  if(!running || paused || !currentQ) return;
+  const attempt = built.join(" ").trim();
+  grade(attempt === currentQ.text, { attempt, correct: currentQ.text });
 }
 
 /* ===========================================================
-   TENSE
+   TENSE cards
 =========================================================== */
 function renderTenseCards(correctForm){
-  const cards=$("cardsArea");
+  const cards = $("cardsArea");
   show(cards);
-  cards.innerHTML="";
+  cards.innerHTML = "";
 
-  const want=(level==="hard") ? 6 : 4;
-  const pool=shuffle([...TENSE_OPTIONS]);
-  const correct=pool.find(x=>x.key===correctForm) || TENSE_OPTIONS[0];
-  const others=pool.filter(x=>x.key!==correctForm).slice(0, want-1);
-  const options=shuffle([correct, ...others]);
+  // easy: 4 options, hard: 5 options but still show 4 random (more confusing selection)
+  const pool = shuffle([...TENSE_OPTIONS]);
+  const correct = pool.find(x => x.key === correctForm) || TENSE_OPTIONS[0];
 
-  options.forEach((o,idx)=>{
-    const btn=document.createElement("button");
-    btn.className="cardBtn "+pickPaletteClass(idx);
-    btn.innerHTML=`<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
-    btn.onclick=()=>{ if(running && !paused) grade(o.key===correctForm, { activity:"TENSE", sentence: currentQ.text }); };
+  const distractCount = (level==="hard") ? 3 : 3;
+  const others = pool.filter(x => x.key !== correctForm).slice(0, distractCount);
+  const options = shuffle([correct, ...others]);
+
+  options.forEach((o, idx)=>{
+    const btn = document.createElement("button");
+    btn.type="button";
+    btn.className = "cardBtn " + pickPaletteClass(idx);
+    btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
+    btn.onclick = ()=> grade(o.key === correctForm, { picked:o.key, correct:correctForm });
     cards.appendChild(btn);
   });
 }
 
 /* ===========================================================
-   MEANING
+   MEANING cards
 =========================================================== */
 function renderMeaningCards(form, correctIntent){
-  const cards=$("cardsArea");
+  const cards = $("cardsArea");
   show(cards);
-  cards.innerHTML="";
+  cards.innerHTML = "";
 
-  const want=(level==="hard") ? 6 : 4;
-  const all=(MEANING_OPTIONS[form] || []).slice();
-  const correct = all.find(x=>x.key===correctIntent);
+  let options = (MEANING_OPTIONS[form] || []).slice(0,4);
 
-  const distractors = shuffle(all.filter(x=>x.key!==correctIntent)).slice(0, want-1);
-  const options = shuffle([correct, ...distractors].filter(Boolean)).slice(0, want);
+  // if missing options for a form, fallback to generic set
+  if(options.length < 4){
+    options = [
+      { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
+      { key:"plan", label:"Plan / Intention", desc:"Already decided" },
+      { key:"schedule", label:"Schedule", desc:"Timetable time" },
+      { key:"announcement", label:"Announcement", desc:"Official info" }
+    ];
+  }
+  options = shuffle(options);
 
-  options.forEach((o,idx)=>{
-    const btn=document.createElement("button");
-    btn.className="cardBtn "+pickPaletteClass(idx);
-    btn.innerHTML=`<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
-    btn.onclick=()=>{ if(running && !paused) grade(o.key===correctIntent, { activity:"MEANING", sentence: currentQ.text, correctIntent }); };
+  options.forEach((o, idx)=>{
+    const btn = document.createElement("button");
+    btn.type="button";
+    btn.className = "cardBtn " + pickPaletteClass(idx);
+    btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
+    btn.onclick = ()=> grade(o.key === correctIntent, { picked:o.key, correct:correctIntent });
     cards.appendChild(btn);
   });
 }
 
-function prettyIntent(key){
-  return (key||"").replaceAll("_"," ").toUpperCase();
+/* ===========================================================
+   Sheets logging (compatible with your existing Apps Script)
+=========================================================== */
+function formLabel(formKey){
+  const f = TENSE_OPTIONS.find(x => x.key===formKey);
+  return f ? f.label : formKey;
+}
+
+function summarizeWorstType(){
+  const entries = Object.entries(wrongByType);
+  entries.sort((a,b)=>b[1]-a[1]);
+  const top = entries[0];
+  return top && top[1] > 0 ? top[0] : "none";
+}
+
+function logToSheets(ok, detail){
+  const player = ($("displayName").textContent || "---").trim() || "---";
+  const time_s = Math.floor(nowMs()/1000);
+
+  const row = {
+    player,
+    time_s,
+    ok: ok ? 1 : 0,
+    streak_after: streak,
+    bank: currentQ ? currentQ.form : "",
+    bank_label: currentQ ? formLabel(currentQ.form) : "",
+    mode: currentType || "",
+    prompt: currentQ ? currentQ.text : "",
+    detail: {
+      level,
+      attempts_total: attemptsTotal,
+      worst_type: summarizeWorstType(),
+      extra: detail || {}
+    }
+  };
+
+  sendAttemptToSheet(row);
 }
 
 /* ===========================================================
-   Grade + send to Sheets
+   Grade
 =========================================================== */
-function grade(correct, info){
+function grade(correct, detail=null){
   if(!running || paused) return;
 
-  attempts++;
-  const activity=(info && info.activity) ? info.activity : currentType;
-  const sentence=(info && info.sentence) ? info.sentence : (currentQ ? currentQ.text : "");
+  attemptsTotal++;
 
   if(correct){
-    setFeedback("✅ Correct!", true);
     streak++;
     updateStats();
+    setFeedback("✅ Correct!", true);
 
-    sendToSheet({
-      name: playerName(),
-      time_s: secondsElapsed(),
-      attempts,
-      most_failed_category: mostFailedCategory(),
-      activity_type: activity,
-      sentence,
-      level
-    });
+    // log success
+    logToSheets(true, detail);
 
-    if(streak>=goal){
-      try{ $("winSound").play().catch(()=>{}); }catch(e){}
+    if(streak >= masteryGoal){
+      try{ winSound.currentTime=0; winSound.play().catch(()=>{}); }catch(e){}
       setFeedback("🏆 Mastery! 25 in a row!", true);
-      running=false;
-      $("pauseBtn").disabled=true;
-      $("clearBtn").disabled=true;
-      $("checkBtn").disabled=true;
+      running = false;
+      stopTimer();
+      try{ bgm.pause(); }catch(e){}
       return;
     }
-    setTimeout(nextQuestion, 550);
-  }else{
-    streak=0;
-    if(activity==="ORDER") wrongCounts.ORDER++;
-    if(activity==="TENSE") wrongCounts.TENSE++;
-    if(activity==="MEANING") wrongCounts.MEANING++;
-    updateStats();
 
-    if(activity==="MEANING" && info && info.correctIntent){
-      setFeedback("❌ Try again! Correct: "+prettyIntent(info.correctIntent), false);
-    }else{
-      setFeedback("❌ Try again!", false);
-    }
+    setTimeout(()=>{ if(running && !paused) nextQuestion(); }, 520);
+    return;
+  }
 
-    sendToSheet({
-      name: playerName(),
-      time_s: secondsElapsed(),
-      attempts,
-      most_failed_category: mostFailedCategory(),
-      activity_type: activity,
-      sentence,
-      level
-    });
+  // wrong
+  wrongByType[currentType] = (wrongByType[currentType]||0) + 1;
 
-    if(activity==="ORDER") clearWords();
+  streak = 0;
+  updateStats();
+
+  // log failure
+  logToSheets(false, detail);
+
+  setFeedback("❌ Try again!", false);
+
+  if(currentType === "ORDER"){
+    clearWords();
   }
 }
 
@@ -1066,29 +1174,33 @@ function grade(correct, info){
    Events
 =========================================================== */
 $("startBtn").addEventListener("click", startGame);
-$("resetBtnTop").addEventListener("click", resetGame);
+$("resetBtn").addEventListener("click", resetGame);
 
 $("musicBtn").addEventListener("click", toggleMusic);
-$("levelBtn").addEventListener("click", toggleLevel);
-$("pauseBtn").addEventListener("click", pauseToggle);
-$("exitBtn").addEventListener("click", openExitConfirm);
+
+$("easyBtn").addEventListener("click", ()=>setLevel("easy"));
+$("hardBtn").addEventListener("click", ()=>setLevel("hard"));
+
+$("pauseBtn").addEventListener("click", ()=>{
+  if(!running) return;
+  if(paused) closePause();
+  else openPause();
+});
+
+$("resumeBtn").addEventListener("click", closePause);
+
+$("exitBtn").addEventListener("click", resetGame);
+$("exitBtn2").addEventListener("click", resetGame);
 
 $("clearBtn").addEventListener("click", clearWords);
 $("checkBtn").addEventListener("click", checkOrder);
 
-$("resumeBtn").addEventListener("click", resumeGame);
-$("pauseResetBtn").addEventListener("click", resetGame);
-$("pauseExitBtn").addEventListener("click", ()=>{ closePause(); openExitConfirm(); });
-
-$("stayBtn").addEventListener("click", closeExitConfirm);
-$("confirmExitBtn").addEventListener("click", confirmExit);
-
+/* Init */
 window.addEventListener("load", ()=>{
-  $("bgm").volume=0.35;
+  setLevel("easy");
   setMiniType("Ready");
   updateStats();
-  updateTimer();
-  resetView();
+  bgm.volume = 0.35;
 });
 </script>
 </body>
