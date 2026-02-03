@@ -455,6 +455,32 @@
     }
   </style>
 </head>
+  <script>
+/* ===== GOOGLE SHEETS LOGGING ===== */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbwepIOC4bssASGk1XKrEO2RjW_3VN8i6hfE5G2GmT1W0bDJz1Om6iX4bdyTPK1sbkas8w/exec";
+const SHEET_SECRET = "SECRET_KEY"; // must match Apps Script
+
+function sendAttemptToSheet(payload){
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      secret: SHEET_SECRET,
+      student: payload.student || "anonymous",
+      correct: payload.correct,
+      streak: payload.streak,
+      tense: payload.tense,
+      structure: payload.structure,
+      qType: payload.qType,
+      prompt: payload.prompt,
+      answer: payload.answer,
+      expected: payload.expected
+    })
+  });
+}
+</script>
+
 
 <body>
   <!-- AUDIO -->
