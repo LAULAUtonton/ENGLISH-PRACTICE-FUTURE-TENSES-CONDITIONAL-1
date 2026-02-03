@@ -3,46 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Future Grammar Mastery — Easy/Hard + Sheets</title>
+  <title>Future Grammar Mastery — Lively Blue (No Gradients) + Easy/Hard + Pause + Sheets</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      /* BLUE THEME */
-      --bg:#0b3a6a;        /* page background */
-      --bg2:#0a2f57;
-      --card:#0e3f73;      /* main card */
-      --panel:#0a2b4a;     /* panels */
+      /* ====== BASE (no gradients) ====== */
+      --bg:#073B6F;         /* page background */
+      --panel:#0B4C8C;      /* panels */
+      --card:#082F57;       /* main card */
+      --surface:#062846;    /* inner surfaces */
       --ink:#ffffff;
-
-      --cyan:#36d1ff;
-      --blue:#2f80ff;
-      --blue2:#1b63ff;
-      --aqua:#00f0ff;
-      --mint:#6fffd2;
-      --yellow:#ffd166;
-      --red:#ff4d6d;
-
-      --bar:#071f36;
+      --muted:rgba(255,255,255,.78);
       --stroke:rgba(255,255,255,.18);
-      --shadow:0 0 16px rgba(0,0,0,.30);
+      --shadow:0 10px 22px rgba(0,0,0,.28);
+
+      /* ====== FUN ACCENTS (flat colors) ====== */
+      --cyan:#2FE6FF;
+      --mint:#6BFFCF;
+      --yellow:#FFD166;
+      --orange:#FF9F1C;
+      --pink:#FF4DAB;
+      --purple:#9B5CFF;
+      --lime:#B6FF4D;
+      --red:#FF4D6D;
+
+      --btnTextDark:#06131f;
+      --bar:#031C33;
     }
 
     *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:radial-gradient(circle at 20% 0%, #0f4e8d 0%, var(--bg) 35%, var(--bg2) 100%);
+      background:var(--bg);
       color:var(--ink);
     }
-    .app{ max-width:980px; margin:0 auto; padding:16px; }
+    .app{
+      max-width:980px;
+      margin:0 auto;
+      padding:14px 14px 26px;
+    }
 
-    header{ text-align:center; margin-bottom:12px; }
+    header{
+      text-align:center;
+      margin-bottom:10px;
+    }
     h1{
       margin:0;
       font-size:2rem;
       font-weight:900;
-      text-shadow:0 0 10px rgba(0,0,0,.35);
+      letter-spacing:.2px;
     }
     header p{
       margin:6px 0 10px;
@@ -50,43 +60,47 @@
       opacity:.95;
     }
 
-    .top-row{
+    /* ===== top controls layout ===== */
+    .topControls{
       display:flex;
-      justify-content:center;
-      align-items:center;
       flex-wrap:wrap;
       gap:10px;
+      justify-content:center;
+      align-items:stretch;
       margin-top:8px;
     }
 
-    .name-box{
-      background:rgba(0,0,0,.18);
+    .nameBox{
+      background:var(--panel);
       border:2px solid var(--stroke);
-      padding:8px 10px;
-      border-radius:14px;
+      border-radius:16px;
+      padding:10px 12px;
       display:flex;
-      gap:8px;
       align-items:center;
+      gap:10px;
       box-shadow:var(--shadow);
-      backdrop-filter: blur(6px);
+      min-width:290px;
+      justify-content:center;
     }
-    .name-box span{ font-weight:900; }
-    .name-box input{
+    .nameBox span{ font-weight:900; }
+    .nameBox input{
       border:none;
       outline:none;
       border-radius:12px;
       padding:10px 12px;
       font-size:1rem;
       font-weight:900;
-      min-width:170px;
+      min-width:180px;
     }
 
-    .controls{
+    .btnRow{
       display:flex;
       flex-wrap:wrap;
-      justify-content:center;
       gap:10px;
+      justify-content:center;
+      align-items:center;
     }
+
     .btn{
       border:none;
       border-radius:16px;
@@ -94,28 +108,22 @@
       font-weight:900;
       font-size:1rem;
       cursor:pointer;
-      box-shadow:0 0 14px rgba(0,0,0,.25);
+      box-shadow:0 8px 18px rgba(0,0,0,.25);
       transition:transform .12s ease, filter .12s ease;
       user-select:none;
     }
-    .btn:hover{ transform:translateY(-1px); filter:brightness(1.06); }
+    .btn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
+    .btn:active{ transform:translateY(0px) scale(.99); }
 
-    .btn.blue{ background:linear-gradient(135deg,var(--blue),var(--blue2)); color:#fff; }
-    .btn.cyan{ background:linear-gradient(135deg,var(--cyan),var(--aqua)); color:#001018; }
-    .btn.red{ background:linear-gradient(135deg,var(--red),#ff7aa2); color:#24000e; }
-    .btn.yellow{ background:linear-gradient(135deg,var(--yellow),#ffe6a7); color:#2b1500; }
-    .btn.mint{ background:linear-gradient(135deg,var(--mint),#b8ffe9); color:#062116; }
+    /* flat button colors (no gradients) */
+    .bStart{ background:var(--mint); color:var(--btnTextDark); }
+    .bMusic{ background:var(--cyan); color:var(--btnTextDark); }
+    .bLevel{ background:var(--yellow); color:#2b1500; }
+    .bPause{ background:var(--purple); color:#13002b; }
+    .bExit{ background:var(--red); color:#fff; }
+    .bReset{ background:var(--orange); color:#2b1500; }
 
-    .btn.toggle{
-      background:rgba(0,0,0,.20);
-      border:2px solid rgba(54,209,255,.55);
-      color:#fff;
-    }
-    .btn.toggle.on{
-      background:linear-gradient(135deg,rgba(54,209,255,.95),rgba(0,240,255,.75));
-      color:#001018;
-      border-color:transparent;
-    }
+    .btn.small{ padding:10px 14px; font-size:.95rem; border-radius:14px; }
 
     .warning{
       margin-top:8px;
@@ -124,42 +132,49 @@
       color:#ffe3e3;
     }
 
+    /* ===== stats row ===== */
     .stats{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       align-items:stretch;
       justify-content:center;
-      margin:12px 0 14px;
+      margin:12px 0 12px;
     }
     .stat{
-      background:rgba(0,0,0,.18);
+      background:var(--panel);
       border:2px solid var(--stroke);
-      border-radius:14px;
+      border-radius:16px;
       padding:10px 12px;
-      min-width:140px;
+      min-width:150px;
       text-align:center;
       box-shadow:var(--shadow);
-      backdrop-filter: blur(6px);
     }
-    .stat .label{ font-size:.8rem; font-weight:900; opacity:.9; }
-    .stat .value{ font-size:1.05rem; font-weight:900; margin-top:2px; }
+    .stat .label{
+      font-size:.82rem;
+      font-weight:900;
+      opacity:.95;
+    }
+    .stat .value{
+      font-size:1.07rem;
+      font-weight:900;
+      margin-top:2px;
+    }
 
     .progressWrap{
       flex:1;
-      min-width:240px;
-      background:rgba(0,0,0,.18);
+      min-width:260px;
+      background:var(--panel);
       border:2px solid var(--stroke);
-      border-radius:14px;
+      border-radius:16px;
       padding:10px 12px;
       box-shadow:var(--shadow);
-      backdrop-filter: blur(6px);
     }
     .progressWrap .label{
       text-align:left;
-      font-size:.8rem;
+      font-size:.82rem;
       font-weight:900;
-      opacity:.92;
+      opacity:.95;
     }
     .bar{
       margin-top:8px;
@@ -167,35 +182,33 @@
       background:var(--bar);
       border-radius:999px;
       overflow:hidden;
-      border:2px solid rgba(54,209,255,.55);
+      border:2px solid rgba(47,230,255,.55);
     }
     .fill{
       height:100%;
       width:0%;
-      background:linear-gradient(90deg, var(--mint), var(--cyan));
+      background:var(--lime);
       transition:width .25s ease;
     }
 
+    /* ===== main game card ===== */
     .card{
-      background:rgba(0,0,0,.20);
+      background:var(--card);
       border:2px solid var(--stroke);
       border-radius:18px;
-      padding:18px;
-      box-shadow:0 0 16px rgba(0,0,0,.35);
-      backdrop-filter: blur(6px);
+      padding:16px;
+      box-shadow:0 14px 26px rgba(0,0,0,.32);
     }
 
     .miniTypeWrap{ text-align:center; }
     .miniType{
       display:inline-block;
       margin:0 auto 10px;
-      padding:6px 12px;
+      padding:7px 14px;
       border-radius:999px;
       font-weight:900;
-      background:rgba(0,0,0,.25);
-      border:2px solid rgba(255,255,255,.16);
-      box-shadow:0 0 10px rgba(0,0,0,.18);
-      text-align:center;
+      background:var(--surface);
+      border:2px solid rgba(255,255,255,.12);
     }
 
     .sentenceBox{
@@ -205,22 +218,24 @@
     }
     .sentenceBig{
       width:100%;
-      background:#061a2d;
-      border:3px solid rgba(54,209,255,.55);
+      background:var(--surface);
+      border:3px solid rgba(47,230,255,.55);
       border-radius:18px;
       padding:18px 16px;
       font-weight:900;
       font-size:1.55rem;
       line-height:1.25;
       text-align:center;
-      box-shadow:0 0 16px rgba(0,0,0,.35);
       user-select:none;
     }
+
     @media (max-width:680px){
-      .sentenceBig{ font-size:1.22rem; }
-      h1{ font-size:1.7rem; }
+      h1{ font-size:1.65rem; }
+      .sentenceBig{ font-size:1.22rem; padding:16px 14px; }
+      .nameBox{ min-width:0; width:100%; }
     }
 
+    /* ORDER (built words) */
     .interaction{
       display:flex;
       flex-wrap:wrap;
@@ -228,34 +243,31 @@
       justify-content:center;
       min-height:52px;
       padding-bottom:10px;
-      border-bottom:2px solid rgba(54,209,255,.32);
+      border-bottom:2px solid rgba(47,230,255,.22);
       margin-bottom:12px;
     }
-
     .word-bank{
-      background:#05233f;
+      background:var(--surface);
       border:2px solid rgba(255,255,255,.12);
       padding:14px;
       border-radius:16px;
       min-height:58px;
-      box-shadow:0 3px 10px rgba(0,0,0,.25);
     }
     .wordItem{
       display:inline-block;
       background:#ffffff;
       color:#000;
-      border:2px solid #3b3b3b;
+      border:2px solid rgba(0,0,0,.18);
       padding:10px 14px;
       border-radius:14px;
       font-weight:900;
       font-size:1.05rem;
       cursor:pointer;
       margin:0 10px 10px 0;
-      box-shadow:0 2px 6px rgba(0,0,0,.22);
       user-select:none;
     }
     .builtWord{
-      background:#081f36;
+      background:#0A3A66;
       color:#fff;
       border:2px solid rgba(255,255,255,.14);
       padding:10px 14px;
@@ -264,9 +276,9 @@
       font-size:1.05rem;
       cursor:pointer;
       user-select:none;
-      box-shadow:0 2px 8px rgba(0,0,0,.25);
     }
 
+    /* Cards area */
     .cards{
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
@@ -284,9 +296,8 @@
       cursor:pointer;
       font-weight:900;
       font-size:1.08rem;
-      color:#04101f;
-      box-shadow:0 0 16px rgba(0,0,0,.28);
-      border:3px solid rgba(255,255,255,.18);
+      box-shadow:0 10px 18px rgba(0,0,0,.25);
+      border:3px solid rgba(255,255,255,.14);
       text-align:left;
       transition:transform .12s ease, filter .12s ease;
       min-height:86px;
@@ -295,26 +306,29 @@
       justify-content:center;
       gap:6px;
       user-select:none;
+      color:#06131f;
     }
-    .cardBtn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
+    .cardBtn:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+
     .cardTitle{ font-size:1.14rem; font-weight:900; }
     .cardDesc{ font-size:.92rem; font-weight:800; opacity:.92; }
 
-    .pal0{ background:linear-gradient(135deg,#b8ecff,#36d1ff); }
-    .pal1{ background:linear-gradient(135deg,#c7dcff,#2f80ff); color:#061a2d; }
-    .pal2{ background:linear-gradient(135deg,#d9fff4,#6fffd2); }
-    .pal3{ background:linear-gradient(135deg,#ffe6a7,#ffd166); }
-    .pal4{ background:linear-gradient(135deg,#ffd0dc,#ff4d6d); }
-    .pal5{ background:linear-gradient(135deg,#c7f0ff,#00f0ff); }
+    /* flat palettes for option cards (no gradients) */
+    .pal0{ background:var(--cyan); }
+    .pal1{ background:var(--yellow); }
+    .pal2{ background:var(--mint); }
+    .pal3{ background:var(--pink); color:#210013; }
+    .pal4{ background:var(--purple); color:#120018; }
+    .pal5{ background:var(--lime); }
 
     .feedback{
       margin-top:12px;
-      min-height:26px;
+      min-height:28px;
       text-align:center;
       font-weight:900;
       font-size:1.05rem;
     }
-    .ok{ color:#b8ffe9; }
+    .ok{ color:var(--mint); }
     .no{ color:#ffd1d1; }
 
     .actions{
@@ -325,26 +339,55 @@
       flex-wrap:wrap;
     }
 
+    .metaRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin:10px 0 0;
+      opacity:.95;
+    }
+    .pill{
+      background:var(--panel);
+      border:2px solid var(--stroke);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      box-shadow:0 8px 18px rgba(0,0,0,.20);
+    }
+    .pill b{ color:var(--cyan); }
+
     .hidden{ display:none !important; }
 
-    .pillRow{
+    /* ===== overlays (pause / exit confirm) ===== */
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.55);
+      padding:16px;
+      z-index:50;
+    }
+    .overlay.show{ display:flex; }
+    .modal{
+      width:min(520px, 100%);
+      background:var(--panel);
+      border:2px solid rgba(255,255,255,.16);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 18px 34px rgba(0,0,0,.45);
+      text-align:center;
+    }
+    .modal h2{ margin:0 0 6px; font-size:1.35rem; }
+    .modal p{ margin:0 0 14px; font-weight:800; color:var(--muted); }
+    .modalActions{
       display:flex;
       gap:10px;
       justify-content:center;
       flex-wrap:wrap;
-      margin-top:10px;
     }
-    .pill{
-      background:rgba(0,0,0,.20);
-      border:2px solid rgba(255,255,255,.14);
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:900;
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(6px);
-    }
-    .pill b{ color:var(--aqua); }
-
   </style>
 </head>
 
@@ -362,23 +405,25 @@
       <h1>Future Grammar Mastery</h1>
       <p>Mix: ORDER • TENSE • MEANING — reach 25 correct in a row.</p>
 
-      <div class="top-row">
-        <div class="name-box">
+      <div class="topControls">
+        <div class="nameBox">
           <span>Name:</span>
           <input id="playerName" type="text" placeholder="Enter your name">
         </div>
 
-        <div class="controls">
-          <button class="btn blue" onclick="startGame()">Start</button>
-          <button class="btn toggle" id="musicBtn" onclick="toggleMusic()">Music: OFF</button>
-          <button class="btn mint" id="levelBtn" onclick="toggleLevel()">Level: EASY</button>
-          <button class="btn red" onclick="resetGame()">Reset</button>
+        <div class="btnRow">
+          <button class="btn bStart" id="startBtn" type="button">Start</button>
+          <button class="btn bMusic" id="musicBtn" type="button">Music: OFF</button>
+          <button class="btn bLevel" id="levelBtn" type="button">Level: EASY</button>
+          <button class="btn bPause" id="pauseBtn" type="button" disabled>Pause</button>
+          <button class="btn bReset" id="resetBtn" type="button">Reset</button>
+          <button class="btn bExit" id="exitBtn" type="button">Exit</button>
         </div>
       </div>
 
       <div class="warning" id="nameWarning"></div>
 
-      <div class="pillRow">
+      <div class="metaRow">
         <div class="pill">Attempts: <b id="attemptsPill">0</b></div>
         <div class="pill">Most failed: <b id="mostFailedPill">—</b></div>
         <div class="pill">Current type: <b id="typePill">—</b></div>
@@ -410,37 +455,57 @@
     <div class="card">
       <div class="miniTypeWrap"><span class="miniType" id="miniType">Ready</span></div>
 
-      <!-- Big sentence (for tense / meaning) -->
       <div class="sentenceBox hidden" id="sentenceBox">
         <div class="sentenceBig" id="sentenceBig"></div>
       </div>
 
-      <!-- ORDER built words -->
       <div class="interaction hidden" id="interaction"></div>
-
-      <!-- Cards area -->
       <div id="cardsArea" class="cards hidden"></div>
-
-      <!-- Word bank -->
       <div class="word-bank hidden" id="wordBank"></div>
 
       <div class="feedback" id="feedback"></div>
 
       <div class="actions hidden" id="orderActions">
-        <button class="btn red" onclick="clearWords()">Clear</button>
-        <button class="btn yellow" onclick="checkOrder()">Check</button>
+        <button class="btn bReset small" id="clearBtn" type="button">Clear</button>
+        <button class="btn bLevel small" id="checkBtn" type="button">Check</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAUSE OVERLAY -->
+  <div class="overlay" id="pauseOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Paused">
+      <h2>⏸ Paused</h2>
+      <p>Press Resume to continue.</p>
+      <div class="modalActions">
+        <button class="btn bStart" id="resumeBtn" type="button">Resume</button>
+        <button class="btn bReset" id="pauseResetBtn" type="button">Reset</button>
+        <button class="btn bExit" id="pauseExitBtn" type="button">Exit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXIT CONFIRM OVERLAY -->
+  <div class="overlay" id="exitOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Exit confirm">
+      <h2>Exit game?</h2>
+      <p>Your current streak will be lost.</p>
+      <div class="modalActions">
+        <button class="btn bStart" id="stayBtn" type="button">Stay</button>
+        <button class="btn bExit" id="confirmExitBtn" type="button">Exit</button>
       </div>
     </div>
   </div>
 
 <script>
 /* ============================
-   GOOGLE SHEETS
+   GOOGLE SHEETS (INTEGRATED)
 ============================ */
 const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
+
+/* Put SAME secret in Apps Script SECRET_KEY */
 const SECRET_KEY = "CHANGE_ME_TO_SOMETHING_PRIVATE";
 
-/* Send SAFE primitive fields only (no {object Object}) */
 async function sendToSheet(payload){
   const body = {
     secret: SECRET_KEY,
@@ -454,7 +519,7 @@ async function sendToSheet(payload){
   };
   try{
     await fetch(SHEET_ENDPOINT, {
-      method: "POST",
+      method:"POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify(body)
     });
@@ -464,18 +529,15 @@ async function sendToSheet(payload){
 }
 
 /* ===========================================================
-   BANK: sentence + form + meaning (intent) + difficulty tag
-   NOTE: You asked "add 20 more in each" — I expanded heavily.
+   BANK (same as previous version you had)
 =========================================================== */
 const BANK = [
-  /* ===== PRESENT SIMPLE (schedule) ===== */
+  /* PRESENT SIMPLE (schedule) */
   { text:"The train leaves at 8:10 tomorrow.", form:"present_simple", intent:"schedule", diff:"easy" },
   { text:"School starts at 9 o’clock on Monday.", form:"present_simple", intent:"schedule", diff:"easy" },
   { text:"The concert begins at 7 p.m. on Friday.", form:"present_simple", intent:"schedule", diff:"easy" },
   { text:"The museum closes at 6 p.m.", form:"present_simple", intent:"schedule", diff:"easy" },
   { text:"Does the match start at noon?", form:"present_simple", intent:"schedule", diff:"easy" },
-
-  /* +20 more (schedule) */
   { text:"The bus arrives at 7:35 tomorrow morning.", form:"present_simple", intent:"schedule", diff:"easy" },
   { text:"The flight lands at 5:20 p.m. on Tuesday.", form:"present_simple", intent:"schedule", diff:"easy" },
   { text:"The library opens at 8:30 a.m. every weekday.", form:"present_simple", intent:"schedule", diff:"easy" },
@@ -497,14 +559,12 @@ const BANK = [
   { text:"Does your flight depart at 6:40?", form:"present_simple", intent:"schedule", diff:"hard" },
   { text:"What time does the movie start tonight?", form:"present_simple", intent:"schedule", diff:"hard" },
 
-  /* ===== PRESENT CONTINUOUS (arrangement) ===== */
+  /* PRESENT CONTINUOUS (arrangement) */
   { text:"I’m meeting my friends at 6 p.m.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"We’re having dinner together tomorrow.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"She’s seeing the dentist on Friday.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"They’re coming over for lunch tomorrow.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"Are you visiting your grandma this weekend?", form:"present_continuous", intent:"arrangement", diff:"easy" },
-
-  /* +20 more (arrangement) */
   { text:"I’m flying to Madrid on Saturday.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"We’re studying together after school.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"He’s playing basketball this evening.", form:"present_continuous", intent:"arrangement", diff:"easy" },
@@ -514,7 +574,7 @@ const BANK = [
   { text:"They’re having a party next Saturday.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"Are you coming to the library at 4?", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"I’m having a driving lesson tomorrow morning.", form:"present_continuous", intent:"arrangement", diff:"easy" },
-  { text:"We’re going to the cinema tonight.", form:"present_continuous", intent:"arrangement", diff:"easy" }, /* tricky: looks going_to, but it's PC phrase */
+  { text:"We’re going to the cinema tonight.", form:"present_continuous", intent:"arrangement", diff:"easy" },
   { text:"He’s seeing his coach after practice.", form:"present_continuous", intent:"arrangement", diff:"hard" },
   { text:"I’m meeting the principal at 9 a.m. tomorrow.", form:"present_continuous", intent:"arrangement", diff:"hard" },
   { text:"We’re doing a class presentation next week.", form:"present_continuous", intent:"arrangement", diff:"easy" },
@@ -526,24 +586,19 @@ const BANK = [
   { text:"He’s not playing today; he’s resting.", form:"present_continuous", intent:"arrangement", diff:"hard" },
   { text:"I’m meeting her after the meeting ends.", form:"present_continuous", intent:"arrangement", diff:"hard" },
 
-  /* ===== WILL (prediction / decision / offer / announcement) ===== */
+  /* WILL */
   { text:"I think it will rain later.", form:"will", intent:"prediction", diff:"easy" },
   { text:"They will probably win the match.", form:"will", intent:"prediction", diff:"easy" },
   { text:"Maybe we will have a test tomorrow.", form:"will", intent:"prediction", diff:"easy" },
-
   { text:"Don’t worry, I’ll help you.", form:"will", intent:"offer_promise", diff:"easy" },
   { text:"I won’t tell anyone. I promise.", form:"will", intent:"offer_promise", diff:"easy" },
-
   { text:"Okay, I’ll do it now.", form:"will", intent:"decision_now", diff:"easy" },
   { text:"Wait—I’ll message her right now.", form:"will", intent:"decision_now", diff:"easy" },
-
   { text:"The results will be published tomorrow.", form:"will", intent:"announcement", diff:"hard" },
   { text:"The show will start in five minutes.", form:"will", intent:"announcement", diff:"easy" },
-
-  /* +20 more (will) */
   { text:"I’m sure you’ll enjoy the film.", form:"will", intent:"prediction", diff:"easy" },
   { text:"I don’t think he’ll be late.", form:"will", intent:"prediction", diff:"easy" },
-  { text:"She’ll pass the exam—she studied a lot.", form:"will", intent:"prediction", diff:"hard" }, /* trap: sounds evidence */
+  { text:"She’ll pass the exam—she studied a lot.", form:"will", intent:"prediction", diff:"hard" },
   { text:"I’ll carry that for you.", form:"will", intent:"offer_promise", diff:"easy" },
   { text:"I’ll call you tonight, I promise.", form:"will", intent:"offer_promise", diff:"easy" },
   { text:"We’ll see what happens.", form:"will", intent:"prediction", diff:"hard" },
@@ -562,16 +617,13 @@ const BANK = [
   { text:"I’ll be there at 5, I promise.", form:"will", intent:"offer_promise", diff:"easy" },
   { text:"I don’t think it’ll snow in April.", form:"will", intent:"prediction", diff:"hard" },
 
-  /* ===== GOING TO (plan / evidence prediction) ===== */
+  /* GOING TO */
   { text:"I’m going to study tonight.", form:"going_to", intent:"plan", diff:"easy" },
   { text:"We’re going to meet after school.", form:"going_to", intent:"plan", diff:"easy" },
   { text:"Are you going to watch the new episode?", form:"going_to", intent:"plan", diff:"easy" },
-
   { text:"Look at those clouds! It’s going to rain.", form:"going_to", intent:"evidence_prediction", diff:"easy" },
   { text:"That glass is going to fall!", form:"going_to", intent:"evidence_prediction", diff:"easy" },
   { text:"You’re going to miss the bus—run!", form:"going_to", intent:"evidence_prediction", diff:"hard" },
-
-  /* +20 more (going_to) */
   { text:"I’m going to buy a new backpack this weekend.", form:"going_to", intent:"plan", diff:"easy" },
   { text:"She’s going to visit her aunt tomorrow.", form:"going_to", intent:"plan", diff:"easy" },
   { text:"We’re going to practice for the test after class.", form:"going_to", intent:"plan", diff:"easy" },
@@ -579,27 +631,23 @@ const BANK = [
   { text:"Are you going to join the football team?", form:"going_to", intent:"plan", diff:"easy" },
   { text:"He isn’t going to eat junk food anymore.", form:"going_to", intent:"plan", diff:"hard" },
   { text:"Watch out! You’re going to drop your phone.", form:"going_to", intent:"evidence_prediction", diff:"easy" },
-  { text:"It’s going to be a long day—look at the schedule.", form:"going_to", intent:"evidence_prediction", diff:"hard" },
   { text:"That bike is going to crash if you don’t slow down!", form:"going_to", intent:"evidence_prediction", diff:"hard" },
   { text:"Look! The cat is going to jump on the table.", form:"going_to", intent:"evidence_prediction", diff:"easy" },
   { text:"I’m going to start a new project next week.", form:"going_to", intent:"plan", diff:"easy" },
   { text:"We’re going to take a trip in June.", form:"going_to", intent:"plan", diff:"easy" },
   { text:"She’s going to study medicine at university.", form:"going_to", intent:"plan", diff:"hard" },
   { text:"They’re going to organize a fundraiser soon.", form:"going_to", intent:"plan", diff:"hard" },
-  { text:"It’s going to snow—look at the dark sky.", form:"going_to", intent:"evidence_prediction", diff:"easy" },
   { text:"That chair is going to break! Don’t sit on it.", form:"going_to", intent:"evidence_prediction", diff:"easy" },
   { text:"I’m not going to be late tomorrow.", form:"going_to", intent:"plan", diff:"hard" },
   { text:"Are we going to finish this today?", form:"going_to", intent:"plan", diff:"hard" },
   { text:"He’s going to forget his keys again—he always does.", form:"going_to", intent:"evidence_prediction", diff:"hard" },
   { text:"Look at the score—we’re going to win!", form:"going_to", intent:"evidence_prediction", diff:"easy" },
 
-  /* ===== FIRST CONDITIONAL ===== */
+  /* FIRST CONDITIONAL */
   { text:"If you don’t study, you’ll fail the test.", form:"first_conditional", intent:"warning_consequence", diff:"easy" },
   { text:"If you feel tired, take a break.", form:"first_conditional", intent:"advice_suggestion", diff:"easy" },
   { text:"If it rains, we’ll stay at home.", form:"first_conditional", intent:"plan_condition", diff:"easy" },
   { text:"If she studies, she’ll do well.", form:"first_conditional", intent:"prediction_result", diff:"easy" },
-
-  /* +20 more (first conditional) */
   { text:"If you hurry, you’ll catch the bus.", form:"first_conditional", intent:"prediction_result", diff:"easy" },
   { text:"If you don’t sleep, you’ll feel awful tomorrow.", form:"first_conditional", intent:"warning_consequence", diff:"easy" },
   { text:"If you need help, I’ll explain it again.", form:"first_conditional", intent:"advice_suggestion", diff:"easy" },
@@ -619,19 +667,9 @@ const BANK = [
   { text:"If you feel stressed, breathe slowly.", form:"first_conditional", intent:"advice_suggestion", diff:"easy" },
   { text:"If it gets cold, we’ll go inside.", form:"first_conditional", intent:"plan_condition", diff:"easy" },
   { text:"If you’re late again, you’ll have detention.", form:"first_conditional", intent:"warning_consequence", diff:"hard" },
-  { text:"If he studies harder, he’ll get better marks.", form:"first_conditional", intent:"prediction_result", diff:"easy" },
+  { text:"If he studies harder, he’ll get better marks.", form:"first_conditional", intent:"prediction_result", diff:"easy" }
 ];
 
-/* Count sentences per form (for your “how many?” question) */
-function countByForm(){
-  const out = {};
-  for(const q of BANK){
-    out[q.form] = (out[q.form]||0)+1;
-  }
-  return out;
-}
-
-/* ===== Tense cards ===== */
 const TENSE_OPTIONS = [
   { key:"present_simple", label:"Present Simple", desc:"Schedules / timetables" },
   { key:"present_continuous", label:"Present Continuous", desc:"Arrangements / plans" },
@@ -640,137 +678,155 @@ const TENSE_OPTIONS = [
   { key:"first_conditional", label:"First Conditional", desc:"If + present, will..." }
 ];
 
-/* Meaning/intent cards by form */
 const MEANING_OPTIONS = {
   will: [
     { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
     { key:"offer_promise", label:"Offer / Promise", desc:"Help / promise" },
     { key:"decision_now", label:"Decision now", desc:"Made right now" },
     { key:"announcement", label:"Announcement", desc:"Official info" },
-    { key:"plan", label:"Plan", desc:"Already decided" },                 // distractor
-    { key:"evidence_prediction", label:"Evidence prediction", desc:"Look! evidence" } // distractor
+    { key:"plan", label:"Plan", desc:"Already decided" },
+    { key:"evidence_prediction", label:"Evidence prediction", desc:"Look! evidence" }
   ],
   going_to: [
     { key:"plan", label:"Plan / Intention", desc:"Already decided" },
     { key:"evidence_prediction", label:"Prediction (evidence)", desc:"Look! / evidence" },
     { key:"announcement", label:"Announcement", desc:"Official info" },
     { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
-    { key:"decision_now", label:"Decision now", desc:"Made right now" },   // distractor
-    { key:"schedule", label:"Schedule", desc:"Timetable time" }           // distractor
+    { key:"decision_now", label:"Decision now", desc:"Made right now" },
+    { key:"schedule", label:"Schedule", desc:"Timetable time" }
   ],
   present_simple: [
     { key:"schedule", label:"Schedule", desc:"Timetable time" },
     { key:"arrangement", label:"Arrangement", desc:"Fixed plan" },
     { key:"plan", label:"Plan / Intention", desc:"Already decided" },
     { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
-    { key:"announcement", label:"Announcement", desc:"Official info" },    // distractor
-    { key:"warning_consequence", label:"Warning", desc:"Bad result" }      // distractor
+    { key:"announcement", label:"Announcement", desc:"Official info" },
+    { key:"warning_consequence", label:"Warning", desc:"Bad result" }
   ],
   present_continuous: [
     { key:"arrangement", label:"Arrangement", desc:"Fixed plan" },
     { key:"schedule", label:"Schedule", desc:"Timetable time" },
     { key:"plan", label:"Plan / Intention", desc:"Already decided" },
     { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
-    { key:"announcement", label:"Announcement", desc:"Official info" },    // distractor
-    { key:"advice_suggestion", label:"Advice", desc:"Suggestion" }         // distractor
+    { key:"announcement", label:"Announcement", desc:"Official info" },
+    { key:"advice_suggestion", label:"Advice", desc:"Suggestion" }
   ],
   first_conditional: [
     { key:"warning_consequence", label:"Warning", desc:"Bad result" },
     { key:"advice_suggestion", label:"Advice", desc:"Suggestion" },
     { key:"plan_condition", label:"Plan", desc:"If X, we do Y" },
     { key:"prediction_result", label:"Prediction", desc:"If X, Y happens" },
-    { key:"schedule", label:"Schedule", desc:"Timetable time" },           // distractor
-    { key:"arrangement", label:"Arrangement", desc:"Fixed plan" }          // distractor
+    { key:"schedule", label:"Schedule", desc:"Timetable time" },
+    { key:"arrangement", label:"Arrangement", desc:"Fixed plan" }
   ]
 };
 
 /* ===========================================================
-   State
+   Game state
 =========================================================== */
+let running = false;
+let paused = false;
+let musicOn = false;
+let level = "easy";              // easy | hard
+
 let currentType = "";
 let currentQ = null;
-let tokens = [];     // strings
-let built = [];      // strings only => no {object Object}
+let tokens = [];                 // strings
+let built = [];                  // strings only => fixes {object Object}
 
 let streak = 0;
 const masteryGoal = 25;
-
-let timerInterval = null;
-let startTime = null;
-
-let musicOn = false;
-let level = "easy"; // easy | hard
-
 let attempts = 0;
 const wrongCounts = { ORDER:0, TENSE:0, MEANING:0 };
 
-/* 3 activities */
-const TYPES = ["ORDER","TENSE","MEANING"];
+let startTime = null;
+let timerInterval = null;
 
 /* ===========================================================
-   Utils
+   Helpers
 =========================================================== */
+const $ = (id)=>document.getElementById(id);
+
+function playerName(){
+  const n = $("playerName").value.trim();
+  return n || "—";
+}
+
 function shuffle(arr){
   const a = arr.slice();
-  for(let i = a.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
   }
   return a;
 }
 
 function formatTime(ms){
-  const s = Math.floor(ms / 1000);
-  const m = String(Math.floor(s / 60)).padStart(2,"0");
-  const r = String(s % 60).padStart(2,"0");
+  const s = Math.floor(ms/1000);
+  const m = String(Math.floor(s/60)).padStart(2,"0");
+  const r = String(s%60).padStart(2,"0");
   return `${m}:${r}`;
 }
 function secondsElapsed(){
   if(!startTime) return 0;
-  return Math.floor((Date.now() - startTime)/1000);
+  return Math.floor((Date.now()-startTime)/1000);
 }
-function updateTimerDisplay(){
-  document.getElementById("timerDisplay").textContent = startTime ? formatTime(Date.now() - startTime) : "00:00";
+
+function updateTimer(){
+  $("timerDisplay").textContent = startTime ? formatTime(Date.now()-startTime) : "00:00";
 }
 function startTimer(){
   startTime = Date.now();
   clearInterval(timerInterval);
-  timerInterval = setInterval(updateTimerDisplay, 500);
+  timerInterval = setInterval(()=>{ if(running && !paused) updateTimer(); }, 500);
 }
 function stopTimer(){
   clearInterval(timerInterval);
   timerInterval = null;
 }
-function updateStats(){
-  document.getElementById("streak").textContent = streak;
-  const pct = Math.max(0, Math.min(100, (streak / masteryGoal) * 100));
-  document.getElementById("progressFill").style.width = pct + "%";
-  document.getElementById("attemptsPill").textContent = String(attempts);
-  document.getElementById("typePill").textContent = currentType || "—";
-  document.getElementById("mostFailedPill").textContent = mostFailedCategory() || "—";
+
+function mostFailedCategory(){
+  const entries = Object.entries(wrongCounts).sort((a,b)=>b[1]-a[1]);
+  if(entries[0][1]===0) return "—";
+  return entries[0][0];
 }
+
+function updateStats(){
+  $("displayName").textContent = playerName();
+  $("streak").textContent = String(streak);
+
+  const pct = Math.max(0, Math.min(100, (streak / masteryGoal) * 100));
+  $("progressFill").style.width = pct + "%";
+
+  $("attemptsPill").textContent = String(attempts);
+  $("typePill").textContent = currentType || "—";
+  $("mostFailedPill").textContent = mostFailedCategory() || "—";
+}
+
+function setMiniType(txt){ $("miniType").textContent = txt; }
+
 function setFeedback(text, ok=null){
-  const fb = document.getElementById("feedback");
+  const fb = $("feedback");
   fb.textContent = text || "";
   fb.className = "feedback";
-  if(ok === true) fb.classList.add("ok");
-  if(ok === false) fb.classList.add("no");
+  if(ok===true) fb.classList.add("ok");
+  if(ok===false) fb.classList.add("no");
 }
+
 function show(el){ el.classList.remove("hidden"); }
 function hide(el){ el.classList.add("hidden"); }
-function setMiniType(txt){ document.getElementById("miniType").textContent = txt; }
 
 function resetView(){
   setFeedback("");
-  hide(document.getElementById("sentenceBox"));
-  hide(document.getElementById("interaction"));
-  hide(document.getElementById("cardsArea"));
-  hide(document.getElementById("wordBank"));
-  hide(document.getElementById("orderActions"));
+  hide($("sentenceBox"));
+  hide($("interaction"));
+  hide($("cardsArea"));
+  hide($("wordBank"));
+  hide($("orderActions"));
 
-  document.getElementById("cardsArea").innerHTML = "";
-  document.getElementById("wordBank").innerHTML = "";
-  document.getElementById("interaction").innerHTML = "";
+  $("cardsArea").innerHTML = "";
+  $("wordBank").innerHTML = "";
+  $("interaction").innerHTML = "";
 }
 
 function pickPaletteClass(i){
@@ -778,148 +834,238 @@ function pickPaletteClass(i){
   return pals[i % pals.length];
 }
 
-/* ===========================================================
-   Difficulty behavior
-=========================================================== */
-function toggleLevel(){
-  level = (level === "easy") ? "hard" : "easy";
-  const b = document.getElementById("levelBtn");
-  b.textContent = "Level: " + level.toUpperCase();
-  setFeedback("Level set to " + level.toUpperCase() + ".", true);
+/* ============================
+   Google Sheets (same endpoint)
+============================ */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxfuvpOoU7N--HTkzCUpWWP3uo-mwcKA71nne-yyhRFfXMj_XR0Wq0WXV6O-CbSMM6x/exec";
+const SECRET_KEY = "CHANGE_ME_TO_SOMETHING_PRIVATE";
+
+async function sendToSheet(payload){
+  const body = {
+    secret: SECRET_KEY,
+    name: String(payload.name || ""),
+    time_s: Number(payload.time_s || 0),
+    attempts: Number(payload.attempts || 0),
+    most_failed_category: String(payload.most_failed_category || ""),
+    activity_type: String(payload.activity_type || ""),
+    sentence: String(payload.sentence || ""),
+    level: String(payload.level || "")
+  };
+  try{
+    await fetch(SHEET_ENDPOINT, {
+      method:"POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(body)
+    });
+  }catch(err){
+    console.error("Sheets send error:", err);
+  }
 }
 
+/* ============================
+   Difficulty rules
+============================ */
 function bankForLevel(){
-  if(level === "easy"){
-    // prefer easy and shorter
-    return BANK.filter(q => q.diff !== "hard" && q.text.split(" ").length <= 10);
+  if(level==="easy"){
+    return BANK.filter(q => q.diff!=="hard" && q.text.split(" ").length <= 10);
   }
-  // hard: everything, prefer longer & tricky
   return BANK.slice();
 }
+function typeMixForLevel(){
+  // easy: more ORDER + TENSE
+  // hard: more TENSE + MEANING
+  return (level==="easy")
+    ? ["ORDER","ORDER","TENSE","TENSE","MEANING"]
+    : ["ORDER","TENSE","TENSE","MEANING","MEANING"];
+}
 
-/* ===========================================================
+/* ============================
    Music
-=========================================================== */
+============================ */
 function toggleMusic(){
-  const bgm = document.getElementById("bgm");
-  const btn = document.getElementById("musicBtn");
+  const bgm = $("bgm");
   bgm.volume = 0.35;
 
   if(!musicOn){
     const p = bgm.play();
     if(p && p.then){
-      p.then(()=>{ musicOn = true; btn.textContent = "Music: ON"; btn.classList.add("on"); })
-       .catch(()=>{ musicOn = false; btn.textContent = "Music: OFF"; btn.classList.remove("on"); });
+      p.then(()=>{ musicOn = true; $("musicBtn").textContent="Music: ON"; })
+       .catch(()=>{ musicOn = false; $("musicBtn").textContent="Music: OFF"; });
     } else {
-      musicOn = true; btn.textContent = "Music: ON"; btn.classList.add("on");
+      musicOn = true; $("musicBtn").textContent="Music: ON";
     }
   } else {
     bgm.pause();
     musicOn = false;
-    btn.textContent = "Music: OFF";
-    btn.classList.remove("on");
+    $("musicBtn").textContent="Music: OFF";
   }
 }
 
-/* ===========================================================
-   Start / Reset
-=========================================================== */
+/* ============================
+   Start / Reset / Exit
+============================ */
 function startGame(){
-  const name = document.getElementById("playerName").value.trim();
+  const name = $("playerName").value.trim();
   if(!name){
-    document.getElementById("nameWarning").textContent = "Please enter your name before starting.";
+    $("nameWarning").textContent = "Please enter your name before starting.";
     return;
   }
-  document.getElementById("nameWarning").textContent = "";
-  document.getElementById("displayName").textContent = name;
+  $("nameWarning").textContent = "";
+
+  running = true;
+  paused = false;
 
   streak = 0;
   attempts = 0;
-  wrongCounts.ORDER = 0; wrongCounts.TENSE = 0; wrongCounts.MEANING = 0;
+  wrongCounts.ORDER=0; wrongCounts.TENSE=0; wrongCounts.MEANING=0;
 
+  $("pauseBtn").disabled = false;
+  $("pauseBtn").textContent = "Pause";
+
+  resetView();
   updateStats();
-  setFeedback("");
-  document.getElementById("bgm").load();
-
+  updateTimer();
   startTimer();
+
   nextQuestion();
 }
 
 function resetGame(){
+  running = false;
+  paused = false;
+
   stopTimer();
   startTime = null;
-  updateTimerDisplay();
+  updateTimer();
 
   streak = 0;
   attempts = 0;
-  wrongCounts.ORDER = 0; wrongCounts.TENSE = 0; wrongCounts.MEANING = 0;
+  wrongCounts.ORDER=0; wrongCounts.TENSE=0; wrongCounts.MEANING=0;
 
+  currentType = "";
   currentQ = null;
   tokens = [];
   built = [];
-  currentType = "";
 
-  setMiniType("Ready");
+  $("pauseBtn").disabled = true;
+  $("pauseBtn").textContent = "Pause";
+
   resetView();
+  setMiniType("Ready");
   updateStats();
 
-  const bgm = document.getElementById("bgm");
-  bgm.pause();
+  // stop audio
+  try{
+    $("bgm").pause();
+    $("bgm").currentTime = 0;
+  }catch(e){}
   musicOn = false;
-  const mbtn = document.getElementById("musicBtn");
-  mbtn.textContent = "Music: OFF";
-  mbtn.classList.remove("on");
+  $("musicBtn").textContent = "Music: OFF";
 
+  closePause();
+  closeExitConfirm();
   setFeedback("Reset.", true);
 }
 
-/* ===========================================================
-   Next question (shuffle)
-=========================================================== */
+function openExitConfirm(){
+  $("exitOverlay").classList.add("show");
+  $("exitOverlay").setAttribute("aria-hidden","false");
+}
+function closeExitConfirm(){
+  $("exitOverlay").classList.remove("show");
+  $("exitOverlay").setAttribute("aria-hidden","true");
+}
+function confirmExit(){
+  // "Exit" returns to ready state (doesn't close the tab)
+  resetGame();
+}
+
+function toggleLevel(){
+  level = (level==="easy") ? "hard" : "easy";
+  $("levelBtn").textContent = "Level: " + level.toUpperCase();
+  setFeedback("Level set to " + level.toUpperCase() + ".", true);
+
+  // if game running, immediately go to next question with new difficulty
+  if(running && !paused) nextQuestion();
+}
+
+/* ============================
+   Pause / Resume
+============================ */
+function openPause(){
+  paused = true;
+  $("pauseOverlay").classList.add("show");
+  $("pauseOverlay").setAttribute("aria-hidden","false");
+  $("pauseBtn").textContent = "Resume";
+  if(musicOn) $("bgm").pause();
+}
+function closePause(){
+  $("pauseOverlay").classList.remove("show");
+  $("pauseOverlay").setAttribute("aria-hidden","true");
+}
+function resumeGame(){
+  if(!running) return;
+  paused = false;
+  closePause();
+  $("pauseBtn").textContent = "Pause";
+  if(musicOn) $("bgm").play().catch(()=>{});
+}
+function pauseToggle(){
+  if(!running) return;
+  if(paused) resumeGame();
+  else openPause();
+}
+
+/* ============================
+   Next question
+============================ */
 function nextQuestion(){
+  if(!running || paused) return;
+
   built = [];
   resetView();
 
-  // Pick type: Easy = more ORDER/TENSE, Hard = more MEANING/TENSE (trickier)
-  const weighted = (level === "easy")
-    ? ["ORDER","ORDER","TENSE","TENSE","MEANING"]
-    : ["ORDER","TENSE","TENSE","MEANING","MEANING"];
+  const mix = typeMixForLevel();
+  currentType = mix[Math.floor(Math.random()*mix.length)];
 
-  currentType = weighted[Math.floor(Math.random()*weighted.length)];
   const pool = bankForLevel();
   currentQ = pool[Math.floor(Math.random()*pool.length)];
   tokens = currentQ.text.split(" "); // strings only
 
   updateStats();
 
-  if(currentType === "ORDER"){
-    setMiniType(level === "hard" ? "Order words (HARD)" : "Order words");
-    renderOrder(currentQ.text);
+  if(currentType==="ORDER"){
+    setMiniType(level==="hard" ? "Order words (HARD)" : "Order words");
+    renderOrder();
     return;
   }
-  if(currentType === "TENSE"){
-    setMiniType(level === "hard" ? "Verb tense (HARD)" : "Verb tense");
-    showBigSentence(currentQ.text);
+  if(currentType==="TENSE"){
+    setMiniType(level==="hard" ? "Verb tense (HARD)" : "Verb tense");
+    showSentence(currentQ.text);
     renderTenseCards(currentQ.form);
     return;
   }
-  setMiniType(level === "hard" ? "Speaker meaning (HARD)" : "Speaker meaning");
-  showBigSentence(currentQ.text);
+
+  setMiniType(level==="hard" ? "Speaker meaning (HARD)" : "Speaker meaning");
+  showSentence(currentQ.text);
   renderMeaningCards(currentQ.form, currentQ.intent);
 }
 
-function showBigSentence(text){
-  document.getElementById("sentenceBig").textContent = text;
-  show(document.getElementById("sentenceBox"));
+function showSentence(text){
+  $("sentenceBig").textContent = text;
+  show($("sentenceBox"));
 }
 
-/* ===========================================================
-   ORDER
-=========================================================== */
+/* ============================
+   ORDER (fixes {object Object} by storing strings)
+============================ */
 function renderOrder(){
-  const interaction = document.getElementById("interaction");
-  const bank = document.getElementById("wordBank");
-  show(interaction); show(bank); show(document.getElementById("orderActions"));
+  const interaction = $("interaction");
+  const bank = $("wordBank");
+
+  show(interaction);
+  show(bank);
+  show($("orderActions"));
 
   bank.innerHTML = "";
   const words = shuffle(tokens);
@@ -929,7 +1075,8 @@ function renderOrder(){
     b.className = "wordItem";
     b.textContent = w;
     b.onclick = ()=>{
-      built.push(w);            // strings only
+      if(!running || paused) return;
+      built.push(w);
       b.style.display = "none";
       renderBuiltWords();
     };
@@ -940,7 +1087,7 @@ function renderOrder(){
 }
 
 function renderBuiltWords(){
-  const area = document.getElementById("interaction");
+  const area = $("interaction");
   area.innerHTML = "";
 
   built.forEach((w,i)=>{
@@ -948,11 +1095,11 @@ function renderBuiltWords(){
     chip.className = "builtWord";
     chip.textContent = w;
     chip.onclick = ()=>{
-      const removed = built.splice(i,1)[0];  // string
-      // re-show one hidden matching token (first match)
-      const kids = Array.from(document.getElementById("wordBank").children);
+      if(!running || paused) return;
+      const removed = built.splice(i,1)[0];
+      const kids = Array.from($("wordBank").children);
       for(const el of kids){
-        if(el.textContent === removed && el.style.display === "none"){
+        if(el.textContent===removed && el.style.display==="none"){
           el.style.display = "inline-block";
           break;
         }
@@ -964,15 +1111,13 @@ function renderBuiltWords(){
 }
 
 function clearWords(){
+  if(!running || paused) return;
   built = [];
   renderBuiltWords();
-  Array.from(document.getElementById("wordBank").children).forEach(el=>{
-    el.style.display = "inline-block";
-  });
+  Array.from($("wordBank").children).forEach(el=> el.style.display="inline-block");
 }
 
 function normalizeLoose(s){
-  // EASY: ignore case, extra spaces, and simple punctuation at ends
   return String(s)
     .trim()
     .replace(/\s+/g," ")
@@ -982,67 +1127,61 @@ function normalizeLoose(s){
     .toLowerCase();
 }
 function normalizeStrict(s){
-  // HARD: strict spaces but normalize multiple spaces only
   return String(s).trim().replace(/\s+/g," ");
 }
-
 function checkOrder(){
-  if(!currentQ) return;
+  if(!currentQ || !running || paused) return;
   const attempt = built.join(" ");
-  const ok = (level === "hard")
+  const ok = (level==="hard")
     ? (normalizeStrict(attempt) === normalizeStrict(currentQ.text))
     : (normalizeLoose(attempt) === normalizeLoose(currentQ.text));
-
   grade(ok, { activity:"ORDER", sentence: currentQ.text });
 }
 
-/* ===========================================================
-   TENSE cards
-=========================================================== */
+/* ============================
+   TENSE
+============================ */
 function renderTenseCards(correctForm){
-  const cards = document.getElementById("cardsArea");
+  const cards = $("cardsArea");
   show(cards);
   cards.innerHTML = "";
 
-  // EASY: 4 options
-  // HARD: 6 options (if possible) -> tougher
-  const want = (level === "hard") ? 6 : 4;
+  const want = (level==="hard") ? 6 : 4;
 
   const pool = shuffle([...TENSE_OPTIONS]);
-  const correct = pool.find(x => x.key === correctForm) || TENSE_OPTIONS[0];
-  const others = pool.filter(x => x.key !== correctForm).slice(0, want-1);
+  const correct = pool.find(x=>x.key===correctForm) || TENSE_OPTIONS[0];
+  const others = pool.filter(x=>x.key!==correctForm).slice(0, want-1);
   const options = shuffle([correct, ...others]);
 
   options.forEach((o, idx)=>{
     const btn = document.createElement("button");
     btn.className = "cardBtn " + pickPaletteClass(idx);
     btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
-    btn.onclick = ()=> grade(o.key === correctForm, { activity:"TENSE", sentence: currentQ.text });
+    btn.onclick = ()=>{ if(running && !paused) grade(o.key===correctForm, { activity:"TENSE", sentence: currentQ.text }); };
     cards.appendChild(btn);
   });
 }
 
-/* ===========================================================
-   MEANING cards
-=========================================================== */
+/* ============================
+   MEANING
+============================ */
 function renderMeaningCards(form, correctIntent){
-  const cards = document.getElementById("cardsArea");
+  const cards = $("cardsArea");
   show(cards);
   cards.innerHTML = "";
 
   const all = (MEANING_OPTIONS[form] || []).slice();
-  const want = (level === "hard") ? 6 : 4;
+  const want = (level==="hard") ? 6 : 4;
 
-  // ensure correct included
-  let options = all.filter(x => x.key === correctIntent);
-  const distractors = shuffle(all.filter(x => x.key !== correctIntent)).slice(0, Math.max(0, want-1));
+  let options = all.filter(x=>x.key===correctIntent);
+  const distractors = shuffle(all.filter(x=>x.key!==correctIntent)).slice(0, Math.max(0, want-1));
   options = shuffle(options.concat(distractors)).slice(0, want);
 
   options.forEach((o, idx)=>{
     const btn = document.createElement("button");
     btn.className = "cardBtn " + pickPaletteClass(idx);
     btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
-    btn.onclick = ()=> grade(o.key === correctIntent, { activity:"MEANING", sentence: currentQ.text, correctIntent });
+    btn.onclick = ()=>{ if(running && !paused) grade(o.key===correctIntent, { activity:"MEANING", sentence: currentQ.text, correctIntent }); };
     cards.appendChild(btn);
   });
 }
@@ -1051,29 +1190,13 @@ function prettyIntent(key){
   return (key||"").replaceAll("_"," ").toUpperCase();
 }
 
-/* ===========================================================
-   Reporting helpers
-=========================================================== */
-function mostFailedCategory(){
-  const entries = Object.entries(wrongCounts);
-  entries.sort((a,b)=> b[1]-a[1]);
-  if(entries[0][1] === 0) return "—";
-  // tie-break: show one
-  return entries[0][0];
-}
-
-function playerName(){
-  const n = document.getElementById("playerName").value.trim();
-  return n || "—";
-}
-
-/* ===========================================================
-   Grade + Google Sheets send
-=========================================================== */
+/* ============================
+   Grade + Google Sheets
+============================ */
 function grade(correct, info){
-  // attempts increment every answer submission (ORDER check / clicking a card)
-  attempts++;
+  if(!running || paused) return;
 
+  attempts++;
   const activity = (info && info.activity) ? info.activity : currentType;
   const sentence = (info && info.sentence) ? info.sentence : (currentQ ? currentQ.text : "");
 
@@ -1082,7 +1205,6 @@ function grade(correct, info){
     streak++;
     updateStats();
 
-    // Send to Sheets on every attempt (ok or not)
     sendToSheet({
       name: playerName(),
       time_s: secondsElapsed(),
@@ -1094,27 +1216,27 @@ function grade(correct, info){
     });
 
     if(streak >= masteryGoal){
-      try{ document.getElementById("winSound").play().catch(()=>{}); }catch(e){}
+      try{ $("winSound").play().catch(()=>{}); }catch(e){}
       setFeedback("🏆 Mastery! 25 in a row!", true);
+      running = false;
+      $("pauseBtn").disabled = true;
       return;
     }
     setTimeout(nextQuestion, 550);
   } else {
-    setFeedback("❌ Try again!", false);
     streak = 0;
-
-    if(activity === "ORDER") wrongCounts.ORDER++;
-    if(activity === "TENSE") wrongCounts.TENSE++;
-    if(activity === "MEANING") wrongCounts.MEANING++;
+    if(activity==="ORDER") wrongCounts.ORDER++;
+    if(activity==="TENSE") wrongCounts.TENSE++;
+    if(activity==="MEANING") wrongCounts.MEANING++;
 
     updateStats();
 
-    // If MEANING wrong, show correct intent in HARD for learning (and in EASY too)
-    if(activity === "MEANING" && info && info.correctIntent){
+    if(activity==="MEANING" && info && info.correctIntent){
       setFeedback("❌ Try again! Correct: " + prettyIntent(info.correctIntent), false);
+    } else {
+      setFeedback("❌ Try again!", false);
     }
 
-    // Send to Sheets on wrong attempts too
     sendToSheet({
       name: playerName(),
       time_s: secondsElapsed(),
@@ -1125,23 +1247,39 @@ function grade(correct, info){
       level
     });
 
-    // For ORDER wrong: reset built words (avoid “stuck”)
-    if(activity === "ORDER"){
+    if(activity==="ORDER"){
       clearWords();
     }
   }
 }
 
-/* ===========================================================
-   Init
-=========================================================== */
+/* ============================
+   Wire up buttons
+============================ */
+$("startBtn").addEventListener("click", startGame);
+$("musicBtn").addEventListener("click", toggleMusic);
+$("levelBtn").addEventListener("click", toggleLevel);
+$("pauseBtn").addEventListener("click", pauseToggle);
+$("resetBtn").addEventListener("click", resetGame);
+$("exitBtn").addEventListener("click", ()=>{ openExitConfirm(); });
+
+$("clearBtn").addEventListener("click", clearWords);
+$("checkBtn").addEventListener("click", checkOrder);
+
+$("resumeBtn").addEventListener("click", resumeGame);
+$("pauseResetBtn").addEventListener("click", resetGame);
+$("pauseExitBtn").addEventListener("click", ()=>{ closePause(); openExitConfirm(); });
+
+$("stayBtn").addEventListener("click", closeExitConfirm);
+$("confirmExitBtn").addEventListener("click", confirmExit);
+
+/* Init */
 window.addEventListener("load", ()=>{
-  document.getElementById("bgm").volume = 0.35;
+  $("bgm").volume = 0.35;
+  $("pauseBtn").disabled = true;
   setMiniType("Ready");
   updateStats();
-
-  // Optional: log counts in console
-  console.log("Sentence counts by form:", countByForm());
+  updateTimer();
 });
 </script>
 </body>
