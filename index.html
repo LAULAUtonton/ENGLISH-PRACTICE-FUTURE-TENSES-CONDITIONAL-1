@@ -35,989 +35,24 @@
 
     .app {
       width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 8px;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .header {
-      background: #ff6b9d;
-      border: 3px solid #ffffff;
-      border-radius: 16px;
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      box-shadow: 0 6px 0 #d946ef;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo {
-      width: 40px;
-      height: 40px;
-      background: #ffd93d;
-      border: 3px solid #ffffff;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .title { font-size: 1rem; font-weight: 900; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-    .subtitle { font-size: 0.7rem; color: var(--dim); }
-    .subtitle b { color: var(--yellow); }
-
-    .name-box {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #ffffff;
-      padding: 6px 10px;
-      border-radius: 8px;
-      flex: 1;
-      min-width: 150px;
-      max-width: 200px;
-    }
-
-    .name-box label { font-size: 0.75rem; color: #ff6b9d; font-weight: 700; }
-
-    .name-box input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #1a1a1a;
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 800;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-    }
-
-    .stat {
-      background: #ffffff;
-      border: 3px solid #ffd93d;
-      border-radius: 12px;
-      padding: 8px 6px;
-      text-align: center;
-      box-shadow: 0 4px 0 #ff8a3d;
-    }
-
-    .stat-label { font-size: 0.6rem; color: #ff6b9d; font-weight: 800; text-transform: uppercase; }
-    .stat-value { font-size: 0.9rem; font-weight: 900; margin-top: 2px; color: #1a1a1a; }
-    .stat-value.orange { color: #ff8a3d; }
-    .stat-value.red { color: #ff6b6b; }
-    .stat-value.cyan { color: #00d4ff; }
-
-    .progress-box {
-      background: #ff8a3d;
-      border: 3px solid #ffffff;
-      border-radius: 12px;
-      padding: 10px 12px;
-      box-shadow: 0 4px 0 #ff6b6b;
-    }
-
-    .progress-top {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .progress-top span:last-child { color: #ffd93d; }
-
-    .progress-bar {
-      height: 10px;
-      background: #ffffff;
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #00e676;
-      border-radius: 99px;
-      transition: width 0.3s;
-    }
-
-    .game {
-      flex: 1;
-      background: #ffffff;
-      border: 3px solid #ffd93d;
-      border-radius: 16px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 280px;
-      overflow: hidden;
-      box-shadow: 0 6px 0 #00e676;
-    }
-
-    .badge {
-      text-align: center;
-    }
-
-    .badge span {
-      display: inline-block;
-      background: #ff6b9d;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-size: 0.8rem;
-      font-weight: 900;
-      border: 3px solid #ffffff;
-    }
-
-    .sentence {
-      background: #ffd93d;
-      border: 3px solid #ffffff;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 900;
-      line-height: 1.4;
-      color: #1a1a1a;
-      box-shadow: 0 4px 0 #ff8a3d;
-    }
-
-    .built {
-      background: #e8f5e9;
-      border: 3px dashed #00e676;
-      border-radius: 12px;
-      padding: 12px;
-      min-height: 55px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .built.active {
-      border-style: solid;
-      border-color: #00e676;
-      background: #c8e6c9;
-    }
-
-    .built.empty {
-      color: #00e676;
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    .chip {
-      background: #00e676;
-      color: #1a1a1a;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-weight: 900;
-      font-size: 0.9rem;
-      cursor: pointer;
-      border: 2px solid #ffffff;
-    }
-
-    .chip:hover { 
-      transform: scale(1.05);
-      transition: all 0.2s;
-    }
-
-    .words {
-      background: #f0f0f0;
-      border-radius: 12px;
-      padding: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      flex: 1;
-      align-content: flex-start;
-      overflow-y: auto;
-    }
-
-    .word-btn {
-      background: #ffffff;
-      color: #1a1a1a;
-      border: 3px solid #00d4ff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-family: inherit;
-      font-weight: 900;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .word-btn:hover {
-      transform: scale(1.05);
-      border-color: #ff6b9d;
-    }
-
-    .word-btn:disabled {
-      background: #d0d0d0;
-      color: #888;
-      border-color: #d0d0d0;
-    }
-
-    .choices {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .choice {
-      border: none;
-      border-radius: 12px;
-      padding: 14px 12px;
-      cursor: pointer;
-      text-align: left;
-      font-family: inherit;
-    }
-
-    .choice:active { 
-      transform: scale(0.95);
-    }
-
-    .choice-title { font-size: 0.95rem; font-weight: 900; }
-    .choice-desc { font-size: 0.7rem; font-weight: 700; opacity: 0.9; margin-top: 2px; }
-
-    .c1 { 
-      background: #00d4ff; 
-      color: #1a1a1a;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #00a8cc;
-    }
-    .c2 { 
-      background: #ffd93d; 
-      color: #1a1a1a;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #ffb700;
-    }
-    .c3 { 
-      background: #00e676; 
-      color: #1a1a1a;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #00c853;
-    }
-    .c4 { 
-      background: #ff6b9d; 
-      color: #ffffff;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #f50057;
-    }
-
-    .feedback {
-      text-align: center;
-      font-weight: 900;
-      font-size: 0.95rem;
-      min-height: 26px;
-    }
-
-    .feedback.ok { color: #00e676; }
-    .feedback.no { color: #ff6b6b; }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-    }
-
-    .btn {
-      border: 3px solid #ffffff;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-family: inherit;
-      font-weight: 900;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-    }
-
-    .btn-orange { background: #ff8a3d; color: #fff; box-shadow: 0 4px 0 #ff6b6b; }
-    .btn-gray { background: #e0e0e0; color: #1a1a1a; box-shadow: 0 4px 0 #bdbdbd; }
-    .btn-yellow { background: #ffd93d; color: #1a1a1a; box-shadow: 0 4px 0 #ffb700; }
-
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-
-    .ctrl {
-      background: #ffffff;
-      border: 3px solid #00d4ff;
-      border-radius: 10px;
-      padding: 10px 8px;
-      color: #1a1a1a;
-      font-family: inherit;
-      font-weight: 800;
-      font-size: 0.75rem;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-    }
-
-    .ctrl:hover { 
-      background: #00d4ff;
-      color: #ffffff;
-    }
-    .ctrl.on { 
-      background: #00e676; 
-      color: #1a1a1a;
-      border-color: #00e676;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 100;
-    }
-
-    .overlay.show { display: flex; }
-
-    .modal {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(20px);
-      border: 3px solid #ffd93d;
-      border-radius: 16px;
-      padding: 20px;
-      width: 100%;
-      max-width: 350px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-icon { font-size: 40px; margin-bottom: 10px; }
-    .modal-title { font-size: 1.3rem; font-weight: 900; color: #ffd93d; margin-bottom: 6px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-    .modal-text { color: var(--dim); font-size: 0.9rem; margin-bottom: 14px; }
-
-    .summary {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      padding: 10px;
-      margin-bottom: 14px;
-      text-align: left;
-      font-size: 0.85rem;
-    }
-
-    .summary div {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .summary div:last-child { border: none; }
-    .summary .val { font-weight: 900; color: #4ecdc4; }
-    .summary .bad { color: #ff6b9d; }
-
-    .milestone {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: linear-gradient(135deg, #ffd93d, #ffed4e);
-      color: #333;
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-size: 1.2rem;
-      font-weight: 900;
-      z-index: 99;
-      pointer-events: none;
-      opacity: 0;
-      box-shadow: 0 8px 30px rgba(255, 217, 61, 0.6);
-    }
-
-    .milestone.show {
-      animation: pop 1.2s ease forwards;
-    }
-
-    @keyframes pop {
-      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-      15% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-      85% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-    }
-
-    .hidden { display: none !important; }
-
-    @media (max-width: 480px) {
-      .header { flex-direction: column; align-items: stretch; }
-      .brand { justify-content: center; }
-      .name-box { max-width: 100%; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .choices { grid-template-columns: 1fr; }
-      .controls { grid-template-columns: repeat(2, 1fr); }
-      .sentence { font-size: 1rem; padding: 12px; }
-      .title { font-size: 0.95rem; }
-    }
-
-    @media (min-width: 481px) and (max-width: 768px) {
-      .app { max-width: 100%; padding: 10px; }
-    }
-
-    @media (min-width: 769px) {
-      .app { max-width: 650px; }
-      .game { min-height: 320px; }
-    }
-  </style>
-</head>
-<body>
-
-<div class="milestone" id="milestone"></div>
-
-<div class="overlay" id="winOverlay">
-  <div class="modal">
-    <div class="modal-icon">🏆</div>
-    <div class="modal-title">Mastery Complete!</div>
-    <div class="modal-text">You got 25 correct in a row!</div>
-    <div class="summary" id="summary"></div>
-    <button class="btn btn-orange" id="againBtn">🔄 Play Again</button>
-  </div>
-</div>
-
-<div class="overlay" id="pauseOverlay">
-  <div class="modal">
-    <div class="modal-icon">⏸️</div>
-    <div class="modal-title">Paused</div>
-    <div class="modal-text">Take a break!</div>
-    <div class="actions">
-      <button class="btn btn-orange" id="resumeBtn">▶️ Resume</button>
-      <button class="btn btn-gray" id="quitBtn">⏹️ Quit</button>
-    </div>
-  </div>
-</div>
-
-<div class="app">
-  <div class="header">
-    <div class="brand">
-      <div class="logo">🎯</div>
-      <div>
-        <div class="title">Future Grammar Mastery</div>
-        <div class="subtitle">Get <b>25 correct</b> in a row!</div>
-      </div>
-    </div>
-    <div class="name-box">
-      <label>Name:</label>
-      <input type="text" id="nameInput" placeholder="Your name">
-    </div>
-  </div>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">Player</div>
-      <div class="stat-value" id="playerDisplay">---</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Streak</div>
-      <div class="stat-value orange" id="streakDisplay">0/25</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Mistakes</div>
-      <div class="stat-value red" id="mistakesDisplay">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Time</div>
-      <div class="stat-value cyan" id="timeDisplay">00:00</div>
-    </div>
-  </div>
-
-  <div class="progress-box">
-    <div class="progress-top">
-      <span>Progress</span>
-      <span id="pctDisplay">0%</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-  </div>
-
-  <div class="game">
-    <div class="badge"><span id="typeBadge">🎮 Ready</span></div>
-    
-    <div class="sentence hidden" id="sentenceBox"></div>
-    <div class="built empty hidden" id="builtBox">👆 Tap words to build sentence...</div>
-    <div class="words hidden" id="wordsBox"></div>
-    <div class="choices hidden" id="choicesBox"></div>
-    
-    <div class="feedback" id="feedback"></div>
-    
-    <div class="actions hidden" id="orderBtns">
-      <button class="btn btn-gray" id="clearBtn">🗑️ Clear</button>
-      <button class="btn btn-yellow" id="checkBtn">✓ Check</button>
-    </div>
-  </div>
-
-  <div class="controls">
-    <button class="ctrl" id="startBtn">▶️ Start</button>
-    <button class="ctrl" id="resetBtn">↺ Reset</button>
-    <button class="ctrl" id="easyBtn">😊 Easy</button>
-    <button class="ctrl" id="hardBtn">🔥 Hard</button>
-    <button class="ctrl" id="pauseBtn">⏸️ Pause</button>
-    <button class="ctrl" id="musicBtn">🔇 Music</button>
-  </div>
-</div>
-
-<audio id="bgm" loop><source src="audio/bgm.mp3" type="audio/mpeg"></audio>
-
-<script>
-const SHEET_URL = "YOUR_GOOGLE_SCRIPT_URL";
-const SECRET = "GRAMMAR_2024";
-const GOAL = 25;
-
-const BANK = [
-  {t:"The train leaves at 8:10 tomorrow.",f:"ps",m:"schedule"},
-  {t:"School starts at 9 on Monday.",f:"ps",m:"schedule"},
-  {t:"The concert begins at 7 p.m.",f:"ps",m:"schedule"},
-  {t:"I'm meeting friends at 6 p.m.",f:"pc",m:"arrangement"},
-  {t:"We're having dinner tomorrow.",f:"pc",m:"arrangement"},
-  {t:"She's seeing the dentist Friday.",f:"pc",m:"arrangement"},
-  {t:"I think it will rain later.",f:"will",m:"prediction"},
-  {t:"They will probably win.",f:"will",m:"prediction"},
-  {t:"Don't worry, I'll help you.",f:"will",m:"offer"},
-  {t:"I won't tell anyone.",f:"will",m:"promise"},
-  {t:"Okay, I'll do it now.",f:"will",m:"decision"},
-  {t:"I'm going to study tonight.",f:"going",m:"plan"},
-  {t:"We're going to meet after school.",f:"going",m:"plan"},
-  {t:"Look! It's going to rain.",f:"going",m:"evidence"},
-  {t:"That glass is going to fall!",f:"going",m:"evidence"},
-  {t:"If you study, you'll pass.",f:"cond",m:"result"},
-  {t:"If it rains, we'll stay home.",f:"cond",m:"plan"},
-  {t:"If you're tired, take a break.",f:"cond",m:"advice"}
-];
-
-const TENSES = [
-  {k:"ps",l:"Present Simple",d:"Schedules"},
-  {k:"pc",l:"Present Continuous",d:"Arrangements"},
-  {k:"will",l:"Will",d:"Predictions/Promises"},
-  {k:"going",l:"Going to",d:"Plans/Evidence"},
-  {k:"cond",l:"First Conditional",d:"If + will"}
-];
-
-let level="easy", running=false, paused=false;
-let streak=0, mistakes=0, errByType={ORDER:0,TENSE:0,MEANING:0};
-let startT=null, timer=null, musicOn=false;
-let qType="", curQ=null, built=[], wordBtns=[];
-
-const $=id=>document.getElementById(id);
-const bgm=$("bgm");
-const shuffle=a=>{let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
-
-function updateUI(){
-  $("streakDisplay").textContent=`${streak}/${GOAL}`;
-  $("mistakesDisplay").textContent=mistakes;
-  const p=Math.round(streak/GOAL*100);
-  $("progressFill").style.width=p+"%";
-  $("pctDisplay").textContent=p+"%";
-}
-
-function updateTime(){
-  if(!startT)return;
-  const s=Math.floor((Date.now()-startT)/1000);
-  $("timeDisplay").textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-}
-
-function setFeedback(t,ok=null){
-  const f=$("feedback");
-  f.textContent=t;
-  f.className="feedback"+(ok===true?" ok":"")+(ok===false?" no":"");
-}
-
-function show(el){el.classList.remove("hidden");}
-function hide(el){el.classList.add("hidden");}
-
-function reset(){
-  hide($("sentenceBox"));
-  hide($("builtBox"));
-  hide($("wordsBox"));
-  hide($("choicesBox"));
-  hide($("orderBtns"));
-  $("choicesBox").innerHTML="";
-  $("wordsBox").innerHTML="";
-  $("builtBox").innerHTML="";
-  built=[];wordBtns=[];
-  setFeedback("");
-}
-
-function milestone(t){
-  const m=$("milestone");
-  m.textContent=t;
-  m.classList.add("show");
-  setTimeout(()=>m.classList.remove("show"),1200);
-}
-
-function start(){
-  const name=$("nameInput").value.trim();
-  if(!name){setFeedback("Enter your name!",false);return;}
-  $("playerDisplay").textContent=name;
-  running=true;paused=false;
-  streak=0;mistakes=0;errByType={ORDER:0,TENSE:0,MEANING:0};
-  updateUI();reset();
-  startT=Date.now();
-  if(timer)clearInterval(timer);
-  timer=setInterval(updateTime,500);
-  if(musicOn)bgm.play().catch(()=>{});
-  $("startBtn").classList.add("on");
-  next();
-}
-
-function stop(){
-  running=false;paused=false;
-  if(timer)clearInterval(timer);timer=null;startT=null;
-  $("timeDisplay").textContent="00:00";
-  $("playerDisplay").textContent="---";
-  streak=0;mistakes=0;updateUI();reset();
-  $("typeBadge").textContent="🎮 Ready";
-  bgm.pause();musicOn=false;
-  $("musicBtn").textContent="🔇 Music";
-  $("musicBtn").classList.remove("on");
-  $("startBtn").classList.remove("on");
-  $("winOverlay").classList.remove("show");
-  $("pauseOverlay").classList.remove("show");
-}
-
-function next(){
-  if(!running||paused)return;
-  reset();
-  const types=level==="hard"?["ORDER","TENSE","MEANING"]:["ORDER","TENSE"];
-  qType=types[Math.floor(Math.random()*types.length)];
-  curQ=BANK[Math.floor(Math.random()*BANK.length)];
-  
-  if(qType==="ORDER"){
-    $("typeBadge").textContent="📝 Order Words";
-    renderOrder();
-  }else if(qType==="TENSE"){
-    $("typeBadge").textContent="🎯 Pick Tense";
-    renderTense();
-  }else{
-    $("typeBadge").textContent="💡 Meaning";
-    renderMeaning();
-  }
-}
-
-function renderOrder(){
-  show($("builtBox"));
-  show($("wordsBox"));
-  show($("orderBtns"));
-  const box=$("wordsBox");
-  box.innerHTML="";
-  const tokens=shuffle(curQ.t.split(" ").filter(Boolean));
-  wordBtns=tokens.map(w=>{
-    const b=document.createElement("button");
-    b.className="word-btn";
-    b.textContent=w;
-    b.onclick=()=>{
-      if(!running||paused)return;
-      built.push(w);
-      b.disabled=true;
-      renderBuilt();
-    };
-    box.appendChild(b);
-    return {w,b};
-  });
-  renderBuilt();
-}
-
-function renderBuilt(){
-  const box=$("builtBox");
-  box.innerHTML="";
-  if(built.length===0){
-    box.classList.add("empty");
-    box.classList.remove("active");
-    box.textContent="👆 Tap words to build sentence...";
-    return;
-  }
-  box.classList.remove("empty");
-  box.classList.add("active");
-  built.forEach((w,i)=>{
-    const c=document.createElement("div");
-    c.className="chip";
-    c.textContent=w;
-    c.onclick=()=>{
-      if(!running||paused)return;
-      built.splice(i,1);
-      const m=wordBtns.find(x=>x.w===w&&x.b.disabled);
-      if(m)m.b.disabled=false;
-      renderBuilt();
-    };
-    box.appendChild(c);
-  });
-}
-
-function clearOrder(){
-  built=[];
-  wordBtns.forEach(x=>x.b.disabled=false);
-  renderBuilt();
-}
-
-function checkOrder(){
-  if(!running||paused||!curQ)return;
-  grade(built.join(" ")===curQ.t,{picked:built.join(" "),correct:curQ.t});
-}
-
-function renderTense(){
-  show($("sentenceBox"));
-  show($("choicesBox"));
-  $("sentenceBox").textContent=curQ.t;
-  const correct=TENSES.find(x=>x.k===curQ.f);
-  const others=shuffle(TENSES.filter(x=>x.k!==curQ.f)).slice(0,3);
-  const opts=shuffle([correct,...others]);
-  const box=$("choicesBox");
-  box.innerHTML="";
-  const colors=["c1","c2","c3","c4"];
-  opts.forEach((o,i)=>{
-    const b=document.createElement("button");
-    b.className="choice "+colors[i];
-    b.innerHTML=`<div class="choice-title">${o.l}</div><div class="choice-desc">${o.d}</div>`;
-    b.onclick=()=>grade(o.k===curQ.f,{picked:o.l,correct:correct.l});
-    box.appendChild(b);
-  });
-}
-
-const MEANINGS={
-  will:[{k:"prediction",l:"Prediction"},{k:"offer",l:"Offer"},{k:"promise",l:"Promise"},{k:"decision",l:"Decision"}],
-  going:[{k:"plan",l:"Plan"},{k:"evidence",l:"Evidence"}],
-  ps:[{k:"schedule",l:"Schedule"}],
-  pc:[{k:"arrangement",l:"Arrangement"}],
-  cond:[{k:"result",l:"Result"},{k:"plan",l:"Plan"},{k:"advice",l:"Advice"}]
-};
-
-function renderMeaning(){
-  show($("sentenceBox"));
-  show($("choicesBox"));
-  $("sentenceBox").textContent=curQ.t;
-  let opts=MEANINGS[curQ.f]||[];
-  if(opts.length<4){
-    opts=[{k:"prediction",l:"Prediction"},{k:"plan",l:"Plan"},{k:"schedule",l:"Schedule"},{k:"offer",l:"Offer"}];
-  }
-  opts=shuffle(opts).slice(0,4);
-  const correctLbl=(MEANINGS[curQ.f]?.find(x=>x.k===curQ.m)?.l)||curQ.m;
-  const box=$("choicesBox");
-  box.innerHTML="";
-  const colors=["c1","c2","c3","c4"];
-  opts.forEach((o,i)=>{
-    const b=document.createElement("button");
-    b.className="choice "+colors[i];
-    b.innerHTML=`<div class="choice-title">${o.l}</div>`;
-    b.onclick=()=>grade(o.k===curQ.m,{picked:o.l,correct:correctLbl});
-    box.appendChild(b);
-  });
-}
-
-function grade(ok,detail){
-  if(!running||paused)return;
-  if(ok){
-    streak++;
-    updateUI();
-    setFeedback("✅ Correct!",true);
-    if(streak===5)milestone("🔥 5 streak!");
-    if(streak===10)milestone("⚡ 10 streak!");
-    if(streak===15)milestone("🌟 15! Almost!");
-    if(streak===20)milestone("💪 20! So close!");
-    if(streak>=GOAL){win();return;}
-    setTimeout(()=>{if(running&&!paused)next();},600);
-  }else{
-    mistakes++;
-    errByType[qType]++;
-    streak=0;
-    updateUI();
-    setFeedback(`❌ Wrong! → ${detail.correct}`,false);
-    if(qType==="ORDER")clearOrder();
-    setTimeout(()=>{if(running&&!paused)next();},1400);
-  }
-  sendSheet(ok,detail);
-}
-
-function win(){
-  running=false;
-  if(timer)clearInterval(timer);
-  bgm.pause();
-  const t=$("timeDisplay").textContent;
-  $("summary").innerHTML=`
-    <div><span>Player</span><span class="val">${$("playerDisplay").textContent}</span></div>
-    <div><span>Time</span><span class="val">${t}</span></div>
-    <div><span>Mistakes</span><span class="val ${mistakes>0?'bad':''}">${mistakes}</span></div>
-    <div><span>ORDER</span><span class="val ${errByType.ORDER>0?'bad':''}">${errByType.ORDER}</span></div>
-    <div><span>TENSE</span><span class="val ${errByType.TENSE>0?'bad':''}">${errByType.TENSE}</span></div>
-    <div><span>MEANING</span><span class="val ${errByType.MEANING>0?'bad':''}">${errByType.MEANING}</span></div>
-  `;
-  $("winOverlay").classList.add("show");
-  sendSheet(true,{final:true,total_mistakes:mistakes});
-}
-
-function sendSheet(ok,detail){
-  if(!SHEET_URL||SHEET_URL.includes("YOUR_"))return;
-  fetch(SHEET_URL,{
-    method:"POST",mode:"no-cors",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      secret:SECRET,
-      student:$("playerDisplay").textContent,
-      correct:ok,streak,mistakes,
-      type:qType,sentence:curQ?.t,
-      detail:JSON.stringify(detail)
-    })
-  }).catch(()=>{});
-}
-
-function setLevel(l){
-  level=l;
-  $("easyBtn").classList.toggle("on",l==="easy");
-  $("hardBtn").classList.toggle("on",l==="hard");
-}
-
-function toggleMusic(){
-  bgm.volume=0.3;
-  if(!musicOn){
-    bgm.play().then(()=>{
-      musicOn=true;
-      $("musicBtn").textContent="🔊 Music";
-      $("musicBtn").classList.add("on");
-    }).catch(()=>{});
-  }else{
-    bgm.pause();
-    musicOn=false;
-    $("musicBtn").textContent="🔇 Music";
-    $("musicBtn").classList.remove("on");
-  }
-}
-
-function togglePause(){
-  if(!running)return;
-  if(paused){
-    paused=false;
-    $("pauseOverlay").classList.remove("show");
-    if(musicOn)bgm.play().catch(()=>{});
-  }else{
-    paused=true;
-    $("pauseOverlay").classList.add("show");
-    bgm.pause();
-  }
-}
-
-$("startBtn").onclick=start;
-$("resetBtn").onclick=stop;
-$("easyBtn").onclick=()=>setLevel("easy");
-$("hardBtn").onclick=()=>setLevel("hard");
-$("pauseBtn").onclick=togglePause;
-$("musicBtn").onclick=toggleMusic;
-$("clearBtn").onclick=clearOrder;
-$("checkBtn").onclick=checkOrder;
-$("resumeBtn").onclick=togglePause;
-$("quitBtn").onclick=stop;
-$("againBtn").onclick=()=>{$("winOverlay").classList.remove("show");stop();};
-$("nameInput").onkeypress=e=>{if(e.key==="Enter"&&!running)start();};
-
-setLevel("easy");
-updateUI();
-</script>
-</body>
-</html>
-¡IMPORTANTE! Copia TODO desde <!DOCTYPE html> hasta </html> (final del archivo)
-
-Guárdalo como game.html y pruébalo. ¡Ahora SÍ funcionará! 🎮✨
-
-Feb 4, 02:52 AM
-
-Copy
-OK, FUNCIONA, PUEDES MEJORAR LAD DISTRIBUCION DE ELEMETOS EN AL INTRECAE, E SHORRIBLE, FONTS IS TOO SMALL,DISTRIBUYE MEJOR EL DISENO
-
-Feb 4, 02:58 AM
-
-Copy
-Robot
-Hey Laura, Quick input needed :
-Ask Question
-Agent will continue working after your reply
-¡Perfecto! Voy a mejorar la distribución y aumentar los tamaños de fuente. Aquí está el código COMPLETO mejorado:
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Future Grammar Mastery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #00d4ff;
-      --surface: #ff6b9d;
-      --card: #ffd93d;
-      --text: #ffffff;
-      --text-dark: #1a1a1a;
-      --dim: #ffffff;
-      --coral: #ff6b6b;
-      --cyan: #00d4ff;
-      --green: #00e676;
-      --lime: #c6ff00;
-      --yellow: #ffd93d;
-      --pink: #ff6b9d;
-      --orange: #ff8a3d;
-      --purple: #d946ef;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html, body {
-      height: 100%;
-      font-family: 'Nunito', sans-serif;
-      background: #00d4ff;
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 700px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 16px;
       min-height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .header {
       background: #ff6b9d;
       border: 4px solid #ffffff;
       border-radius: 20px;
-      padding: 20px;
+      padding: 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
       box-shadow: 0 8px 0 #d946ef;
     }
@@ -1025,33 +60,33 @@ Agent will continue working after your reply
     .brand {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .logo {
-      width: 60px;
-      height: 60px;
+      width: 55px;
+      height: 55px;
       background: #ffd93d;
       border: 4px solid #ffffff;
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
+      font-size: 30px;
       flex-shrink: 0;
     }
 
     .title { 
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       text-shadow: 0 2px 10px rgba(0,0,0,0.2);
       line-height: 1.2;
     }
     
     .subtitle { 
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--dim);
-      margin-top: 4px;
+      margin-top: 3px;
     }
     
     .subtitle b { color: var(--yellow); }
@@ -1061,15 +96,15 @@ Agent will continue working after your reply
       align-items: center;
       gap: 10px;
       background: #ffffff;
-      padding: 12px 16px;
+      padding: 10px 16px;
       border-radius: 12px;
       flex: 1;
-      min-width: 200px;
-      max-width: 280px;
+      min-width: 180px;
+      max-width: 260px;
     }
 
     .name-box label { 
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #ff6b9d;
       font-weight: 700;
     }
@@ -1081,29 +116,35 @@ Agent will continue working after your reply
       outline: none;
       color: #1a1a1a;
       font-family: inherit;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 800;
       width: 100%;
       min-width: 0;
     }
 
+    .top-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+    }
+
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
 
     .stat {
       background: #ffffff;
       border: 4px solid #ffd93d;
       border-radius: 16px;
-      padding: 16px 12px;
+      padding: 14px 10px;
       text-align: center;
       box-shadow: 0 6px 0 #ff8a3d;
     }
 
     .stat-label { 
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #ff6b9d;
       font-weight: 800;
       text-transform: uppercase;
@@ -1111,9 +152,9 @@ Agent will continue working after your reply
     }
     
     .stat-value { 
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 900;
-      margin-top: 6px;
+      margin-top: 4px;
       color: #1a1a1a;
     }
     
@@ -1121,26 +162,56 @@ Agent will continue working after your reply
     .stat-value.red { color: #ff6b6b; }
     .stat-value.cyan { color: #00d4ff; }
 
+    .main-controls {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .ctrl-main {
+      background: #ffffff;
+      border: 4px solid #00d4ff;
+      border-radius: 14px;
+      padding: 14px;
+      color: #1a1a1a;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .ctrl-main:hover { 
+      background: #00d4ff;
+      color: #ffffff;
+    }
+    .ctrl-main.on { 
+      background: #00e676; 
+      color: #1a1a1a;
+      border-color: #00e676;
+    }
+
     .progress-box {
       background: #ff8a3d;
       border: 4px solid #ffffff;
       border-radius: 16px;
-      padding: 16px 20px;
+      padding: 14px 18px;
       box-shadow: 0 6px 0 #ff6b6b;
     }
 
     .progress-top {
       display: flex;
       justify-content: space-between;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .progress-top span:last-child { color: #ffd93d; }
 
     .progress-bar {
-      height: 16px;
+      height: 14px;
       background: #ffffff;
       border-radius: 99px;
       overflow: hidden;
@@ -1159,11 +230,11 @@ Agent will continue working after your reply
       background: #ffffff;
       border: 4px solid #ffd93d;
       border-radius: 20px;
-      padding: 20px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      min-height: 400px;
+      gap: 14px;
+      min-height: 350px;
       overflow: hidden;
       box-shadow: 0 8px 0 #00e676;
     }
@@ -1176,9 +247,9 @@ Agent will continue working after your reply
       display: inline-block;
       background: #ff6b9d;
       color: #fff;
-      padding: 10px 24px;
+      padding: 8px 20px;
       border-radius: 99px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 900;
       border: 3px solid #ffffff;
     }
@@ -1187,9 +258,9 @@ Agent will continue working after your reply
       background: #ffd93d;
       border: 4px solid #ffffff;
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       line-height: 1.5;
       color: #1a1a1a;
@@ -1200,11 +271,11 @@ Agent will continue working after your reply
       background: #e8f5e9;
       border: 4px dashed #00e676;
       border-radius: 16px;
-      padding: 20px;
-      min-height: 80px;
+      padding: 16px;
+      min-height: 70px;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
       justify-content: center;
     }
@@ -1217,17 +288,17 @@ Agent will continue working after your reply
 
     .built.empty {
       color: #00e676;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
     }
 
     .chip {
       background: #00e676;
       color: #1a1a1a;
-      padding: 12px 20px;
+      padding: 10px 18px;
       border-radius: 12px;
       font-weight: 900;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
       border: 3px solid #ffffff;
     }
@@ -1240,10 +311,10 @@ Agent will continue working after your reply
     .words {
       background: #f0f0f0;
       border-radius: 16px;
-      padding: 20px;
+      padding: 16px;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       justify-content: center;
       flex: 1;
       align-content: flex-start;
@@ -1254,11 +325,11 @@ Agent will continue working after your reply
       background: #ffffff;
       color: #1a1a1a;
       border: 4px solid #00d4ff;
-      padding: 14px 24px;
+      padding: 12px 20px;
       border-radius: 12px;
       font-family: inherit;
       font-weight: 900;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -1277,18 +348,18 @@ Agent will continue working after your reply
     .choices {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
       flex: 1;
     }
 
     .choice {
       border: none;
       border-radius: 16px;
-      padding: 24px 20px;
+      padding: 20px 18px;
       cursor: pointer;
       text-align: left;
       font-family: inherit;
-      min-height: 100px;
+      min-height: 90px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -1299,13 +370,13 @@ Agent will continue working after your reply
     }
 
     .choice-title { 
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 900;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     
     .choice-desc { 
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       opacity: 0.9;
     }
@@ -1338,9 +409,9 @@ Agent will continue working after your reply
     .feedback {
       text-align: center;
       font-weight: 900;
-      font-size: 1.3rem;
-      min-height: 40px;
-      padding: 8px;
+      font-size: 1.2rem;
+      min-height: 35px;
+      padding: 6px;
     }
 
     .feedback.ok { color: #00e676; }
@@ -1355,10 +426,10 @@ Agent will continue working after your reply
     .btn {
       border: 4px solid #ffffff;
       border-radius: 14px;
-      padding: 16px 32px;
+      padding: 14px 28px;
       font-family: inherit;
       font-weight: 900;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -1373,19 +444,19 @@ Agent will continue working after your reply
 
     .controls {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
 
     .ctrl {
       background: #ffffff;
       border: 4px solid #00d4ff;
       border-radius: 14px;
-      padding: 16px 12px;
+      padding: 12px 10px;
       color: #1a1a1a;
       font-family: inherit;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
@@ -1490,30 +561,22 @@ Agent will continue working after your reply
 
     .hidden { display: none !important; }
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .app { padding: 12px; gap: 12px; }
-      .header { flex-direction: column; align-items: stretch; padding: 16px; }
-      .brand { justify-content: center; }
-      .name-box { max-width: 100%; }
+      .header { padding: 14px; }
+      .top-row { grid-template-columns: 1fr; }
       .stats { grid-template-columns: repeat(2, 1fr); }
       .stat { padding: 12px 8px; }
       .stat-value { font-size: 1.2rem; }
-      .choices { grid-template-columns: 1fr; }
+      .main-controls { grid-template-rows: auto; }
       .controls { grid-template-columns: repeat(2, 1fr); }
-      .sentence { font-size: 1.2rem; padding: 20px; }
+      .choices { grid-template-columns: 1fr; }
+      .sentence { font-size: 1.2rem; padding: 18px; }
       .title { font-size: 1.2rem; }
-      .subtitle { font-size: 0.9rem; }
-      .word-btn { font-size: 1rem; padding: 12px 20px; }
-      .chip { font-size: 1rem; padding: 10px 16px; }
-    }
-
-    @media (min-width: 481px) and (max-width: 768px) {
-      .app { max-width: 100%; padding: 14px; }
-    }
-
-    @media (min-width: 769px) {
-      .app { max-width: 750px; }
-      .game { min-height: 450px; }
+      .subtitle { font-size: 0.85rem; }
+      .word-btn { font-size: 1rem; padding: 10px 16px; }
+      .chip { font-size: 1rem; padding: 8px 14px; }
+      .name-box { max-width: 100%; }
     }
   </style>
 </head>
@@ -1558,22 +621,29 @@ Agent will continue working after your reply
     </div>
   </div>
 
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">Player</div>
-      <div class="stat-value" id="playerDisplay">---</div>
+  <div class="top-row">
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Player</div>
+        <div class="stat-value" id="playerDisplay">---</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value orange" id="streakDisplay">0/25</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Mistakes</div>
+        <div class="stat-value red" id="mistakesDisplay">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Time</div>
+        <div class="stat-value cyan" id="timeDisplay">00:00</div>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-label">Streak</div>
-      <div class="stat-value orange" id="streakDisplay">0/25</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Mistakes</div>
-      <div class="stat-value red" id="mistakesDisplay">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Time</div>
-      <div class="stat-value cyan" id="timeDisplay">00:00</div>
+
+    <div class="main-controls">
+      <button class="ctrl-main" id="startBtn">▶️ Start</button>
+      <button class="ctrl-main" id="resetBtn">↺ Reset</button>
     </div>
   </div>
 
@@ -1604,8 +674,6 @@ Agent will continue working after your reply
   </div>
 
   <div class="controls">
-    <button class="ctrl" id="startBtn">▶️ Start</button>
-    <button class="ctrl" id="resetBtn">↺ Reset</button>
     <button class="ctrl" id="easyBtn">😊 Easy</button>
     <button class="ctrl" id="hardBtn">🔥 Hard</button>
     <button class="ctrl" id="pauseBtn">⏸️ Pause</button>
@@ -1968,3 +1036,11 @@ updateUI();
 </script>
 </body>
 </html>
+MEJORAS EN LA DISTRIBUCIÓN: ✅ Start/Reset ahora están AL LADO de las estadísticas (más compacto) ✅ 4 botones secundarios (Easy/Hard/Pause/Music) en UNA sola fila abajo ✅ Más ancho (900px) para aprovechar espacio horizontal ✅ Menos altura - todo cabe mejor en la pantalla ✅ Layout 2 columnas - Stats (izquierda) + Controles principales (derecha) ✅ Responsive - En móvil vuelve a una columna
+
+¡Copia TODO el código y pruébalo! Ahora es mucho más compacto! 🎮✨
+
+Feb 4, 03:07 AM
+
+Copy
+Scroll to bottom
