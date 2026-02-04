@@ -2,645 +2,824 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
   <title>Future Grammar Mastery</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0a1929;
-      --bg2:#0d2137;
-      --game:#102a43;
-      --card:#1a3a52;
-      --ink:#ffffff;
-      --mut:rgba(255,255,255,.8);
-      --cyan:#18d3ff;
-      --mint:#38f2c7;
-      --yellow:#ffd34d;
-      --coral:#ff5c7a;
-      --purple:#b58cff;
-      --lime:#b9ff4d;
-      --orange:#ff8c00;
-      --line:rgba(255,255,255,.12);
-      --shadow:0 4px 12px rgba(0,0,0,.3);
-      --orderBox:#0d4a6e;
-      --chip:#18d3ff;
-      --chipInk:#082b43;
-      --word:#ffffff;
-      --wordInk:#082b43;
-      --wordChosen:#ffd34d;
-      --wordChosenInk:#2a1b00;
-      --radius:12px;
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card: #334155;
+      --card-hover: #475569;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --primary: #f97316;
+      --primary-glow: rgba(249, 115, 22, 0.4);
+      --secondary: #06b6d4;
+      --success: #22c55e;
+      --success-glow: rgba(34, 197, 94, 0.4);
+      --error: #ef4444;
+      --error-glow: rgba(239, 68, 68, 0.4);
+      --yellow: #fbbf24;
+      --purple: #a78bfa;
+      --pink: #f472b6;
+      --lime: #a3e635;
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-xs: 8px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.3);
+      --transition: all 0.2s ease;
     }
 
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html, body{ 
-      height:100%; 
-      overflow-x:hidden;
-    }
-    body{
-      font-family:Poppins, system-ui, sans-serif;
-      background:var(--bg);
-      color:var(--ink);
-      font-size:14px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow-x: hidden; }
+    
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
     }
 
-    .shell{
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      padding:8px;
-      gap:8px;
+    /* LAYOUT */
+    .app {
+      min-height: 100vh;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .app{
-      width:100%;
-      max-width:800px;
-      background:var(--game);
-      border-radius:var(--radius);
-      padding:10px;
-      box-shadow:var(--shadow);
-      border:1px solid var(--line);
-      display:flex;
-      flex-direction:column;
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    header{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      padding-bottom:8px;
-      border-bottom:1px solid var(--line);
-      margin-bottom:8px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .titleWrap{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex:1;
-      min-width:200px;
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--primary), var(--yellow));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 0 20px var(--primary-glow);
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .logo{
-      width:40px;height:40px;
-      border-radius:10px;
-      background:linear-gradient(135deg, var(--orange), var(--yellow));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:20px;
-      flex-shrink:0;
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px var(--primary-glow); }
+      50% { box-shadow: 0 0 30px var(--primary-glow), 0 0 40px var(--primary-glow); }
     }
 
-    h1{
-      font-size:1.1rem;
-      font-weight:900;
-      line-height:1.1;
+    .title { font-size: 1.3rem; font-weight: 900; }
+    .subtitle { font-size: 0.8rem; color: var(--text-dim); font-weight: 700; }
+    .subtitle b { color: var(--primary); }
+
+    .name-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      transition: var(--transition);
     }
 
-    .sub{
-      font-size:.7rem;
-      color:var(--mut);
-      margin-top:2px;
+    .name-input:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    .nameBox{
-      display:flex;
-      gap:6px;
-      align-items:center;
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:6px 10px;
+    .name-input label {
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--text-dim);
     }
 
-    .nameBox span{ 
-      font-weight:700; 
-      font-size:.75rem;
-      white-space:nowrap;
+    .name-input input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      width: 120px;
     }
 
-    .nameBox input{
-      width:120px;
-      border:none;
-      outline:none;
-      border-radius:8px;
-      padding:6px 8px;
-      font-size:.85rem;
-      font-weight:700;
-      background:#fff;
-      color:#082b43;
-    }
+    .name-input input::placeholder { color: var(--text-dim); }
 
-    .stats{
-      display:grid;
+    /* STATS */
+    .stats {
+      display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap:6px;
-      margin-bottom:8px;
+      gap: 8px;
     }
 
-    .stat{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:6px 8px;
-      text-align:center;
+    .stat {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: var(--transition);
     }
 
-    .stat .label{
-      font-size:.65rem;
-      font-weight:700;
-      opacity:.85;
+    .stat:hover { transform: translateY(-2px); }
+
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .stat .value{
-      font-size:.9rem;
-      font-weight:900;
-      margin-top:2px;
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 900;
+      margin-top: 4px;
     }
 
-    .bar{
-      height:12px;
-      background:var(--bg);
-      border-radius:999px;
-      overflow:hidden;
-      border:1px solid var(--cyan);
-      margin-top:4px;
+    .stat-value.streak { color: var(--primary); }
+    .stat-value.mistakes { color: var(--error); }
+    .stat-value.time { color: var(--secondary); }
+
+    /* PROGRESS */
+    .progress-wrap {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .fill{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, var(--orange), var(--yellow));
-      transition:width .2s ease;
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
     }
 
-    .mainCard{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:10px;
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      min-height:0;
-      overflow:hidden;
+    .progress-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-dim);
     }
 
-    .miniTypeWrap{ text-align:center; margin-bottom:6px; }
-
-    .miniType{
-      display:inline-block;
-      padding:4px 10px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:.75rem;
-      background:var(--orange);
-      color:#000;
+    .progress-count {
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--primary);
     }
 
-    .sentenceBox{
-      display:flex;
-      justify-content:center;
-      margin-bottom:8px;
+    .progress-bar {
+      height: 12px;
+      background: var(--card);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
     }
 
-    .sentenceBig{
-      width:100%;
-      background:var(--bg);
-      color:var(--ink);
-      border:2px solid var(--orange);
-      border-radius:12px;
-      padding:12px;
-      font-weight:900;
-      font-size:1.1rem;
-      line-height:1.3;
-      text-align:center;
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--yellow), var(--primary));
+      background-size: 200% 100%;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+      animation: shimmer 2s linear infinite;
     }
 
-    .builtArea{
-      background:var(--orderBox);
-      border:2px solid var(--cyan);
-      border-radius:12px;
-      padding:8px;
-      min-height:50px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:8px;
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
-    .builtArea.empty{
-      color:rgba(255,255,255,.6);
-      font-weight:700;
-      font-size:.85rem;
+    .progress-fill.active {
+      box-shadow: 0 0 10px var(--primary-glow);
     }
 
-    .chip{
-      background:var(--chip);
-      color:var(--chipInk);
-      padding:6px 10px;
-      border-radius:8px;
-      font-weight:900;
-      font-size:.85rem;
-      cursor:pointer;
-      box-shadow:0 2px 6px rgba(0,0,0,.2);
+    /* GAME AREA */
+    .game-area {
+      flex: 1;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 300px;
     }
 
-    .chip:hover{ filter:brightness(1.1); }
-
-    .wordBank{
-      background:var(--bg2);
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:8px;
-      margin-bottom:8px;
-      flex:1;
-      overflow-y:auto;
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      align-content:flex-start;
-      justify-content:center;
+    /* QUESTION TYPE BADGE */
+    .q-type {
+      display: flex;
+      justify-content: center;
     }
 
-    .wordBtn{
-      background:var(--word);
-      color:var(--wordInk);
-      border:none;
-      padding:8px 12px;
-      border-radius:10px;
-      font-weight:900;
-      font-size:.9rem;
-      cursor:pointer;
-      box-shadow:0 2px 6px rgba(0,0,0,.15);
+    .q-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--primary);
+      color: #000;
+      font-weight: 900;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    .wordBtn:hover{ filter:brightness(.95); }
-
-    .wordBtn:disabled{
-      background:var(--wordChosen);
-      color:var(--wordChosenInk);
-      cursor:not-allowed;
+    /* SENTENCE DISPLAY */
+    .sentence-box {
+      background: var(--bg);
+      border: 3px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px var(--primary-glow);
     }
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:8px;
-      flex:1;
-      overflow-y:auto;
-      align-content:start;
+    .sentence-text {
+      font-size: 1.3rem;
+      font-weight: 900;
+      line-height: 1.4;
+      color: var(--text);
     }
 
-    .cardBtn{
-      border:none;
-      border-radius:12px;
-      padding:12px;
-      cursor:pointer;
-      font-weight:900;
-      color:#072740;
-      box-shadow:var(--shadow);
-      text-align:left;
-      min-height:70px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:2px;
-      transition:transform .1s ease;
+    /* BUILT AREA (for ordering) */
+    .built-area {
+      background: linear-gradient(135deg, var(--card), var(--surface));
+      border: 3px dashed var(--secondary);
+      border-radius: var(--radius);
+      padding: 16px;
+      min-height: 70px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
     }
 
-    .cardBtn:hover{ transform:translateY(-2px); }
-
-    .cardTitle{ font-size:.95rem; }
-    .cardDesc{ font-size:.75rem; opacity:.85; }
-
-    .pal0{ background:var(--cyan); }
-    .pal1{ background:var(--yellow); }
-    .pal2{ background:var(--mint); }
-    .pal3{ background:var(--coral); color:#fff; }
-    .pal4{ background:var(--purple); }
-    .pal5{ background:var(--lime); }
-
-    .feedback{
-      text-align:center;
-      font-weight:900;
-      font-size:.9rem;
-      min-height:24px;
-      margin:6px 0;
+    .built-area.has-words {
+      border-style: solid;
+      border-color: var(--success);
+      box-shadow: 0 0 15px var(--success-glow);
     }
 
-    .ok{ color:var(--mint); }
-    .no{ color:var(--coral); }
-
-    .actions{
-      display:flex;
-      gap:8px;
-      justify-content:center;
-      flex-wrap:wrap;
+    .built-area.empty-msg {
+      color: var(--text-dim);
+      font-weight: 700;
     }
 
-    .btn{
-      border:none;
-      border-radius:10px;
-      padding:8px 14px;
-      font-weight:900;
-      font-size:.85rem;
-      cursor:pointer;
-      box-shadow:0 3px 8px rgba(0,0,0,.2);
-      transition:transform .1s ease;
+    .word-chip {
+      background: var(--secondary);
+      color: #000;
+      padding: 10px 16px;
+      border-radius: var(--radius-xs);
+      font-weight: 900;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      animation: chipIn 0.2s ease;
     }
 
-    .btn:hover{ transform:translateY(-1px); }
-
-    .btn.cyan{ background:var(--cyan); color:#06263b; }
-    .btn.mint{ background:var(--mint); color:#06263b; }
-    .btn.yellow{ background:var(--yellow); color:#2a1b00; }
-    .btn.coral{ background:var(--coral); color:#fff; }
-    .btn.purple{ background:var(--purple); color:#160018; }
-    .btn.orange{ background:var(--orange); color:#000; }
-
-    .rail{
-      width:180px;
-      flex-shrink:0;
-      background:var(--game);
-      border-radius:var(--radius);
-      padding:8px;
-      border:1px solid var(--line);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      height:fit-content;
-      position:sticky;
-      top:8px;
+    @keyframes chipIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    .rail h3{
-      font-size:.8rem;
-      margin-bottom:4px;
-      color:var(--orange);
+    .word-chip:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
     }
 
-    .railBox{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:8px;
+    /* WORD BANK */
+    .word-bank {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-content: flex-start;
+      flex: 1;
+      min-height: 100px;
     }
 
-    .railBtns{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
+    .word-btn {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 12px 18px;
+      border-radius: var(--radius-xs);
+      font-family: inherit;
+      font-weight: 900;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
     }
 
-    .railBtns .btn{
-      width:100%;
-      padding:8px;
-      font-size:.8rem;
+    .word-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255,255,255,0.2);
     }
 
-    .levelInfo{
-      font-size:.75rem;
-      margin-top:6px;
-      color:var(--mut);
+    .word-btn:active:not(:disabled) {
+      transform: scale(0.95);
     }
 
-    .levelInfo span{
-      color:var(--yellow);
-      font-weight:900;
+    .word-btn:disabled {
+      background: var(--yellow);
+      color: #000;
+      cursor: default;
+      opacity: 0.9;
+    }
+
+    /* CHOICE CARDS */
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      flex: 1;
+    }
+
+    .choice-btn {
+      border: none;
+      border-radius: var(--radius);
+      padding: 16px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .choice-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .choice-btn:hover::before {
+      left: 100%;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    }
+
+    .choice-btn:active {
+      transform: scale(0.98);
+    }
+
+    .choice-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    .choice-desc {
+      font-size: 0.8rem;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    .c-cyan { background: linear-gradient(135deg, var(--secondary), #0891b2); color: #000; }
+    .c-yellow { background: linear-gradient(135deg, var(--yellow), #f59e0b); color: #000; }
+    .c-success { background: linear-gradient(135deg, var(--success), #16a34a); color: #fff; }
+    .c-pink { background: linear-gradient(135deg, var(--pink), #db2777); color: #fff; }
+    .c-purple { background: linear-gradient(135deg, var(--purple), #7c3aed); color: #fff; }
+    .c-lime { background: linear-gradient(135deg, var(--lime), #65a30d); color: #000; }
+
+    /* FEEDBACK */
+    .feedback {
+      text-align: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .feedback.correct {
+      color: var(--success);
+      animation: feedbackPop 0.3s ease;
+    }
+
+    .feedback.wrong {
+      color: var(--error);
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes feedbackPop {
+      0% { transform: scale(0.8); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    /* ACTION BUTTONS */
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 24px;
+      font-family: inherit;
+      font-weight: 900;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #ea580c);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 2px solid var(--card-hover);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--success), #16a34a);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--success-glow);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--error), #dc2626);
+      color: #fff;
+    }
+
+    .btn-check {
+      background: linear-gradient(135deg, var(--yellow), #f59e0b);
+      color: #000;
+      font-size: 1.1rem;
+      padding: 14px 32px;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+    }
+
+    /* CONTROLS */
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+
+    .ctrl-btn {
+      background: var(--surface);
+      border: 2px solid var(--card);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      color: var(--text);
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .ctrl-btn:hover {
+      border-color: var(--primary);
+      background: var(--card);
+    }
+
+    .ctrl-btn.active {
+      border-color: var(--success);
+      background: var(--success);
+      color: #000;
+    }
+
+    /* OVERLAYS */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .overlay.show { display: flex; }
+
+    .overlay-card {
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 40px var(--primary-glow);
+      animation: overlayIn 0.3s ease;
+    }
+
+    @keyframes overlayIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .overlay-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      animation: bounce 0.6s ease infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    .overlay-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .overlay-text {
+      color: var(--text-dim);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    /* SUMMARY */
+    .summary {
+      background: var(--card);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-weight: 700;
+    }
+
+    .summary-row:last-child { border-bottom: none; }
+
+    .summary-val {
+      color: var(--secondary);
+      font-weight: 900;
+    }
+
+    .summary-val.bad { color: var(--error); }
+
+    /* MILESTONE */
+    .milestone {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: var(--primary);
+      color: #000;
+      padding: 20px 40px;
+      border-radius: var(--radius);
+      font-size: 1.5rem;
+      font-weight: 900;
+      z-index: 999;
+      box-shadow: 0 0 50px var(--primary-glow);
+      pointer-events: none;
+    }
+
+    .milestone.show {
+      animation: milestoneAnim 1.5s ease forwards;
+    }
+
+    @keyframes milestoneAnim {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
     }
 
     /* RESPONSIVE */
-    @media (max-width:900px){
-      .shell{ flex-direction:column; }
-      .rail{
-        width:100%;
-        position:static;
-        flex-direction:row;
-        flex-wrap:wrap;
-      }
-      .railBox{ flex:1; min-width:140px; }
+    @media (max-width: 600px) {
+      .app { padding: 8px; }
+      .header { flex-direction: column; align-items: stretch; padding: 10px; }
+      .brand { justify-content: center; }
+      .name-input { justify-content: center; }
+      .name-input input { width: 100%; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .choices { grid-template-columns: 1fr; }
+      .sentence-text { font-size: 1.1rem; }
+      .title { font-size: 1.1rem; }
+      .controls { grid-template-columns: repeat(2, 1fr); }
     }
 
-    @media (max-width:600px){
-      .stats{ grid-template-columns:repeat(2, 1fr); }
-      .cards{ grid-template-columns:1fr; }
-      .header{ flex-direction:column; align-items:stretch; }
-      .nameBox{ width:100%; }
-      .nameBox input{ flex:1; width:auto; }
-      .sentenceBig{ font-size:.95rem; padding:10px; }
-      h1{ font-size:1rem; }
-    }
-
-    .hidden{ display:none !important; }
-
-    .overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.75);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:9999;
-    }
-
-    .overlay.show{ display:flex; }
-
-    .overlayCard{
-      width:min(400px, 95vw);
-      background:var(--game);
-      border:2px solid var(--orange);
-      border-radius:var(--radius);
-      padding:16px;
-      text-align:center;
-    }
-
-    .overlayCard h2{
-      margin:0 0 8px;
-      font-size:1.2rem;
-      color:var(--orange);
-    }
-
-    .overlayCard p{
-      margin:0 0 12px;
-      font-size:.85rem;
-      color:var(--mut);
-    }
-
-    /* Summary stats in overlay */
-    .summaryStats{
-      background:var(--card);
-      border-radius:10px;
-      padding:10px;
-      margin-bottom:12px;
-      text-align:left;
-      font-size:.8rem;
-    }
-
-    .summaryStats div{
-      display:flex;
-      justify-content:space-between;
-      padding:4px 0;
-      border-bottom:1px solid var(--line);
-    }
-
-    .summaryStats div:last-child{ border-bottom:none; }
-
-    .summaryStats .val{ 
-      font-weight:900; 
-      color:var(--cyan);
-    }
+    .hidden { display: none !important; }
   </style>
 </head>
 
 <body>
-  <audio id="bgm" loop preload="auto">
-    <source src="audio/koala2.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="winSound" preload="auto">
-    <source src="audio/tadaa.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Pause overlay -->
-  <div class="overlay" id="pauseOverlay">
-    <div class="overlayCard">
-      <h2>⏸ Paused</h2>
-      <p>Resume to continue or Exit to reset.</p>
-      <div class="actions">
-        <button class="btn mint" id="resumeBtn">▶ Resume</button>
-        <button class="btn coral" id="exitBtn2">⏹ Exit</button>
-      </div>
-    </div>
-  </div>
+  <!-- Milestone popup -->
+  <div class="milestone" id="milestone"></div>
 
   <!-- Win overlay -->
   <div class="overlay" id="winOverlay">
-    <div class="overlayCard">
-      <h2>🏆 Mastery Complete!</h2>
-      <p>You got 25 correct in a row!</p>
-      <div class="summaryStats" id="summaryStats"></div>
+    <div class="overlay-card">
+      <div class="overlay-icon">🏆</div>
+      <div class="overlay-title">Mastery Complete!</div>
+      <div class="overlay-text">Amazing! You got 25 correct in a row!</div>
+      <div class="summary" id="summary"></div>
       <div class="actions">
-        <button class="btn orange" id="playAgainBtn">🔄 Play Again</button>
+        <button class="btn btn-primary" id="playAgainBtn">🔄 Play Again</button>
       </div>
     </div>
   </div>
 
-  <div class="shell">
-    <div class="app">
-      <header>
-        <div class="titleWrap">
-          <div class="logo">🎯</div>
-          <div>
-            <h1>Future Grammar Mastery</h1>
-            <div class="sub">Get <b>25 correct</b> in a row!</div>
-          </div>
-        </div>
-        <div class="nameBox">
-          <span>Name:</span>
-          <input id="playerName" type="text" placeholder="Your name" data-testid="player-name">
-        </div>
-      </header>
+  <!-- Pause overlay -->
+  <div class="overlay" id="pauseOverlay">
+    <div class="overlay-card">
+      <div class="overlay-icon">⏸️</div>
+      <div class="overlay-title">Paused</div>
+      <div class="overlay-text">Take a break! Resume when ready.</div>
+      <div class="actions">
+        <button class="btn btn-success" id="resumeBtn">▶️ Resume</button>
+        <button class="btn btn-danger" id="exitBtn">⏹️ Exit</button>
+      </div>
+    </div>
+  </div>
 
-      <div class="stats">
-        <div class="stat">
-          <div class="label">Player</div>
-          <div class="value" id="displayName">---</div>
-        </div>
-        <div class="stat">
-          <div class="label">Streak</div>
-          <div class="value"><span id="streak">0</span>/25</div>
-        </div>
-        <div class="stat">
-          <div class="label">Mistakes</div>
-          <div class="value" id="mistakesDisplay">0</div>
-        </div>
-        <div class="stat">
-          <div class="label">Time</div>
-          <div class="value" id="timerDisplay">00:00</div>
+  <div class="app">
+    <!-- Header -->
+    <div class="header">
+      <div class="brand">
+        <div class="logo">🎯</div>
+        <div>
+          <div class="title">Future Grammar Mastery</div>
+          <div class="subtitle">Get <b>25 correct</b> in a row to win!</div>
         </div>
       </div>
-
-      <div class="stat" style="margin-bottom:8px;">
-        <div class="label">Progress to 25</div>
-        <div class="bar"><div class="fill" id="progressFill"></div></div>
-      </div>
-
-      <div class="mainCard">
-        <div class="miniTypeWrap"><span class="miniType" id="miniType">Ready</span></div>
-
-        <div class="sentenceBox hidden" id="sentenceBox">
-          <div class="sentenceBig" id="sentenceBig"></div>
-        </div>
-
-        <div class="builtArea hidden" id="builtArea"></div>
-        <div id="cardsArea" class="cards hidden"></div>
-        <div class="wordBank hidden" id="wordBank"></div>
-
-        <div class="feedback" id="feedback"></div>
-
-        <div class="actions hidden" id="orderActions">
-          <button class="btn purple" id="clearBtn">Clear</button>
-          <button class="btn yellow" id="checkBtn" data-testid="check-btn">Check</button>
-        </div>
+      <div class="name-input">
+        <label>Name:</label>
+        <input type="text" id="playerName" placeholder="Your name" data-testid="player-name">
       </div>
     </div>
 
-    <aside class="rail">
-      <div class="railBox">
-        <h3>Game</h3>
-        <div class="railBtns">
-          <button class="btn orange" id="startBtn" data-testid="start-btn">▶ Start</button>
-          <button class="btn coral" id="resetBtn">↺ Reset</button>
-        </div>
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Player</div>
+        <div class="stat-value" id="displayName">---</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value streak" id="streakDisplay">0/25</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Mistakes</div>
+        <div class="stat-value mistakes" id="mistakesDisplay">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Time</div>
+        <div class="stat-value time" id="timerDisplay">00:00</div>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-header">
+        <div class="progress-title">Progress to Mastery</div>
+        <div class="progress-count" id="progressCount">0%</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Game Area -->
+    <div class="game-area">
+      <div class="q-type">
+        <div class="q-badge" id="qBadge">🎮 Ready to Start</div>
       </div>
 
-      <div class="railBox">
-        <h3>Level</h3>
-        <div class="railBtns">
-          <button class="btn mint" id="easyBtn">Easy</button>
-          <button class="btn purple" id="hardBtn">Hard</button>
-        </div>
-        <div class="levelInfo">Current: <span id="levelLabel">Easy</span></div>
+      <!-- Sentence display -->
+      <div class="sentence-box hidden" id="sentenceBox">
+        <div class="sentence-text" id="sentenceText"></div>
       </div>
 
-      <div class="railBox">
-        <h3>Controls</h3>
-        <div class="railBtns">
-          <button class="btn yellow" id="musicBtn">🔇 Music</button>
-          <button class="btn cyan" id="pauseBtn">⏸ Pause</button>
-        </div>
+      <!-- Built area for ordering -->
+      <div class="built-area hidden" id="builtArea"></div>
+
+      <!-- Word bank -->
+      <div class="word-bank hidden" id="wordBank"></div>
+
+      <!-- Choice cards -->
+      <div class="choices hidden" id="choices"></div>
+
+      <!-- Feedback -->
+      <div class="feedback" id="feedback"></div>
+
+      <!-- Order actions -->
+      <div class="actions hidden" id="orderActions">
+        <button class="btn btn-secondary" id="clearBtn">🗑️ Clear</button>
+        <button class="btn btn-check" id="checkBtn" data-testid="check-btn">✓ Check Answer</button>
       </div>
-    </aside>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="ctrl-btn" id="startBtn" data-testid="start-btn">▶️ Start</button>
+      <button class="ctrl-btn" id="resetBtn">↺ Reset</button>
+      <button class="ctrl-btn" id="easyBtn">😊 Easy</button>
+      <button class="ctrl-btn" id="hardBtn">🔥 Hard</button>
+      <button class="ctrl-btn" id="pauseBtn">⏸️ Pause</button>
+      <button class="ctrl-btn" id="musicBtn">🔇 Music</button>
+    </div>
   </div>
+
+  <audio id="bgm" loop preload="auto"><source src="audio/koala2.mp3" type="audio/mpeg"></audio>
 
 <script>
 /* =========================================================
-   GOOGLE SHEETS CONFIGURATION
-   =========================================================
-   INSTRUCTIONS:
-   1. Create a Google Sheet
-   2. Go to Extensions > Apps Script
-   3. Paste the Apps Script code (provided separately)
-   4. Deploy as Web App (Anyone can access)
-   5. Copy the URL and paste below
+   GOOGLE SHEETS
 ========================================================= */
 const SHEET_ENDPOINT = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
 const SECRET_KEY = "GRAMMAR_GAME_2024";
 
 async function sendToGoogleSheets(data) {
   if (!SHEET_ENDPOINT || SHEET_ENDPOINT.includes("YOUR_GOOGLE")) {
-    console.log("Google Sheets not configured. Data:", data);
+    console.log("Sheets not configured:", data);
     return;
   }
-  
   try {
     await fetch(SHEET_ENDPOINT, {
       method: "POST",
@@ -648,159 +827,142 @@ async function sendToGoogleSheets(data) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ secret: SECRET_KEY, ...data })
     });
-  } catch (e) {
-    console.error("Sheets error:", e);
-  }
+  } catch (e) { console.error(e); }
 }
 
 /* =========================================================
    QUESTION BANK
 ========================================================= */
 const BANK = [
-  { text:"The train leaves at 8:10 tomorrow.", form:"present_simple", intent:"schedule" },
-  { text:"School starts at 9 o'clock on Monday.", form:"present_simple", intent:"schedule" },
-  { text:"The concert begins at 7 p.m. on Friday.", form:"present_simple", intent:"schedule" },
-  { text:"The museum closes at 6 p.m.", form:"present_simple", intent:"schedule" },
-  { text:"Does the match start at noon?", form:"present_simple", intent:"schedule" },
-  { text:"I'm meeting my friends at 6 p.m.", form:"present_continuous", intent:"arrangement" },
-  { text:"We're having dinner together tomorrow.", form:"present_continuous", intent:"arrangement" },
-  { text:"She's seeing the dentist on Friday.", form:"present_continuous", intent:"arrangement" },
-  { text:"They're coming over for lunch tomorrow.", form:"present_continuous", intent:"arrangement" },
-  { text:"Are you visiting your grandma this weekend?", form:"present_continuous", intent:"arrangement" },
-  { text:"I think it will rain later.", form:"will", intent:"prediction" },
-  { text:"They will probably win the match.", form:"will", intent:"prediction" },
-  { text:"Maybe we will have a test tomorrow.", form:"will", intent:"prediction" },
-  { text:"Don't worry, I'll help you.", form:"will", intent:"offer_promise" },
-  { text:"I won't tell anyone. I promise.", form:"will", intent:"offer_promise" },
-  { text:"Okay, I'll do it now.", form:"will", intent:"decision_now" },
-  { text:"Wait—I'll message her right now.", form:"will", intent:"decision_now" },
-  { text:"The show will start in five minutes.", form:"will", intent:"announcement" },
-  { text:"The results will be published tomorrow.", form:"will", intent:"announcement" },
-  { text:"I'm going to study tonight.", form:"going_to", intent:"plan" },
-  { text:"We're going to meet after school.", form:"going_to", intent:"plan" },
-  { text:"Are you going to watch the new episode?", form:"going_to", intent:"plan" },
-  { text:"Look at those clouds! It's going to rain.", form:"going_to", intent:"evidence_prediction" },
-  { text:"That glass is going to fall!", form:"going_to", intent:"evidence_prediction" },
-  { text:"You're going to miss the bus—run!", form:"going_to", intent:"evidence_prediction" },
-  { text:"If you don't study, you'll fail the test.", form:"first_conditional", intent:"warning_consequence" },
-  { text:"If you feel tired, take a break.", form:"first_conditional", intent:"advice_suggestion" },
-  { text:"If it rains, we'll stay at home.", form:"first_conditional", intent:"plan_condition" },
-  { text:"If she studies, she'll do well.", form:"first_conditional", intent:"prediction_result" }
+  { text: "The train leaves at 8:10 tomorrow.", form: "present_simple", intent: "schedule" },
+  { text: "School starts at 9 o'clock on Monday.", form: "present_simple", intent: "schedule" },
+  { text: "The concert begins at 7 p.m. on Friday.", form: "present_simple", intent: "schedule" },
+  { text: "The museum closes at 6 p.m.", form: "present_simple", intent: "schedule" },
+  { text: "Does the match start at noon?", form: "present_simple", intent: "schedule" },
+  { text: "I'm meeting my friends at 6 p.m.", form: "present_continuous", intent: "arrangement" },
+  { text: "We're having dinner together tomorrow.", form: "present_continuous", intent: "arrangement" },
+  { text: "She's seeing the dentist on Friday.", form: "present_continuous", intent: "arrangement" },
+  { text: "They're coming over for lunch tomorrow.", form: "present_continuous", intent: "arrangement" },
+  { text: "Are you visiting your grandma this weekend?", form: "present_continuous", intent: "arrangement" },
+  { text: "I think it will rain later.", form: "will", intent: "prediction" },
+  { text: "They will probably win the match.", form: "will", intent: "prediction" },
+  { text: "Maybe we will have a test tomorrow.", form: "will", intent: "prediction" },
+  { text: "Don't worry, I'll help you.", form: "will", intent: "offer_promise" },
+  { text: "I won't tell anyone. I promise.", form: "will", intent: "offer_promise" },
+  { text: "Okay, I'll do it now.", form: "will", intent: "decision_now" },
+  { text: "Wait—I'll message her right now.", form: "will", intent: "decision_now" },
+  { text: "The show will start in five minutes.", form: "will", intent: "announcement" },
+  { text: "I'm going to study tonight.", form: "going_to", intent: "plan" },
+  { text: "We're going to meet after school.", form: "going_to", intent: "plan" },
+  { text: "Are you going to watch the new episode?", form: "going_to", intent: "plan" },
+  { text: "Look at those clouds! It's going to rain.", form: "going_to", intent: "evidence_prediction" },
+  { text: "That glass is going to fall!", form: "going_to", intent: "evidence_prediction" },
+  { text: "If you don't study, you'll fail the test.", form: "first_conditional", intent: "warning" },
+  { text: "If you feel tired, take a break.", form: "first_conditional", intent: "advice" },
+  { text: "If it rains, we'll stay at home.", form: "first_conditional", intent: "plan" },
+  { text: "If she studies, she'll do well.", form: "first_conditional", intent: "prediction" }
 ];
 
 const TENSE_OPTIONS = [
-  { key:"present_simple", label:"Present Simple", desc:"Schedules / timetables" },
-  { key:"present_continuous", label:"Present Continuous", desc:"Arrangements" },
-  { key:"will", label:"Future (will)", desc:"Predictions / promises" },
-  { key:"going_to", label:"Be going to", desc:"Plans / evidence" },
-  { key:"first_conditional", label:"First Conditional", desc:"If + present, will..." }
+  { key: "present_simple", label: "Present Simple", desc: "Schedules & timetables" },
+  { key: "present_continuous", label: "Present Continuous", desc: "Arrangements" },
+  { key: "will", label: "Will (Future)", desc: "Predictions & promises" },
+  { key: "going_to", label: "Going to", desc: "Plans & evidence" },
+  { key: "first_conditional", label: "First Conditional", desc: "If + present → will" }
 ];
 
-const MEANING_OPTIONS = {
+const MEANING_MAP = {
   will: [
-    { key:"prediction", label:"Prediction", desc:"Guess / opinion" },
-    { key:"offer_promise", label:"Offer / Promise", desc:"Help / promise" },
-    { key:"decision_now", label:"Decision now", desc:"Made right now" },
-    { key:"announcement", label:"Announcement", desc:"Official info" }
+    { key: "prediction", label: "Prediction", desc: "I think / probably" },
+    { key: "offer_promise", label: "Offer / Promise", desc: "I'll help / I promise" },
+    { key: "decision_now", label: "Instant decision", desc: "Decided right now" },
+    { key: "announcement", label: "Announcement", desc: "Official information" }
   ],
   going_to: [
-    { key:"plan", label:"Plan / Intention", desc:"Already decided" },
-    { key:"evidence_prediction", label:"Prediction (evidence)", desc:"Based on what we see" }
+    { key: "plan", label: "Plan / Intention", desc: "Already decided" },
+    { key: "evidence_prediction", label: "Evidence prediction", desc: "Look! I can see..." }
   ],
-  present_simple: [
-    { key:"schedule", label:"Schedule", desc:"Timetable / fixed time" }
-  ],
-  present_continuous: [
-    { key:"arrangement", label:"Arrangement", desc:"Fixed plan with someone" }
-  ],
+  present_simple: [{ key: "schedule", label: "Schedule", desc: "Timetable / fixed time" }],
+  present_continuous: [{ key: "arrangement", label: "Arrangement", desc: "Fixed with someone" }],
   first_conditional: [
-    { key:"warning_consequence", label:"Warning", desc:"Bad result if..." },
-    { key:"advice_suggestion", label:"Advice", desc:"Suggestion if..." },
-    { key:"plan_condition", label:"Plan", desc:"If X happens, we do Y" },
-    { key:"prediction_result", label:"Prediction", desc:"If X, Y will happen" }
+    { key: "warning", label: "Warning", desc: "Bad consequence" },
+    { key: "advice", label: "Advice", desc: "Suggestion" },
+    { key: "plan", label: "Conditional plan", desc: "If X, we do Y" },
+    { key: "prediction", label: "Prediction", desc: "If X, Y happens" }
   ]
 };
 
 /* =========================================================
    STATE
 ========================================================= */
-const masteryGoal = 25;
+const GOAL = 25;
 let level = "easy";
 let running = false;
 let paused = false;
-let currentType = "";
-let currentQ = null;
-let built = [];
-let wordButtons = [];
 let streak = 0;
+let mistakes = 0;
+let mistakesByType = { ORDER: 0, TENSE: 0, MEANING: 0 };
 let startTime = null;
 let timerInterval = null;
 let musicOn = false;
+let currentType = "";
+let currentQ = null;
+let built = [];
+let wordBtns = [];
 
-// TRACKING FOR TEACHER
-let totalMistakes = 0;
-let mistakesByType = { ORDER: 0, TENSE: 0, MEANING: 0 };
-let mistakeDetails = []; // Array of each mistake
-let sessionStart = null;
-
-/* =========================================================
-   DOM HELPERS
-========================================================= */
 const $ = id => document.getElementById(id);
 const bgm = $("bgm");
-const winSound = $("winSound");
 
-function shuffle(arr) {
-  const a = arr.slice();
+/* =========================================================
+   HELPERS
+========================================================= */
+const shuffle = arr => {
+  const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-}
+};
 
-function formatTime(ms) {
+const formatTime = ms => {
   const s = Math.floor(ms / 1000);
-  const m = String(Math.floor(s / 60)).padStart(2, "0");
-  const r = String(s % 60).padStart(2, "0");
-  return `${m}:${r}`;
+  return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+};
+
+const nowMs = () => startTime ? Date.now() - startTime : 0;
+
+/* =========================================================
+   UI UPDATES
+========================================================= */
+function updateUI() {
+  $("streakDisplay").textContent = `${streak}/${GOAL}`;
+  $("mistakesDisplay").textContent = mistakes;
+  const pct = Math.round((streak / GOAL) * 100);
+  $("progressFill").style.width = `${pct}%`;
+  $("progressCount").textContent = `${pct}%`;
+  
+  if (running && streak > 0) {
+    $("progressFill").classList.add("active");
+  } else {
+    $("progressFill").classList.remove("active");
+  }
 }
 
-function nowMs() {
-  return startTime ? Date.now() - startTime : 0;
-}
-
-function updateTimerDisplay() {
+function updateTimer() {
   $("timerDisplay").textContent = formatTime(nowMs());
 }
 
-function startTimer() {
-  startTime = Date.now();
-  sessionStart = new Date().toISOString();
-  if (timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(updateTimerDisplay, 500);
-}
-
-function stopTimer() {
-  if (timerInterval) clearInterval(timerInterval);
-  timerInterval = null;
-}
-
-function updateStats() {
-  $("streak").textContent = streak;
-  $("mistakesDisplay").textContent = totalMistakes;
-  const pct = Math.max(0, Math.min(100, (streak / masteryGoal) * 100));
-  $("progressFill").style.width = pct + "%";
-}
-
-function setMiniType(txt) { $("miniType").textContent = txt; }
-
-function setFeedback(text, ok = null) {
+function setFeedback(text, type = null) {
   const fb = $("feedback");
-  fb.textContent = text || "";
+  fb.textContent = text;
   fb.className = "feedback";
-  if (ok === true) fb.classList.add("ok");
-  if (ok === false) fb.classList.add("no");
+  if (type === "correct") fb.classList.add("correct");
+  if (type === "wrong") fb.classList.add("wrong");
+}
+
+function setBadge(icon, text) {
+  $("qBadge").innerHTML = `${icon} ${text}`;
 }
 
 function show(el) { el.classList.remove("hidden"); }
@@ -810,428 +972,390 @@ function resetView() {
   setFeedback("");
   hide($("sentenceBox"));
   hide($("builtArea"));
-  hide($("cardsArea"));
   hide($("wordBank"));
+  hide($("choices"));
   hide($("orderActions"));
-  $("cardsArea").innerHTML = "";
+  $("choices").innerHTML = "";
   $("wordBank").innerHTML = "";
   $("builtArea").innerHTML = "";
   built = [];
-  wordButtons = [];
+  wordBtns = [];
 }
 
-function pickPaletteClass(i) {
-  return ["pal0", "pal1", "pal2", "pal3", "pal4", "pal5"][i % 6];
-}
-
-/* =========================================================
-   MUSIC
-========================================================= */
-function toggleMusic() {
-  bgm.volume = 0.3;
-  if (!musicOn) {
-    bgm.play().then(() => {
-      musicOn = true;
-      $("musicBtn").textContent = "🔊 Music";
-    }).catch(() => {});
-  } else {
-    bgm.pause();
-    musicOn = false;
-    $("musicBtn").textContent = "🔇 Music";
-  }
+function showMilestone(text) {
+  const m = $("milestone");
+  m.textContent = text;
+  m.classList.add("show");
+  setTimeout(() => m.classList.remove("show"), 1500);
 }
 
 /* =========================================================
-   LEVEL
-========================================================= */
-function setLevel(newLevel) {
-  level = newLevel;
-  $("levelLabel").textContent = level === "hard" ? "Hard" : "Easy";
-  $("levelLabel").style.color = level === "hard" ? "var(--coral)" : "var(--mint)";
-}
-
-/* =========================================================
-   PAUSE
-========================================================= */
-function openPause() {
-  if (!running || paused) return;
-  paused = true;
-  $("pauseOverlay").classList.add("show");
-  bgm.pause();
-}
-
-function closePause() {
-  if (!paused) return;
-  paused = false;
-  $("pauseOverlay").classList.remove("show");
-  if (musicOn) bgm.play().catch(() => {});
-}
-
-/* =========================================================
-   WIN SUMMARY
-========================================================= */
-function showWinSummary() {
-  const timeSpent = formatTime(nowMs());
-  const player = $("displayName").textContent;
-  
-  const summary = $("summaryStats");
-  summary.innerHTML = `
-    <div><span>Player:</span><span class="val">${player}</span></div>
-    <div><span>Time:</span><span class="val">${timeSpent}</span></div>
-    <div><span>Total Mistakes:</span><span class="val">${totalMistakes}</span></div>
-    <div><span>ORDER mistakes:</span><span class="val">${mistakesByType.ORDER}</span></div>
-    <div><span>TENSE mistakes:</span><span class="val">${mistakesByType.TENSE}</span></div>
-    <div><span>MEANING mistakes:</span><span class="val">${mistakesByType.MEANING}</span></div>
-    <div><span>Level:</span><span class="val">${level}</span></div>
-  `;
-  
-  $("winOverlay").classList.add("show");
-  
-  // Send final summary to Google Sheets
-  sendToGoogleSheets({
-    type: "SESSION_COMPLETE",
-    student: player,
-    timestamp: new Date().toISOString(),
-    session_start: sessionStart,
-    time_seconds: Math.floor(nowMs() / 1000),
-    total_mistakes: totalMistakes,
-    order_mistakes: mistakesByType.ORDER,
-    tense_mistakes: mistakesByType.TENSE,
-    meaning_mistakes: mistakesByType.MEANING,
-    level: level,
-    completed: true
-  });
-}
-
-/* =========================================================
-   START / RESET
+   GAME FLOW
 ========================================================= */
 function startGame() {
   const name = $("playerName").value.trim();
   if (!name) {
-    setFeedback("Please enter your name!", false);
+    setFeedback("⚠️ Please enter your name!", "wrong");
+    $("playerName").focus();
     return;
   }
+  
   $("displayName").textContent = name;
-
   running = true;
   paused = false;
   streak = 0;
-  totalMistakes = 0;
+  mistakes = 0;
   mistakesByType = { ORDER: 0, TENSE: 0, MEANING: 0 };
-  mistakeDetails = [];
-
-  updateStats();
-  setFeedback("");
+  
+  updateUI();
   resetView();
-
+  
+  startTime = Date.now();
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 500);
+  
   if (musicOn) {
     bgm.currentTime = 0;
     bgm.play().catch(() => {});
   }
-
-  startTimer();
+  
+  $("startBtn").classList.add("active");
   nextQuestion();
 }
 
 function resetGame() {
   running = false;
   paused = false;
-  stopTimer();
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = null;
   startTime = null;
-  $("timerDisplay").textContent = "00:00";
-
+  
   streak = 0;
-  totalMistakes = 0;
+  mistakes = 0;
   mistakesByType = { ORDER: 0, TENSE: 0, MEANING: 0 };
-  mistakeDetails = [];
-  updateStats();
-
-  currentQ = null;
-  currentType = "";
-  resetView();
-  setMiniType("Ready");
+  
+  $("timerDisplay").textContent = "00:00";
   $("displayName").textContent = "---";
-
+  updateUI();
+  resetView();
+  setBadge("🎮", "Ready to Start");
+  
   bgm.pause();
   musicOn = false;
   $("musicBtn").textContent = "🔇 Music";
-
-  $("pauseOverlay").classList.remove("show");
+  $("musicBtn").classList.remove("active");
+  $("startBtn").classList.remove("active");
+  
   $("winOverlay").classList.remove("show");
+  $("pauseOverlay").classList.remove("show");
 }
 
-/* =========================================================
-   NEXT QUESTION
-========================================================= */
 function nextQuestion() {
   if (!running || paused) return;
   resetView();
-
+  
   const types = level === "hard" ? ["ORDER", "TENSE", "MEANING"] : ["ORDER", "TENSE"];
   currentType = types[Math.floor(Math.random() * types.length)];
   currentQ = BANK[Math.floor(Math.random() * BANK.length)];
-
+  
   if (currentType === "ORDER") {
-    setMiniType("📝 Order the words");
-    renderOrder(currentQ.text);
+    setBadge("📝", "Order the Words");
+    renderOrder();
   } else if (currentType === "TENSE") {
-    setMiniType("🎯 Choose the tense");
-    showBigSentence(currentQ.text);
-    renderTenseCards(currentQ.form);
+    setBadge("🎯", "Choose the Tense");
+    renderTense();
   } else {
-    setMiniType("💡 What's the meaning?");
-    showBigSentence(currentQ.text);
-    renderMeaningCards(currentQ.form, currentQ.intent);
+    setBadge("💡", "What's the Meaning?");
+    renderMeaning();
   }
-}
-
-function showBigSentence(text) {
-  $("sentenceBig").textContent = text;
-  show($("sentenceBox"));
 }
 
 /* =========================================================
    ORDER MODE
 ========================================================= */
-function tokenize(text) {
-  return text.split(" ").map(t => t.trim()).filter(Boolean);
+function renderOrder() {
+  show($("builtArea"));
+  show($("wordBank"));
+  show($("orderActions"));
+  
+  const tokens = shuffle(currentQ.text.split(" ").filter(Boolean));
+  const bank = $("wordBank");
+  bank.innerHTML = "";
+  
+  wordBtns = tokens.map(word => {
+    const btn = document.createElement("button");
+    btn.className = "word-btn";
+    btn.textContent = word;
+    btn.onclick = () => {
+      if (!running || paused) return;
+      built.push(word);
+      btn.disabled = true;
+      renderBuilt();
+    };
+    bank.appendChild(btn);
+    return { word, btn };
+  });
+  
+  renderBuilt();
 }
 
-function renderBuiltArea() {
+function renderBuilt() {
   const area = $("builtArea");
   area.innerHTML = "";
-  show(area);
-
+  
   if (built.length === 0) {
-    area.classList.add("empty");
-    area.textContent = "Tap words to build your sentence...";
+    area.classList.remove("has-words");
+    area.classList.add("empty-msg");
+    area.textContent = "👆 Tap words to build your sentence...";
     return;
   }
-  area.classList.remove("empty");
-
-  built.forEach((w, i) => {
+  
+  area.classList.add("has-words");
+  area.classList.remove("empty-msg");
+  
+  built.forEach((word, i) => {
     const chip = document.createElement("div");
-    chip.className = "chip";
-    chip.textContent = w;
+    chip.className = "word-chip";
+    chip.textContent = word;
     chip.onclick = () => {
       if (!running || paused) return;
       built.splice(i, 1);
-      const match = wordButtons.find(x => x.word === w && x.btn.disabled);
+      const match = wordBtns.find(x => x.word === word && x.btn.disabled);
       if (match) match.btn.disabled = false;
-      renderBuiltArea();
+      renderBuilt();
     };
     area.appendChild(chip);
   });
 }
 
-function renderOrder(text) {
-  show($("builtArea"));
-  show($("wordBank"));
-  show($("orderActions"));
-
-  const bankEl = $("wordBank");
-  bankEl.innerHTML = "";
-
-  const tokens = shuffle(tokenize(text));
-  wordButtons = tokens.map((word, idx) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "wordBtn";
-    b.textContent = word;
-    b.onclick = () => {
-      if (!running || paused) return;
-      built.push(word);
-      b.disabled = true;
-      renderBuiltArea();
-    };
-    bankEl.appendChild(b);
-    return { word, btn: b, idx };
-  });
-
-  renderBuiltArea();
-}
-
-function clearWords() {
-  if (!running || paused) return;
+function clearOrder() {
   built = [];
-  wordButtons.forEach(x => x.btn.disabled = false);
-  renderBuiltArea();
+  wordBtns.forEach(x => x.btn.disabled = false);
+  renderBuilt();
 }
 
 function checkOrder() {
   if (!running || paused || !currentQ) return;
-  const attempt = built.join(" ").trim();
-  grade(attempt === currentQ.text, {
-    type: "ORDER",
-    attempt: attempt,
-    correct: currentQ.text
-  });
+  const attempt = built.join(" ");
+  grade(attempt === currentQ.text, { type: "ORDER", attempt, correct: currentQ.text });
 }
 
 /* =========================================================
-   TENSE CARDS
+   TENSE MODE
 ========================================================= */
-function renderTenseCards(correctForm) {
-  const cards = $("cardsArea");
-  show(cards);
-  cards.innerHTML = "";
-
-  const pool = shuffle([...TENSE_OPTIONS]);
-  const correct = pool.find(x => x.key === correctForm) || TENSE_OPTIONS[0];
-  const others = pool.filter(x => x.key !== correctForm).slice(0, 3);
+function renderTense() {
+  show($("sentenceBox"));
+  show($("choices"));
+  $("sentenceText").textContent = currentQ.text;
+  
+  const correct = TENSE_OPTIONS.find(t => t.key === currentQ.form);
+  const others = shuffle(TENSE_OPTIONS.filter(t => t.key !== currentQ.form)).slice(0, 3);
   const options = shuffle([correct, ...others]);
-
-  options.forEach((o, idx) => {
+  
+  const colors = ["c-cyan", "c-yellow", "c-success", "c-pink", "c-purple", "c-lime"];
+  const choices = $("choices");
+  choices.innerHTML = "";
+  
+  options.forEach((opt, i) => {
     const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "cardBtn " + pickPaletteClass(idx);
-    btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
-    btn.onclick = () => grade(o.key === correctForm, {
-      type: "TENSE",
-      picked: o.label,
-      correct: TENSE_OPTIONS.find(t => t.key === correctForm)?.label || correctForm
+    btn.className = `choice-btn ${colors[i % colors.length]}`;
+    btn.innerHTML = `<div class="choice-title">${opt.label}</div><div class="choice-desc">${opt.desc}</div>`;
+    btn.onclick = () => grade(opt.key === currentQ.form, { 
+      type: "TENSE", 
+      picked: opt.label, 
+      correct: correct.label 
     });
-    cards.appendChild(btn);
+    choices.appendChild(btn);
   });
 }
 
 /* =========================================================
-   MEANING CARDS
+   MEANING MODE
 ========================================================= */
-function renderMeaningCards(form, correctIntent) {
-  const cards = $("cardsArea");
-  show(cards);
-  cards.innerHTML = "";
-
-  let options = (MEANING_OPTIONS[form] || []).slice(0, 4);
+function renderMeaning() {
+  show($("sentenceBox"));
+  show($("choices"));
+  $("sentenceText").textContent = currentQ.text;
+  
+  let options = MEANING_MAP[currentQ.form] || [];
   if (options.length < 4) {
     options = [
-      { key: "prediction", label: "Prediction", desc: "Guess / opinion" },
-      { key: "plan", label: "Plan / Intention", desc: "Already decided" },
-      { key: "schedule", label: "Schedule", desc: "Timetable time" },
-      { key: "announcement", label: "Announcement", desc: "Official info" }
+      { key: "prediction", label: "Prediction", desc: "Guess about future" },
+      { key: "plan", label: "Plan", desc: "Already decided" },
+      { key: "schedule", label: "Schedule", desc: "Fixed timetable" },
+      { key: "offer_promise", label: "Offer/Promise", desc: "Help or promise" }
     ];
   }
-  options = shuffle(options);
-
-  options.forEach((o, idx) => {
+  options = shuffle(options).slice(0, 4);
+  
+  const correctLabel = (MEANING_MAP[currentQ.form]?.find(m => m.key === currentQ.intent)?.label) || currentQ.intent;
+  const colors = ["c-cyan", "c-yellow", "c-success", "c-pink"];
+  const choices = $("choices");
+  choices.innerHTML = "";
+  
+  options.forEach((opt, i) => {
     const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "cardBtn " + pickPaletteClass(idx);
-    btn.innerHTML = `<div class="cardTitle">${o.label}</div><div class="cardDesc">${o.desc}</div>`;
-    btn.onclick = () => grade(o.key === correctIntent, {
+    btn.className = `choice-btn ${colors[i]}`;
+    btn.innerHTML = `<div class="choice-title">${opt.label}</div><div class="choice-desc">${opt.desc}</div>`;
+    btn.onclick = () => grade(opt.key === currentQ.intent, {
       type: "MEANING",
-      picked: o.label,
-      correct: (MEANING_OPTIONS[form]?.find(m => m.key === correctIntent)?.label) || correctIntent
+      picked: opt.label,
+      correct: correctLabel
     });
-    cards.appendChild(btn);
+    choices.appendChild(btn);
   });
 }
 
 /* =========================================================
-   GRADE & LOG
+   GRADING
 ========================================================= */
-function grade(correct, detail = {}) {
+function grade(correct, detail) {
   if (!running || paused) return;
-
+  
   const player = $("displayName").textContent;
-  const timeNow = Math.floor(nowMs() / 1000);
-
+  const time = Math.floor(nowMs() / 1000);
+  
   if (correct) {
     streak++;
-    updateStats();
-    setFeedback("✅ Correct!", true);
-
-    // Log correct answer
+    updateUI();
+    setFeedback("✅ Correct! Great job!", "correct");
+    
+    // Milestones
+    if (streak === 5) showMilestone("🔥 5 in a row!");
+    if (streak === 10) showMilestone("⚡ 10 streak!");
+    if (streak === 15) showMilestone("🌟 15! Almost there!");
+    if (streak === 20) showMilestone("💪 20! So close!");
+    
     sendToGoogleSheets({
-      type: "ATTEMPT",
-      student: player,
-      timestamp: new Date().toISOString(),
-      time_seconds: timeNow,
-      correct: true,
-      streak: streak,
-      question_type: currentType,
-      sentence: currentQ?.text || "",
-      tense: currentQ?.form || "",
-      detail: JSON.stringify(detail)
+      type: "ATTEMPT", student: player, time_seconds: time,
+      correct: true, streak, question_type: currentType,
+      sentence: currentQ.text, tense: currentQ.form
     });
-
-    if (streak >= masteryGoal) {
-      try { winSound.play(); } catch (e) {}
-      running = false;
-      stopTimer();
-      bgm.pause();
-      showWinSummary();
+    
+    if (streak >= GOAL) {
+      winGame();
       return;
     }
-
-    setTimeout(() => { if (running && !paused) nextQuestion(); }, 600);
+    
+    setTimeout(() => { if (running && !paused) nextQuestion(); }, 700);
     return;
   }
-
-  // Wrong answer
-  totalMistakes++;
-  mistakesByType[currentType] = (mistakesByType[currentType] || 0) + 1;
   
-  mistakeDetails.push({
-    type: currentType,
-    sentence: currentQ?.text,
-    picked: detail.picked || detail.attempt,
-    correct: detail.correct,
-    time: timeNow
-  });
-
+  // Wrong
+  mistakes++;
+  mistakesByType[currentType]++;
   streak = 0;
-  updateStats();
-  setFeedback("❌ Wrong! Try again.", false);
-
-  // Log mistake
+  updateUI();
+  setFeedback(`❌ Wrong! Correct: ${detail.correct}`, "wrong");
+  
   sendToGoogleSheets({
-    type: "ATTEMPT",
-    student: player,
-    timestamp: new Date().toISOString(),
-    time_seconds: timeNow,
-    correct: false,
-    streak: streak,
-    question_type: currentType,
-    sentence: currentQ?.text || "",
-    tense: currentQ?.form || "",
-    picked_answer: detail.picked || detail.attempt || "",
-    correct_answer: detail.correct || "",
-    detail: JSON.stringify(detail)
+    type: "ATTEMPT", student: player, time_seconds: time,
+    correct: false, streak: 0, question_type: currentType,
+    sentence: currentQ.text, tense: currentQ.form,
+    picked_answer: detail.picked || detail.attempt,
+    correct_answer: detail.correct
   });
+  
+  if (currentType === "ORDER") clearOrder();
+  
+  setTimeout(() => { if (running && !paused) nextQuestion(); }, 1500);
+}
 
-  if (currentType === "ORDER") {
-    clearWords();
+function winGame() {
+  running = false;
+  if (timerInterval) clearInterval(timerInterval);
+  bgm.pause();
+  
+  const player = $("displayName").textContent;
+  const time = formatTime(nowMs());
+  
+  $("summary").innerHTML = `
+    <div class="summary-row"><span>Player</span><span class="summary-val">${player}</span></div>
+    <div class="summary-row"><span>Time</span><span class="summary-val">${time}</span></div>
+    <div class="summary-row"><span>Total Mistakes</span><span class="summary-val ${mistakes > 0 ? 'bad' : ''}">${mistakes}</span></div>
+    <div class="summary-row"><span>ORDER mistakes</span><span class="summary-val ${mistakesByType.ORDER > 0 ? 'bad' : ''}">${mistakesByType.ORDER}</span></div>
+    <div class="summary-row"><span>TENSE mistakes</span><span class="summary-val ${mistakesByType.TENSE > 0 ? 'bad' : ''}">${mistakesByType.TENSE}</span></div>
+    <div class="summary-row"><span>MEANING mistakes</span><span class="summary-val ${mistakesByType.MEANING > 0 ? 'bad' : ''}">${mistakesByType.MEANING}</span></div>
+    <div class="summary-row"><span>Level</span><span class="summary-val">${level}</span></div>
+  `;
+  
+  $("winOverlay").classList.add("show");
+  
+  sendToGoogleSheets({
+    type: "SESSION_COMPLETE", student: player,
+    time_seconds: Math.floor(nowMs() / 1000),
+    total_mistakes: mistakes,
+    order_mistakes: mistakesByType.ORDER,
+    tense_mistakes: mistakesByType.TENSE,
+    meaning_mistakes: mistakesByType.MEANING,
+    level
+  });
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+function setLevel(l) {
+  level = l;
+  $("easyBtn").classList.toggle("active", l === "easy");
+  $("hardBtn").classList.toggle("active", l === "hard");
+}
+
+function toggleMusic() {
+  bgm.volume = 0.3;
+  if (!musicOn) {
+    bgm.play().then(() => {
+      musicOn = true;
+      $("musicBtn").textContent = "🔊 Music";
+      $("musicBtn").classList.add("active");
+    }).catch(() => {});
+  } else {
+    bgm.pause();
+    musicOn = false;
+    $("musicBtn").textContent = "🔇 Music";
+    $("musicBtn").classList.remove("active");
+  }
+}
+
+function togglePause() {
+  if (!running) return;
+  if (paused) {
+    paused = false;
+    $("pauseOverlay").classList.remove("show");
+    if (musicOn) bgm.play().catch(() => {});
+  } else {
+    paused = true;
+    $("pauseOverlay").classList.add("show");
+    bgm.pause();
   }
 }
 
 /* =========================================================
    EVENTS
 ========================================================= */
-$("startBtn").addEventListener("click", startGame);
-$("resetBtn").addEventListener("click", resetGame);
-$("musicBtn").addEventListener("click", toggleMusic);
-$("easyBtn").addEventListener("click", () => setLevel("easy"));
-$("hardBtn").addEventListener("click", () => setLevel("hard"));
-$("pauseBtn").addEventListener("click", () => paused ? closePause() : openPause());
-$("resumeBtn").addEventListener("click", closePause);
-$("exitBtn2").addEventListener("click", resetGame);
-$("clearBtn").addEventListener("click", clearWords);
-$("checkBtn").addEventListener("click", checkOrder);
-$("playAgainBtn").addEventListener("click", () => {
+$("startBtn").onclick = startGame;
+$("resetBtn").onclick = resetGame;
+$("easyBtn").onclick = () => setLevel("easy");
+$("hardBtn").onclick = () => setLevel("hard");
+$("musicBtn").onclick = toggleMusic;
+$("pauseBtn").onclick = togglePause;
+$("clearBtn").onclick = clearOrder;
+$("checkBtn").onclick = checkOrder;
+$("resumeBtn").onclick = togglePause;
+$("exitBtn").onclick = resetGame;
+$("playAgainBtn").onclick = () => {
   $("winOverlay").classList.remove("show");
   resetGame();
+};
+
+// Enter key to start
+$("playerName").addEventListener("keypress", e => {
+  if (e.key === "Enter" && !running) startGame();
 });
 
-/* INIT */
-window.addEventListener("load", () => {
-  setLevel("easy");
-  setMiniType("Ready");
-  updateStats();
-  bgm.volume = 0.3;
-});
+// Init
+setLevel("easy");
+updateUI();
 </script>
 </body>
 </html>
