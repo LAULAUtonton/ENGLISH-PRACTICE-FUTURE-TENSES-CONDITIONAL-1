@@ -35,58 +35,58 @@
 
     .app {
       width: 100%;
-      max-width: 900px;
+      max-width: 850px;
       margin: 0 auto;
-      padding: 16px;
-      min-height: 100%;
+      padding: 12px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
     }
 
     .header {
       background: #ff6b9d;
-      border: 4px solid #ffffff;
-      border-radius: 20px;
-      padding: 18px;
+      border: 3px solid #ffffff;
+      border-radius: 16px;
+      padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
-      box-shadow: 0 8px 0 #d946ef;
+      box-shadow: 0 5px 0 #d946ef;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
 
     .logo {
-      width: 55px;
-      height: 55px;
+      width: 45px;
+      height: 45px;
       background: #ffd93d;
-      border: 4px solid #ffffff;
-      border-radius: 14px;
+      border: 3px solid #ffffff;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+      font-size: 24px;
       flex-shrink: 0;
     }
 
     .title { 
-      font-size: 1.4rem;
+      font-size: 1.1rem;
       font-weight: 900;
       text-shadow: 0 2px 10px rgba(0,0,0,0.2);
       line-height: 1.2;
     }
     
     .subtitle { 
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       color: var(--dim);
-      margin-top: 3px;
+      margin-top: 2px;
     }
     
     .subtitle b { color: var(--yellow); }
@@ -94,17 +94,17 @@
     .name-box {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: #ffffff;
-      padding: 10px 16px;
-      border-radius: 12px;
+      padding: 8px 12px;
+      border-radius: 10px;
       flex: 1;
-      min-width: 180px;
-      max-width: 260px;
+      min-width: 160px;
+      max-width: 220px;
     }
 
     .name-box label { 
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: #ff6b9d;
       font-weight: 700;
     }
@@ -116,7 +116,7 @@
       outline: none;
       color: #1a1a1a;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 800;
       width: 100%;
       min-width: 0;
@@ -125,36 +125,36 @@
     .top-row {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 14px;
+      gap: 10px;
     }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .stat {
       background: #ffffff;
-      border: 4px solid #ffd93d;
-      border-radius: 16px;
-      padding: 14px 10px;
+      border: 3px solid #ffd93d;
+      border-radius: 12px;
+      padding: 10px 8px;
       text-align: center;
-      box-shadow: 0 6px 0 #ff8a3d;
+      box-shadow: 0 4px 0 #ff8a3d;
     }
 
     .stat-label { 
-      font-size: 0.8rem;
+      font-size: 0.65rem;
       color: #ff6b9d;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
     }
     
     .stat-value { 
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 900;
-      margin-top: 4px;
+      margin-top: 3px;
       color: #1a1a1a;
     }
     
@@ -165,18 +165,18 @@
     .main-controls {
       display: grid;
       grid-template-rows: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
 
     .ctrl-main {
       background: #ffffff;
-      border: 4px solid #00d4ff;
-      border-radius: 14px;
-      padding: 14px;
+      border: 3px solid #00d4ff;
+      border-radius: 12px;
+      padding: 10px;
       color: #1a1a1a;
       font-family: inherit;
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
@@ -194,24 +194,24 @@
 
     .progress-box {
       background: #ff8a3d;
-      border: 4px solid #ffffff;
-      border-radius: 16px;
-      padding: 14px 18px;
-      box-shadow: 0 6px 0 #ff6b6b;
+      border: 3px solid #ffffff;
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 4px 0 #ff6b6b;
     }
 
     .progress-top {
       display: flex;
       justify-content: space-between;
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .progress-top span:last-child { color: #ffd93d; }
 
     .progress-bar {
-      height: 14px;
+      height: 10px;
       background: #ffffff;
       border-radius: 99px;
       overflow: hidden;
@@ -228,15 +228,16 @@
     .game {
       flex: 1;
       background: #ffffff;
-      border: 4px solid #ffd93d;
-      border-radius: 20px;
-      padding: 18px;
+      border: 3px solid #ffd93d;
+      border-radius: 16px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      min-height: 350px;
+      gap: 10px;
+      min-height: 280px;
+      max-height: 380px;
       overflow: hidden;
-      box-shadow: 0 8px 0 #00e676;
+      box-shadow: 0 5px 0 #00e676;
     }
 
     .badge {
@@ -247,35 +248,35 @@
       display: inline-block;
       background: #ff6b9d;
       color: #fff;
-      padding: 8px 20px;
+      padding: 6px 16px;
       border-radius: 99px;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 900;
-      border: 3px solid #ffffff;
+      border: 2px solid #ffffff;
     }
 
     .sentence {
       background: #ffd93d;
-      border: 4px solid #ffffff;
-      border-radius: 16px;
-      padding: 20px;
+      border: 3px solid #ffffff;
+      border-radius: 12px;
+      padding: 14px;
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.15rem;
       font-weight: 900;
-      line-height: 1.5;
+      line-height: 1.4;
       color: #1a1a1a;
-      box-shadow: 0 6px 0 #ff8a3d;
+      box-shadow: 0 4px 0 #ff8a3d;
     }
 
     .built {
       background: #e8f5e9;
-      border: 4px dashed #00e676;
-      border-radius: 16px;
-      padding: 16px;
-      min-height: 70px;
+      border: 3px dashed #00e676;
+      border-radius: 12px;
+      padding: 12px;
+      min-height: 55px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
       justify-content: center;
     }
@@ -288,19 +289,19 @@
 
     .built.empty {
       color: #00e676;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       font-weight: 700;
     }
 
     .chip {
       background: #00e676;
       color: #1a1a1a;
-      padding: 10px 18px;
-      border-radius: 12px;
+      padding: 8px 14px;
+      border-radius: 10px;
       font-weight: 900;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       cursor: pointer;
-      border: 3px solid #ffffff;
+      border: 2px solid #ffffff;
     }
 
     .chip:hover { 
@@ -310,11 +311,11 @@
 
     .words {
       background: #f0f0f0;
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 12px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       flex: 1;
       align-content: flex-start;
@@ -324,12 +325,12 @@
     .word-btn {
       background: #ffffff;
       color: #1a1a1a;
-      border: 4px solid #00d4ff;
-      padding: 12px 20px;
-      border-radius: 12px;
+      border: 3px solid #00d4ff;
+      padding: 8px 14px;
+      border-radius: 10px;
       font-family: inherit;
       font-weight: 900;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -348,18 +349,18 @@
     .choices {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 10px;
       flex: 1;
     }
 
     .choice {
       border: none;
-      border-radius: 16px;
-      padding: 20px 18px;
+      border-radius: 12px;
+      padding: 14px;
       cursor: pointer;
       text-align: left;
       font-family: inherit;
-      min-height: 90px;
+      min-height: 70px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -370,13 +371,13 @@
     }
 
     .choice-title { 
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 900;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
     
     .choice-desc { 
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       font-weight: 700;
       opacity: 0.9;
     }
@@ -384,34 +385,34 @@
     .c1 { 
       background: #00d4ff; 
       color: #1a1a1a;
-      border: 4px solid #ffffff;
-      box-shadow: 0 6px 0 #00a8cc;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 0 #00a8cc;
     }
     .c2 { 
       background: #ffd93d; 
       color: #1a1a1a;
-      border: 4px solid #ffffff;
-      box-shadow: 0 6px 0 #ffb700;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 0 #ffb700;
     }
     .c3 { 
       background: #00e676; 
       color: #1a1a1a;
-      border: 4px solid #ffffff;
-      box-shadow: 0 6px 0 #00c853;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 0 #00c853;
     }
     .c4 { 
       background: #ff6b9d; 
       color: #ffffff;
-      border: 4px solid #ffffff;
-      box-shadow: 0 6px 0 #f50057;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 0 #f50057;
     }
 
     .feedback {
       text-align: center;
       font-weight: 900;
-      font-size: 1.2rem;
-      min-height: 35px;
-      padding: 6px;
+      font-size: 1rem;
+      min-height: 30px;
+      padding: 4px;
     }
 
     .feedback.ok { color: #00e676; }
@@ -419,17 +420,17 @@
 
     .actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       justify-content: center;
     }
 
     .btn {
-      border: 4px solid #ffffff;
-      border-radius: 14px;
-      padding: 14px 28px;
+      border: 3px solid #ffffff;
+      border-radius: 12px;
+      padding: 10px 20px;
       font-family: inherit;
       font-weight: 900;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -438,25 +439,25 @@
       transform: scale(1.05);
     }
 
-    .btn-orange { background: #ff8a3d; color: #fff; box-shadow: 0 6px 0 #ff6b6b; }
-    .btn-gray { background: #e0e0e0; color: #1a1a1a; box-shadow: 0 6px 0 #bdbdbd; }
-    .btn-yellow { background: #ffd93d; color: #1a1a1a; box-shadow: 0 6px 0 #ffb700; }
+    .btn-orange { background: #ff8a3d; color: #fff; box-shadow: 0 4px 0 #ff6b6b; }
+    .btn-gray { background: #e0e0e0; color: #1a1a1a; box-shadow: 0 4px 0 #bdbdbd; }
+    .btn-yellow { background: #ffd93d; color: #1a1a1a; box-shadow: 0 4px 0 #ffb700; }
 
     .controls {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .ctrl {
       background: #ffffff;
-      border: 4px solid #00d4ff;
-      border-radius: 14px;
-      padding: 12px 10px;
+      border: 3px solid #00d4ff;
+      border-radius: 12px;
+      padding: 8px;
       color: #1a1a1a;
       font-family: inherit;
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
@@ -479,7 +480,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       z-index: 100;
     }
 
@@ -487,42 +488,42 @@
 
     .modal {
       background: rgba(255, 255, 255, 0.95);
-      border: 4px solid #ffd93d;
-      border-radius: 20px;
-      padding: 32px;
+      border: 3px solid #ffd93d;
+      border-radius: 16px;
+      padding: 24px;
       width: 100%;
-      max-width: 400px;
+      max-width: 360px;
       text-align: center;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    .modal-icon { font-size: 60px; margin-bottom: 16px; }
+    .modal-icon { font-size: 50px; margin-bottom: 12px; }
     .modal-title { 
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: #ff6b9d;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .modal-text { 
       color: #1a1a1a;
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+      font-size: 1rem;
+      margin-bottom: 16px;
       font-weight: 700;
     }
 
     .summary {
       background: #f0f0f0;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 16px;
       text-align: left;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
     }
 
     .summary div {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
+      padding: 8px 0;
       border-bottom: 2px solid #e0e0e0;
     }
 
@@ -537,15 +538,15 @@
       transform: translate(-50%, -50%) scale(0);
       background: #ffd93d;
       color: #1a1a1a;
-      padding: 24px 48px;
-      border-radius: 16px;
-      border: 4px solid #ffffff;
-      font-size: 1.8rem;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: 3px solid #ffffff;
+      font-size: 1.4rem;
       font-weight: 900;
       z-index: 99;
       pointer-events: none;
       opacity: 0;
-      box-shadow: 0 8px 30px rgba(255, 217, 61, 0.8);
+      box-shadow: 0 6px 20px rgba(255, 217, 61, 0.8);
     }
 
     .milestone.show {
@@ -562,21 +563,22 @@
     .hidden { display: none !important; }
 
     @media (max-width: 768px) {
-      .app { padding: 12px; gap: 12px; }
-      .header { padding: 14px; }
+      .app { padding: 10px; gap: 8px; }
+      .header { padding: 10px; }
       .top-row { grid-template-columns: 1fr; }
       .stats { grid-template-columns: repeat(2, 1fr); }
-      .stat { padding: 12px 8px; }
-      .stat-value { font-size: 1.2rem; }
+      .stat { padding: 8px 6px; }
+      .stat-value { font-size: 1rem; }
       .main-controls { grid-template-rows: auto; }
       .controls { grid-template-columns: repeat(2, 1fr); }
       .choices { grid-template-columns: 1fr; }
-      .sentence { font-size: 1.2rem; padding: 18px; }
-      .title { font-size: 1.2rem; }
-      .subtitle { font-size: 0.85rem; }
-      .word-btn { font-size: 1rem; padding: 10px 16px; }
-      .chip { font-size: 1rem; padding: 8px 14px; }
+      .sentence { font-size: 1rem; padding: 12px; }
+      .title { font-size: 1rem; }
+      .subtitle { font-size: 0.75rem; }
+      .word-btn { font-size: 0.85rem; padding: 7px 12px; }
+      .chip { font-size: 0.85rem; padding: 7px 12px; }
       .name-box { max-width: 100%; }
+      .game { min-height: 250px; max-height: 320px; }
     }
   </style>
 </head>
@@ -684,29 +686,77 @@
 <audio id="bgm" loop><source src="audio/bgm.mp3" type="audio/mpeg"></audio>
 
 <script>
-const SHEET_URL = "YOUR_GOOGLE_SCRIPT_URL";
-const SECRET = "GRAMMAR_2024";
+// ✅ TU GOOGLE SHEET URL
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwepIOC4bssASGk1XKrEO2RjW_3VN8i6hfE5G2GmT1W0bDJz1Om6iX4bdyTPK1sbkas8w/exec";
+const SECRET = "SECRET_KEY";
 const GOAL = 25;
 
+// ✅ BANCO DE PREGUNTAS EXPANDIDO (40+ preguntas)
 const BANK = [
+  // Present Simple - Schedules (10 questions)
   {t:"The train leaves at 8:10 tomorrow.",f:"ps",m:"schedule"},
   {t:"School starts at 9 on Monday.",f:"ps",m:"schedule"},
   {t:"The concert begins at 7 p.m.",f:"ps",m:"schedule"},
+  {t:"The bus departs at 6:30 a.m.",f:"ps",m:"schedule"},
+  {t:"The store opens at 10 tomorrow.",f:"ps",m:"schedule"},
+  {t:"The movie starts at 8:15 tonight.",f:"ps",m:"schedule"},
+  {t:"The flight leaves at noon.",f:"ps",m:"schedule"},
+  {t:"Class ends at 3 p.m.",f:"ps",m:"schedule"},
+  {t:"The museum closes at 5.",f:"ps",m:"schedule"},
+  {t:"The train arrives at 9:45.",f:"ps",m:"schedule"},
+
+  // Present Continuous - Arrangements (10 questions)
   {t:"I'm meeting friends at 6 p.m.",f:"pc",m:"arrangement"},
   {t:"We're having dinner tomorrow.",f:"pc",m:"arrangement"},
   {t:"She's seeing the dentist Friday.",f:"pc",m:"arrangement"},
+  {t:"They're visiting us next week.",f:"pc",m:"arrangement"},
+  {t:"I'm flying to Paris on Monday.",f:"pc",m:"arrangement"},
+  {t:"We're going to the beach tomorrow.",f:"pc",m:"arrangement"},
+  {t:"He's meeting the boss at 2.",f:"pc",m:"arrangement"},
+  {t:"She's starting her new job Monday.",f:"pc",m:"arrangement"},
+  {t:"We're having a party Saturday.",f:"pc",m:"arrangement"},
+  {t:"I'm playing tennis at 4 p.m.",f:"pc",m:"arrangement"},
+
+  // Will - Predictions/Offers/Promises (15 questions)
   {t:"I think it will rain later.",f:"will",m:"prediction"},
   {t:"They will probably win.",f:"will",m:"prediction"},
+  {t:"She'll be happy to see you.",f:"will",m:"prediction"},
+  {t:"It will be sunny tomorrow.",f:"will",m:"prediction"},
+  {t:"He'll pass the exam easily.",f:"will",m:"prediction"},
   {t:"Don't worry, I'll help you.",f:"will",m:"offer"},
+  {t:"I'll carry your bags.",f:"will",m:"offer"},
+  {t:"We'll give you a ride.",f:"will",m:"offer"},
   {t:"I won't tell anyone.",f:"will",m:"promise"},
+  {t:"I'll call you tonight.",f:"will",m:"promise"},
+  {t:"We'll be there on time.",f:"will",m:"promise"},
   {t:"Okay, I'll do it now.",f:"will",m:"decision"},
+  {t:"I'll have the salad.",f:"will",m:"decision"},
+  {t:"I'll take this one.",f:"will",m:"decision"},
+  {t:"I'll answer the phone.",f:"will",m:"decision"},
+
+  // Going to - Plans/Evidence (10 questions)
   {t:"I'm going to study tonight.",f:"going",m:"plan"},
   {t:"We're going to meet after school.",f:"going",m:"plan"},
+  {t:"She's going to buy a new car.",f:"going",m:"plan"},
+  {t:"They're going to move to Spain.",f:"going",m:"plan"},
+  {t:"I'm going to learn Japanese.",f:"going",m:"plan"},
   {t:"Look! It's going to rain.",f:"going",m:"evidence"},
   {t:"That glass is going to fall!",f:"going",m:"evidence"},
+  {t:"Watch out! He's going to crash!",f:"going",m:"evidence"},
+  {t:"Be careful! You're going to drop it!",f:"going",m:"evidence"},
+  {t:"The balloon is going to pop!",f:"going",m:"evidence"},
+
+  // First Conditional (10 questions)
   {t:"If you study, you'll pass.",f:"cond",m:"result"},
   {t:"If it rains, we'll stay home.",f:"cond",m:"plan"},
-  {t:"If you're tired, take a break.",f:"cond",m:"advice"}
+  {t:"If you're tired, take a break.",f:"cond",m:"advice"},
+  {t:"If she calls, I'll tell her.",f:"cond",m:"result"},
+  {t:"If we hurry, we'll catch the bus.",f:"cond",m:"result"},
+  {t:"If you're hungry, eat something.",f:"cond",m:"advice"},
+  {t:"If he asks, I'll help him.",f:"cond",m:"plan"},
+  {t:"If it's cold, wear a jacket.",f:"cond",m:"advice"},
+  {t:"If you see him, say hello.",f:"cond",m:"advice"},
+  {t:"If they agree, we'll start tomorrow.",f:"cond",m:"plan"}
 ];
 
 const TENSES = [
@@ -948,7 +998,6 @@ function grade(ok,detail){
     if(qType==="ORDER")clearOrder();
     setTimeout(()=>{if(running&&!paused)next();},1400);
   }
-  sendSheet(ok,detail);
 }
 
 function win(){
@@ -965,22 +1014,34 @@ function win(){
     <div><span>MEANING</span><span class="val ${errByType.MEANING>0?'bad':''}">${errByType.MEANING}</span></div>
   `;
   $("winOverlay").classList.add("show");
-  sendSheet(true,{final:true,total_mistakes:mistakes});
+  
+  // ✅ ENVIAR DATOS AL GOOGLE SHEET AL COMPLETAR
+  sendToSheet();
 }
 
-function sendSheet(ok,detail){
-  if(!SHEET_URL||SHEET_URL.includes("YOUR_"))return;
-  fetch(SHEET_URL,{
-    method:"POST",mode:"no-cors",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      secret:SECRET,
-      student:$("playerDisplay").textContent,
-      correct:ok,streak,mistakes,
-      type:qType,sentence:curQ?.t,
-      detail:JSON.stringify(detail)
-    })
-  }).catch(()=>{});
+// ✅ FUNCIÓN PARA ENVIAR A GOOGLE SHEET
+function sendToSheet(){
+  if(!SHEET_URL || !startT) return;
+  
+  const timeSeconds = Math.floor((Date.now() - startT) / 1000);
+  const mostFailed = Object.keys(errByType).reduce((a,b)=>errByType[a]>errByType[b]?a:b);
+  
+  const data = {
+    secret: SECRET,
+    name: $("playerDisplay").textContent,
+    time_s: timeSeconds,
+    attempts: mistakes,
+    most_failed: mostFailed,
+    activity: qType,
+    sentence: curQ?.t || ""
+  };
+
+  fetch(SHEET_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
+  }).catch(err => console.log("Sheet error:", err));
 }
 
 function setLevel(l){
@@ -1036,11 +1097,24 @@ updateUI();
 </script>
 </body>
 </html>
-MEJORAS EN LA DISTRIBUCIÓN: ✅ Start/Reset ahora están AL LADO de las estadísticas (más compacto) ✅ 4 botones secundarios (Easy/Hard/Pause/Music) en UNA sola fila abajo ✅ Más ancho (900px) para aprovechar espacio horizontal ✅ Menos altura - todo cabe mejor en la pantalla ✅ Layout 2 columnas - Stats (izquierda) + Controles principales (derecha) ✅ Responsive - En móvil vuelve a una columna
+✅ CAMBIOS REALIZADOS:
 
-¡Copia TODO el código y pruébalo! Ahora es mucho más compacto! 🎮✨
+Más Compacto para Chromebook - Tamaños reducidos, max-height en game area
+55+ Preguntas Totales - 10 por cada categoría principal
+Google Sheet Conectado - Tu URL ya está integrada
+SECRET_KEY coincide - "SECRET_KEY" como en tu script
+Formato de datos correcto - Envía: name, time_s, attempts, most_failed, activity, sentence
+Envío solo al completar - Los datos se envían cuando el estudiante completa los 25
+PARA VERIFICAR QUE FUNCIONA:
 
-Feb 4, 03:07 AM
+Guarda este código como index.html
+Ábrelo en un navegador
+Juega hasta completar 25 correctas
+Revisa tu Google Sheet - debe aparecer una nueva fila con los datos
+¡Listo para tus estudiantes! 🎮📊✨
+
+Feb 4, 03:21 AM
 
 Copy
 Scroll to bottom
+Agent is waiting...
