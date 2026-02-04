@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Future Grammar Mastery</title>
-  <link href="https://script.google.com/macros/s/AKfycbwepIOC4bssASGk1XKrEO2RjW_3VN8i6hfE5G2GmT1W0bDJz1Om6iX4bdyTPK1sbkas8w/exec">
+
   <style>
     :root {
       --bg: #00d4ff;
@@ -24,10 +24,10 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     html, body {
       height: 100%;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: #00d4ff;
       color: var(--text);
       overflow-x: hidden;
@@ -57,11 +57,7 @@
       box-shadow: 0 5px 0 #d946ef;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; }
 
     .logo {
       width: 50px;
@@ -76,19 +72,14 @@
       flex-shrink: 0;
     }
 
-    .title { 
+    .title {
       font-size: 1.4rem;
       font-weight: 900;
       text-shadow: 0 2px 10px rgba(0,0,0,0.2);
       line-height: 1.2;
     }
-    
-    .subtitle { 
-      font-size: 1rem;
-      color: var(--dim);
-      margin-top: 3px;
-    }
-    
+
+    .subtitle { font-size: 1rem; color: var(--dim); margin-top: 3px; }
     .subtitle b { color: var(--yellow); }
 
     .name-box {
@@ -100,13 +91,14 @@
       border-radius: 10px;
       flex: 1;
       min-width: 180px;
-      max-width: 240px;
+      max-width: 260px;
     }
 
-    .name-box label { 
+    .name-box label {
       font-size: 1rem;
       color: #ff6b9d;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .name-box input {
@@ -122,17 +114,9 @@
       min-width: 0;
     }
 
-    .top-row {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 10px;
-    }
+    .top-row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 
     .stat {
       background: #ffffff;
@@ -143,30 +127,26 @@
       box-shadow: 0 4px 0 #ff8a3d;
     }
 
-    .stat-label { 
+    .stat-label {
       font-size: 0.8rem;
       color: #ff6b9d;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
-    .stat-value { 
+
+    .stat-value {
       font-size: 1.4rem;
       font-weight: 900;
       margin-top: 4px;
       color: #1a1a1a;
     }
-    
+
     .stat-value.orange { color: #ff8a3d; }
     .stat-value.red { color: #ff6b6b; }
     .stat-value.cyan { color: #00d4ff; }
 
-    .main-controls {
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-      gap: 8px;
-    }
+    .main-controls { display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
 
     .ctrl-main {
       background: #ffffff;
@@ -180,17 +160,11 @@
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
+      user-select: none;
     }
 
-    .ctrl-main:hover { 
-      background: #00d4ff;
-      color: #ffffff;
-    }
-    .ctrl-main.on { 
-      background: #00e676; 
-      color: #1a1a1a;
-      border-color: #00e676;
-    }
+    .ctrl-main:hover { background: #00d4ff; color: #ffffff; }
+    .ctrl-main.on { background: #00e676; color: #1a1a1a; border-color: #00e676; }
 
     .progress-box {
       background: #ff8a3d;
@@ -240,10 +214,7 @@
       box-shadow: 0 5px 0 #00e676;
     }
 
-    .badge {
-      text-align: center;
-    }
-
+    .badge { text-align: center; }
     .badge span {
       display: inline-block;
       background: #ff6b9d;
@@ -281,17 +252,8 @@
       justify-content: center;
     }
 
-    .built.active {
-      border-style: solid;
-      border-color: #00e676;
-      background: #c8e6c9;
-    }
-
-    .built.empty {
-      color: #00e676;
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
+    .built.active { border-style: solid; border-color: #00e676; background: #c8e6c9; }
+    .built.empty { color: #00e676; font-size: 1.1rem; font-weight: 700; }
 
     .chip {
       background: #00e676;
@@ -302,12 +264,10 @@
       font-size: 1.1rem;
       cursor: pointer;
       border: 2px solid #ffffff;
+      user-select: none;
     }
 
-    .chip:hover { 
-      transform: scale(1.05);
-      transition: all 0.2s;
-    }
+    .chip:hover { transform: scale(1.05); transition: all 0.2s; }
 
     .words {
       background: #f0f0f0;
@@ -333,25 +293,13 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
+      user-select: none;
     }
 
-    .word-btn:hover {
-      transform: scale(1.05);
-      border-color: #ff6b9d;
-    }
+    .word-btn:hover { transform: scale(1.05); border-color: #ff6b9d; }
+    .word-btn:disabled { background: #d0d0d0; color: #888; border-color: #d0d0d0; transform: none; cursor: default; }
 
-    .word-btn:disabled {
-      background: #d0d0d0;
-      color: #888;
-      border-color: #d0d0d0;
-    }
-
-    .choices {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      flex: 1;
-    }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; }
 
     .choice {
       border: none;
@@ -364,48 +312,18 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      user-select: none;
     }
 
-    .choice:active { 
-      transform: scale(0.95);
-    }
+    .choice:active { transform: scale(0.95); }
 
-    .choice-title { 
-      font-size: 1.2rem;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-    
-    .choice-desc { 
-      font-size: 0.95rem;
-      font-weight: 700;
-      opacity: 0.9;
-    }
+    .choice-title { font-size: 1.2rem; font-weight: 900; margin-bottom: 4px; }
+    .choice-desc { font-size: 0.95rem; font-weight: 700; opacity: 0.9; }
 
-    .c1 { 
-      background: #00d4ff; 
-      color: #1a1a1a;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #00a8cc;
-    }
-    .c2 { 
-      background: #ffd93d; 
-      color: #1a1a1a;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #ffb700;
-    }
-    .c3 { 
-      background: #00e676; 
-      color: #1a1a1a;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #00c853;
-    }
-    .c4 { 
-      background: #ff6b9d; 
-      color: #ffffff;
-      border: 3px solid #ffffff;
-      box-shadow: 0 4px 0 #f50057;
-    }
+    .c1 { background: #00d4ff; color: #1a1a1a; border: 3px solid #ffffff; box-shadow: 0 4px 0 #00a8cc; }
+    .c2 { background: #ffd93d; color: #1a1a1a; border: 3px solid #ffffff; box-shadow: 0 4px 0 #ffb700; }
+    .c3 { background: #00e676; color: #1a1a1a; border: 3px solid #ffffff; box-shadow: 0 4px 0 #00c853; }
+    .c4 { background: #ff6b9d; color: #ffffff; border: 3px solid #ffffff; box-shadow: 0 4px 0 #f50057; }
 
     .feedback {
       text-align: center;
@@ -418,11 +336,7 @@
     .feedback.ok { color: #00e676; }
     .feedback.no { color: #ff6b6b; }
 
-    .actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
+    .actions { display: flex; gap: 12px; justify-content: center; }
 
     .btn {
       border: 3px solid #ffffff;
@@ -433,21 +347,16 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
+      user-select: none;
     }
 
-    .btn:hover {
-      transform: scale(1.05);
-    }
+    .btn:hover { transform: scale(1.05); }
 
     .btn-orange { background: #ff8a3d; color: #fff; box-shadow: 0 4px 0 #ff6b6b; }
     .btn-gray { background: #e0e0e0; color: #1a1a1a; box-shadow: 0 4px 0 #bdbdbd; }
     .btn-yellow { background: #ffd93d; color: #1a1a1a; box-shadow: 0 4px 0 #ffb700; }
 
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
+    .controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 
     .ctrl {
       background: #ffffff;
@@ -461,17 +370,11 @@
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
+      user-select: none;
     }
 
-    .ctrl:hover { 
-      background: #00d4ff;
-      color: #ffffff;
-    }
-    .ctrl.on { 
-      background: #00e676; 
-      color: #1a1a1a;
-      border-color: #00e676;
-    }
+    .ctrl:hover { background: #00d4ff; color: #ffffff; }
+    .ctrl.on { background: #00e676; color: #1a1a1a; border-color: #00e676; }
 
     .overlay {
       position: fixed;
@@ -492,24 +395,14 @@
       border-radius: 16px;
       padding: 28px;
       width: 100%;
-      max-width: 380px;
+      max-width: 420px;
       text-align: center;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .modal-icon { font-size: 60px; margin-bottom: 14px; }
-    .modal-title { 
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #ff6b9d;
-      margin-bottom: 12px;
-    }
-    .modal-text { 
-      color: #1a1a1a;
-      font-size: 1.2rem;
-      margin-bottom: 18px;
-      font-weight: 700;
-    }
+    .modal-title { font-size: 1.8rem; font-weight: 900; color: #ff6b9d; margin-bottom: 12px; }
+    .modal-text { color: #1a1a1a; font-size: 1.2rem; margin-bottom: 18px; font-weight: 700; }
 
     .summary {
       background: #f0f0f0;
@@ -526,7 +419,6 @@
       padding: 10px 0;
       border-bottom: 2px solid #e0e0e0;
     }
-
     .summary div:last-child { border: none; }
     .summary .val { font-weight: 900; color: #00d4ff; }
     .summary .bad { color: #ff6b6b; }
@@ -549,9 +441,7 @@
       box-shadow: 0 6px 20px rgba(255, 217, 61, 0.8);
     }
 
-    .milestone.show {
-      animation: pop 1.2s ease forwards;
-    }
+    .milestone.show { animation: pop 1.2s ease forwards; }
 
     @keyframes pop {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
@@ -582,191 +472,341 @@
     }
   </style>
 </head>
+
 <body>
+  <div class="milestone" id="milestone"></div>
 
-<div class="milestone" id="milestone"></div>
-
-<div class="overlay" id="winOverlay">
-  <div class="modal">
-    <div class="modal-icon">🏆</div>
-    <div class="modal-title">Mastery Complete!</div>
-    <div class="modal-text">You got 25 correct in a row!</div>
-    <div class="summary" id="summary"></div>
-    <button class="btn btn-orange" id="againBtn">🔄 Play Again</button>
-  </div>
-</div>
-
-<div class="overlay" id="pauseOverlay">
-  <div class="modal">
-    <div class="modal-icon">⏸️</div>
-    <div class="modal-title">Paused</div>
-    <div class="modal-text">Take a break!</div>
-    <div class="actions">
-      <button class="btn btn-orange" id="resumeBtn">▶️ Resume</button>
-      <button class="btn btn-gray" id="quitBtn">⏹️ Quit</button>
-    </div>
-  </div>
-</div>
-
-<div class="app">
-  <div class="header">
-    <div class="brand">
-      <div class="logo">🎯</div>
-      <div>
-        <div class="title">Future Grammar Mastery</div>
-        <div class="subtitle">Get <b>25 correct</b> in a row!</div>
-      </div>
-    </div>
-    <div class="name-box">
-      <label>Name:</label>
-      <input type="text" id="nameInput" placeholder="Your name">
+  <div class="overlay" id="winOverlay">
+    <div class="modal">
+      <div class="modal-icon">🏆</div>
+      <div class="modal-title">Mastery Complete!</div>
+      <div class="modal-text">You got 25 correct in a row!</div>
+      <div class="summary" id="summary"></div>
+      <button class="btn btn-orange" id="againBtn">🔄 Play Again</button>
     </div>
   </div>
 
-  <div class="top-row">
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-label">Player</div>
-        <div class="stat-value" id="playerDisplay">---</div>
+  <div class="overlay" id="pauseOverlay">
+    <div class="modal">
+      <div class="modal-icon">⏸️</div>
+      <div class="modal-title">Paused</div>
+      <div class="modal-text">Take a break!</div>
+      <div class="actions">
+        <button class="btn btn-orange" id="resumeBtn">▶️ Resume</button>
+        <button class="btn btn-gray" id="quitBtn">⏹️ Quit</button>
       </div>
-      <div class="stat">
-        <div class="stat-label">Streak</div>
-        <div class="stat-value orange" id="streakDisplay">0/25</div>
+    </div>
+  </div>
+
+  <div class="app">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">🎯</div>
+        <div>
+          <div class="title">Future Grammar Mastery</div>
+          <div class="subtitle">Get <b>25 correct</b> in a row!</div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-label">Mistakes</div>
-        <div class="stat-value red" id="mistakesDisplay">0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Time</div>
-        <div class="stat-value cyan" id="timeDisplay">00:00</div>
+      <div class="name-box">
+        <label>Name:</label>
+        <input type="text" id="nameInput" placeholder="Your name" />
       </div>
     </div>
 
-    <div class="main-controls">
-      <button class="ctrl-main" id="startBtn">▶️ Start</button>
-      <button class="ctrl-main" id="resetBtn">↺ Reset</button>
+    <div class="top-row">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Player</div>
+          <div class="stat-value" id="playerDisplay">---</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Streak</div>
+          <div class="stat-value orange" id="streakDisplay">0/25</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Mistakes</div>
+          <div class="stat-value red" id="mistakesDisplay">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Time</div>
+          <div class="stat-value cyan" id="timeDisplay">00:00</div>
+        </div>
+      </div>
+
+      <div class="main-controls">
+        <button class="ctrl-main" id="startBtn">▶️ Start</button>
+        <button class="ctrl-main" id="resetBtn">↺ Reset</button>
+      </div>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-top">
+        <span>Progress</span>
+        <span id="pctDisplay">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="game">
+      <div class="badge"><span id="typeBadge">🎮 Ready</span></div>
+
+      <div class="sentence hidden" id="sentenceBox"></div>
+      <div class="built empty hidden" id="builtBox">👆 Tap words to build sentence...</div>
+      <div class="words hidden" id="wordsBox"></div>
+      <div class="choices hidden" id="choicesBox"></div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="actions hidden" id="orderBtns">
+        <button class="btn btn-gray" id="clearBtn">🗑️ Clear</button>
+        <button class="btn btn-yellow" id="checkBtn">✓ Check</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl" id="easyBtn">😊 Easy</button>
+      <button class="ctrl" id="hardBtn">🔥 Hard</button>
+      <button class="ctrl" id="pauseBtn">⏸️ Pause</button>
+      <button class="ctrl" id="musicBtn">🔇 Music</button>
     </div>
   </div>
 
-  <div class="progress-box">
-    <div class="progress-top">
-      <span>Progress</span>
-      <span id="pctDisplay">0%</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-  </div>
-
-  <div class="game">
-    <div class="badge"><span id="typeBadge">🎮 Ready</span></div>
-    
-    <div class="sentence hidden" id="sentenceBox"></div>
-    <div class="built empty hidden" id="builtBox">👆 Tap words to build sentence...</div>
-    <div class="words hidden" id="wordsBox"></div>
-    <div class="choices hidden" id="choicesBox"></div>
-    
-    <div class="feedback" id="feedback"></div>
-    
-    <div class="actions hidden" id="orderBtns">
-      <button class="btn btn-gray" id="clearBtn">🗑️ Clear</button>
-      <button class="btn btn-yellow" id="checkBtn">✓ Check</button>
-    </div>
-  </div>
-
-  <div class="controls">
-    <button class="ctrl" id="easyBtn">😊 Easy</button>
-    <button class="ctrl" id="hardBtn">🔥 Hard</button>
-    <button class="ctrl" id="pauseBtn">⏸️ Pause</button>
-    <button class="ctrl" id="musicBtn">🔇 Music</button>
-  </div>
-</div>
-
-<!-- ✅ AUDIO FILES -->
-<audio id="bgm" loop><source src="audio/koala2.mp3" type="audio/mpeg"></audio>
-<audio id="winSound"><source src="audio/tadaa.mp3" type="audio/mpeg"></audio>
+  <!-- ✅ AUDIO FILES (make sure these exist in your repo) -->
+  <audio id="bgm" loop><source src="audio/koala2.mp3" type="audio/mpeg"></audio>
+  <audio id="winSound"><source src="audio/tadaa.mp3" type="audio/mpeg"></audio>
 
 <script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwepIOC4bssASGk1XKrEO2RjW_3VN8i6hfE5G2GmT1W0bDJz1Om6iX4bdyTPK1sbkas8w/exec";
-const SECRET = "SECRET_KEY";
+/* ===========================================================
+   ✅ GOOGLE SHEETS CONNECTION (YOUR WEB APP URL)
+=========================================================== */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyOAwxyhYFmoEfY9aPqs5ScwRIJmRKwtMFQamHLcMFEuf4w_CAyIyg0t1oaSHQWo5Vk/exec";
+const SECRET    = "SECRET_KEY"; // MUST match SECRET_KEY in Apps Script
 const GOAL = 25;
 
-const BANK = [
-  {t:"The train leaves at 8:10 tomorrow.",f:"ps",m:"schedule"},
-  {t:"School starts at 9 on Monday.",f:"ps",m:"schedule"},
-  {t:"The concert begins at 7 p.m.",f:"ps",m:"schedule"},
-  {t:"The bus departs at 6:30 a.m.",f:"ps",m:"schedule"},
-  {t:"The store opens at 10 tomorrow.",f:"ps",m:"schedule"},
-  {t:"The movie starts at 8:15 tonight.",f:"ps",m:"schedule"},
-  {t:"The flight leaves at noon.",f:"ps",m:"schedule"},
-  {t:"Class ends at 3 p.m.",f:"ps",m:"schedule"},
-  {t:"The museum closes at 5.",f:"ps",m:"schedule"},
-  {t:"The train arrives at 9:45.",f:"ps",m:"schedule"},
-  {t:"I'm meeting friends at 6 p.m.",f:"pc",m:"arrangement"},
-  {t:"We're having dinner tomorrow.",f:"pc",m:"arrangement"},
-  {t:"She's seeing the dentist Friday.",f:"pc",m:"arrangement"},
-  {t:"They're visiting us next week.",f:"pc",m:"arrangement"},
-  {t:"I'm flying to Paris on Monday.",f:"pc",m:"arrangement"},
-  {t:"We're going to the beach tomorrow.",f:"pc",m:"arrangement"},
-  {t:"He's meeting the boss at 2.",f:"pc",m:"arrangement"},
-  {t:"She's starting her new job Monday.",f:"pc",m:"arrangement"},
-  {t:"We're having a party Saturday.",f:"pc",m:"arrangement"},
-  {t:"I'm playing tennis at 4 p.m.",f:"pc",m:"arrangement"},
-  {t:"I think it will rain later.",f:"will",m:"prediction"},
-  {t:"They will probably win.",f:"will",m:"prediction"},
-  {t:"She'll be happy to see you.",f:"will",m:"prediction"},
-  {t:"It will be sunny tomorrow.",f:"will",m:"prediction"},
-  {t:"He'll pass the exam easily.",f:"will",m:"prediction"},
-  {t:"Don't worry, I'll help you.",f:"will",m:"offer"},
-  {t:"I'll carry your bags.",f:"will",m:"offer"},
-  {t:"We'll give you a ride.",f:"will",m:"offer"},
-  {t:"I won't tell anyone.",f:"will",m:"promise"},
-  {t:"I'll call you tonight.",f:"will",m:"promise"},
-  {t:"We'll be there on time.",f:"will",m:"promise"},
-  {t:"Okay, I'll do it now.",f:"will",m:"decision"},
-  {t:"I'll have the salad.",f:"will",m:"decision"},
-  {t:"I'll take this one.",f:"will",m:"decision"},
-  {t:"I'll answer the phone.",f:"will",m:"decision"},
-  {t:"I'm going to study tonight.",f:"going",m:"plan"},
-  {t:"We're going to meet after school.",f:"going",m:"plan"},
-  {t:"She's going to buy a new car.",f:"going",m:"plan"},
-  {t:"They're going to move to Spain.",f:"going",m:"plan"},
-  {t:"I'm going to learn Japanese.",f:"going",m:"plan"},
-  {t:"Look! It's going to rain.",f:"going",m:"evidence"},
-  {t:"That glass is going to fall!",f:"going",m:"evidence"},
-  {t:"Watch out! He's going to crash!",f:"going",m:"evidence"},
-  {t:"Be careful! You're going to drop it!",f:"going",m:"evidence"},
-  {t:"The balloon is going to pop!",f:"going",m:"evidence"},
-  {t:"If you study, you'll pass.",f:"cond",m:"result"},
-  {t:"If it rains, we'll stay home.",f:"cond",m:"plan"},
-  {t:"If you're tired, take a break.",f:"cond",m:"advice"},
-  {t:"If she calls, I'll tell her.",f:"cond",m:"result"},
-  {t:"If we hurry, we'll catch the bus.",f:"cond",m:"result"},
-  {t:"If you're hungry, eat something.",f:"cond",m:"advice"},
-  {t:"If he asks, I'll help him.",f:"cond",m:"plan"},
-  {t:"If it's cold, wear a jacket.",f:"cond",m:"advice"},
-  {t:"If you see him, say hello.",f:"cond",m:"advice"},
-  {t:"If they agree, we'll start tomorrow.",f:"cond",m:"plan"}
-];
+/* ===========================================================
+   ✅ BIG BANK (270 sentences) — GENERATED IN-FILE
+   5 tenses × 3 structures × 18 each = 270
+   Each item: {t, f, s, m}
+   f: ps | pc | will | going | cond
+   s: aff | neg | int
+=========================================================== */
+const BANK = (() => {
+  const bank = [];
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const add = (t, f, s, m) => bank.push({ t, f, s, m });
+
+  const times18 = [
+    "tomorrow","on Monday","on Tuesday","on Wednesday","on Thursday","on Friday",
+    "on Saturday","on Sunday","next week","next month","this evening","tonight",
+    "at 6 p.m.","at 7 p.m.","at 8 a.m.","at 9 a.m.","at noon","later"
+  ];
+
+  // Present Simple (schedules)
+  const psSubjects18 = [
+    "the train","the bus","the flight","the ferry","the concert","the movie",
+    "school","the exam","the shop","the museum","the match","the class",
+    "the library","the meeting","the show","the restaurant","the clinic","the taxi"
+  ];
+  const psVerbs18 = [
+    "leaves","departs","arrives","lands","starts","begins",
+    "opens","closes","finishes","ends","kicks off","returns",
+    "boards","checks in","takes off","serves","runs","continues"
+  ];
+  for (let i=0;i<18;i++){
+    const subj = psSubjects18[i];
+    const v = psVerbs18[i];
+    const t = times18[i];
+    add(`${cap(subj)} ${v} ${t}.`, "ps", "aff", "schedule");
+    add(`${cap(subj)} doesn't ${v.replace(/s$/,"")} ${t}.`, "ps", "neg", "schedule");
+    add(`Does ${subj} ${v.replace(/s$/,"")} ${t}?`, "ps", "int", "schedule");
+  }
+
+  // Present Continuous (arrangements)
+  const pcPeople18 = [
+    "I","We","She","He","They","I","We","She","He","They","I","We","She","He","They","I","We","They"
+  ];
+  const pcActions18 = [
+    "meeting my friends","having dinner","seeing the dentist","visiting my grandparents","starting a new job","playing tennis",
+    "studying for a test","going to the cinema","having a class trip","meeting the teacher","going shopping","having a party",
+    "working late","taking the bus","flying to London","going to the doctor","meeting at the park","having a meeting"
+  ];
+  for (let i=0;i<18;i++){
+    const who = pcPeople18[i];
+    const act = pcActions18[i];
+    const t = times18[i];
+    const be = (who==="I") ? "am" : (who==="He"||who==="She") ? "is" : "are";
+    const beNeg = (who==="I") ? "am not" : (who==="He"||who==="She") ? "isn't" : "aren't";
+    add(`${who} ${be} ${act} ${t}.`, "pc", "aff", "arrangement");
+    add(`${who} ${beNeg} ${act} ${t}.`, "pc", "neg", "arrangement");
+    add(`${cap(be)} ${who.toLowerCase()==="i" ? "you" : who.toLowerCase()} ${act} ${t}?`
+          .replace(/^Am you/,"Are you"), "pc", "int", "arrangement");
+  }
+
+  // WILL (prediction / offer / promise / decision)
+  const willSubjects18 = [
+    "It","I","We","She","He","They","I","We","She","He","They","I","We","She","He","They","I","We"
+  ];
+  const willSlots18 = [
+    {m:"prediction", aff:"will rain", neg:"won't rain", int:"Will it rain"},
+    {m:"offer",      aff:"will help you", neg:"won't help you", int:"Will you help me"},
+    {m:"promise",    aff:"will call you", neg:"won't forget", int:"Will you call me"},
+    {m:"decision",   aff:"will take the blue one", neg:"won't take the blue one", int:"Will you take the blue one"},
+    {m:"prediction", aff:"will be late", neg:"won't be late", int:"Will he be late"},
+    {m:"prediction", aff:"will win", neg:"won't win", int:"Will they win"},
+    {m:"offer",      aff:"will carry your bag", neg:"won't carry your bag", int:"Will you carry my bag"},
+    {m:"promise",    aff:"will text you", neg:"won't tell anyone", int:"Will you tell anyone"},
+    {m:"decision",   aff:"will order pizza", neg:"won't order pizza", int:"Will she order pizza"},
+    {m:"prediction", aff:"will be sunny", neg:"won't be sunny", int:"Will it be sunny"},
+    {m:"prediction", aff:"will pass the exam", neg:"won't pass the exam", int:"Will they pass the exam"},
+    {m:"offer",      aff:"will open the door", neg:"won't open the door", int:"Will you open the door"},
+    {m:"promise",    aff:"will be there", neg:"won't be late", int:"Will we be late"},
+    {m:"decision",   aff:"will buy this one", neg:"won't buy this one", int:"Will he buy this one"},
+    {m:"prediction", aff:"will get better", neg:"won't get better", int:"Will it get better"},
+    {m:"offer",      aff:"will explain it", neg:"won't explain it", int:"Will you explain it"},
+    {m:"promise",    aff:"will send it", neg:"won't lose it", int:"Will you send it"},
+    {m:"decision",   aff:"will choose the first option", neg:"won't choose the first option", int:"Will we choose the first option"},
+  ];
+  for (let i=0;i<18;i++){
+    const subj = willSubjects18[i];
+    const slot = willSlots18[i];
+    const t = times18[i];
+    add(`${subj} ${slot.aff} ${t}.`, "will", "aff", slot.m);
+    add(`${subj} ${slot.neg} ${t}.`, "will", "neg", slot.m);
+    add(`${slot.int} ${t}?`, "will", "int", slot.m);
+  }
+
+  // GOING TO (plan / evidence)
+  const goingPeople18 = [
+    "I","We","She","He","They","I","We","She","He","They","I","We","She","He","They","I","We","They"
+  ];
+  const goingPlans18 = [
+    {m:"plan",     v:"study"},
+    {m:"plan",     v:"visit my cousins"},
+    {m:"plan",     v:"buy a new phone"},
+    {m:"plan",     v:"start a project"},
+    {m:"plan",     v:"travel to Madrid"},
+    {m:"plan",     v:"practice English"},
+    {m:"plan",     v:"meet after school"},
+    {m:"plan",     v:"play football"},
+    {m:"plan",     v:"watch a movie"},
+    {m:"plan",     v:"cook dinner"},
+    {m:"evidence", v:"rain"},
+    {m:"evidence", v:"fall"},
+    {m:"evidence", v:"break"},
+    {m:"evidence", v:"crash"},
+    {m:"evidence", v:"overflow"},
+    {m:"evidence", v:"be loud"},
+    {m:"evidence", v:"stop"},
+    {m:"evidence", v:"happen soon"},
+  ];
+  for (let i=0;i<18;i++){
+    const who = goingPeople18[i];
+    const t = times18[i];
+    const be = (who==="I") ? "am" : (who==="He"||who==="She") ? "is" : "are";
+    const beNeg = (who==="I") ? "am not" : (who==="He"||who==="She") ? "isn't" : "aren't";
+    const item = goingPlans18[i];
+
+    if (item.m === "plan") {
+      add(`${who} ${be} going to ${item.v} ${t}.`, "going", "aff", "plan");
+      add(`${who} ${beNeg} going to ${item.v} ${t}.`, "going", "neg", "plan");
+      add(`${cap(be)} ${who.toLowerCase()==="i" ? "you" : who.toLowerCase()} going to ${item.v} ${t}?`
+            .replace(/^Am you/,"Are you"), "going", "int", "plan");
+    } else {
+      const subj = (i % 2 === 0) ? "It" : "That";
+      add(`${subj} is going to ${item.v} ${t}.`, "going", "aff", "evidence");
+      add(`${subj} is not going to ${item.v} ${t}.`, "going", "neg", "evidence");
+      add(`Is ${subj.toLowerCase()} going to ${item.v} ${t}?`, "going", "int", "evidence");
+    }
+  }
+
+  // FIRST CONDITIONAL (result / plan / advice)
+  const condIf18 = [
+    {m:"result", a:"If you study", b:"you'll pass"},
+    {m:"plan",   a:"If it rains", b:"we'll stay home"},
+    {m:"advice", a:"If you're tired", b:"you'll take a break"},
+    {m:"result", a:"If we hurry", b:"we'll catch the bus"},
+    {m:"plan",   a:"If she calls", b:"I'll answer"},
+    {m:"advice", a:"If you're hungry", b:"you'll eat something"},
+    {m:"result", a:"If they arrive early", b:"they'll get seats"},
+    {m:"plan",   a:"If you finish", b:"we'll start"},
+    {m:"advice", a:"If it's cold", b:"you'll wear a jacket"},
+    {m:"result", a:"If he practices", b:"he'll improve"},
+    {m:"plan",   a:"If we have time", b:"we'll visit the museum"},
+    {m:"advice", a:"If you feel sick", b:"you'll rest"},
+    {m:"result", a:"If I save money", b:"I'll buy it"},
+    {m:"plan",   a:"If you want", b:"we'll meet"},
+    {m:"advice", a:"If you don't understand", b:"you'll ask a question"},
+    {m:"result", a:"If the traffic is bad", b:"we'll be late"},
+    {m:"plan",   a:"If he agrees", b:"we'll start tomorrow"},
+    {m:"advice", a:"If you see a mistake", b:"you'll correct it"},
+  ];
+  for (let i=0;i<18;i++){
+    const t = times18[i];
+    const it = condIf18[i];
+
+    add(`${it.a}, ${it.b} ${t}.`, "cond", "aff", it.m);
+
+    const aNeg = it.a.replace("If you ", "If you don't ")
+                     .replace("If we ", "If we don't ")
+                     .replace("If I ", "If I don't ")
+                     .replace("If they ", "If they don't ")
+                     .replace("If he ", "If he doesn't ")
+                     .replace("If she ", "If she doesn't ")
+                     .replace("If it ", "If it doesn't ")
+                     .replace("If you're ", "If you aren't ")
+                     .replace("If it's ", "If it isn't ");
+    const bNeg = it.b.replace("you'll ", "you won't ")
+                     .replace("we'll ", "we won't ")
+                     .replace("I'll ", "I won't ")
+                     .replace("he'll ", "he won't ")
+                     .replace("they'll ", "they won't ");
+    add(`${aNeg}, ${bNeg} ${t}.`, "cond", "neg", it.m);
+
+    // interrogative (simple pattern)
+    const base = it.b.replace(/^(you'll|we'll|I'll|he'll|they'll)\s/,"").trim();
+    add(`${it.a}, will ${base} ${t}?`, "cond", "int", it.m);
+  }
+
+  return bank;
+})();
 
 const TENSES = [
-  {k:"ps",l:"Present Simple",d:"Schedules"},
-  {k:"pc",l:"Present Continuous",d:"Arrangements"},
-  {k:"will",l:"Will",d:"Predictions/Promises"},
-  {k:"going",l:"Going to",d:"Plans/Evidence"},
-  {k:"cond",l:"First Conditional",d:"If + will"}
+  {k:"ps",   l:"Present Simple",      d:"Schedules"},
+  {k:"pc",   l:"Present Continuous",  d:"Arrangements"},
+  {k:"will", l:"Will",               d:"Predictions/Promises"},
+  {k:"going",l:"Going to",           d:"Plans/Evidence"},
+  {k:"cond", l:"First Conditional",  d:"If + will"}
 ];
 
+const MEANINGS = {
+  will:  [{k:"prediction",l:"Prediction"},{k:"offer",l:"Offer"},{k:"promise",l:"Promise"},{k:"decision",l:"Decision"}],
+  going: [{k:"plan",l:"Plan"},{k:"evidence",l:"Evidence"}],
+  ps:    [{k:"schedule",l:"Schedule"}],
+  pc:    [{k:"arrangement",l:"Arrangement"}],
+  cond:  [{k:"result",l:"Result"},{k:"plan",l:"Plan"},{k:"advice",l:"Advice"}]
+};
+
 let level="easy", running=false, paused=false;
-let streak=0, mistakes=0, errByType={ORDER:0,TENSE:0,MEANING:0};
+let streak=0, mistakes=0;
+let errByType={ORDER:0,TENSE:0,MEANING:0};
 let startT=null, timer=null, musicOn=false;
 let qType="", curQ=null, built=[], wordBtns=[];
+let totalQs=0, totalCorrect=0, totalWrong=0;
 
-const $=id=>document.getElementById(id);
-const bgm=$("bgm");
-const winSound=$("winSound");
-const shuffle=a=>{let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
+const $ = id => document.getElementById(id);
+const bgm = $("bgm");
+const winSound = $("winSound");
+
+const shuffle = a => {
+  let b=[...a];
+  for(let i=b.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [b[i],b[j]]=[b[j],b[i]];
+  }
+  return b;
+};
 
 function updateUI(){
   $("streakDisplay").textContent=`${streak}/${GOAL}`;
@@ -777,21 +817,22 @@ function updateUI(){
 }
 
 function updateTime(){
-  if(!startT)return;
+  if(!startT) return;
   const s=Math.floor((Date.now()-startT)/1000);
-  $("timeDisplay").textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+  $("timeDisplay").textContent =
+    `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
 }
 
-function setFeedback(t,ok=null){
+function setFeedback(t, ok=null){
   const f=$("feedback");
   f.textContent=t;
   f.className="feedback"+(ok===true?" ok":"")+(ok===false?" no":"");
 }
 
-function show(el){el.classList.remove("hidden");}
-function hide(el){el.classList.add("hidden");}
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
 
-function reset(){
+function resetBoard(){
   hide($("sentenceBox"));
   hide($("builtBox"));
   hide($("wordsBox"));
@@ -800,7 +841,7 @@ function reset(){
   $("choicesBox").innerHTML="";
   $("wordsBox").innerHTML="";
   $("builtBox").innerHTML="";
-  built=[];wordBtns=[];
+  built=[]; wordBtns=[];
   setFeedback("");
 }
 
@@ -811,53 +852,114 @@ function milestone(t){
   setTimeout(()=>m.classList.remove("show"),1200);
 }
 
+/* ===========================
+   Easy/Hard selection
+=========================== */
+function pickQuestionType(){
+  if(level==="easy"){
+    const pool = ["ORDER","TENSE","ORDER","TENSE","ORDER","TENSE","MEANING"];
+    return pool[Math.floor(Math.random()*pool.length)];
+  }
+  const pool = ["ORDER","TENSE","MEANING","ORDER","TENSE","MEANING"];
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function pickSentence(){
+  const weightsEasy = {aff:70, int:20, neg:10};
+  const weightsHard = {aff:40, int:30, neg:30};
+  const w = (level==="easy") ? weightsEasy : weightsHard;
+
+  const roll = Math.random()*100;
+  let struct = "aff";
+  if(roll < w.aff) struct="aff";
+  else if(roll < w.aff + w.int) struct="int";
+  else struct="neg";
+
+  const tenseWeightsEasy = [["ps",25],["pc",25],["going",25],["will",20],["cond",5]];
+  const tenseWeightsHard = [["will",25],["going",25],["ps",20],["pc",15],["cond",15]];
+  const tw = (level==="easy") ? tenseWeightsEasy : tenseWeightsHard;
+
+  const r = Math.random()*100;
+  let acc=0, tense="ps";
+  for(const [k,p] of tw){ acc+=p; if(r<=acc){ tense=k; break; } }
+
+  const candidates = BANK.filter(x => x.f===tense && x.s===struct);
+  const pool = candidates.length ? candidates : BANK;
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+/* ===========================
+   Game flow
+=========================== */
 function start(){
   const name=$("nameInput").value.trim();
-  if(!name){setFeedback("Enter your name!",false);return;}
+  if(!name){ setFeedback("Enter your name!", false); return; }
+
   $("playerDisplay").textContent=name;
-  running=true;paused=false;
-  streak=0;mistakes=0;errByType={ORDER:0,TENSE:0,MEANING:0};
-  updateUI();reset();
+
+  running=true; paused=false;
+  streak=0; mistakes=0;
+  errByType={ORDER:0,TENSE:0,MEANING:0};
+  totalQs=0; totalCorrect=0; totalWrong=0;
+
+  updateUI(); resetBoard();
+
   startT=Date.now();
-  if(timer)clearInterval(timer);
+  if(timer) clearInterval(timer);
   timer=setInterval(updateTime,500);
-  if(musicOn)bgm.play().catch(()=>{});
+
+  if(musicOn) bgm.play().catch(()=>{});
+
   $("startBtn").classList.add("on");
   next();
 }
 
-function stop(){
-  running=false;paused=false;
-  if(timer)clearInterval(timer);timer=null;startT=null;
+function stop(sendReport=true){
+  const wasRunning = running;
+  running=false; paused=false;
+
+  if(timer) clearInterval(timer);
+  timer=null;
+
+  if(wasRunning && sendReport){
+    sendToSheet("QUIT");
+  }
+
+  startT=null;
   $("timeDisplay").textContent="00:00";
   $("playerDisplay").textContent="---";
-  streak=0;mistakes=0;updateUI();reset();
+
+  streak=0; mistakes=0;
+  updateUI(); resetBoard();
+
   $("typeBadge").textContent="🎮 Ready";
-  bgm.pause();
-  bgm.currentTime=0;
+
+  bgm.pause(); bgm.currentTime=0;
   musicOn=false;
   $("musicBtn").textContent="🔇 Music";
   $("musicBtn").classList.remove("on");
   $("startBtn").classList.remove("on");
+
   $("winOverlay").classList.remove("show");
   $("pauseOverlay").classList.remove("show");
 }
 
 function next(){
-  if(!running||paused)return;
-  reset();
-  const types=level==="hard"?["ORDER","TENSE","MEANING"]:["ORDER","TENSE"];
-  qType=types[Math.floor(Math.random()*types.length)];
-  curQ=BANK[Math.floor(Math.random()*BANK.length)];
-  
+  if(!running || paused) return;
+
+  resetBoard();
+
+  qType = pickQuestionType();
+  curQ = pickSentence();
+
   if(qType==="ORDER"){
-    $("typeBadge").textContent="📝 Order Words";
+    $("typeBadge").textContent = "📝 Order Words";
     renderOrder();
-  }else if(qType==="TENSE"){
-    $("typeBadge").textContent="🎯 Pick Tense";
+  } else if(qType==="TENSE"){
+    $("typeBadge").textContent = "🎯 Pick Tense";
     renderTense();
-  }else{
-    $("typeBadge").textContent="💡 Meaning";
+  } else {
+    $("typeBadge").textContent = "💡 Meaning";
     renderMeaning();
   }
 }
@@ -866,15 +968,18 @@ function renderOrder(){
   show($("builtBox"));
   show($("wordsBox"));
   show($("orderBtns"));
+
   const box=$("wordsBox");
   box.innerHTML="";
-  const tokens=shuffle(curQ.t.split(" ").filter(Boolean));
-  wordBtns=tokens.map(w=>{
+
+  const tokens = shuffle(curQ.t.replace(/\s+/g," ").trim().split(" ").filter(Boolean));
+
+  wordBtns = tokens.map(w => {
     const b=document.createElement("button");
     b.className="word-btn";
     b.textContent=w;
     b.onclick=()=>{
-      if(!running||paused)return;
+      if(!running||paused) return;
       built.push(w);
       b.disabled=true;
       renderBuilt();
@@ -882,6 +987,7 @@ function renderOrder(){
     box.appendChild(b);
     return {w,b};
   });
+
   renderBuilt();
 }
 
@@ -896,15 +1002,16 @@ function renderBuilt(){
   }
   box.classList.remove("empty");
   box.classList.add("active");
+
   built.forEach((w,i)=>{
     const c=document.createElement("div");
     c.className="chip";
     c.textContent=w;
     c.onclick=()=>{
-      if(!running||paused)return;
+      if(!running||paused) return;
       built.splice(i,1);
-      const m=wordBtns.find(x=>x.w===w&&x.b.disabled);
-      if(m)m.b.disabled=false;
+      const idx = wordBtns.findIndex(x=>x.w===w && x.b.disabled);
+      if(idx>=0) wordBtns[idx].b.disabled=false;
       renderBuilt();
     };
     box.appendChild(c);
@@ -918,132 +1025,184 @@ function clearOrder(){
 }
 
 function checkOrder(){
-  if(!running||paused||!curQ)return;
-  grade(built.join(" ")===curQ.t,{picked:built.join(" "),correct:curQ.t});
+  if(!running||paused||!curQ) return;
+  grade(built.join(" ") === curQ.t, {picked: built.join(" "), correct: curQ.t});
 }
 
 function renderTense(){
   show($("sentenceBox"));
   show($("choicesBox"));
-  $("sentenceBox").textContent=curQ.t;
-  const correct=TENSES.find(x=>x.k===curQ.f);
-  const others=shuffle(TENSES.filter(x=>x.k!==curQ.f)).slice(0,3);
-  const opts=shuffle([correct,...others]);
-  const box=$("choicesBox");
+
+  $("sentenceBox").textContent = curQ.t;
+
+  const correct = TENSES.find(x=>x.k===curQ.f);
+  let pool = TENSES.filter(x=>x.k!==curQ.f);
+
+  if(level==="hard"){
+    const near = { ps:["pc"], pc:["ps"], will:["going","cond"], going:["will","pc"], cond:["will"] };
+    const preferred = (near[curQ.f]||[]);
+    const prefObjs = preferred.map(k => TENSES.find(x=>x.k===k)).filter(Boolean);
+    const rest = pool.filter(x => !preferred.includes(x.k));
+    pool = [...prefObjs, ...rest];
+  } else {
+    pool = shuffle(pool);
+  }
+
+  const others = pool.slice(0,3);
+  const opts = shuffle([correct, ...others]);
+
+  const box = $("choicesBox");
   box.innerHTML="";
   const colors=["c1","c2","c3","c4"];
+
   opts.forEach((o,i)=>{
     const b=document.createElement("button");
     b.className="choice "+colors[i];
-    b.innerHTML=`<div class="choice-title">${o.l}</div><div class="choice-desc">${o.d}</div>`;
-    b.onclick=()=>grade(o.k===curQ.f,{picked:o.l,correct:correct.l});
+    b.innerHTML = `<div class="choice-title">${o.l}</div><div class="choice-desc">${o.d}</div>`;
+    b.onclick = ()=> grade(o.k===curQ.f, {picked:o.l, correct: correct.l});
     box.appendChild(b);
   });
 }
-
-const MEANINGS={
-  will:[{k:"prediction",l:"Prediction"},{k:"offer",l:"Offer"},{k:"promise",l:"Promise"},{k:"decision",l:"Decision"}],
-  going:[{k:"plan",l:"Plan"},{k:"evidence",l:"Evidence"}],
-  ps:[{k:"schedule",l:"Schedule"}],
-  pc:[{k:"arrangement",l:"Arrangement"}],
-  cond:[{k:"result",l:"Result"},{k:"plan",l:"Plan"},{k:"advice",l:"Advice"}]
-};
 
 function renderMeaning(){
   show($("sentenceBox"));
   show($("choicesBox"));
+
   $("sentenceBox").textContent=curQ.t;
-  let opts=MEANINGS[curQ.f]||[];
-  if(opts.length<4){
-    opts=[{k:"prediction",l:"Prediction"},{k:"plan",l:"Plan"},{k:"schedule",l:"Schedule"},{k:"offer",l:"Offer"}];
+
+  let opts = MEANINGS[curQ.f] || [];
+  if(opts.length < 4){
+    const pad = [{k:"prediction",l:"Prediction"},{k:"plan",l:"Plan"},{k:"schedule",l:"Schedule"},{k:"offer",l:"Offer"}];
+    opts = shuffle([...opts, ...pad]).slice(0,4);
+  } else {
+    opts = shuffle(opts).slice(0,4);
   }
-  opts=shuffle(opts).slice(0,4);
-  const correctLbl=(MEANINGS[curQ.f]?.find(x=>x.k===curQ.m)?.l)||curQ.m;
+
+  const correctLbl = (MEANINGS[curQ.f]?.find(x=>x.k===curQ.m)?.l) || curQ.m;
+
   const box=$("choicesBox");
   box.innerHTML="";
   const colors=["c1","c2","c3","c4"];
+
   opts.forEach((o,i)=>{
     const b=document.createElement("button");
     b.className="choice "+colors[i];
     b.innerHTML=`<div class="choice-title">${o.l}</div>`;
-    b.onclick=()=>grade(o.k===curQ.m,{picked:o.l,correct:correctLbl});
+    b.onclick=()=>grade(o.k===curQ.m, {picked:o.l, correct: correctLbl});
     box.appendChild(b);
   });
 }
 
-function grade(ok,detail){
-  if(!running||paused)return;
+function grade(ok, detail){
+  if(!running||paused) return;
+
+  totalQs++;
+
   if(ok){
+    totalCorrect++;
     streak++;
     updateUI();
-    setFeedback("✅ Correct!",true);
-    if(streak===5)milestone("🔥 5 streak!");
-    if(streak===10)milestone("⚡ 10 streak!");
-    if(streak===15)milestone("🌟 15! Almost!");
-    if(streak===20)milestone("💪 20! So close!");
-    if(streak>=GOAL){win();return;}
-    setTimeout(()=>{if(running&&!paused)next();},600);
-  }else{
+    setFeedback("✅ Correct!", true);
+
+    if(streak===5)  milestone("🔥 5 streak!");
+    if(streak===10) milestone("⚡ 10 streak!");
+    if(streak===15) milestone("🌟 15! Almost!");
+    if(streak===20) milestone("💪 20! So close!");
+
+    if(streak>=GOAL){ win(); return; }
+    setTimeout(()=>{ if(running&&!paused) next(); }, 600);
+  } else {
+    totalWrong++;
     mistakes++;
-    errByType[qType]++;
+    errByType[qType] = (errByType[qType]||0) + 1;
     streak=0;
     updateUI();
-    setFeedback(`❌ Wrong! → ${detail.correct}`,false);
-    if(qType==="ORDER")clearOrder();
-    setTimeout(()=>{if(running&&!paused)next();},1400);
+    setFeedback(`❌ Wrong! → ${detail.correct}`, false);
+
+    if(qType==="ORDER") clearOrder();
+    setTimeout(()=>{ if(running&&!paused) next(); }, 1400);
   }
+}
+
+function mostCommonError(){
+  const entries = Object.entries(errByType);
+  let best = {k:"ORDER", v:-1};
+  for(const [k,v] of entries){
+    if(v > best.v) best = {k, v};
+  }
+  return best.k;
+}
+
+function needImprovementFromMostFailed(mf){
+  if(mf==="ORDER") return "Word order in sentences";
+  if(mf==="TENSE") return "Choosing the correct tense";
+  if(mf==="MEANING") return "Choosing the correct use/meaning";
+  return "General practice";
 }
 
 function win(){
   running=false;
-  if(timer)clearInterval(timer);
-  
-  // ✅ REPRODUCIR SONIDO DE CELEBRACIÓN
+  if(timer) clearInterval(timer);
+
   bgm.pause();
   winSound.play().catch(()=>{});
-  
-  const t=$("timeDisplay").textContent;
-  $("summary").innerHTML=`
+
+  const tStr = $("timeDisplay").textContent;
+  const mf = mostCommonError();
+  const need = needImprovementFromMostFailed(mf);
+
+  $("summary").innerHTML = `
     <div><span>Player</span><span class="val">${$("playerDisplay").textContent}</span></div>
-    <div><span>Time</span><span class="val">${t}</span></div>
+    <div><span>Level</span><span class="val">${level.toUpperCase()}</span></div>
+    <div><span>Time</span><span class="val">${tStr}</span></div>
+    <div><span>Total Qs</span><span class="val">${totalQs}</span></div>
     <div><span>Mistakes</span><span class="val ${mistakes>0?'bad':''}">${mistakes}</span></div>
-    <div><span>ORDER</span><span class="val ${errByType.ORDER>0?'bad':''}">${errByType.ORDER}</span></div>
-    <div><span>TENSE</span><span class="val ${errByType.TENSE>0?'bad':''}">${errByType.TENSE}</span></div>
-    <div><span>MEANING</span><span class="val ${errByType.MEANING>0?'bad':''}">${errByType.MEANING}</span></div>
+    <div><span>Most common error</span><span class="val ${mf!=="ORDER"?'bad':''}">${mf}</span></div>
+    <div><span>Need improvement</span><span class="val ${mistakes>0?'bad':''}">${need}</span></div>
   `;
+
   $("winOverlay").classList.add("show");
-  
-  sendToSheet();
+  sendToSheet("WIN");
 }
 
-function sendToSheet(){
+/* ===========================================================
+   ✅ SEND REPORT TO GOOGLE SHEETS
+   Compatible with your current Apps Script columns:
+   timestamp, name, time_s, mistakes, most_failed, activity, sentence, user_agent
+=========================================================== */
+function sendToSheet(eventType){
   if(!SHEET_URL || !startT) return;
-  
+
   const timeSeconds = Math.floor((Date.now() - startT) / 1000);
-  const mostFailed = Object.keys(errByType).reduce((a,b)=>errByType[a]>errByType[b]?a:b);
-  
-  const data = {
+  const mf = mostCommonError();
+  const need = needImprovementFromMostFailed(mf);
+
+  const payload = {
     secret: SECRET,
-    name: $("playerDisplay").textContent,
+    name: $("playerDisplay").textContent || "",
     time_s: timeSeconds,
     attempts: mistakes,
-    most_failed: mostFailed,
-    activity: qType,
-    sentence: curQ?.t || ""
+    most_failed: mf,
+    activity: `${eventType}:${level}`,
+    sentence: `qs=${totalQs};correct=${totalCorrect};wrong=${totalWrong};need=${need};last=${(curQ?.t||"").slice(0,180)}`,
+    user_agent: navigator.userAgent
   };
 
   fetch(SHEET_URL, {
     method: "POST",
     mode: "no-cors",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(data)
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(payload)
   }).catch(err => console.log("Sheet error:", err));
 }
 
+/* ===========================
+   Music / Pause / Level
+=========================== */
 function setLevel(l){
   level=l;
-  $("easyBtn").classList.toggle("on",l==="easy");
-  $("hardBtn").classList.toggle("on",l==="hard");
+  $("easyBtn").classList.toggle("on", l==="easy");
+  $("hardBtn").classList.toggle("on", l==="hard");
 }
 
 function toggleMusic(){
@@ -1054,7 +1213,7 @@ function toggleMusic(){
       $("musicBtn").textContent="🔊 Music";
       $("musicBtn").classList.add("on");
     }).catch(()=>{});
-  }else{
+  } else {
     bgm.pause();
     musicOn=false;
     $("musicBtn").textContent="🔇 Music";
@@ -1063,31 +1222,35 @@ function toggleMusic(){
 }
 
 function togglePause(){
-  if(!running)return;
+  if(!running) return;
   if(paused){
     paused=false;
     $("pauseOverlay").classList.remove("show");
-    if(musicOn)bgm.play().catch(()=>{});
-  }else{
+    if(musicOn) bgm.play().catch(()=>{});
+  } else {
     paused=true;
     $("pauseOverlay").classList.add("show");
     bgm.pause();
   }
 }
 
-$("startBtn").onclick=start;
-$("resetBtn").onclick=stop;
-$("easyBtn").onclick=()=>setLevel("easy");
-$("hardBtn").onclick=()=>setLevel("hard");
-$("pauseBtn").onclick=togglePause;
-$("musicBtn").onclick=toggleMusic;
-$("clearBtn").onclick=clearOrder;
-$("checkBtn").onclick=checkOrder;
-$("resumeBtn").onclick=togglePause;
-$("quitBtn").onclick=stop;
-$("againBtn").onclick=()=>{$("winOverlay").classList.remove("show");stop();};
-$("nameInput").onkeypress=e=>{if(e.key==="Enter"&&!running)start();};
+/* ===========================
+   Buttons
+=========================== */
+$("startBtn").onclick = start;
+$("resetBtn").onclick = () => stop(true);
+$("easyBtn").onclick  = () => setLevel("easy");
+$("hardBtn").onclick  = () => setLevel("hard");
+$("pauseBtn").onclick = togglePause;
+$("musicBtn").onclick = toggleMusic;
+$("clearBtn").onclick = clearOrder;
+$("checkBtn").onclick = checkOrder;
+$("resumeBtn").onclick= togglePause;
+$("quitBtn").onclick  = () => stop(true);
+$("againBtn").onclick = () => { $("winOverlay").classList.remove("show"); stop(false); };
+$("nameInput").onkeypress = e => { if(e.key==="Enter" && !running) start(); };
 
+// Init
 setLevel("easy");
 updateUI();
 </script>
