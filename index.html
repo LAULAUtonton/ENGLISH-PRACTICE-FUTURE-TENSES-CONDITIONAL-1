@@ -788,6 +788,35 @@ const MEANINGS = {
   cond:  [{k:"result",l:"Result"},{k:"plan",l:"Plan"},{k:"advice",l:"Advice"}]
 };
 
+/* ===========================================================
+   ✅ FIX: Meaning choices ALWAYS include the correct option
+   (No other changes)
+=========================================================== */
+const ALL_MEANINGS = (() => {
+  const map = new Map();
+  Object.values(MEANINGS).flat().forEach(o => map.set(o.k, o));
+  return [...map.values()];
+})();
+
+function buildMeaningChoices(curQ, n = 4){
+  const list = Array.isArray(MEANINGS[curQ.f]) ? MEANINGS[curQ.f] : [];
+
+  let correctObj = list.find(x => x.k === curQ.m) || ALL_MEANINGS.find(x => x.k === curQ.m);
+  if(!correctObj){
+    correctObj = { k: curQ.m, l: (curQ.m || "").toString().replace(/^\w/, c => c.toUpperCase()) };
+  }
+
+  const pool = [...list, ...ALL_MEANINGS].filter(x => x && x.k && x.k !== correctObj.k);
+
+  const seen = new Set();
+  const dedup = pool.filter(x => (seen.has(x.k) ? false : (seen.add(x.k), true)));
+
+  const distractors = shuffle(dedup).slice(0, Math.max(0, n - 1));
+  const choices = shuffle([correctObj, ...distractors]);
+
+  return { choices, correctObj };
+}
+
 let level="easy", running=false, paused=false;
 let streak=0, mistakes=0;
 let errByType={ORDER:0,TENSE:0,MEANING:0};
@@ -1064,31 +1093,26 @@ function renderTense(){
   });
 }
 
+/* ===========================
+   ✅ Meaning (fixed)
+=========================== */
 function renderMeaning(){
   show($("sentenceBox"));
   show($("choicesBox"));
 
-  $("sentenceBox").textContent=curQ.t;
+  $("sentenceBox").textContent = curQ.t;
 
-  let opts = MEANINGS[curQ.f] || [];
-  if(opts.length < 4){
-    const pad = [{k:"prediction",l:"Prediction"},{k:"plan",l:"Plan"},{k:"schedule",l:"Schedule"},{k:"offer",l:"Offer"}];
-    opts = shuffle([...opts, ...pad]).slice(0,4);
-  } else {
-    opts = shuffle(opts).slice(0,4);
-  }
-
-  const correctLbl = (MEANINGS[curQ.f]?.find(x=>x.k===curQ.m)?.l) || curQ.m;
+  const { choices, correctObj } = buildMeaningChoices(curQ, 4);
 
   const box=$("choicesBox");
   box.innerHTML="";
   const colors=["c1","c2","c3","c4"];
 
-  opts.forEach((o,i)=>{
+  choices.forEach((o,i)=>{
     const b=document.createElement("button");
     b.className="choice "+colors[i];
     b.innerHTML=`<div class="choice-title">${o.l}</div>`;
-    b.onclick=()=>grade(o.k===curQ.m, {picked:o.l, correct: correctLbl});
+    b.onclick=()=>grade(o.k===correctObj.k, {picked:o.l, correct: correctObj.l});
     box.appendChild(b);
   });
 }
