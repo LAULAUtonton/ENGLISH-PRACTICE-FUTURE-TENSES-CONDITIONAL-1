@@ -722,51 +722,52 @@ const BANK = (() => {
   }
 
   // FIRST CONDITIONAL (result / plan / advice)
-  const condIf18 = [
-    {m:"result", a:"If you study", b:"you'll pass"},
-    {m:"plan",   a:"If it rains", b:"we'll stay home"},
-    {m:"advice", a:"If you're tired", b:"you'll take a break"},
-    {m:"result", a:"If we hurry", b:"we'll catch the bus"},
-    {m:"plan",   a:"If she calls", b:"I'll answer"},
-    {m:"advice", a:"If you're hungry", b:"you'll eat something"},
-    {m:"result", a:"If they arrive early", b:"they'll get seats"},
-    {m:"plan",   a:"If you finish", b:"we'll start"},
-    {m:"advice", a:"If it's cold", b:"you'll wear a jacket"},
-    {m:"result", a:"If he practices", b:"he'll improve"},
-    {m:"plan",   a:"If we have time", b:"we'll visit the museum"},
-    {m:"advice", a:"If you feel sick", b:"you'll rest"},
-    {m:"result", a:"If I save money", b:"I'll buy it"},
-    {m:"plan",   a:"If you want", b:"we'll meet"},
-    {m:"advice", a:"If you don't understand", b:"you'll ask a question"},
-    {m:"result", a:"If the traffic is bad", b:"we'll be late"},
-    {m:"plan",   a:"If he agrees", b:"we'll start tomorrow"},
-    {m:"advice", a:"If you see a mistake", b:"you'll correct it"},
+  // ifFirst:true  → "If you study, you'll pass tomorrow."
+  // ifFirst:false → "You'll pass tomorrow if you study."  (main clause first)
+  // Each entry: a=if-clause, na=negated if-clause, bSub=main-clause subject, bVerb=main-clause verb phrase
+  const condItems18 = [
+    // If-clause first (with comma after if-clause)
+    {m:"result", ifFirst:true,  a:"If you study",          na:"If you don't study",          bSub:"you",  bVerb:"pass"},
+    {m:"plan",   ifFirst:true,  a:"If it rains",            na:"If it doesn't rain",          bSub:"we",   bVerb:"stay at home"},
+    {m:"result", ifFirst:true,  a:"If we hurry",            na:"If we don't hurry",           bSub:"we",   bVerb:"catch the bus"},
+    {m:"plan",   ifFirst:true,  a:"If she calls",           na:"If she doesn't call",         bSub:"I",    bVerb:"answer"},
+    {m:"result", ifFirst:true,  a:"If they arrive early",   na:"If they don't arrive early",  bSub:"they", bVerb:"get seats"},
+    {m:"plan",   ifFirst:true,  a:"If you finish",          na:"If you don't finish",         bSub:"we",   bVerb:"start"},
+    {m:"result", ifFirst:true,  a:"If he practises",        na:"If he doesn't practise",      bSub:"he",   bVerb:"improve"},
+    {m:"plan",   ifFirst:true,  a:"If we have time",        na:"If we don't have time",       bSub:"we",   bVerb:"visit the museum"},
+    {m:"result", ifFirst:true,  a:"If I save money",        na:"If I don't save money",       bSub:"I",    bVerb:"buy it"},
+    {m:"advice", ifFirst:true,  a:"If you feel unwell",     na:"If you don't feel unwell",    bSub:"you",  bVerb:"rest"},
+    {m:"result", ifFirst:true,  a:"If the traffic is bad",  na:"If the traffic isn't bad",    bSub:"we",   bVerb:"be late"},
+    {m:"advice", ifFirst:true,  a:"If you are confused",    na:"If you aren't confused",      bSub:"you",  bVerb:"ask"},
+    // Main clause first (no comma before if-clause)
+    {m:"result", ifFirst:false, a:"if you study",           na:"if you don't study",          bSub:"you",  bVerb:"pass"},
+    {m:"plan",   ifFirst:false, a:"if it rains",            na:"if it doesn't rain",          bSub:"we",   bVerb:"stay at home"},
+    {m:"result", ifFirst:false, a:"if we hurry",            na:"if we don't hurry",           bSub:"we",   bVerb:"catch the bus"},
+    {m:"plan",   ifFirst:false, a:"if she calls",           na:"if she doesn't call",         bSub:"I",    bVerb:"answer"},
+    {m:"result", ifFirst:false, a:"if they arrive early",   na:"if they don't arrive early",  bSub:"they", bVerb:"get seats"},
+    {m:"advice", ifFirst:false, a:"if you feel unwell",     na:"if you don't feel unwell",    bSub:"you",  bVerb:"rest"},
   ];
   for (let i=0;i<18;i++){
     const t = times18[i];
-    const it = condIf18[i];
+    const it = condItems18[i];
+    const s = it.bSub;   // subject of main clause
+    const v = it.bVerb;  // verb phrase of main clause
 
-    add(`${it.a}, ${it.b} ${t}.`, "cond", "aff", it.m);
-
-    const aNeg = it.a.replace("If you ", "If you don't ")
-                     .replace("If we ", "If we don't ")
-                     .replace("If I ", "If I don't ")
-                     .replace("If they ", "If they don't ")
-                     .replace("If he ", "If he doesn't ")
-                     .replace("If she ", "If she doesn't ")
-                     .replace("If it ", "If it doesn't ")
-                     .replace("If you're ", "If you aren't ")
-                     .replace("If it's ", "If it isn't ");
-    const bNeg = it.b.replace("you'll ", "you won't ")
-                     .replace("we'll ", "we won't ")
-                     .replace("I'll ", "I won't ")
-                     .replace("he'll ", "he won't ")
-                     .replace("they'll ", "they won't ");
-    add(`${aNeg}, ${bNeg} ${t}.`, "cond", "neg", it.m);
-
-    // interrogative (simple pattern)
-    const base = it.b.replace(/^(you'll|we'll|I'll|he'll|they'll)\s/,"").trim();
-    add(`${it.a}, will ${base} ${t}?`, "cond", "int", it.m);
+    if (it.ifFirst) {
+      // aff: "If you study, you'll pass tomorrow."
+      add(`${it.a}, ${s}'ll ${v} ${t}.`, "cond", "aff", it.m);
+      // neg: "If you don't study, you won't pass tomorrow."
+      add(`${it.na}, ${s} won't ${v} ${t}.`, "cond", "neg", it.m);
+      // int: "If you study, will you pass tomorrow?"
+      add(`${it.a}, will ${s} ${v} ${t}?`, "cond", "int", it.m);
+    } else {
+      // aff: "You'll pass tomorrow if you study."
+      add(`${cap(s)}'ll ${v} ${t} ${it.a}.`, "cond", "aff", it.m);
+      // neg: "You won't pass tomorrow if you don't study."
+      add(`${cap(s)} won't ${v} ${t} ${it.na}.`, "cond", "neg", it.m);
+      // int: "Will you pass tomorrow if you study?"
+      add(`Will ${s} ${v} ${t} ${it.a}?`, "cond", "int", it.m);
+    }
   }
 
   return bank;
